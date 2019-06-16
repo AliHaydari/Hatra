@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "خانه";
+}
+
+<div class="alert alert-success mt-5">
+    <a href="#" class="close" data-dismiss="alert">×</a>
+    مثالی از نحوه‌ی سفارشی سازی ASP.NET Core Identity
+</div>
+
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <security-trimming asp-area="" asp-controller="Menus" asp-action="Index">
+            <a class="btn btn-success" asp-controller="Menus" asp-action="Index">
+                منو ها
+            </a>
+        </security-trimming>
+
+        <security-trimming asp-area="" asp-controller="Categories" asp-action="Index">
+            <a class="btn btn-success" asp-controller="Categories" asp-action="Index">
+                گروه ها
+            </a>
+        </security-trimming>
+
+        <security-trimming asp-area="" asp-controller="Pages" asp-action="Index">
+            <a class="btn btn-success" asp-controller="Pages" asp-action="Index">
+                صفحه ها
+            </a>
+        </security-trimming>
+
+        <security-trimming asp-area="" asp-controller="SlideShow" asp-action="Index">
+            <a class="btn btn-success" asp-controller="SlideShow" asp-action="Index">
+                اسلاید شو ها
+            </a>
+        </security-trimming>
+
+        <a class="btn btn-success" asp-controller="FileUpload" asp-action="Index">
+            File Uploader
+        </a>
+    }
+}

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CategoryViewModel>
+
+@{
+    ViewData["Title"] = "مدیریت گروه ها";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <partial name="_List" model="Model" />
+    </div>
+    <footer class="card-footer">
+        <security-trimming asp-area="" asp-controller="Categories" asp-action="RenderCreate">
+            <a class="btn btn-success" asp-controller="Categories" asp-action="RenderCreate">
+                ایجاد یک گروه جدید
+            </a>
+        </security-trimming>
+    </footer>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            $("a[id^='btnDelete']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var requestTypeId = $(this).data("delete-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("Delete", "Categories")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDelete", "Categories")',
+                    renderModalPartialViewData: JSON.stringify({ "id": requestTypeId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+
+        });
+    </script>
+}

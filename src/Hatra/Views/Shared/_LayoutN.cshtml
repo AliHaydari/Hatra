@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" href="~/lib/deconsultrtl/assets/images/favicon.png">
+    <link rel="shortcut icon" href="~/lib/deconsultrtl/assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="~/lib/deconsultrtl/assets/css/bootstrap.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/lib/deconsultrtl/assets/css/plugins.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/lib/deconsultrtl/assets/css/style.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/lib/deconsultrtl/assets/css/custom.css" asp-append-version="true">
+    @await RenderSectionAsync("Styles", required: false)
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="tm-preloader">
+        <span class="tm-preloader-box"></span>
+        <button class="tm-button tm-button-sm tm-button-white">لغو پیش بارگیری<b></b></button>
+    </div>
+    <!--// Preloader -->
+    <!-- Wrapper -->
+    <div id="wrapper" class="wrapper">
+        <partial name="_Menu" />
+
+        <partial name="_Slider" />
+
+        <!-- Main -->
+        <main class="page-content">
+            @RenderBody()
+        </main>
+        <!--// Main -->
+        <partial name="_Footer" />
+
+        <partial name="_LoginRegisterPopup" />
+    </div>
+    <!--// Wrapper -->
+
+    <script src="~/lib/deconsultrtl/assets/js/modernizr-3.6.0.min.js" asp-append-version="true"></script>
+    <script src="~/lib/deconsultrtl/assets/js/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/deconsultrtl/assets/js/popper.min.js" asp-append-version="true"></script>
+    <script src="~/lib/deconsultrtl/assets/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/lib/deconsultrtl/assets/js/plugins.js" asp-append-version="true"></script>
+    <script src="~/lib/deconsultrtl/assets/js/chart.min.js" asp-append-version="true"></script>
+    <script src="~/lib/deconsultrtl/assets/js/chart-active.js" asp-append-version="true"></script>
+    <script src="~/lib/deconsultrtl/assets/js/main.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+
+</html>
+

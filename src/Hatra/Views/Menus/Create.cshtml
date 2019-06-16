@@ -1,0 +1,77 @@
+﻿@model MenuViewModel
+
+@{
+    ViewData["Title"] = "ایجاد یک منو جدید";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <form asp-controller="Menus"
+              asp-action="Create"
+              method="post"
+              enctype="multipart/form-data">
+            <partial name="_CustomValidationSummary" />
+            <div class="form-group row">
+                <label asp-for="Name" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="rtl" asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Link" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="ltr" asp-for="Link" class="form-control" />
+                    <span asp-validation-for="Link" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Order" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="ltr" asp-for="Order" class="form-control" onblur="triggerRemoteValidation()" />
+                    <span asp-validation-for="Order" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ParentId" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <select dir="rtl" asp-for="ParentId" class="form-control"
+                            asp-items="@ViewBag.PopulateMenus">
+                        <option value="">-- انتخاب --</option>
+                    </select>
+                    <span asp-validation-for="ParentId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Type" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <select dir="rtl" asp-for="Type" class="form-control"
+                            asp-items="@Html.GetEnumSelectList(typeof(MenuType))">
+                        <option value="">-- انتخاب --</option>
+                    </select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-md-2 col-md-10">
+                    <security-trimming asp-area="" asp-controller="Menus" asp-action="Create">
+                        <button type="submit" class="btn btn-info col-md-2">ارسال</button>
+                    </security-trimming>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function triggerRemoteValidation() {
+            $('#@nameof(MenuViewModel.Name)').removeData('previousValue');
+            $('form').validate().element('#@nameof(MenuViewModel.Name)');
+        }
+    </script>
+}

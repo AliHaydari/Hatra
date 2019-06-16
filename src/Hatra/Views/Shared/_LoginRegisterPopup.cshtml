@@ -1,0 +1,84 @@
+﻿<!-- Login Register Popup -->
+<div class="tm-loginregister-popup modal fade" id="tm-loginregister-popup" role="dialog" aria-hidden="true">
+    <div class="container">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-lg-9 col-md-10 col-sm-10 col-12">
+                        <div class="tm-loginregister">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-times"></i>
+                            </button>
+                            <ul class="nav tm-tabgroup" id="bstab1" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="bstab1-area1-tab" data-toggle="tab" href="#bstab1-area1" role="tab" aria-controls="bstab1-area1" aria-selected="true">ورود</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="bstab1-area2-tab" data-toggle="tab" href="#bstab1-area2" role="tab" aria-controls="bstab1-area2" aria-selected="false">ثبت نام</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="bstab1-ontent">
+                                <div class="tab-pane fade show active" id="bstab1-area1" role="tabpanel" aria-labelledby="bstab1-area1-tab">
+
+                                    <form action="#" class="tm-form tm-login-form tm-form-bordered">
+                                        <h4>ورود</h4>
+                                        <div class="tm-form-inner">
+                                            <div class="tm-form-field">
+                                                <label for="login-email">نام کاربری یا آدرس ایمیل *</label>
+                                                <input type="email" id="login-email" required="required">
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <label for="login-password">کلمه عبور*</label>
+                                                <input type="password" id="login-password" required="required">
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <input type="checkbox" name="login-remember" id="login-remember">
+                                                <label for="login-remember">مرا به خاطر بسپار</label>
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <button type="submit" class="tm-button">ورود<b></b></button>
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <a href="#">رمز عبور خود را فراموش کرده اید؟</a>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="tab-pane fade" id="bstab1-area2" role="tabpanel" aria-labelledby="bstab1-area2-tab">
+
+                                    <form action="#" class="tm-form tm-register-form tm-form-bordered">
+                                        <h4>ایجاد یک حساب کاربری</h4>
+                                        <div class="tm-form-inner">
+                                            <div class="tm-form-field">
+                                                <label for="register-username">نام کاربری</label>
+                                                <input type="text" id="register-username" required="required">
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <label for="register-email">آدرس ایمیل</label>
+                                                <input type="email" id="register-email" required="required">
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <label for="register-password">رمز عبور</label>
+                                                <input type="password" id="register-password" required="required">
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <input type="checkbox" id="register-terms">
+                                                <label for="register-terms">من شرایط و ضوابط سایت را خواند و موافق هستم</label>
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <button type="submit" class="tm-button">ثبت نام<b></b></button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--// Login Register Popup -->

@@ -1,0 +1,24 @@
+﻿@using Hatra.Areas.Identity
+@using Hatra.Common.IdentityToolkit
+@using Hatra.Common.PersianToolkit
+@using Hatra.Entities.Identity
+@using Hatra.Services.Contracts.Identity
+@using Hatra.Services.Identity
+@using Hatra.ViewModels.Identity
+@using Hatra.ViewModels.Identity.Emails
+@using Hatra.ViewModels.Identity.Settings
+@using Microsoft.AspNetCore.Routing
+@using Microsoft.Extensions.Options
+@using System.Globalization
+@using System.Threading.Tasks
+@using System.Net
+@using DNTPersianUtils.Core
+@using Hatra.DataLayer.Context
+@using Hatra.Entities.AuditableEntity
+
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, DNTCaptcha.Core
+@addTagHelper *, DNTBreadCrumb.Core
+@addTagHelper *, cloudscribe.Web.Pagination
+@addTagHelper *, Hatra

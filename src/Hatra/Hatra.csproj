@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>Hatra</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>Hatra</PackageId>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Update="wwwroot\**\*;Views\**\*;Areas\**\*.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hatra.Common\Hatra.Common.csproj" />
+    <ProjectReference Include="..\Hatra.Entities\Hatra.Entities.csproj" />
+    <ProjectReference Include="..\Hatra.Services\Hatra.Services.csproj" />
+    <ProjectReference Include="..\Hatra.ViewModels\Hatra.ViewModels.csproj" />
+    <ProjectReference Include="..\Hatra.IocConfig\Hatra.IocConfig.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CacheManager.Microsoft.Extensions.Caching.Memory" Version="1.2.0" />
+    <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
+    <PackageReference Include="DNTBreadCrumb.Core" Version="1.8.0" />
+    <PackageReference Include="DNTCaptcha.Core" Version="1.7.0" />
+    <PackageReference Include="DNTCommon.Web.Core" Version="1.4.0" />
+    <PackageReference Include="EFSecondLevelCache.Core" Version="2.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PlatformTarget>anycpu</PlatformTarget>
+  </PropertyGroup>
+  <Target Name="PrecompileScript" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet bundle" />
+  </Target>
+  <ItemGroup>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.8.391" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- extends watching group to include *.js files -->
+    <Watch Include="**\*.js" Exclude="node_modules\**\*;**\*.js.map;obj\**\*;bin\**\*;wwwroot\**\*;src\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="wwwroot\css\cssN\**" />
+    <Compile Remove="wwwroot\images\PageImges\**" />
+    <Content Remove="wwwroot\css\cssN\**" />
+    <Content Remove="wwwroot\images\PageImges\**" />
+    <EmbeddedResource Remove="wwwroot\css\cssN\**" />
+    <EmbeddedResource Remove="wwwroot\images\PageImges\**" />
+    <None Remove="wwwroot\css\cssN\**" />
+    <None Remove="wwwroot\images\PageImges\**" />
+    <Watch Remove="wwwroot\css\cssN\**" />
+    <Watch Remove="wwwroot\images\PageImges\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\js\twitterFetcher.js" />
+    <Watch Remove="Scripts\image-tab.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\js\twitterFetcher.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\lib\" />
+    <Folder Include="wwwroot\assets\" />
+    <Folder Include="wwwroot\UploadedFiles\Files\" />
+  </ItemGroup>
+</Project>

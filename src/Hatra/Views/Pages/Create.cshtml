@@ -1,0 +1,80 @@
+﻿@model PageViewModel
+
+@{
+    ViewData["Title"] = "ایجاد یک صفحه جدید";
+}
+
+@section styles{
+    <script src="~/lib/ckeditor/ckeditor.js" asp-append-version="true"></script>
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <form asp-controller="Pages"
+              asp-action="Create"
+              method="post"
+              enctype="multipart/form-data">
+            <partial name="_CustomValidationSummary" />
+            <div class="form-group row">
+                <label asp-for="Title" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="rtl" asp-for="Title" class="form-control" onblur="triggerRemoteValidation()" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="BriefDescription" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="rtl" asp-for="BriefDescription" class="form-control" />
+                    <span asp-validation-for="BriefDescription" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Body" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <textarea dir="rtl" asp-for="Body" class="form-control"></textarea>
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="CategoryId" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <select dir="rtl" asp-for="CategoryId" class="form-control"
+                            asp-items="@ViewBag.PopulateCategories">
+                        <option value="">-- انتخاب --</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-md-2 col-md-10">
+                    <security-trimming asp-area="" asp-controller="Pages" asp-action="Create">
+                        <button type="submit" class="btn btn-info col-md-2">ارسال</button>
+                    </security-trimming>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function triggerRemoteValidation() {
+            $('#@nameof(PageViewModel.Title)').removeData('previousValue');
+            $('form').validate().element('#@nameof(PageViewModel.Title)');
+            }
+
+        //CKEDITOR.replace('Body', {
+        //    filebrowserBrowseUrl: 'lib/RoxyFileManager/index.html',
+        //    filebrowserImageBrowseUrl: 'lib/RoxyFileManager/index.html' + '?type=image',
+        //    removeDialogTabs: 'link:upload;image:upload',
+        //    height: "270px"
+        //});
+
+        CKEDITOR.replace('Body');
+    </script>
+}

@@ -1,0 +1,78 @@
+﻿@model SlideShowViewModel
+
+@{
+    ViewData["Title"] = "ایجاد یک اسلاید شو جدید";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <form asp-controller="SlideShow"
+              asp-action="Create"
+              method="post"
+              enctype="multipart/form-data">
+            <partial name="_CustomValidationSummary" />
+            <div class="form-group row">
+                <label asp-for="Title" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="rtl" asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="BriefDescription" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="rtl" asp-for="BriefDescription" class="form-control" />
+                    <span asp-validation-for="BriefDescription" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Description" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <textarea dir="rtl" asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Image" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="ltr" asp-for="Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Link" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="ltr" asp-for="Link" class="form-control" />
+                    <span asp-validation-for="Link" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Order" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="ltr" asp-for="Order" class="form-control" />
+                    <span asp-validation-for="Order" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-md-2 col-md-10">
+                    <security-trimming asp-area="" asp-controller="SlideShow" asp-action="Create">
+                        <button type="submit" class="btn btn-info col-md-2">ارسال</button>
+                    </security-trimming>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function triggerRemoteValidation() {
+            $('#@nameof(SlideShowViewModel.Title)').removeData('previousValue');
+            $('form').validate().element('#@nameof(SlideShowViewModel.Title)');
+        }
+    </script>
+}

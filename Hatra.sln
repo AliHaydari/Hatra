@@ -1,0 +1,185 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{49E18C12-4851-4C7C-BC0A-D0FFE1939AA0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hatra", "src\Hatra\Hatra.csproj", "{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hatra.Services", "src\Hatra.Services\Hatra.Services.csproj", "{FD5B498F-5054-48EA-A604-43259D4EC4DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hatra.ViewModels", "src\Hatra.ViewModels\Hatra.ViewModels.csproj", "{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hatra.Entities", "src\Hatra.Entities\Hatra.Entities.csproj", "{3A4E622D-97FF-41E7-83DD-7DF64CA43000}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hatra.DataLayer", "src\Hatra.DataLayer\Hatra.DataLayer.csproj", "{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hatra.MsTests", "src\Hatra.MsTests\Hatra.MsTests.csproj", "{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hatra.Common", "src\Hatra.Common\Hatra.Common.csproj", "{608EB3EC-8E85-49A4-AA51-EF5472CE4144}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hatra.IocConfig", "src\Hatra.IocConfig\Hatra.IocConfig.csproj", "{824E25CA-A742-4785-BF86-19CB57902D9D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Debug|x64.Build.0 = Debug|Any CPU
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Debug|x86.Build.0 = Debug|Any CPU
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Release|x64.ActiveCfg = Release|Any CPU
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Release|x64.Build.0 = Release|Any CPU
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Release|x86.ActiveCfg = Release|Any CPU
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C}.Release|x86.Build.0 = Release|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Debug|x64.Build.0 = Debug|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Debug|x86.Build.0 = Debug|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Release|x64.ActiveCfg = Release|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Release|x64.Build.0 = Release|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Release|x86.ActiveCfg = Release|Any CPU
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF}.Release|x86.Build.0 = Release|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Debug|x64.Build.0 = Debug|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Debug|x86.Build.0 = Debug|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Release|x64.ActiveCfg = Release|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Release|x64.Build.0 = Release|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Release|x86.ActiveCfg = Release|Any CPU
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606}.Release|x86.Build.0 = Release|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Debug|x64.Build.0 = Debug|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Debug|x86.Build.0 = Debug|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Release|x64.ActiveCfg = Release|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Release|x64.Build.0 = Release|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Release|x86.ActiveCfg = Release|Any CPU
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000}.Release|x86.Build.0 = Release|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Debug|x64.Build.0 = Debug|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Debug|x86.Build.0 = Debug|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Release|x64.ActiveCfg = Release|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Release|x64.Build.0 = Release|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Release|x86.ActiveCfg = Release|Any CPU
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C}.Release|x86.Build.0 = Release|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Debug|x64.Build.0 = Debug|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Debug|x86.Build.0 = Debug|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Release|x64.Build.0 = Release|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Release|x86.ActiveCfg = Release|Any CPU
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE}.Release|x86.Build.0 = Release|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Debug|x64.Build.0 = Debug|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Debug|x86.Build.0 = Debug|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Release|x64.ActiveCfg = Release|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Release|x64.Build.0 = Release|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Release|x86.ActiveCfg = Release|Any CPU
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144}.Release|x86.Build.0 = Release|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Debug|x64.Build.0 = Debug|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Debug|x86.Build.0 = Debug|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Release|x64.ActiveCfg = Release|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Release|x64.Build.0 = Release|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Release|x86.ActiveCfg = Release|Any CPU
+		{824E25CA-A742-4785-BF86-19CB57902D9D}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1DFE1AF1-3A1E-4D22-86D3-802B5249087C} = {49E18C12-4851-4C7C-BC0A-D0FFE1939AA0}
+		{FD5B498F-5054-48EA-A604-43259D4EC4DF} = {49E18C12-4851-4C7C-BC0A-D0FFE1939AA0}
+		{D09D18D2-8CBD-40B3-B24A-5A5B4C7EE606} = {49E18C12-4851-4C7C-BC0A-D0FFE1939AA0}
+		{3A4E622D-97FF-41E7-83DD-7DF64CA43000} = {49E18C12-4851-4C7C-BC0A-D0FFE1939AA0}
+		{405D70D3-21FA-4B2B-8298-9D8EDF5CC44C} = {49E18C12-4851-4C7C-BC0A-D0FFE1939AA0}
+		{05BFF3B7-86BD-4CF5-B8C8-B6813A3251CE} = {49E18C12-4851-4C7C-BC0A-D0FFE1939AA0}
+		{608EB3EC-8E85-49A4-AA51-EF5472CE4144} = {49E18C12-4851-4C7C-BC0A-D0FFE1939AA0}
+		{824E25CA-A742-4785-BF86-19CB57902D9D} = {49E18C12-4851-4C7C-BC0A-D0FFE1939AA0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A015DFA9-711D-4EAF-B21E-A0D30529DC1E}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 9
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://ehsan724.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = src\\Hatra.Common\\Hatra.Common.csproj
+		SccProjectTopLevelParentUniqueName1 = Hatra.sln
+		SccProjectName1 = src/Hatra.Common
+		SccLocalPath1 = src\\Hatra.Common
+		SccProjectUniqueName2 = src\\Hatra.DataLayer\\Hatra.DataLayer.csproj
+		SccProjectTopLevelParentUniqueName2 = Hatra.sln
+		SccProjectName2 = src/Hatra.DataLayer
+		SccLocalPath2 = src\\Hatra.DataLayer
+		SccProjectUniqueName3 = src\\Hatra.Entities\\Hatra.Entities.csproj
+		SccProjectTopLevelParentUniqueName3 = Hatra.sln
+		SccProjectName3 = src/Hatra.Entities
+		SccLocalPath3 = src\\Hatra.Entities
+		SccProjectUniqueName4 = src\\Hatra.IocConfig\\Hatra.IocConfig.csproj
+		SccProjectTopLevelParentUniqueName4 = Hatra.sln
+		SccProjectName4 = src/Hatra.IocConfig
+		SccLocalPath4 = src\\Hatra.IocConfig
+		SccProjectUniqueName5 = src\\Hatra.MsTests\\Hatra.MsTests.csproj
+		SccProjectTopLevelParentUniqueName5 = Hatra.sln
+		SccProjectName5 = src/Hatra.MsTests
+		SccLocalPath5 = src\\Hatra.MsTests
+		SccProjectUniqueName6 = src\\Hatra.Services\\Hatra.Services.csproj
+		SccProjectTopLevelParentUniqueName6 = Hatra.sln
+		SccProjectName6 = src/Hatra.Services
+		SccLocalPath6 = src\\Hatra.Services
+		SccProjectUniqueName7 = src\\Hatra.ViewModels\\Hatra.ViewModels.csproj
+		SccProjectTopLevelParentUniqueName7 = Hatra.sln
+		SccProjectName7 = src/Hatra.ViewModels
+		SccLocalPath7 = src\\Hatra.ViewModels
+		SccProjectUniqueName8 = src\\Hatra\\Hatra.csproj
+		SccProjectTopLevelParentUniqueName8 = Hatra.sln
+		SccProjectName8 = src/Hatra
+		SccLocalPath8 = src\\Hatra
+	EndGlobalSection
+EndGlobal
