@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PictureViewModel>
+
+@{
+    ViewData["Title"] = "PictureList";
+}
+
+@foreach (var item in Model)
+{
+    <div class="form-group row">
+        <label asp-for="@item.Path" class="col-md-2 col-form-label text-md-left"></label>
+        <div class="col col-md-10">
+            <div class="input-group">
+                <span class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-image"></i></span>
+                </span>
+                <input asp-for="@item.Path" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
+                <span class="input-group-prepend">
+                    <span class="input-group-text">
+                        <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="حذف">
+                            <i class="fas fa-trash text-danger"></i>
+                        </a>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            $("a[id^='btnDelete']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var requestTypeId = $(this).data("delete-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("DeletePicture", "Folders")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDeletePicture", "Folders")',
+                    renderModalPartialViewData: JSON.stringify({ "id": requestTypeId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+
+        });
+    </script>
+}

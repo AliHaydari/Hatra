@@ -16,11 +16,17 @@
                                         <div class="heroslider-animatebox">
                                             <h1>
                                                 <span>@item.Title</span>
-                                                <b>@item.BriefDescription</b>
+                                                @if (item.BriefDescription != null || item.BriefDescription != "")
+                                                {
+                                                    <b>@item.BriefDescription</b>
+                                                }
                                             </h1>
                                         </div>
                                         <div class="heroslider-animatebox">
-                                            <p>@item.Description</p>
+                                            @if (item.Description != null || item.Description != "")
+                                            {
+                                                <p>@item.Description</p>
+                                            }
                                         </div>
                                         <div class="heroslider-animatebox">
                                             <div class="tm-buttongroup">

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<FolderViewModel>
+
+@{
+    ViewData["Title"] = "مدیریت فولدر ها";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <partial name="_List" model="Model" />
+    </div>
+    <footer class="card-footer">
+        <security-trimming asp-area="" asp-controller="Folders" asp-action="RenderCreate">
+            <a class="btn btn-success" asp-controller="Folders" asp-action="RenderCreate">
+                ایجاد یک فولدر جدید
+            </a>
+        </security-trimming>
+    </footer>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            $("a[id^='btnDelete']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var requestTypeId = $(this).data("delete-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("Delete", "Folders")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDelete", "Folders")',
+                    renderModalPartialViewData: JSON.stringify({ "id": requestTypeId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+
+        });
+    </script>
+}
