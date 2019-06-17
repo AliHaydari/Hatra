@@ -14,6 +14,9 @@
         <li>
             چنانچه بیش از 7 مورد منو اصلی قابل نمایش تعریف کنید به صورت اتوماتیک غیر قابل نمایش خواهند شد
         </li>
+        <li>
+            منوها تا سه سطح قابل نمایش هستند
+        </li>
     </ul>
     <ul>
         <li><strong>لینک منو ها</strong></li>
@@ -90,17 +93,23 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label asp-for="IsMegaMenu" class="col-md-2 col-form-label text-md-left"></label>
-                <div class="col-md-10">
-                    <input dir="rtl" asp-for="IsMegaMenu" class="form-control" />
-                    <span asp-validation-for="IsMegaMenu" class="text-danger"></span>
+                <div class="offset-md-2 col-md-10">
+                    <div class="form-check">
+                        <label asp-for="IsMegaMenu" class="form-check-label">
+                            <input class="form-check-input" asp-for="IsMegaMenu" />
+                            @Html.DisplayNameFor(m => m.IsMegaMenu)
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
-                <label asp-for="IsShow" class="col-md-2 col-form-label text-md-left"></label>
-                <div class="col-md-10">
-                    <input dir="rtl" asp-for="IsShow" class="form-control" />
-                    <span asp-validation-for="IsShow" class="text-danger"></span>
+                <div class="offset-md-2 col-md-10">
+                    <div class="form-check">
+                        <label asp-for="IsShow" class="form-check-label">
+                            <input class="form-check-input" asp-for="IsShow" />
+                            @Html.DisplayNameFor(m => m.IsShow)
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group row">

@@ -17,7 +17,7 @@
                 <div class="col-md-5 col-12">
                     <div class="header-topinfo text-right">
                         <ul>
-                            <li><i class="fa fa-clock-o"></i>شنبه تا پنج شنبه:9 تا 19 </li>
+                            <li><i class="fa fa-clock-o"></i>شنبه تا پنج شنبه:9 تا 17 </li>
                         </ul>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
         <div class="container">
             <div class="header-bottominner">
                 <div class="header-logo">
-                    <a href="index.html">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="~/lib/deconsultrtl/assets/images/logo/logo.png" alt="deconsult logo">
                     </a>
                 </div>
@@ -88,26 +88,35 @@
                 </nav>
                 <div class="header-icons">
                     <ul>
-                        @*<li>
-                            <button title="Search" class="header-searchtrigger"><i class="fa fa-search"></i></button>
-                        </li>*@
-                        @*<li>
-                            <a href="cart.html" title="Shopping Cart"><i class="fa fa-shopping-cart"></i></a>
-                        </li>*@
+                        @*
+                            <li>
+                                <button title="Search" class="header-searchtrigger"><i class="fa fa-search"></i></button>
+                            </li>*@
+                        @*
+                            <li>
+                                <a href="cart.html" title="Shopping Cart"><i class="fa fa-shopping-cart"></i></a>
+                            </li>*@
                         <li>
-                            <button title="Login / Register" class="header-loginformtrigger" type="button" data-toggle="modal" data-target="#tm-loginregister-popup"><i class="fa fa-user"></i></button>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a title="Admin Panel" class="header-loginformtrigger" asp-area="Identity" asp-controller="Home" asp-action="Index"><i class="fa fa-user"></i></a>
+                            }
+                            else
+                            {
+                                <a title="Login / Register" class="header-loginformtrigger" asp-area="Identity" asp-controller="Login" asp-action="Index"><i class="fa fa-user"></i></a>
+                            }
                         </li>
                     </ul>
                 </div>
 
                 @*<!-- Header Searchform -->
-                <div class="header-searchbox">
-                    <form action="#" class="header-searchform">
-                        <input type="text" placeholder="کلمه کلیدی جستجو را وارد کنید">
-                        <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-                <!--// Header Searchform -->*@
+                    <div class="header-searchbox">
+                        <form action="#" class="header-searchform">
+                            <input type="text" placeholder="کلمه کلیدی جستجو را وارد کنید">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <!--// Header Searchform -->*@
 
             </div>
             <div class="header-mobilemenu clearfix">
