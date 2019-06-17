@@ -73,7 +73,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\lib\" />
-    <Folder Include="wwwroot\assets\" />
     <Folder Include="wwwroot\UploadedFiles\Files\" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@model HomeViewModel
+
+@{
+    var pageTitle = ViewData["Title"] ?? "تحلیلگران هوشمند آریا سیستم";
+}
+
+<!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta charset="utf-8">
@@ -13,7 +19,7 @@
     <link rel="stylesheet" href="~/lib/deconsultrtl/assets/css/style.css" asp-append-version="true">
     <link rel="stylesheet" href="~/lib/deconsultrtl/assets/css/custom.css" asp-append-version="true">
     @await RenderSectionAsync("Styles", required: false)
-    <title>@ViewData["Title"]</title>
+    <title>@pageTitle</title>
 </head>
 <body>
 
@@ -25,9 +31,9 @@
     <!--// Preloader -->
     <!-- Wrapper -->
     <div id="wrapper" class="wrapper">
-        <partial name="_Menu" />
+        <partial name="_Menu" model="@Model.MenuViewModels" />
 
-        <partial name="_Slider" />
+        <partial name="_Slider" model="@Model.SlideShowViewModels" />
 
         <!-- Main -->
         <main class="page-content">

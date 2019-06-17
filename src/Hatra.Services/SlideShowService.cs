@@ -28,6 +28,7 @@ namespace Hatra.Services
         public async Task<List<SlideShowViewModel>> GetAllAsync()
         {
             return await _slideShows
+                .OrderBy(p => p.Order)
                 .Select(p => new SlideShowViewModel(p))
                 .Cacheable()
                 .AsNoTracking()
