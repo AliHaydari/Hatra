@@ -4,6 +4,40 @@
     ViewData["Title"] = "ویرایش منو " + Model.Name;
 }
 
+<div class="alert alert-warning mt-5">
+    <a href="#" class="close" data-dismiss="alert">×</a>
+    <ul>
+        <li><strong>تعداد منوهای اصلی</strong></li>
+        <li>
+            تعداد منو اصلی قابل نمایش <strong>7</strong> مورد است.
+        </li>
+        <li>
+            چنانچه بیش از 7 مورد منو اصلی قابل نمایش تعریف کنید به صورت اتوماتیک غیر قابل نمایش خواهند شد
+        </li>
+    </ul>
+    <ul>
+        <li><strong>لینک منو ها</strong></li>
+        <li>
+            برای منوهای اصلی که زیر منو خواهند داشت هیچ لینکی تعریف نکنید
+        </li>
+        <li>
+            در صورت تعریف لینک در موبایل و تبلت ممکن است به درستی کار نکند
+        </li>
+    </ul>
+    <ul>
+        <li><strong>مگا منو</strong></li>
+        <li>
+            مگا منو ها برای منو های بسیار بزرگ بکار میرود
+        </li>
+        <li>
+            از منو های تو در تو در مگا منو استفاده نکنید، تنها یک سطح باشند
+        </li>
+        <li>
+            فقط منو های اصلی را به عنوان مگا منو انتخاب کنید
+        </li>
+    </ul>
+</div>
+
 <div class="card mt-5">
     <div class="card-header">
         <h5 class="card-title">@ViewData["Title"]</h5>
@@ -53,6 +87,20 @@
                         <option value="">-- انتخاب --</option>
                     </select>
                     <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="IsMegaMenu" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="rtl" asp-for="IsMegaMenu" class="form-control" />
+                    <span asp-validation-for="IsMegaMenu" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="IsShow" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="rtl" asp-for="IsShow" class="form-control" />
+                    <span asp-validation-for="IsShow" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">

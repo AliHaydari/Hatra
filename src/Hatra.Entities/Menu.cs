@@ -17,6 +17,8 @@ namespace Hatra.Entities
         public int? ParentId { get; set; }
         public int Order { get; set; }
         public MenuType Type { get; set; }
+        public bool IsShow { get; set; }
+        public bool IsMegaMenu { get; set; }
 
         public virtual ICollection<Menu> SubMenus { get; set; }
         public virtual Menu ParentMenu { get; set; }

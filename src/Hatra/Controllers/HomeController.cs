@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using DNTBreadCrumb.Core;
 using Hatra.Common.GuardToolkit;
 using Microsoft.AspNetCore.Authorization;
@@ -32,7 +33,7 @@ namespace Hatra.Controllers
 
             var viewModel = new HomeViewModel()
             {
-                MenuViewModels = menuViewModels,
+                MenuViewModels = menuViewModels.Where(p => p.IsShow).ToList(),
                 SlideShowViewModels = slideShowViewModels,
             };
 

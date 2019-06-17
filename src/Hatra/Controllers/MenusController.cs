@@ -44,7 +44,11 @@ namespace Hatra.Controllers
         [BreadCrumb(Order = 1)]
         public async Task<IActionResult> RenderCreate()
         {
-            var viewModel = new MenuViewModel();
+            var viewModel = new MenuViewModel()
+            {
+                Link = "#",
+                IsShow = true,
+            };
 
             await PopulateMenusAsync(null);
 

@@ -22,6 +22,8 @@ namespace Hatra.ViewModels
             ParentName = menu.ParentMenu?.Name;
             Order = menu.Order;
             Type = menu.Type;
+            IsShow = menu.IsShow;
+            IsMegaMenu = menu.IsMegaMenu;
         }
 
         [HiddenInput]
@@ -44,10 +46,17 @@ namespace Hatra.ViewModels
         [Display(Name = "نام گروه پدر")]
         public string ParentName { get; set; }
 
+        [Required(ErrorMessage = "(*)")]
         [Display(Name = "اولویت نمایش")]
         public int Order { get; set; }
 
         [Display(Name = "نوع")]
         public MenuType Type { get; set; }
+
+        [Display(Name = "نمایش داده شود")]
+        public bool IsShow { get; set; }
+
+        [Display(Name = "مگا منو")]
+        public bool IsMegaMenu { get; set; }
     }
 }

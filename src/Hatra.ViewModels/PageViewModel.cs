@@ -61,6 +61,7 @@ namespace Hatra.ViewModels
         [Display(Name = "تصویر")]
         public string Image { get; set; }
 
+        [Required(ErrorMessage = "(*)")]
         [Display(Name = "اولویت")]
         public int Order { get; set; }
 

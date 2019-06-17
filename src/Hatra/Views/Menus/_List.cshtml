@@ -7,6 +7,8 @@
                 <th class="text-center">نام</th>
                 <th class="text-center">نام گروه پدر</th>
                 <th class="text-center">اولویت</th>
+                <th class="text-center">مگا منو</th>
+                <th class="text-center">قابل نمایش</th>
                 <th class="text-center w-25">عملیات</th>
             </tr>
         </thead>
@@ -14,7 +16,7 @@
             @if (!Model.Any())
             {
                 <tr>
-                    <td colspan="4" class="text-center">هیچ دیتایی یافت نشد</td>
+                    <td colspan="6" class="text-center">هیچ دیتایی یافت نشد</td>
                 </tr>
             }
             else
@@ -25,6 +27,26 @@
                         <td class="text-center">@item.Name</td>
                         <td class="text-center">@item.ParentName</td>
                         <td class="text-center">@item.Order</td>
+                        <td class="text-center">
+                            @if (item.IsMegaMenu)
+                            {
+                                <span class="fa fa-check"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-minus"></span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            @if (item.IsShow)
+                            {
+                                <span class="fa fa-check"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-minus"></span>
+                            }
+                        </td>
                         <td class="text-center">
                             <security-trimming asp-area="" asp-controller="Menus" asp-action="RenderEdit">
                                 <a id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary" asp-controller="Menus" asp-action="RenderEdit" asp-route-id="@item.Id">ویرایش</a>

@@ -41,6 +41,8 @@ namespace Hatra.Services
                               ParentName = menuParent.Name,
                               Order = menu.Order,
                               Type = menu.Type,
+                              IsShow = menu.IsShow,
+                              IsMegaMenu = menu.IsMegaMenu,
                           })
                 .Cacheable()
                 .AsNoTracking()
@@ -63,6 +65,8 @@ namespace Hatra.Services
                                     ParentName = menuParent.Name,
                                     Order = menu.Order,
                                     Type = menu.Type,
+                                    IsShow = menu.IsShow,
+                                    IsMegaMenu = menu.IsMegaMenu,
                                 })
                 .Cacheable()
                 .AsNoTracking()
@@ -119,14 +123,27 @@ namespace Hatra.Services
 
         public async Task<bool> InsertAsync(MenuViewModel viewModel)
         {
+            bool isShow;
+
+            if (await CheckIsShowAvailableMainMenu())
+            {
+                isShow = viewModel.IsShow;
+            }
+            else
+            {
+                isShow = false;
+            }
+
             var entity = new Menu()
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
-                Link = viewModel.Link,
+                Link = viewModel.Link ?? "#",
                 ParentId = viewModel.ParentId,
                 Order = viewModel.Order,
                 Type = viewModel.Type,
+                IsShow = isShow,
+                IsMegaMenu = !viewModel.ParentId.HasValue && viewModel.IsMegaMenu,
             };
 
             await _menus.AddAsync(entity);
@@ -140,11 +157,24 @@ namespace Hatra.Services
 
             if (entity != null)
             {
+                bool isShow;
+
+                if (await CheckIsShowAvailableMainMenu())
+                {
+                    isShow = viewModel.IsShow;
+                }
+                else
+                {
+                    isShow = false;
+                }
+
                 entity.Name = viewModel.Name;
-                entity.Link = viewModel.Link;
+                entity.Link = viewModel.Link ?? "#";
                 entity.ParentId = viewModel.ParentId;
                 entity.Order = viewModel.Order;
                 entity.Type = viewModel.Type;
+                entity.IsShow = isShow;
+                entity.IsMegaMenu = !viewModel.ParentId.HasValue && viewModel.IsMegaMenu;
 
                 var result = await _unitOfWork.SaveChangesAsync();
                 return result != 0;
@@ -187,6 +217,16 @@ namespace Hatra.Services
                 .AnyAsync(p => p.SubMenus.Any());
 
             return await Task.FromResult(result);
+        }
+
+        private async Task<bool> CheckIsShowAvailableMainMenu()
+        {
+            var items = await _menus
+                .CountAsync(p => p.IsShow == true && p.ParentId == null);
+
+            if (items > 7) return false;
+
+            return true;
         }
     }
 }
