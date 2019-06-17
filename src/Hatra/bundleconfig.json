@@ -5,7 +5,7 @@
     "inputFiles": [
       "node_modules/bootstrap/dist/css/bootstrap.min.css",
       "node_modules/@ghalamborm/bootstrap4-rtl/bootstrap-rtl.css",
-      "node_modules/components-font-awesome/css/fa-solid.min.css",
+      "node_modules/components-font-awesome/css/solid.min.css",
       "node_modules/components-font-awesome/css/fontawesome.min.css",
       "Content/custom.css"
     ],
@@ -29,88 +29,6 @@
       "scripts/jquery.bootstrap-modal-alert.js",
       "scripts/jquery.bootstrap-modal-ajax-form.js",
       "scripts/custom.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-
-  {
-    "outputFileName": "wwwroot/css/siteN.min.css",
-    "inputFiles": [
-      "Content/deconsultrtl/assets/css/bootstrap.min.css",
-      "Content/deconsultrtl/assets/css/plugins.css",
-      "Content/deconsultrtl/assets/css/style.css",
-      "Content/deconsultrtl/assets/css/custom.css"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": false,
-      "adjustRelativePaths": false
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/css/bootstrapN.min.css",
-    "inputFiles": [
-      "Content/deconsultrtl/assets/css/bootstrap.min.css"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": false,
-      "adjustRelativePaths": false
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/css/pluginsN.min.css",
-    "inputFiles": [
-      "Content/deconsultrtl/assets/css/plugins.css"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": false,
-      "adjustRelativePaths": false
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/css/styleN.min.css",
-    "inputFiles": [
-      "Content/deconsultrtl/assets/css/style.css"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": false,
-      "adjustRelativePaths": false
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/css/customN.min.css",
-    "inputFiles": [
-      "Content/deconsultrtl/assets/css/custom.css"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": false,
-      "adjustRelativePaths": false
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/js/siteN.min.js",
-    "inputFiles": [
-      "Content/deconsultrtl/assets/js/modernizr-3.6.0.min.js",
-      "Content/deconsultrtl/assets/js/jquery.min.js",
-      "Content/deconsultrtl/assets/js/popper.min.js",
-      "Content/deconsultrtl/assets/js/bootstrap.min.js",
-      "Content/deconsultrtl/assets/js/plugins.js",
-      "Content/deconsultrtl/assets/js/chart.min.js",
-      "Content/deconsultrtl/assets/js/chart-active.js",
-      "Content/deconsultrtl/assets/js/main.js"
     ],
     "minify": {
       "enabled": true,
