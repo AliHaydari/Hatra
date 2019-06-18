@@ -4,6 +4,10 @@
     ViewData["Title"] = "ایجاد یک اسلاید شو جدید";
 }
 
+@section styles{
+    <script src="~/lib/ckeditor/ckeditor.js" asp-append-version="true"></script>
+}
+
 <div class="card mt-5">
     <div class="card-header">
         <h5 class="card-title">@ViewData["Title"]</h5>
@@ -42,6 +46,20 @@
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
             </div>
+
+            @*<div class="form-group row">
+                <div class="input-group row">
+                    <input asp-for="Image" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
+                    <span class="input-group-prepend">
+                        <span class="input-group-text">
+                            <a href="#" id="btnSelectPicture" data-toggle="tooltip" data-placement="bottom" title="انتخاب تصویر">
+                                <i class="fas fa-image text-info"></i>
+                            </a>
+                        </span>
+                    </span>
+                </div>
+            </div>*@
+
             <div class="form-group row">
                 <label asp-for="Link1" class="col-md-2 col-form-label text-md-left"></label>
                 <div class="col-md-10">
@@ -82,6 +100,31 @@
             $('form').validate().element('#@nameof(SlideShowViewModel.Title)');
         }
 
-        $('#Description').height(200);
+        CKEDITOR.replace('Description', {language: 'fa'});
+    </script>
+
+    <script type="text/javascript">
+        @*$(function () {
+
+            $('#btnSelectPicture').click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var requestTypeId = $(this).data("delete-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("SelectPicture", "Folders")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderAllPicture", "Folders")',
+                    renderModalPartialViewData: JSON.stringify({ "id": requestTypeId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        alert();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+
+        });*@
     </script>
 }

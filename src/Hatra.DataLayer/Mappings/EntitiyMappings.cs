@@ -53,7 +53,7 @@ namespace Hatra.DataLayer.Mappings
             {
                 build.Property(p => p.Title).HasMaxLength(50);
                 build.Property(p => p.BriefDescription).HasMaxLength(50);
-                build.Property(p => p.Description).HasMaxLength(500);
+                build.Property(p => p.Description);
                 build.Property(p => p.Image).IsRequired();
                 build.Property(p => p.Order).IsRequired();
             });

@@ -40,7 +40,7 @@ namespace Hatra.ViewModels
         public string BriefDescription { get; set; }
 
         [Display(Name = "متن")]
-        [MaxLength(500, ErrorMessage = "{0} باید حداکثر {1} حرف باشد")]
+        //[MaxLength(2000, ErrorMessage = "{0} باید حداکثر {1} حرف باشد")]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "(*)")]

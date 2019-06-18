@@ -25,7 +25,7 @@
                                         <div class="heroslider-animatebox">
                                             @if (!string.IsNullOrWhiteSpace(item.Description))
                                             {
-                                                <p>@item.Description</p>
+                                                <p>@Html.Raw(item.Description)</p>
                                             }
                                         </div>
                                         <div class="heroslider-animatebox">

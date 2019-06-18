@@ -4,6 +4,10 @@
     ViewData["Title"] = "ویرایش اسلاید شو " + Model.Title;
 }
 
+@section styles{
+    <script src="~/lib/ckeditor/ckeditor.js" asp-append-version="true"></script>
+}
+
 <div class="card mt-5">
     <div class="card-header">
         <h5 class="card-title">@ViewData["Title"]</h5>
@@ -83,6 +87,6 @@
             $('form').validate().element('#@nameof(SlideShowViewModel.Title)');
         }
 
-        $('#Description').height(200);
+        CKEDITOR.replace('Description', {language: 'fa'});
     </script>
 }

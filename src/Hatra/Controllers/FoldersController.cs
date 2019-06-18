@@ -300,5 +300,23 @@ namespace Hatra.Controllers
                 ? Json("Error")
                 : Json(jsonFiles);
         }
+
+        [AjaxOnly]
+        [DisplayName("نمایش فرم همه تصاویر")]
+        public async Task<IActionResult> RenderAllPicture()
+        {
+            var viewModel = await _pictureService.GetAllAsync();
+
+            return PartialView("_SelectPicture", model: viewModel);
+        }
+
+        [AjaxOnly]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [DisplayName("انتخاب تصویر")]
+        public async Task<IActionResult> SelectPicture(PictureViewModel viewModel)
+        {
+            return new JsonResult(viewModel);
+        }
     }
 }
