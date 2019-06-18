@@ -16,6 +16,8 @@ namespace Hatra.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly DbSet<Menu> _menus;
 
+        private const string PageAddress = "/ShowPage/Index/";
+
         public MenuService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -134,6 +136,11 @@ namespace Hatra.Services
                 isShow = false;
             }
 
+            if (viewModel.PageId != 0)
+            {
+                viewModel.Link = PageAddress + viewModel.PageId;
+            }
+
             var entity = new Menu()
             {
                 Id = viewModel.Id,
@@ -166,6 +173,11 @@ namespace Hatra.Services
                 else
                 {
                     isShow = false;
+                }
+
+                if (viewModel.PageId != 0)
+                {
+                    viewModel.Link = PageAddress + viewModel.PageId;
                 }
 
                 entity.Name = viewModel.Name;

@@ -58,5 +58,8 @@ namespace Hatra.ViewModels
 
         [Display(Name = "مگا منو")]
         public bool IsMegaMenu { get; set; }
+
+        [Display(Name = "لینک صفحات")]
+        public int PageId { get; set; }
     }
 }

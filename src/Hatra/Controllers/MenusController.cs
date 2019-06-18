@@ -22,13 +22,17 @@ namespace Hatra.Controllers
     public class MenusController : Controller
     {
         private readonly IMenuService _menuService;
+        private readonly IPageService _pageService;
 
         private const string RequestNotFound = "منو درخواستی یافت نشد.";
 
-        public MenusController(IMenuService menuService)
+        public MenusController(IMenuService menuService, IPageService pageService)
         {
             _menuService = menuService;
             _menuService.CheckArgumentIsNull(nameof(_menuService));
+
+            _pageService = pageService;
+            _pageService.CheckArgumentIsNull(nameof(_pageService));
         }
 
         [DisplayName("ایندکس")]
@@ -51,6 +55,7 @@ namespace Hatra.Controllers
             };
 
             await PopulateMenusAsync(null);
+            await PopulatePagesAsync(null);
 
             return View("Create", viewModel);
         }
@@ -65,6 +70,7 @@ namespace Hatra.Controllers
                 {
                     ModelState.AddModelError(nameof(viewModel.Name), "نام وارد شده تکراری است");
                     await PopulateMenusAsync(viewModel.ParentId);
+                    await PopulatePagesAsync(viewModel.PageId);
                     return View(viewModel);
                 }
 
@@ -75,10 +81,12 @@ namespace Hatra.Controllers
                 }
 
                 await PopulateMenusAsync(viewModel.ParentId);
+                await PopulatePagesAsync(viewModel.PageId);
                 return View(viewModel);
             }
 
             await PopulateMenusAsync(viewModel.ParentId);
+            await PopulatePagesAsync(viewModel.PageId);
             return View(viewModel);
         }
 
@@ -100,6 +108,7 @@ namespace Hatra.Controllers
             }
 
             await PopulateMenusAsync(viewModel.ParentId);
+            await PopulatePagesAsync(viewModel.PageId);
 
             return View("Edit", viewModel);
         }
@@ -114,6 +123,7 @@ namespace Hatra.Controllers
                 {
                     ModelState.AddModelError(nameof(viewModel.Name), "نام وارد شده تکراری است");
                     await PopulateMenusAsync(viewModel.ParentId);
+                    await PopulatePagesAsync(viewModel.PageId);
                     return View(viewModel);
                 }
 
@@ -124,10 +134,12 @@ namespace Hatra.Controllers
                 }
 
                 await PopulateMenusAsync(viewModel.ParentId);
+                await PopulatePagesAsync(viewModel.PageId);
                 return View(viewModel);
             }
 
             await PopulateMenusAsync(viewModel.ParentId);
+            await PopulatePagesAsync(viewModel.PageId);
             return View(viewModel);
         }
 
@@ -191,6 +203,18 @@ namespace Hatra.Controllers
                 menuId.GetValueOrDefault());
 
             ViewBag.PopulateMenus = selectList;
+        }
+
+        private async Task PopulatePagesAsync(int? pageId)
+        {
+            var data = await _pageService.GetAllAsync();
+
+            var selectList = new SelectList(data,
+                nameof(PageViewModel.Id),
+                nameof(PageViewModel.Title),
+                pageId.GetValueOrDefault());
+
+            ViewBag.PopulatePages = selectList;
         }
 
         /// <summary>

@@ -28,16 +28,16 @@ namespace Hatra.Controllers
         [BreadCrumb(Title = "ایندکس", Order = 1)]
         public async Task<IActionResult> Index()
         {
-            var menuViewModels = await _menuService.GetAllAsync();
-            var slideShowViewModels = await _slideShowService.GetAllAsync();
+            //var menuViewModels = await _menuService.GetAllAsync();
+            //var slideShowViewModels = await _slideShowService.GetAllAsync();
 
-            var viewModel = new HomeViewModel()
-            {
-                MenuViewModels = menuViewModels.Where(p => p.IsShow).ToList(),
-                SlideShowViewModels = slideShowViewModels,
-            };
+            //var viewModel = new HomeViewModel()
+            //{
+            //    MenuViewModels = menuViewModels.Where(p => p.IsShow).ToList(),
+            //    SlideShowViewModels = slideShowViewModels,
+            //};
 
-            return View("IndexN", viewModel);
+            return View("IndexN"/*, viewModel*/);
         }
 
         [BreadCrumb(Title = "خطا", Order = 1)]

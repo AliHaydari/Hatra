@@ -1,0 +1,63 @@
+﻿@model PageViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_LayoutN.cshtml";
+}
+
+<!-- Breadcrumb Area -->
+<div class="tm-breadcrumb-area tm-padding-section text-center" data-overlay="1" data-bgimage="/lib/deconsultrtl/assets/images/bg/bg-breadcrumb.jpg">
+    <div class="container">
+        <div class="tm-breadcrumb">
+            <h2 class="tm-breadcrumb-title">جزئیات وبلاگ</h2>
+            <ul>
+                <li><a href="#">خانه</a></li>
+                <li><a href="#">وبلاگ ها</a></li>
+                <li>@Model.Title</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--// Breadcrumb Area -->
+<!-- Main Content -->
+<main class="main-content">
+    <!-- Blogs Area -->
+    <div class="tm-section blogs-area bg-white tm-padding-section">
+        <div class="container">
+            <div class="tm-blog tm-blog-details sticky-sidebar">
+                <div class="tm-blog-image">
+                    <a href="#">
+                        <img src="/lib/deconsultrtl/assets/images/blog/lg/blog-image-lg-1.jpg" alt="blog image">
+                    </a>
+                </div>
+                <div class="tm-blog-content">
+                    <div class="tm-blog-meta">
+                        <span><i class="fa fa-user-o"></i>توسط<a href="#"> مدیر </a></span>
+                        <span><i class="fa fa-calendar-o"></i>12 اسفند 1398</span>
+                        @if (Model.CategoryId.HasValue)
+                        {
+                            <span><i class="fa fa-folder-o"></i><a href="#">@Model.CategoryName</a></span>
+                        }
+                    </div>
+                    <h3>@Model.Title</h3>
+                    <p>@Html.Raw(Model.Body)</p>
+                </div>
+                
+                <div class="tm-blog-tags">
+                    @*<span class="tm-blog-tags-title">
+                        <i class="fa fa-tags"></i>
+                    </span>
+                    <ul>
+                        <li><a href="blog.html">نرم افزار</a></li>
+                        <li><a href="blog.html">توسعه</a></li>
+                        <li><a href="blog.html">php</a></li>
+                        <li><a href="blog.html">وب</a></li>
+                    </ul>*@
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--// Blogs Area -->
+</main>
+<!--// Main Content -->

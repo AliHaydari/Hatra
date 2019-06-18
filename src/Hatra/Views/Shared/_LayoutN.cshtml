@@ -1,4 +1,4 @@
-﻿@model HomeViewModel
+﻿@*@model HomeViewModel*@
 
 @{
     var pageTitle = ViewData["Title"] ?? "تحلیلگران هوشمند آریا سیستم";
@@ -14,10 +14,10 @@
     <link rel="apple-touch-icon" href="~/assets/base/favicon.png">
     <link rel="shortcut icon" href="~/assets/base/favicon.ico">
 
-    <link rel="stylesheet" href="~/lib/deconsultrtl/assets/css/bootstrap.min.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/lib/deconsultrtl/assets/css/plugins.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/lib/deconsultrtl/assets/css/style.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/lib/deconsultrtl/assets/css/custom.css" asp-append-version="true">
+    <link rel="stylesheet" href="/lib/deconsultrtl/assets/css/bootstrap.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="/lib/deconsultrtl/assets/css/plugins.css" asp-append-version="true">
+    <link rel="stylesheet" href="/lib/deconsultrtl/assets/css/style.css" asp-append-version="true">
+    <link rel="stylesheet" href="/lib/deconsultrtl/assets/css/custom.css" asp-append-version="true">
     @await RenderSectionAsync("Styles", required: false)
     <title>@pageTitle</title>
 </head>
@@ -31,29 +31,24 @@
     <!--// Preloader -->
     <!-- Wrapper -->
     <div id="wrapper" class="wrapper">
-        <partial name="_Menu" model="@Model.MenuViewModels" />
-
-        <partial name="_Slider" model="@Model.SlideShowViewModels" />
-
+        <vc:menu></vc:menu>
         <!-- Main -->
         <main class="page-content">
             @RenderBody()
         </main>
         <!--// Main -->
         <partial name="_Footer" />
-
-        <partial name="_LoginRegisterPopup" />
     </div>
     <!--// Wrapper -->
 
-    <script src="~/lib/deconsultrtl/assets/js/modernizr-3.6.0.min.js" asp-append-version="true"></script>
-    <script src="~/lib/deconsultrtl/assets/js/jquery.min.js" asp-append-version="true"></script>
-    <script src="~/lib/deconsultrtl/assets/js/popper.min.js" asp-append-version="true"></script>
-    <script src="~/lib/deconsultrtl/assets/js/bootstrap.min.js" asp-append-version="true"></script>
-    <script src="~/lib/deconsultrtl/assets/js/plugins.js" asp-append-version="true"></script>
-    <script src="~/lib/deconsultrtl/assets/js/chart.min.js" asp-append-version="true"></script>
-    <script src="~/lib/deconsultrtl/assets/js/chart-active.js" asp-append-version="true"></script>
-    <script src="~/lib/deconsultrtl/assets/js/main.js" asp-append-version="true"></script>
+    <script src="/lib/deconsultrtl/assets/js/modernizr-3.6.0.min.js" asp-append-version="true"></script>
+    <script src="/lib/deconsultrtl/assets/js/jquery.min.js" asp-append-version="true"></script>
+    <script src="/lib/deconsultrtl/assets/js/popper.min.js" asp-append-version="true"></script>
+    <script src="/lib/deconsultrtl/assets/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="/lib/deconsultrtl/assets/js/plugins.js" asp-append-version="true"></script>
+    <script src="/lib/deconsultrtl/assets/js/chart.min.js" asp-append-version="true"></script>
+    <script src="/lib/deconsultrtl/assets/js/chart-active.js" asp-append-version="true"></script>
+    <script src="/lib/deconsultrtl/assets/js/main.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

@@ -75,6 +75,8 @@ namespace Hatra.ViewModels
         [Display(Name = "نمایش داده شود")]
         public bool IsShow { get; set; }
 
+        public string CreateDateTime { get; set; }
+
         public List<PageImageViewModel> PageImageViewModels { get; set; }
     }
 }

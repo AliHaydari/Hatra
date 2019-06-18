@@ -39,6 +39,11 @@
             فقط منو های اصلی را به عنوان مگا منو انتخاب کنید
         </li>
     </ul>
+    <ul>
+        <li><strong>لینک</strong></li>
+        <li>اولویت ثبت مسیر با مسیر صفحات است</li>
+        <li>در صورت نیاز به آدرس دهی به صفحاتی خارج از سایت لینک صفحه را تغییر ندهید</li>
+    </ul>
 </div>
 
 <div class="card mt-5">
@@ -63,6 +68,16 @@
                 <div class="col-md-10">
                     <input dir="ltr" asp-for="Link" class="form-control" />
                     <span asp-validation-for="Link" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="PageId" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <select dir="rtl" asp-for="PageId" class="form-control"
+                            asp-items="@ViewBag.PopulatePages">
+                        <option value="">-- انتخاب --</option>
+                    </select>
+                    <span asp-validation-for="PageId" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">

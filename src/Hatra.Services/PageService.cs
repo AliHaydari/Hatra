@@ -47,6 +47,21 @@ namespace Hatra.Services
             return null;
         }
 
+        public async Task<PageViewModel> GetByIdAndUpdateViewNumberAsync(int id)
+        {
+            var entity = await _pages.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (entity != null)
+            {
+                entity.ViewNumber++;
+                await _unitOfWork.SaveChangesAsync();
+
+                return new PageViewModel(entity);
+            }
+
+            return null;
+        }
+
         public async Task<bool> InsertAsync(PageViewModel viewModel)
         {
             var entity = new Page()
@@ -57,7 +72,7 @@ namespace Hatra.Services
                 Body = viewModel.Body,
                 MetaDescription = viewModel.MetaDescription,
                 SlugUrl = viewModel.SlugUrl,
-                ViewNumber = viewModel.ViewNumber,
+                ViewNumber = 0,
                 Image = viewModel.Image,
                 Order = viewModel.Order,
                 CategoryId = viewModel.CategoryId,
@@ -80,7 +95,6 @@ namespace Hatra.Services
                 entity.Body = viewModel.Body;
                 entity.MetaDescription = viewModel.MetaDescription;
                 entity.SlugUrl = viewModel.SlugUrl;
-                entity.ViewNumber = viewModel.ViewNumber;
                 entity.Image = viewModel.Image;
                 entity.Order = viewModel.Order;
                 entity.CategoryId = viewModel.CategoryId;
@@ -127,6 +141,17 @@ namespace Hatra.Services
                 .AnyAsync(p => p.Images.Any());
 
             return await Task.FromResult(result);
+        }
+
+        public async Task UpdateViewNumber(int id)
+        {
+            var entity = await _pages.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (entity != null)
+            {
+                entity.ViewNumber++;
+                await _unitOfWork.SaveChangesAsync();
+            }
         }
     }
 }
