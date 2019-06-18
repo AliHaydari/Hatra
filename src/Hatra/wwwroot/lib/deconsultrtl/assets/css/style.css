@@ -3456,7 +3456,7 @@ button.tm-videobutton.tm-videobutton-lg span i {
 }
 
 .heroslider-content {
-	padding: 100px 0;
+	padding: 50px 0;
 	-webkit-transition: all 1.5s ease-in-out 0s;
 	-o-transition: all 1.5s ease-in-out 0s;
 	transition: all 1.5s ease-in-out 0s;
@@ -4905,6 +4905,7 @@ button.tm-videobutton.tm-videobutton-lg span i {
 	filter: grayscale(0);
 }
 
+
 .brandlogo-slider .slick-list {
 	margin-right: -15px;
 	margin-left: -15px;
@@ -4917,7 +4918,14 @@ button.tm-videobutton.tm-videobutton-lg span i {
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
+.brandlogo-slider .brandlogo p {
+    text-align: center;
+    cursor: pointer;
+}
 
+.brandlogo-slider .brandlogo p:hover,.brandlogo-slider .brandlogo:hover p {
+    color: #3f51b5;
+}
 /**
    * Why Choose
    */
@@ -7676,4 +7684,8 @@ button.tm-button {
 
 .header-mobilemenu .mean-container a.meanmenu-reveal {
 	margin-top: -43px;
+}
+
+p {
+    text-align: justify;
 }

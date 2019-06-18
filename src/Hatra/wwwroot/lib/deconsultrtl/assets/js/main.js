@@ -135,7 +135,7 @@
             var headerHeight = $('.header').innerHeight();
 
             $('.heroslider-single').css({
-                'min-height': 'calc(100vh - ' + headerHeight + 'px)',
+                'min-height': 'calc(50vh - ' + headerHeight + 'px)',
             });
         },
 

@@ -1,43 +1,17 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using DNTBreadCrumb.Core;
-using Hatra.Common.GuardToolkit;
+﻿using DNTBreadCrumb.Core;
+using Hatra.Common.IdentityToolkit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Hatra.Common.IdentityToolkit;
-using Hatra.Services.Contracts;
-using Hatra.ViewModels;
 
 namespace Hatra.Controllers
 {
     [BreadCrumb(Title = "خانه", UseDefaultRouteUrl = true, Order = 0)]
     public class HomeController : Controller
     {
-        private readonly IMenuService _menuService;
-        private readonly ISlideShowService _slideShowService;
-
-        public HomeController(IMenuService menuService, ISlideShowService slideShowService)
-        {
-            _menuService = menuService;
-            _menuService.CheckArgumentIsNull(nameof(_menuService));
-
-            _slideShowService = slideShowService;
-            _slideShowService.CheckArgumentIsNull(nameof(_slideShowService));
-        }
-
         [BreadCrumb(Title = "ایندکس", Order = 1)]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            //var menuViewModels = await _menuService.GetAllAsync();
-            //var slideShowViewModels = await _slideShowService.GetAllAsync();
-
-            //var viewModel = new HomeViewModel()
-            //{
-            //    MenuViewModels = menuViewModels.Where(p => p.IsShow).ToList(),
-            //    SlideShowViewModels = slideShowViewModels,
-            //};
-
-            return View("IndexN"/*, viewModel*/);
+            return View("IndexN");
         }
 
         [BreadCrumb(Title = "خطا", Order = 1)]
