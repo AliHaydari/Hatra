@@ -56,7 +56,8 @@ namespace Hatra.Services
                 BriefDescription = viewModel.BriefDescription,
                 Description = viewModel.Description,
                 Image = viewModel.Image,
-                Link = viewModel.Link,
+                Link1 = viewModel.Link1,
+                Link2 = viewModel.Link2,
                 Order = viewModel.Order,
             };
 
@@ -75,7 +76,8 @@ namespace Hatra.Services
                 entity.BriefDescription = viewModel.BriefDescription;
                 entity.Description = viewModel.Description;
                 entity.Image = viewModel.Image;
-                entity.Link = viewModel.Link;
+                entity.Link1 = viewModel.Link1;
+                entity.Link2 = viewModel.Link2;
                 entity.Order = viewModel.Order;
 
                 var result = await _unitOfWork.SaveChangesAsync();

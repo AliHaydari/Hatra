@@ -19,7 +19,8 @@ namespace Hatra.ViewModels
             BriefDescription = slideShow.BriefDescription;
             Description = slideShow.Description;
             Image = slideShow.Image;
-            Link = slideShow.Link;
+            Link1 = slideShow.Link1;
+            Link2 = slideShow.Link2;
             Order = slideShow.Order;
         }
 
@@ -46,8 +47,11 @@ namespace Hatra.ViewModels
         [Display(Name = "تصویر")]
         public string Image { get; set; }
 
-        [Display(Name = "لینک")]
-        public string Link { get; set; }
+        [Display(Name = "لینک یک")]
+        public string Link1 { get; set; }
+
+        [Display(Name = "لینک دو")]
+        public string Link2 { get; set; }
 
         [Required(ErrorMessage = "(*)")]
         [Display(Name = "اولویت")]

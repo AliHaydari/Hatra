@@ -14,7 +14,9 @@ namespace Hatra.Entities
 
         public string Image { get; set; }
 
-        public string Link { get; set; }
+        public string Link1 { get; set; }
+
+        public string Link2 { get; set; }
 
         public int Order { get; set; }
     }
