@@ -27,6 +27,7 @@ namespace Hatra.ViewModels
             Order = page.Order;
             CategoryId = page.CategoryId;
             CategoryName = page.Category?.Name;
+            IsShow = page.IsShow;
             PageImageViewModels = page.Images?.Select(p => new PageImageViewModel(p)).ToList();
         }
 
@@ -70,6 +71,9 @@ namespace Hatra.ViewModels
 
         [Display(Name = "گروه")]
         public string CategoryName { get; set; }
+
+        [Display(Name = "نمایش داده شود")]
+        public bool IsShow { get; set; }
 
         public List<PageImageViewModel> PageImageViewModels { get; set; }
     }

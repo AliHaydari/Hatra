@@ -10,6 +10,7 @@ namespace Hatra.Services.Contracts
         Task<List<PictureViewModel>> GetAllByFolderIdAsync(int folderId);
         Task<PictureViewModel> GetByIdAsync(int id);
         Task<bool> InsertAsync(PictureViewModel viewModel);
+        Task<bool> InsertAllAsync(List<PictureViewModel> viewModels);
         Task<bool> UpdateAsync(PictureViewModel viewModel);
         Task<bool> DeleteAsync(int id);
     }

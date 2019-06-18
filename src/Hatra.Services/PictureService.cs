@@ -63,9 +63,43 @@ namespace Hatra.Services
                 Id = viewModel.Id,
                 Path = viewModel.Path,
                 FolderId = viewModel.FolderId,
+
+                Name = viewModel.Name,
+                Size = viewModel.Size,
+                Type = viewModel.Type,
+                Url = viewModel.Url,
+                DeleteUrl = viewModel.DeleteUrl,
+                ThumbnailUrl = viewModel.ThumbnailUrl,
+                DeleteType = viewModel.DeleteType,
             };
 
             await _pictures.AddAsync(entity);
+            var result = await _unitOfWork.SaveChangesAsync();
+            return result != 0;
+        }
+
+        public async Task<bool> InsertAllAsync(List<PictureViewModel> viewModels)
+        {
+            foreach (var viewModel in viewModels)
+            {
+                var entity = new Picture()
+                {
+                    Id = viewModel.Id,
+                    Path = viewModel.Path,
+                    FolderId = viewModel.FolderId,
+
+                    Name = viewModel.Name,
+                    Size = viewModel.Size,
+                    Type = viewModel.Type,
+                    Url = viewModel.Url,
+                    DeleteUrl = viewModel.DeleteUrl,
+                    ThumbnailUrl = viewModel.ThumbnailUrl,
+                    DeleteType = viewModel.DeleteType,
+                };
+
+                await _pictures.AddAsync(entity);
+            }
+
             var result = await _unitOfWork.SaveChangesAsync();
             return result != 0;
         }
@@ -78,6 +112,14 @@ namespace Hatra.Services
             {
                 entity.Path = viewModel.Path;
                 entity.FolderId = viewModel.FolderId;
+
+                entity.Name = viewModel.Name;
+                entity.Size = viewModel.Size;
+                entity.Type = viewModel.Type;
+                entity.Url = viewModel.Url;
+                entity.DeleteUrl = viewModel.DeleteUrl;
+                entity.ThumbnailUrl = viewModel.ThumbnailUrl;
+                entity.DeleteType = viewModel.DeleteType;
 
                 var result = await _unitOfWork.SaveChangesAsync();
                 return result != 0;

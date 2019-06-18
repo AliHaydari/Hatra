@@ -46,7 +46,10 @@ namespace Hatra.Controllers
         [BreadCrumb(Order = 1)]
         public async Task<IActionResult> RenderCreate()
         {
-            var viewModel = new PageViewModel();
+            var viewModel = new PageViewModel()
+            {
+                IsShow = true,
+            };
 
             await PopulateCategoriesAsync(null);
 

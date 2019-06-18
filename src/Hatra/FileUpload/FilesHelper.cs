@@ -1,14 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Hatra.ViewModels.FileUpload;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Hatra.FileUpload
 {
     public class FilesHelper
     {
-        private const string TEMP_PATH = @"somefiles";
-        private const string FILE_DIR_PATH = @"Files\somefiles";
-        private const string URL_BASE = "/Files/somefiles/";
+        //private const string TEMP_PATH = @"somefiles";
+        //private const string FILE_DIR_PATH = @"Files\somefiles";
+        //private const string URL_BASE = "/Files/somefiles/";
+        //private const string DELETE_URL = "/FileUpload/DeleteFile/?file=";
+        //private const string DELETE_TYPE = "GET";
+
+        private const string TEMP_PATH = @"Files";
+        private const string FILE_DIR_PATH = @"UploadedFiles\Files";
+        private const string URL_BASE = "/UploadedFiles/Files/";
         private const string DELETE_URL = "/FileUpload/DeleteFile/?file=";
         private const string DELETE_TYPE = "GET";
 

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Hatra.Entities;
+using Hatra.ViewModels.FileUpload;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hatra.ViewModels
@@ -15,8 +16,41 @@ namespace Hatra.ViewModels
         {
             Id = picture.Id;
             Path = picture.Path;
+
+            Name = picture.Name;
+            Size = picture.Size;
+            Type = picture.Type;
+            Url = picture.Url;
+            DeleteUrl = picture.DeleteUrl;
+            ThumbnailUrl = picture.ThumbnailUrl;
+            DeleteType = picture.DeleteType;
+
             FolderId = picture.FolderId;
             FolderName = picture.Folder?.Name;
+        }
+
+        public PictureViewModel(ViewDataUploadFilesResult viewDataUploadFilesResult)
+        {
+            Name = viewDataUploadFilesResult.name;
+            Size = viewDataUploadFilesResult.size;
+            Type = viewDataUploadFilesResult.type;
+            Url = viewDataUploadFilesResult.url;
+            DeleteUrl = viewDataUploadFilesResult.deleteUrl;
+            ThumbnailUrl = viewDataUploadFilesResult.thumbnailUrl;
+            DeleteType = viewDataUploadFilesResult.deleteType;
+        }
+
+        public PictureViewModel(ViewDataUploadFilesResult viewDataUploadFilesResult, int folderId)
+        {
+            FolderId = folderId;
+
+            Name = viewDataUploadFilesResult.name;
+            Size = viewDataUploadFilesResult.size;
+            Type = viewDataUploadFilesResult.type;
+            Url = viewDataUploadFilesResult.url;
+            DeleteUrl = viewDataUploadFilesResult.deleteUrl;
+            ThumbnailUrl = viewDataUploadFilesResult.thumbnailUrl;
+            DeleteType = viewDataUploadFilesResult.deleteType;
         }
 
         [HiddenInput]
@@ -25,8 +59,19 @@ namespace Hatra.ViewModels
         [Display(Name = "مسیر")]
         public string Path { get; set; }
 
+        public string Name { get; set; }
+        public long Size { get; set; }
+        public string Type { get; set; }
+        public string Url { get; set; }
+        public string DeleteUrl { get; set; }
+        public string ThumbnailUrl { get; set; }
+        public string DeleteType { get; set; }
+
+        [HiddenInput]
         public int FolderId { get; set; }
 
         public string FolderName { get; set; }
+
+        public FilesViewModel FilesViewModel { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace Hatra.Entities
         public string Image { get; set; }
         public int Order { get; set; }
         public int? CategoryId { get; set; }
+        public bool IsShow { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual ICollection<PageImage> Images { get; set; }

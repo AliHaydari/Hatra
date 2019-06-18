@@ -1,15 +1,7 @@
-﻿@model Hatra.FileUpload.FilesViewModel
-@using Newtonsoft.Json
-@using Newtonsoft.Json.Serialization
+﻿
 @{
 
 }
-
-
-
-
-<h2>jQuery File Upload</h2>
-
 
 <div id="fileupload">
     <div class="row fileupload-buttonbar">
@@ -24,17 +16,17 @@
                 <i class="glyphicon glyphicon-upload"></i>
                 <span>Start upload</span>
             </button>
-            <button type="reset" class="btn btn-warning cancel">
+            @*<button type="reset" class="btn btn-warning cancel">
                 <i class="glyphicon glyphicon-ban-circle"></i>
                 <span>Cancel upload</span>
-            </button>
-            <button type="button" class="btn btn-danger delete">
+            </button>*@
+            @*<button type="button" class="btn btn-danger delete">
                 <i class="glyphicon glyphicon-trash"></i>
                 <span>Delete</span>
-            </button>
-            <input type="checkbox" class="toggle">
-            <!-- The global file processing state -->
-            <span class="fileupload-process"></span>
+            </button>*@
+            @*<input type="checkbox" class="toggle">
+             The global file processing state 
+            <span class="fileupload-process"></span>*@
         </div>
         <!-- The global progress state -->
         <div class="col-lg-5 fileupload-progress fade">
@@ -70,29 +62,6 @@
     <a class="close">×</a>
     <a class="play-pause"></a>
     <ol class="indicator"></ol>
-</div>
-<div id="links">
-
-    @if (Model.Files != null && Model.Files.Length != 0)
-    {
-        foreach (var file in Model.Files)
-        {
-
-            if (file.type.Equals("video/mp4"))
-            {
-                <a href="@file.url" title="@file.name" type="video/mp4" data-description="This is a movie."><img src="@file.url" alt="@file.name"></a>
-            }
-            else
-            {
-                <a href="@file.url" title="@file.name" type="image/jpeg" data-description="This is a image."><img src="@file.thumbnailUrl" alt="@file.name"></a>
-            }
-        }
-    }
-    else
-    {
-        <p>No files</p>
-    }
-    <!--Your files goes here-->
 </div>
 
 <!-- The template to display files available for upload -->
@@ -155,11 +124,11 @@
         </td>
         <td>
             {% if (file.deleteUrl) { %}
-            <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deletewithcredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+            @*<button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deletewithcredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
                 <i class="glyphicon glyphicon-trash"></i>
                 <span>Delete</span>
             </button>
-            <input type="checkbox" name="delete" value="1" class="toggle">
+            <input type="checkbox" name="delete" value="1" class="toggle">*@
             {% } else { %}
             <button class="btn btn-warning cancel">
                 <i class="glyphicon glyphicon-ban-circle"></i>

@@ -1,7 +1,7 @@
-﻿@model Hatra.ViewModels.FileUpload.FilesViewModel
+﻿@model PictureViewModel
 
 @{
-    ViewData["Title"] = "Index2";
+    ViewData["Title"] = "درج تصاویر";
 }
 
 @section styles
@@ -15,10 +15,9 @@
     <link href="~/lib/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" asp-append-version="true" />
 }
 
-<h2>Index2</h2>
-
-<form method="POST" enctype="multipart/form-data" asp-area="" asp-action="Upload" asp-controller="FileUpload">
-    <partial name="_Image" model="Model" />
+<form method="POST" enctype="multipart/form-data" asp-area="" asp-action="Upload" asp-controller="Folders">
+    <partial name="_Image" />
+    <input asp-for="Id" />
 </form>
 
 @section scripts{
@@ -75,28 +74,4 @@
     <script src="~/lib/blueimp-gallery/js/blueimp-gallery-indicator.js" asp-append-version="true"></script>
     <script src="~/lib/blueimp-gallery/js/jquery.blueimp-gallery.min.js" asp-append-version="true"></script>
     <script src="~/js/fileupload/show.js" asp-append-version="true"></script>
-
-
-
-    <script src="~/lib/ckeditor/ckeditor.js" asp-append-version="true"></script>
-    <div id="roxyCustomPanel2" style="display: none;">
-        <iframe src="~/lib/RoxyFileManager/index.html?integration=custom&txtFieldId=@Html.IdFor(model=>model.Files)" style="width:100%;height:100%"></iframe>
-    </div>
-    
-    <script>
-        CKEDITOR.replace('Body', {
-            filebrowserBrowseUrl: @Url.Content("~/lib/RoxyFileManager/index.html"),
-            filebrowserImageBrowseUrl: @Url.Content("~/lib/RoxyFileManager/index.html") + '?type=image',
-            removeDialogTabs: 'link:upload;image:upload',
-            height: "270px"
-        });
-
-        function openCustomRoxy() {
-            $('#roxyCustomPanel2').dialog({ modal: true, width: 875, height: 600 });
-        }
-
-        function closeCustomRoxy() {
-            $('#roxyCustomPanel2').dialog('close');
-        }
-    </script>
 }

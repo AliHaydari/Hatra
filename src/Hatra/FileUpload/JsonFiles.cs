@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Hatra.ViewModels.FileUpload;
 
 namespace Hatra.FileUpload
 {

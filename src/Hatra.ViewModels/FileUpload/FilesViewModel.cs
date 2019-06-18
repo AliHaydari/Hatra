@@ -1,4 +1,4 @@
-﻿namespace Hatra.FileUpload
+﻿namespace Hatra.ViewModels.FileUpload
 {
     public class FilesViewModel
     {

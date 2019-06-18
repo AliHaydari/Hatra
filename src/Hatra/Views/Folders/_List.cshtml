@@ -22,9 +22,13 @@
                     <tr>
                         <td class="text-center">@item.Name</td>
                         <td class="text-center">
-                            
-                            <a id="btnPictureList-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-secondary" asp-controller="Folders" asp-action="RenderPictureList" asp-route-id="@item.Id">لیست تصاویر</a>
-                            <a id="btnAddPicture-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-info" asp-controller="Folders" asp-action="RenderPictureList" asp-route-id="@item.Id">درج تصاویر</a>
+
+                            <security-trimming asp-area="" asp-controller="Folders" asp-action="RenderPictureList">
+                                <a id="btnPictureList-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-secondary" asp-controller="Folders" asp-action="RenderPictureList" asp-route-id="@item.Id">لیست تصاویر</a>    
+                            </security-trimming>
+                            <security-trimming asp-area="" asp-controller="Folders" asp-action="RenderAddPicture">
+                                <a id="btnAddPicture-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-info" asp-controller="Folders" asp-action="RenderAddPicture" asp-route-id="@item.Id">درج تصاویر</a>
+                            </security-trimming>
 
                             <security-trimming asp-area="" asp-controller="Folders" asp-action="RenderEdit">
                                 <a id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary" asp-controller="Folders" asp-action="RenderEdit" asp-route-id="@item.Id">ویرایش</a>

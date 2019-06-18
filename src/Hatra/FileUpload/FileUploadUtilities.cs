@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Hatra.ViewModels.FileUpload;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SixLabors.ImageSharp;
@@ -72,6 +73,8 @@ namespace Hatra.FileUpload
 
             foreach (var file in files)
             {
+                var fileName = Guid.NewGuid().ToString("N");
+
                 var extension = Path.GetExtension(file.FileName);
                 if (!_allowedExtensions.Contains(extension))
                 {
@@ -81,7 +84,7 @@ namespace Hatra.FileUpload
 
                 if (file.Length > 0L)
                 {
-                    var fullPath = Path.Combine(_filesHelper.StorageRootPath, Path.GetFileName(file.FileName));
+                    var fullPath = Path.Combine(_filesHelper.StorageRootPath, Path.GetFileName(fileName + extension));
                     using (var fs = new FileStream(fullPath, FileMode.Create))
                     {
                         await file.CopyToAsync(fs);
@@ -92,8 +95,8 @@ namespace Hatra.FileUpload
                     // Create an 80x80 thumbnail.
                     //
 
-                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
-                    var thumbName = $"{fileNameWithoutExtension}{THUMB_WIDTH}x{THUMB_HEIGHT}{extension}";
+                    //var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
+                    var thumbName = $"{fileName}{THUMB_WIDTH}x{THUMB_HEIGHT}{extension}";
                     var thumbPath = Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME, thumbName);
 
                     // Create the thumnail directory if it doesn't exist.
@@ -105,25 +108,25 @@ namespace Hatra.FileUpload
                     }
 
                     // If the image is wider than 540px, resize it so that it is 540px wide. Otherwise, upload a copy of the original.
-                    using (var originalImage = Image.Load(fullPath))
-                    {
-                        if (originalImage.Width > NORMAL_IMAGE_MAX_WIDTH)
-                        {
-                            // Resize it so that the max width is 540px. Maintain the aspect ratio.
-                            var newHeight = originalImage.Height * NORMAL_IMAGE_MAX_WIDTH / originalImage.Width;
+                    //using (var originalImage = Image.Load(fullPath))
+                    //{
+                    //    if (originalImage.Width > NORMAL_IMAGE_MAX_WIDTH)
+                    //    {
+                    //        // Resize it so that the max width is 540px. Maintain the aspect ratio.
+                    //        var newHeight = originalImage.Height * NORMAL_IMAGE_MAX_WIDTH / originalImage.Width;
 
-                            var normalImageName = $"{fileNameWithoutExtension}{NORMAL_IMAGE_MAX_WIDTH}x{newHeight}{extension}";
-                            var normalImagePath = Path.Combine(_filesHelper.StorageRootPath, normalImageName);
+                    //        var normalImageName = $"{fileNameWithoutExtension}{NORMAL_IMAGE_MAX_WIDTH}x{newHeight}{extension}";
+                    //        var normalImagePath = Path.Combine(_filesHelper.StorageRootPath, normalImageName);
 
-                            using (var normalImage = Image.Load(ResizeImage(fullPath, NORMAL_IMAGE_MAX_WIDTH, newHeight)))
-                            {
-                                normalImage.Save(normalImagePath);
-                            }
-                        }
-                    }
+                    //        using (var normalImage = Image.Load(ResizeImage(fullPath, NORMAL_IMAGE_MAX_WIDTH, newHeight)))
+                    //        {
+                    //            normalImage.Save(normalImagePath);
+                    //        }
+                    //    }
+                    //}
                 }
 
-                result.FileResults.Add(UploadResult(file.FileName, file.Length));
+                result.FileResults.Add(UploadResult(fileName + extension, file.Length));
             }
         }
 

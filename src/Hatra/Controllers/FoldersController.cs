@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DNTBreadCrumb.Core;
 using DNTCommon.Web.Core;
 using Hatra.Common.GuardToolkit;
+using Hatra.FileUpload;
 using Hatra.Services.Contracts;
 using Hatra.Services.Identity;
 using Hatra.ViewModels;
 using Hatra.ViewModels.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hatra.Controllers
@@ -22,17 +25,25 @@ namespace Hatra.Controllers
     {
         private readonly IFolderService _folderService;
         private readonly IPictureService _pictureService;
+        private readonly FilesHelper _filesHelper;
+        private readonly FileUploadUtilities _fileUploadUtilities;
 
         private const string RequestNotFound = "فولدر درخواستی یافت نشد.";
         private const string RequestPictureNotFound = "تصویر درخواستی یافت نشد.";
 
-        public FoldersController(IFolderService folderService, IPictureService pictureService)
+        public FoldersController(IFolderService folderService, IPictureService pictureService, FilesHelper filesHelper, FileUploadUtilities fileUploadUtilities)
         {
             _folderService = folderService;
             _folderService.CheckArgumentIsNull(nameof(_folderService));
 
             _pictureService = pictureService;
             _pictureService.CheckArgumentIsNull(nameof(_pictureService));
+
+            _filesHelper = filesHelper;
+            _filesHelper.CheckArgumentIsNull(nameof(_filesHelper));
+
+            _fileUploadUtilities = fileUploadUtilities;
+            _fileUploadUtilities.CheckArgumentIsNull(nameof(_fileUploadUtilities));
         }
 
         [DisplayName("ایندکس")]
@@ -246,6 +257,48 @@ namespace Hatra.Controllers
             }
 
             return PartialView("_DeletePicture", model: viewModel);
+        }
+
+        [HttpGet]
+        [DisplayName("نمایش فرم درج تصاویر")]
+        [BreadCrumb(Order = 1)]
+        public async Task<IActionResult> RenderAddPicture(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            //var viewModel = await _pictureService.GetAllByFolderIdAsync(id.GetValueOrDefault());
+
+            var viewModel = new PictureViewModel()
+            {
+                FolderId = id.GetValueOrDefault(),
+            };
+
+            return View("AddPicture", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Upload(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var result = await _fileUploadUtilities.Handle(HttpContext, HttpContext.Request.Form.Files.ToList(), CancellationToken.None);
+
+            var list = result.FileResults.Select(p => new PictureViewModel(p, id.GetValueOrDefault())).ToList();
+
+            await _pictureService.InsertAllAsync(list);
+
+            var jsonFiles = new JsonFiles(result.FileResults);
+
+            return result.FileResults.Count == 0
+                ? Json("Error")
+                : Json(jsonFiles);
         }
     }
 }

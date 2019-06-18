@@ -71,8 +71,10 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="wwwroot\assets\images\thumbs\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\lib\" />
     <Folder Include="wwwroot\UploadedFiles\Files\" />
+    <Folder Include="wwwroot\UploadedFiles\Files\thumbs\" />
   </ItemGroup>
 </Project>

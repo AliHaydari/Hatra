@@ -61,6 +61,7 @@ namespace Hatra.Services
                 Image = viewModel.Image,
                 Order = viewModel.Order,
                 CategoryId = viewModel.CategoryId,
+                IsShow = viewModel.IsShow,
             };
 
             await _pages.AddAsync(entity);
@@ -83,6 +84,7 @@ namespace Hatra.Services
                 entity.Image = viewModel.Image;
                 entity.Order = viewModel.Order;
                 entity.CategoryId = viewModel.CategoryId;
+                entity.IsShow = viewModel.IsShow;
 
                 var result = await _unitOfWork.SaveChangesAsync();
                 return result != 0;

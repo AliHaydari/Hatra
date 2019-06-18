@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Hatra.Common.GuardToolkit;
 using Hatra.FileUpload;
+using Hatra.ViewModels.FileUpload;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

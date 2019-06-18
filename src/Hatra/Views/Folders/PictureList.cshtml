@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<PictureViewModel>
 
 @{
-    ViewData["Title"] = "PictureList";
+    ViewData["Title"] = "لیست تصاویر";
 }
 
 @foreach (var item in Model)
 {
     <div class="form-group row">
         <label asp-for="@item.Path" class="col-md-2 col-form-label text-md-left"></label>
-        <div class="col col-md-10">
+        <div class="col col-md-8">
             <div class="input-group">
                 <span class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-image"></i></span>
                 </span>
-                <input asp-for="@item.Path" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
+                <input asp-for="@item.Url" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
                 <span class="input-group-prepend">
                     <span class="input-group-text">
                         <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="حذف">
@@ -21,6 +21,11 @@
                         </a>
                     </span>
                 </span>
+            </div>
+        </div>
+        <div class="col col-md-2">
+            <div class="media">
+                <img src="@item.ThumbnailUrl" class="mr-3" alt="@item.Name">
             </div>
         </div>
     </div>
