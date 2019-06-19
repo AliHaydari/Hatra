@@ -1,56 +1,65 @@
 ﻿@model IEnumerable<PictureViewModel>
 
-<form asp-action="SelectPicture" method="post" class="form-horizontal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">انتخاب یک تصویر</h4>
-            </div>
-            <div class="modal-body">
-                @*<div class="container">
-                    <div class="row">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">انتخاب یک تصویر</h4>
+        </div>
+        <div class="modal-body">
+            @*<div class="container">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col">
+                            <a><img src="@item.ThumbnailUrl" class="img-thumbnail" alt="@item.Name"></a>
+                            <input asp-for="@item.Id" />
+                        </div>
+                    }
+                </div>
+            </div>*@
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center">نام</th>
+                            <th class="text-center w-50">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         @foreach (var item in Model)
                         {
-                            <div class="col">
-                                <a><img src="@item.ThumbnailUrl" class="img-thumbnail" alt="@item.Name"></a>
-                                <input asp-for="@item.Id" />
-                            </div>
-                        }
-                    </div>
-                </div>*@
-
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead class="thead-light">
                             <tr>
-                                <th class="text-center">نام</th>
-                                <th class="text-center w-50">عملیات</th>
+                                <td class="text-center">
+                                    <img src="@item.ThumbnailUrl" class="img-thumbnail" alt="@item.Name">
+                                </td>
+                                <td class="text-center">
+                                    @*<a href="#" id="btnSelect-@item.Id" data-select-id="@item.Id" class="btn btn-sm btn-success">انتخاب</a>*@
+                                    <button id="btnSelect-@item.Id" data-select-id="@item.Id" class="btn btn-success" type="submit" data-dismiss="modal">انتخاب</button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td class="text-center">
-                                        <img src="@item.ThumbnailUrl" class="img-thumbnail" alt="@item.Name">
-                                    </td>
-                                    <td class="text-center">
-                                        @*<a href="#" id="btnSelect-@item.Id" data-select-id="@item.Id" class="btn btn-sm btn-success">انتخاب</a>*@
-                                        <button id="btnSelect-@item.Id" data-select-id="@item.Id" class="btn btn-success" type="submit">انتخاب</button>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
+                        }
+                    </tbody>
 
-                    </table>
-                </div>
+                </table>
+            </div>
 
-            </div>
-            <div class="modal-footer">
-                @*<button class="btn btn-success" type="submit">تائید</button>*@
-                <button class="btn" data-dismiss="modal" aria-hidden="true">انصراف</button>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="submit">تائید</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">انصراف</button>
         </div>
     </div>
-</form>
+</div>
+
+@*<script type="text/javascript">
+        $(function () {
+            $(document).on('click', 'img', function (e) {
+                $('img').removeClass("border");
+                var $img = $(this);
+                $($img).addClass("border");
+                $('#@ViewBag.ElementId').val($img.attr('id'));
+            });
+        });
+    </script>*@

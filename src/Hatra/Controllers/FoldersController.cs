@@ -314,9 +314,11 @@ namespace Hatra.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [DisplayName("انتخاب تصویر")]
-        public async Task<IActionResult> SelectPicture(PictureViewModel viewModel)
+        public async Task<IActionResult> SelectPicture(string elementId = "")
         {
-            return new JsonResult(viewModel);
+            ViewBag.ElementId = elementId;
+
+            return Ok("ok");
         }
     }
 }
