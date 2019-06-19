@@ -52,7 +52,7 @@
                 <input asp-for="Image" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
                 <span class="input-group-prepend">
                     <span class="input-group-text">
-                        <a href="#" id="btnSelectPicture" data-toggle="tooltip" data-placement="bottom" title="انتخاب تصویر">
+                        <a href="#" id="btnSelectPicture" title="انتخاب تصویر">
                             <i class="fas fa-image text-info"></i>
                         </a>
                     </span>
@@ -144,5 +144,35 @@
                 $('#@ViewBag.ElementId').val($img.attr('id'));
             });
         });*@
+
+        //$('#btnSelectPicture').click(function(e) {
+        //    e.preventDefault();
+        //    $('#dialogDiv').modal('show');
+        //});
+
+        @*$(function() {
+
+            $('#btnSelectPicture').on('click', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RenderAllPicture", "Folders")',
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    //data: JSON.stringify(response),
+                    complete: function(xhr, status) {
+                        var data = xhr.responseText;
+                    },
+                    success: function(response) {
+                        alert(response['response']);
+                    },
+                    error: function() {
+                        alert('Error');
+                    }
+                });
+                return false;
+            });
+        });*@
+
     </script>
 }
