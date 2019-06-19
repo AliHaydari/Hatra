@@ -5,6 +5,7 @@
         <thead class="thead-light">
             <tr>
                 <th class="text-center">نام</th>
+                <th class="text-center">قابل نمایش</th>
                 <th class="text-center w-25">عملیات</th>
             </tr>
         </thead>
@@ -21,6 +22,16 @@
                 {
                     <tr>
                         <td class="text-center">@item.Title</td>
+                        <td class="text-center">
+                            @if (item.IsShow)
+                            {
+                                <span class="fa fa-check"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-minus"></span>
+                            }
+                        </td>
                         <td class="text-center">
                             <security-trimming asp-area="" asp-controller="SlideShow" asp-action="RenderEdit">
                                 <a id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary" asp-controller="SlideShow" asp-action="RenderEdit" asp-route-id="@item.Id">ویرایش</a>

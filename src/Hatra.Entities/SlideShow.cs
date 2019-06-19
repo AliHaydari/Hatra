@@ -19,5 +19,7 @@ namespace Hatra.Entities
         public string Link2 { get; set; }
 
         public int Order { get; set; }
+
+        public bool IsShow { get; set; }
     }
 }

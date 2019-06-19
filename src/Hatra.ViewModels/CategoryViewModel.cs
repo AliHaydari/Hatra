@@ -17,6 +17,7 @@ namespace Hatra.ViewModels
             Id = category.Id;
             Name = category.Name;
             Description = category.Description;
+            IsShow = category.IsShow;
         }
 
         [HiddenInput]
@@ -32,5 +33,8 @@ namespace Hatra.ViewModels
 
         [Display(Name = "توضیحات")]
         public string Description { get; set; }
+
+        [Display(Name = "نمایش داده شود")]
+        public bool IsShow { get; set; }
     }
 }

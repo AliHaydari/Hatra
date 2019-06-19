@@ -22,6 +22,7 @@ namespace Hatra.ViewModels
             Link1 = slideShow.Link1;
             Link2 = slideShow.Link2;
             Order = slideShow.Order;
+            IsShow = slideShow.IsShow;
         }
 
         [HiddenInput]
@@ -56,5 +57,8 @@ namespace Hatra.ViewModels
         [Required(ErrorMessage = "(*)")]
         [Display(Name = "اولویت")]
         public int Order { get; set; }
+
+        [Display(Name = "نمایش داده شود")]
+        public bool IsShow { get; set; }
     }
 }

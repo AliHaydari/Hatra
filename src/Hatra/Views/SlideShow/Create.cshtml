@@ -48,17 +48,17 @@
             </div>
 
             @*<div class="form-group row">
-                <div class="input-group row">
-                    <input asp-for="Image" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
-                    <span class="input-group-prepend">
-                        <span class="input-group-text">
-                            <a href="#" id="btnSelectPicture" data-toggle="tooltip" data-placement="bottom" title="انتخاب تصویر">
-                                <i class="fas fa-image text-info"></i>
-                            </a>
-                        </span>
+            <div class="input-group row">
+                <input asp-for="Image" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
+                <span class="input-group-prepend">
+                    <span class="input-group-text">
+                        <a href="#" id="btnSelectPicture" data-toggle="tooltip" data-placement="bottom" title="انتخاب تصویر">
+                            <i class="fas fa-image text-info"></i>
+                        </a>
                     </span>
-                </div>
-            </div>*@
+                </span>
+            </div>
+        </div>*@
 
             <div class="form-group row">
                 <label asp-for="Link1" class="col-md-2 col-form-label text-md-left"></label>
@@ -79,6 +79,16 @@
                 <div class="col-md-10">
                     <input dir="ltr" asp-for="Order" class="form-control" />
                     <span asp-validation-for="Order" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-md-2 col-md-10">
+                    <div class="form-check">
+                        <label asp-for="IsShow" class="form-check-label">
+                            <input class="form-check-input" asp-for="IsShow" />
+                            @Html.DisplayNameFor(m => m.IsShow)
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group row">

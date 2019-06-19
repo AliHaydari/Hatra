@@ -5,7 +5,7 @@
         <thead class="thead-light">
             <tr>
                 <th class="text-center">نام</th>
-                <th class="text-center w-25">عملیات</th>
+                <th class="text-center w-50">عملیات</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +22,7 @@
                     <tr>
                         <td class="text-center">@item.Title</td>
                         <td class="text-center">
+                            <a id="btnShow-@item.Id" data-show-id="@item.Id" class="btn btn-sm btn-success" asp-controller="ShowPage" asp-action="Index" asp-route-id="@item.Id">نمایش</a>
                             <security-trimming asp-area="" asp-controller="Pages" asp-action="RenderEdit">
                                 <a id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary" asp-controller="Pages" asp-action="RenderEdit" asp-route-id="@item.Id">ویرایش</a>
                             </security-trimming>

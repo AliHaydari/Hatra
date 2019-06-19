@@ -9,10 +9,13 @@
 <div class="tm-breadcrumb-area tm-padding-section text-center" data-overlay="1" data-bgimage="/lib/deconsultrtl/assets/images/bg/bg-breadcrumb.jpg">
     <div class="container">
         <div class="tm-breadcrumb">
-            <h2 class="tm-breadcrumb-title">جزئیات وبلاگ</h2>
+            <h2 class="tm-breadcrumb-title">@Model.Title</h2>
             <ul>
-                <li><a href="#">خانه</a></li>
-                <li><a href="#">وبلاگ ها</a></li>
+                <li><a href="~/">خانه</a></li>
+                @if (Model.CategoryId.HasValue)
+                {
+                    <li><a href="#">وبلاگ ها</a></li>
+                }
                 <li>@Model.Title</li>
             </ul>
         </div>
@@ -33,7 +36,7 @@
                 <div class="tm-blog-content">
                     <div class="tm-blog-meta">
                         <span><i class="fa fa-user-o"></i>توسط<a href="#"> مدیر </a></span>
-                        <span><i class="fa fa-calendar-o"></i>12 اسفند 1398</span>
+                        <span><i class="fa fa-calendar-o"></i>27 خرداد 1398</span>
                         @if (Model.CategoryId.HasValue)
                         {
                             <span><i class="fa fa-folder-o"></i><a href="#">@Model.CategoryName</a></span>
@@ -42,17 +45,17 @@
                     <h3>@Model.Title</h3>
                     <p>@Html.Raw(Model.Body)</p>
                 </div>
-                
+
                 <div class="tm-blog-tags">
                     @*<span class="tm-blog-tags-title">
-                        <i class="fa fa-tags"></i>
-                    </span>
-                    <ul>
-                        <li><a href="#">نرم افزار</a></li>
-                        <li><a href="#">توسعه</a></li>
-                        <li><a href="#">php</a></li>
-                        <li><a href="#">وب</a></li>
-                    </ul>*@
+                            <i class="fa fa-tags"></i>
+                        </span>
+                        <ul>
+                            <li><a href="#">نرم افزار</a></li>
+                            <li><a href="#">توسعه</a></li>
+                            <li><a href="#">php</a></li>
+                            <li><a href="#">وب</a></li>
+                        </ul>*@
                 </div>
 
             </div>

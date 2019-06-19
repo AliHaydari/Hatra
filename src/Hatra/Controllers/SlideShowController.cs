@@ -44,7 +44,10 @@ namespace Hatra.Controllers
         [BreadCrumb(Order = 1)]
         public async Task<IActionResult> RenderCreate()
         {
-            var viewModel = new SlideShowViewModel();
+            var viewModel = new SlideShowViewModel()
+            {
+                IsShow = true,
+            };
 
             return View("Create", viewModel);
         }

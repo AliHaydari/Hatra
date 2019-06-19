@@ -7,6 +7,9 @@ namespace Hatra.Services.Contracts
     public interface ICategoryService
     {
         Task<List<CategoryViewModel>> GetAllAsync();
+        Task<List<CategoryViewModel>> GetAllVisibleAsync();
+        Task<List<DropDownMenuViewModel>> GetAllDropDownMenuAsync();
+        Task<List<DropDownMenuViewModel>> GetAllVisibleDropDownMenuAsync();
         Task<CategoryViewModel> GetByIdAsync(int id);
         Task<bool> InsertAsync(CategoryViewModel viewModel);
         Task<bool> UpdateAsync(CategoryViewModel viewModel);

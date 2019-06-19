@@ -23,16 +23,20 @@ namespace Hatra.Controllers
     {
         private readonly IMenuService _menuService;
         private readonly IPageService _pageService;
+        private readonly ICategoryService _categoryService;
 
         private const string RequestNotFound = "منو درخواستی یافت نشد.";
 
-        public MenusController(IMenuService menuService, IPageService pageService)
+        public MenusController(IMenuService menuService, IPageService pageService, ICategoryService categoryService)
         {
             _menuService = menuService;
             _menuService.CheckArgumentIsNull(nameof(_menuService));
 
             _pageService = pageService;
             _pageService.CheckArgumentIsNull(nameof(_pageService));
+
+            _categoryService = categoryService;
+            _categoryService.CheckArgumentIsNull(nameof(_categoryService));
         }
 
         [DisplayName("ایندکس")]
@@ -55,7 +59,7 @@ namespace Hatra.Controllers
             };
 
             await PopulateMenusAsync(null);
-            await PopulatePagesAsync(null);
+            await PopulateCategoriesAndPagesAsync(null);
 
             return View("Create", viewModel);
         }
@@ -70,7 +74,7 @@ namespace Hatra.Controllers
                 {
                     ModelState.AddModelError(nameof(viewModel.Name), "نام وارد شده تکراری است");
                     await PopulateMenusAsync(viewModel.ParentId);
-                    await PopulatePagesAsync(viewModel.PageId);
+                    await PopulateCategoriesAndPagesAsync(viewModel.PageId);
                     return View(viewModel);
                 }
 
@@ -81,12 +85,12 @@ namespace Hatra.Controllers
                 }
 
                 await PopulateMenusAsync(viewModel.ParentId);
-                await PopulatePagesAsync(viewModel.PageId);
+                await PopulateCategoriesAndPagesAsync(viewModel.PageId);
                 return View(viewModel);
             }
 
             await PopulateMenusAsync(viewModel.ParentId);
-            await PopulatePagesAsync(viewModel.PageId);
+            await PopulateCategoriesAndPagesAsync(viewModel.PageId);
             return View(viewModel);
         }
 
@@ -108,7 +112,7 @@ namespace Hatra.Controllers
             }
 
             await PopulateMenusAsync(viewModel.ParentId);
-            await PopulatePagesAsync(viewModel.PageId);
+            await PopulateCategoriesAndPagesAsync(viewModel.PageId);
 
             return View("Edit", viewModel);
         }
@@ -123,7 +127,7 @@ namespace Hatra.Controllers
                 {
                     ModelState.AddModelError(nameof(viewModel.Name), "نام وارد شده تکراری است");
                     await PopulateMenusAsync(viewModel.ParentId);
-                    await PopulatePagesAsync(viewModel.PageId);
+                    await PopulateCategoriesAndPagesAsync(viewModel.PageId);
                     return View(viewModel);
                 }
 
@@ -134,12 +138,12 @@ namespace Hatra.Controllers
                 }
 
                 await PopulateMenusAsync(viewModel.ParentId);
-                await PopulatePagesAsync(viewModel.PageId);
+                await PopulateCategoriesAndPagesAsync(viewModel.PageId);
                 return View(viewModel);
             }
 
             await PopulateMenusAsync(viewModel.ParentId);
-            await PopulatePagesAsync(viewModel.PageId);
+            await PopulateCategoriesAndPagesAsync(viewModel.PageId);
             return View(viewModel);
         }
 
@@ -205,13 +209,15 @@ namespace Hatra.Controllers
             ViewBag.PopulateMenus = selectList;
         }
 
-        private async Task PopulatePagesAsync(int? pageId)
+        private async Task PopulateCategoriesAndPagesAsync(int? pageId)
         {
-            var data = await _pageService.GetAllAsync();
+            var data = await _categoryService.GetAllVisibleDropDownMenuAsync();
+
+            data.AddRange(await _pageService.GetAllVisibleWithoutCategoryDropDownMenuAsync());
 
             var selectList = new SelectList(data,
-                nameof(PageViewModel.Id),
-                nameof(PageViewModel.Title),
+                nameof(DropDownMenuViewModel.Id),
+                nameof(DropDownMenuViewModel.Name),
                 pageId.GetValueOrDefault());
 
             ViewBag.PopulatePages = selectList;

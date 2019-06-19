@@ -35,6 +35,17 @@ namespace Hatra.Services
                 .ToListAsync();
         }
 
+        public async Task<List<SlideShowViewModel>> GetAllVisibleAsync()
+        {
+            return await _slideShows
+                .Where(p => p.IsShow)
+                .OrderBy(p => p.Order)
+                .Select(p => new SlideShowViewModel(p))
+                .Cacheable()
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<SlideShowViewModel> GetByIdAsync(int id)
         {
             var entity = await _slideShows.FirstOrDefaultAsync(p => p.Id == id);
@@ -59,6 +70,7 @@ namespace Hatra.Services
                 Link1 = viewModel.Link1,
                 Link2 = viewModel.Link2,
                 Order = viewModel.Order,
+                IsShow = viewModel.IsShow,
             };
 
             await _slideShows.AddAsync(entity);
@@ -79,6 +91,7 @@ namespace Hatra.Services
                 entity.Link1 = viewModel.Link1;
                 entity.Link2 = viewModel.Link2;
                 entity.Order = viewModel.Order;
+                entity.IsShow = viewModel.IsShow;
 
                 var result = await _unitOfWork.SaveChangesAsync();
                 return result != 0;

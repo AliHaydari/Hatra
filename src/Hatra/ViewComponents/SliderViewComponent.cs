@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hatra.Common.GuardToolkit;
+﻿using Hatra.Common.GuardToolkit;
 using Hatra.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Hatra.ViewComponents
 {
@@ -20,7 +17,7 @@ namespace Hatra.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var viewModels = await _slideShowService.GetAllAsync();
+            var viewModels = await _slideShowService.GetAllVisibleAsync();
             return View(viewName: "~/Views/Shared/_Slider.cshtml", viewModels);
         }
     }

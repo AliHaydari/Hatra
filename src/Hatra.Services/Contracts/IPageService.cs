@@ -7,6 +7,9 @@ namespace Hatra.Services.Contracts
     public interface IPageService
     {
         Task<List<PageViewModel>> GetAllAsync();
+        Task<List<PageViewModel>> GetAllWithoutCategoryAsync();
+        Task<List<DropDownMenuViewModel>> GetAllWithoutCategoryDropDownMenuAsync();
+        Task<List<DropDownMenuViewModel>> GetAllVisibleWithoutCategoryDropDownMenuAsync();
         Task<PageViewModel> GetByIdAsync(int id);
         Task<PageViewModel> GetByIdAndUpdateViewNumberAsync(int id);
         Task<bool> InsertAsync(PageViewModel viewModel);

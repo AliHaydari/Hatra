@@ -7,6 +7,7 @@ namespace Hatra.Services.Contracts
     public interface ISlideShowService
     {
         Task<List<SlideShowViewModel>> GetAllAsync();
+        Task<List<SlideShowViewModel>> GetAllVisibleAsync();
         Task<SlideShowViewModel> GetByIdAsync(int id);
         Task<bool> InsertAsync(SlideShowViewModel viewModel);
         Task<bool> UpdateAsync(SlideShowViewModel viewModel);

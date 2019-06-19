@@ -11,14 +11,19 @@ namespace Hatra.Controllers
     public class ShowPageController : Controller
     {
         private readonly IPageService _pageService;
+        private readonly ICategoryService _categoryService;
 
-        public ShowPageController(IPageService pageService)
+        public ShowPageController(IPageService pageService, ICategoryService categoryService)
         {
             _pageService = pageService;
             _pageService.CheckArgumentIsNull(nameof(_pageService));
+
+            _categoryService = categoryService;
+            _categoryService.CheckArgumentIsNull(nameof(_categoryService));
         }
 
-        public async Task<IActionResult> Index(int id)
+        [Route("page/{id:int}")]
+        public async Task<IActionResult> ShowPageWithoutCategory(int id)
         {
             var page = await _pageService.GetByIdAndUpdateViewNumberAsync(id);
 
@@ -27,7 +32,7 @@ namespace Hatra.Controllers
                 return NotFound();
             }
 
-            return View(page);
+            return View("PageDetail", page);
         }
     }
 }

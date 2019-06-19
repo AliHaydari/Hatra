@@ -1,5 +1,4 @@
-﻿using System;
-using Hatra.Common.GuardToolkit;
+﻿using Hatra.Common.GuardToolkit;
 using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
@@ -31,6 +30,47 @@ namespace Hatra.Services
                 .Include(p => p.Category)
                 .Include(p => p.Images)
                 .Select(p => new PageViewModel(p))
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<PageViewModel>> GetAllWithoutCategoryAsync()
+        {
+            return await _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Where(p => p.CategoryId == null)
+                .Select(p => new PageViewModel(p))
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<DropDownMenuViewModel>> GetAllWithoutCategoryDropDownMenuAsync()
+        {
+            return await _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Where(p => p.CategoryId == null)
+                .Select(p => new DropDownMenuViewModel()
+                {
+                    Id = p.Id,
+                    Name = "صفحه : " + p.Title,
+                })
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<DropDownMenuViewModel>> GetAllVisibleWithoutCategoryDropDownMenuAsync()
+        {
+            return await _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Where(p => p.CategoryId == null && p.IsShow)
+                .Select(p => new DropDownMenuViewModel()
+                {
+                    Id = p.Id,
+                    Name = "صفحه : " + p.Title,
+                })
                 .AsNoTracking()
                 .ToListAsync();
         }

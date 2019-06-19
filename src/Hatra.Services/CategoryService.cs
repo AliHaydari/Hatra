@@ -34,6 +34,43 @@ namespace Hatra.Services
                 .ToListAsync();
         }
 
+        public async Task<List<CategoryViewModel>> GetAllVisibleAsync()
+        {
+            return await _categories
+                .Where(p => p.IsShow)
+                .Select(p => new CategoryViewModel(p))
+                .Cacheable()
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<DropDownMenuViewModel>> GetAllDropDownMenuAsync()
+        {
+            return await _categories
+                .Select(p => new DropDownMenuViewModel()
+                {
+                    Id = p.Id,
+                    Name = "گروه : " + p.Name,
+                })
+                .Cacheable()
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<DropDownMenuViewModel>> GetAllVisibleDropDownMenuAsync()
+        {
+            return await _categories
+                .Where(p => p.IsShow)
+                .Select(p => new DropDownMenuViewModel()
+                {
+                    Id = p.Id,
+                    Name = "گروه : " + p.Name,
+                })
+                .Cacheable()
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<CategoryViewModel> GetByIdAsync(int id)
         {
             var entity = await _categories.FirstOrDefaultAsync(p => p.Id == id);
@@ -53,6 +90,7 @@ namespace Hatra.Services
                 Id = viewModel.Id,
                 Name = viewModel.Name,
                 Description = viewModel.Description,
+                IsShow = viewModel.IsShow,
             };
 
             await _categories.AddAsync(entity);
@@ -68,6 +106,7 @@ namespace Hatra.Services
             {
                 entity.Name = viewModel.Name;
                 entity.Description = viewModel.Description;
+                entity.IsShow = viewModel.IsShow;
 
                 var result = await _unitOfWork.SaveChangesAsync();
                 return result != 0;
