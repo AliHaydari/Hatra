@@ -94,6 +94,28 @@ namespace Hatra.Services
                 .ToListAsync();
         }
 
+        public async Task<PagedPageViewModel> GetAllPagedVisibleByCategoryIdAsync(int categoryId, int pageNumber, int recordsPerPage)
+        {
+            var skipRecords = pageNumber * recordsPerPage;
+
+            var query = _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Where(p => p.IsShow && p.CategoryId == categoryId)
+                .Select(p => new PageViewModel(p))
+                .AsNoTracking();
+
+            return new PagedPageViewModel()
+            {
+                Paging =
+                {
+                    TotalItems = await query.CountAsync(),
+                },
+                CategoryViewModel = new CategoryViewModel(),
+                PageViewModels = await query.Skip(skipRecords).Take(recordsPerPage).ToListAsync(),
+            };
+        }
+
         public async Task<PageViewModel> GetByIdAsync(int id)
         {
             var entity = await _pages

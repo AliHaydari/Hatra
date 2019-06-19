@@ -10,6 +10,8 @@ namespace Hatra.Controllers
         private readonly IPageService _pageService;
         private readonly ICategoryService _categoryService;
 
+        private const int DefaultPageSize = 9;
+
         public ShowPageController(IPageService pageService, ICategoryService categoryService)
         {
             _pageService = pageService;
@@ -33,16 +35,23 @@ namespace Hatra.Controllers
         }
 
         [Route("category/{id:int}/{slugUrl?}")]
-        public async Task<IActionResult> ShowCategory(int id)
+        public async Task<IActionResult> ShowCategory(int id, int? page = 1)
         {
-            var category = await _categoryService.GetVisibleByIdAsync(id);
+            var category = await _categoryService.GetByIdAsync(id);
 
             if (category == null)
             {
                 return NotFound();
             }
 
-            return View("PageList", category);
+            var model = await _pageService.GetAllPagedVisibleByCategoryIdAsync(id, page.Value - 1, DefaultPageSize);
+
+            model.CategoryViewModel = category;
+            model.Paging.CurrentPage = page.Value;
+            model.Paging.ItemsPerPage = DefaultPageSize;
+            model.Paging.ShowFirstLast = true;
+
+            return View("PageList", model);
         }
     }
 }

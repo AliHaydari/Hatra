@@ -12,6 +12,7 @@ namespace Hatra.Services.Contracts
         Task<List<DropDownMenuViewModel>> GetAllVisibleWithoutCategoryDropDownMenuAsync();
         Task<List<PageViewModel>> GetAllByCategoryIdAsync(int categoryId);
         Task<List<PageViewModel>> GetAllVisibleByCategoryIdAsync(int categoryId);
+        Task<PagedPageViewModel> GetAllPagedVisibleByCategoryIdAsync(int categoryId, int pageNumber, int recordsPerPage);
         Task<PageViewModel> GetByIdAsync(int id);
         Task<PageViewModel> GetByIdAndUpdateViewNumberAsync(int id);
         Task<bool> InsertAsync(PageViewModel viewModel);

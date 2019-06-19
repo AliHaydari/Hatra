@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Hatra.Entities;
 using Hatra.ViewModels.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Hatra.Entities;
 
 namespace Hatra.ViewModels
 {
