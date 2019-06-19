@@ -14,6 +14,7 @@ namespace Hatra.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsShow { get; set; }
+        public string SlugUrl { get; set; }
 
         public virtual ICollection<Page> Pages { get; set; }
     }

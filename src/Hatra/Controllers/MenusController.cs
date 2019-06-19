@@ -59,7 +59,8 @@ namespace Hatra.Controllers
             };
 
             await PopulateMenusAsync(null);
-            await PopulateCategoriesAndPagesAsync(null);
+            await PopulatePagesAsync(null);
+            await PopulateCategoriesAsync(null);
 
             return View("Create", viewModel);
         }
@@ -74,8 +75,20 @@ namespace Hatra.Controllers
                 {
                     ModelState.AddModelError(nameof(viewModel.Name), "نام وارد شده تکراری است");
                     await PopulateMenusAsync(viewModel.ParentId);
-                    await PopulateCategoriesAndPagesAsync(viewModel.PageId);
+                    await PopulatePagesAsync(viewModel.PageId);
+                    await PopulateCategoriesAsync(viewModel.CategoryId);
                     return View(viewModel);
+                }
+
+                if (viewModel.CategoryId.HasValue && viewModel.CategoryId != 0)
+                {
+                    var category = await _categoryService.GetByIdAsync(viewModel.CategoryId.Value);
+                    viewModel.CategorySlugUrl = category?.SlugUrl;
+                }
+                else if (viewModel.PageId.HasValue && viewModel.PageId != 0)
+                {
+                    var page = await _pageService.GetByIdAsync(viewModel.PageId.Value);
+                    viewModel.PageSlugUrl = page?.SlugUrl;
                 }
 
                 var result = await _menuService.InsertAsync(viewModel);
@@ -85,12 +98,14 @@ namespace Hatra.Controllers
                 }
 
                 await PopulateMenusAsync(viewModel.ParentId);
-                await PopulateCategoriesAndPagesAsync(viewModel.PageId);
+                await PopulatePagesAsync(viewModel.PageId);
+                await PopulateCategoriesAsync(viewModel.CategoryId);
                 return View(viewModel);
             }
 
             await PopulateMenusAsync(viewModel.ParentId);
-            await PopulateCategoriesAndPagesAsync(viewModel.PageId);
+            await PopulatePagesAsync(viewModel.PageId);
+            await PopulateCategoriesAsync(viewModel.CategoryId);
             return View(viewModel);
         }
 
@@ -112,7 +127,8 @@ namespace Hatra.Controllers
             }
 
             await PopulateMenusAsync(viewModel.ParentId);
-            await PopulateCategoriesAndPagesAsync(viewModel.PageId);
+            await PopulatePagesAsync(viewModel.PageId);
+            await PopulateCategoriesAsync(viewModel.CategoryId);
 
             return View("Edit", viewModel);
         }
@@ -127,8 +143,20 @@ namespace Hatra.Controllers
                 {
                     ModelState.AddModelError(nameof(viewModel.Name), "نام وارد شده تکراری است");
                     await PopulateMenusAsync(viewModel.ParentId);
-                    await PopulateCategoriesAndPagesAsync(viewModel.PageId);
+                    await PopulatePagesAsync(viewModel.PageId);
+                    await PopulateCategoriesAsync(viewModel.CategoryId);
                     return View(viewModel);
+                }
+
+                if (viewModel.CategoryId.HasValue && viewModel.CategoryId != 0)
+                {
+                    var category = await _categoryService.GetByIdAsync(viewModel.CategoryId.Value);
+                    viewModel.CategorySlugUrl = category?.SlugUrl;
+                }
+                else if (viewModel.PageId.HasValue && viewModel.PageId != 0)
+                {
+                    var page = await _pageService.GetByIdAsync(viewModel.PageId.Value);
+                    viewModel.PageSlugUrl = page?.SlugUrl;
                 }
 
                 var result = await _menuService.UpdateAsync(viewModel);
@@ -138,12 +166,14 @@ namespace Hatra.Controllers
                 }
 
                 await PopulateMenusAsync(viewModel.ParentId);
-                await PopulateCategoriesAndPagesAsync(viewModel.PageId);
+                await PopulatePagesAsync(viewModel.PageId);
+                await PopulateCategoriesAsync(viewModel.CategoryId);
                 return View(viewModel);
             }
 
             await PopulateMenusAsync(viewModel.ParentId);
-            await PopulateCategoriesAndPagesAsync(viewModel.PageId);
+            await PopulatePagesAsync(viewModel.PageId);
+            await PopulateCategoriesAsync(viewModel.CategoryId);
             return View(viewModel);
         }
 
@@ -197,6 +227,7 @@ namespace Hatra.Controllers
             return PartialView("_Delete", model: viewModel);
         }
 
+        [NonAction]
         private async Task PopulateMenusAsync(int? menuId)
         {
             var data = await _menuService.GetAllParentAsync();
@@ -209,11 +240,10 @@ namespace Hatra.Controllers
             ViewBag.PopulateMenus = selectList;
         }
 
-        private async Task PopulateCategoriesAndPagesAsync(int? pageId)
+        [NonAction]
+        private async Task PopulatePagesAsync(int? pageId)
         {
-            var data = await _categoryService.GetAllVisibleDropDownMenuAsync();
-
-            data.AddRange(await _pageService.GetAllVisibleWithoutCategoryDropDownMenuAsync());
+            var data = await _pageService.GetAllVisibleWithoutCategoryDropDownMenuAsync();
 
             var selectList = new SelectList(data,
                 nameof(DropDownMenuViewModel.Id),
@@ -221,6 +251,19 @@ namespace Hatra.Controllers
                 pageId.GetValueOrDefault());
 
             ViewBag.PopulatePages = selectList;
+        }
+
+        [NonAction]
+        private async Task PopulateCategoriesAsync(int? categoryId)
+        {
+            var data = await _categoryService.GetAllVisibleDropDownMenuAsync();
+
+            var selectList = new SelectList(data,
+                nameof(DropDownMenuViewModel.Id),
+                nameof(DropDownMenuViewModel.Name),
+                categoryId.GetValueOrDefault());
+
+            ViewBag.PopulateCategories = selectList;
         }
 
         /// <summary>

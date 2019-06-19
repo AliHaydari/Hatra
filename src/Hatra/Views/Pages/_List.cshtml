@@ -22,7 +22,7 @@
                     <tr>
                         <td class="text-center">@item.Title</td>
                         <td class="text-center">
-                            <a id="btnShow-@item.Id" data-show-id="@item.Id" class="btn btn-sm btn-success" asp-controller="ShowPage" asp-action="Index" asp-route-id="@item.Id">نمایش</a>
+                            <a id="btnShow-@item.Id" data-show-id="@item.Id" class="btn btn-sm btn-success" asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id">نمایش</a>
                             <security-trimming asp-area="" asp-controller="Pages" asp-action="RenderEdit">
                                 <a id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary" asp-controller="Pages" asp-action="RenderEdit" asp-route-id="@item.Id">ویرایش</a>
                             </security-trimming>

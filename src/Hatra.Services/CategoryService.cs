@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EFSecondLevelCache.Core;
+using Hatra.Common.WebToolkit;
 
 namespace Hatra.Services
 {
@@ -28,6 +29,7 @@ namespace Hatra.Services
         public async Task<List<CategoryViewModel>> GetAllAsync()
         {
             return await _categories
+                .Include(p => p.Pages)
                 .Select(p => new CategoryViewModel(p))
                 .Cacheable()
                 .AsNoTracking()
@@ -37,6 +39,7 @@ namespace Hatra.Services
         public async Task<List<CategoryViewModel>> GetAllVisibleAsync()
         {
             return await _categories
+                .Include(p => p.Pages)
                 .Where(p => p.IsShow)
                 .Select(p => new CategoryViewModel(p))
                 .Cacheable()
@@ -73,10 +76,27 @@ namespace Hatra.Services
 
         public async Task<CategoryViewModel> GetByIdAsync(int id)
         {
-            var entity = await _categories.FirstOrDefaultAsync(p => p.Id == id);
+            var entity = await _categories
+                .Include(p => p.Pages)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (entity != null)
             {
+                return new CategoryViewModel(entity);
+            }
+
+            return null;
+        }
+
+        public async Task<CategoryViewModel> GetVisibleByIdAsync(int id)
+        {
+            var entity = await _categories
+                .Include(p => p.Pages)
+                .FirstOrDefaultAsync(p => p.Id == id && p.IsShow);
+
+            if (entity != null)
+            {
+                entity.Pages = entity.Pages.Where(p => p.IsShow).ToList();
                 return new CategoryViewModel(entity);
             }
 
@@ -91,6 +111,7 @@ namespace Hatra.Services
                 Name = viewModel.Name,
                 Description = viewModel.Description,
                 IsShow = viewModel.IsShow,
+                SlugUrl = SeoHelpers.GenerateSlug(viewModel.Name),
             };
 
             await _categories.AddAsync(entity);
@@ -107,6 +128,7 @@ namespace Hatra.Services
                 entity.Name = viewModel.Name;
                 entity.Description = viewModel.Description;
                 entity.IsShow = viewModel.IsShow;
+                entity.SlugUrl = SeoHelpers.GenerateSlug(viewModel.Name);
 
                 var result = await _unitOfWork.SaveChangesAsync();
                 return result != 0;

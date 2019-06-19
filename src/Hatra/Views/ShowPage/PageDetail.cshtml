@@ -14,7 +14,7 @@
                 <li><a href="~/">خانه</a></li>
                 @if (Model.CategoryId.HasValue)
                 {
-                    <li><a href="#">وبلاگ ها</a></li>
+                    <li><a asp-controller="ShowPage" asp-action="ShowCategory" asp-route-id="@Model.CategoryId" asp-route-slugUrl="@Model.SlugUrl">@Model.CategoryName</a></li>
                 }
                 <li>@Model.Title</li>
             </ul>
@@ -39,7 +39,7 @@
                         <span><i class="fa fa-calendar-o"></i>27 خرداد 1398</span>
                         @if (Model.CategoryId.HasValue)
                         {
-                            <span><i class="fa fa-folder-o"></i><a href="#">@Model.CategoryName</a></span>
+                            <span><i class="fa fa-folder-o"></i><a asp-controller="ShowPage" asp-action="ShowCategory" asp-route-id="@Model.CategoryId" asp-route-slugUrl="@Model.SlugUrl">@Model.CategoryName</a></span>
                         }
                     </div>
                     <h3>@Model.Title</h3>

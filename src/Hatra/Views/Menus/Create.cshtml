@@ -41,8 +41,8 @@
     </ul>
     <ul>
         <li><strong>لینک</strong></li>
-        <li>اولویت ثبت مسیر با مسیر صفحات است</li>
-        <li>در صورت نیاز به آدرس دهی به صفحاتی خارج از سایت لینک صفحه را تغییر ندهید</li>
+        <li>اولویت ثبت لینک با لینک گروه ها / در صورت خالی بودن، لینک صفحات / در صورت خالی بودن، لینک است</li>
+        <li>در صورت نیاز به آدرس دهی به صفحاتی خارج از سایت لینک صفحات و لینک گروه ها را در حالت --انتخاب-- قرار دهید</li>
     </ul>
 </div>
 
@@ -78,6 +78,16 @@
                         <option value="">-- انتخاب --</option>
                     </select>
                     <span asp-validation-for="PageId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="CategoryId" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <select dir="rtl" asp-for="CategoryId" class="form-control"
+                            asp-items="@ViewBag.PopulateCategories">
+                        <option value="">-- انتخاب --</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hatra.Common.GuardToolkit;
+﻿using Hatra.Common.GuardToolkit;
 using Hatra.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Hatra.Controllers
 {
@@ -22,8 +19,8 @@ namespace Hatra.Controllers
             _categoryService.CheckArgumentIsNull(nameof(_categoryService));
         }
 
-        [Route("page/{id:int}")]
-        public async Task<IActionResult> ShowPageWithoutCategory(int id)
+        [Route("page/{id:int}/{slugUrl?}")]
+        public async Task<IActionResult> ShowPageDetail(int id)
         {
             var page = await _pageService.GetByIdAndUpdateViewNumberAsync(id);
 
@@ -33,6 +30,19 @@ namespace Hatra.Controllers
             }
 
             return View("PageDetail", page);
+        }
+
+        [Route("category/{id:int}/{slugUrl?}")]
+        public async Task<IActionResult> ShowCategory(int id)
+        {
+            var category = await _categoryService.GetVisibleByIdAsync(id);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return View("PageList", category);
         }
     }
 }

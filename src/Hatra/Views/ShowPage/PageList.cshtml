@@ -1,0 +1,74 @@
+﻿@model CategoryViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_LayoutN.cshtml";
+}
+
+<!-- Breadcrumb Area -->
+<div class="tm-breadcrumb-area tm-padding-section text-center" data-overlay="1" data-bgimage="/lib/deconsultrtl/assets/images/bg/bg-breadcrumb.jpg">
+    <div class="container">
+        <div class="tm-breadcrumb">
+            <h2 class="tm-breadcrumb-title">@Model.Name</h2>
+            <ul>
+                <li><a href="~/">خانه</a></li>
+                @*
+                    <li>وبلاگ ها</li>*@
+            </ul>
+        </div>
+    </div>
+</div>
+<!--// Breadcrumb Area -->
+<!-- Main Content -->
+<main class="main-content">
+
+    <!-- Blogs Area -->
+    <div class="tm-section blogs-area bg-white tm-padding-section">
+        <div class="container">
+            <div class="tm-blog-list">
+                <div class="row mt-30-reverse blog-masonry-active">
+
+                    <!-- Single Blog -->
+                    @foreach (var item in Model.PageViewModels)
+                    {
+                        <div class="col-lg-4 col-md-6 col-12 mt-30 blog-masonry-item">
+                            <div class="blog-slider-item">
+                                <div class="tm-blog wow fadeInUp">
+                                    <div class="tm-blog-image">
+                                        <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">
+                                            <img src="/lib/deconsultrtl/assets/images/blog/blog-image-1.jpg" alt="blog image">
+                                        </a>
+                                    </div>
+                                    <div class="tm-blog-content">
+                                        <div class="tm-blog-meta">
+                                            <span><i class="fa fa-user-o"></i>توسط<a href="#"> مدیر </a></span>
+                                            <span><i class="fa fa-calendar-o"></i>20 بهمن 1396</span>
+                                        </div>
+                                        <h5><a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">@item.Title</a></h5>
+                                        <p>@item.BriefDescription</p>
+                                        <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl" class="tm-readmore">ادامه مطلب...</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <!--// Single Blog -->
+
+                </div>
+
+                @*<div class="tm-pagination mt-50">
+                        <ul>
+                            <li class="is-active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">></a></li>
+                        </ul>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <!--// Blogs Area -->
+
+</main>
+<!--// Main Content -->

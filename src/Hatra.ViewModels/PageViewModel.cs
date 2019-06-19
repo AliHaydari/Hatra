@@ -11,7 +11,7 @@ namespace Hatra.ViewModels
     {
         public PageViewModel()
         {
-
+            PageImageViewModels = new List<PageImageViewModel>();
         }
 
         public PageViewModel(Page page)
@@ -28,7 +28,8 @@ namespace Hatra.ViewModels
             CategoryId = page.CategoryId;
             CategoryName = page.Category?.Name;
             IsShow = page.IsShow;
-            PageImageViewModels = page.Images?.Select(p => new PageImageViewModel(p)).ToList();
+
+            PageImageViewModels = page.Images?.Select(p => new PageImageViewModel(p)).ToList() ?? new List<PageImageViewModel>();
         }
 
         [HiddenInput]

@@ -61,5 +61,12 @@ namespace Hatra.ViewModels
 
         [Display(Name = "لینک صفحات")]
         public int? PageId { get; set; }
+
+        public string PageSlugUrl { get; set; }
+
+        [Display(Name = "لینک گروه ها")]
+        public int? CategoryId { get; set; }
+
+        public string CategorySlugUrl { get; set; }
     }
 }

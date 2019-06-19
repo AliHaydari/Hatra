@@ -1,6 +1,8 @@
-﻿using Hatra.ViewModels.Identity;
+﻿using System.Collections.Generic;
+using Hatra.ViewModels.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Hatra.Entities;
 
 namespace Hatra.ViewModels
@@ -9,7 +11,7 @@ namespace Hatra.ViewModels
     {
         public CategoryViewModel()
         {
-
+            PageViewModels = new List<PageViewModel>();
         }
 
         public CategoryViewModel(Category category)
@@ -18,6 +20,9 @@ namespace Hatra.ViewModels
             Name = category.Name;
             Description = category.Description;
             IsShow = category.IsShow;
+            SlugUrl = category.SlugUrl;
+
+            PageViewModels = category.Pages?.Select(p => new PageViewModel(p)).ToList() ?? new List<PageViewModel>();
         }
 
         [HiddenInput]
@@ -36,5 +41,10 @@ namespace Hatra.ViewModels
 
         [Display(Name = "نمایش داده شود")]
         public bool IsShow { get; set; }
+
+        [Display(Name = "SEO-Url")]
+        public string SlugUrl { get; set; }
+
+        public List<PageViewModel> PageViewModels { get; set; }
     }
 }

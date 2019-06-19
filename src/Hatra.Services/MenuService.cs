@@ -16,7 +16,8 @@ namespace Hatra.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly DbSet<Menu> _menus;
 
-        private const string PageAddress = "/ShowPage/Index/";
+        private const string PageAddress = "/page/";
+        private const string CategoryAddress = "/category/";
 
         public MenuService(IUnitOfWork unitOfWork)
         {
@@ -136,9 +137,15 @@ namespace Hatra.Services
                 isShow = false;
             }
 
-            if (viewModel.PageId.HasValue && viewModel.PageId != 0)
+            if (viewModel.CategoryId.HasValue && viewModel.CategoryId != 0)
             {
-                viewModel.Link = PageAddress + viewModel.PageId;
+                var slugUrl = viewModel.CategorySlugUrl == null ? "" : $@"/{viewModel.CategorySlugUrl}";
+                viewModel.Link = CategoryAddress + viewModel.CategoryId + slugUrl;
+            }
+            else if (viewModel.PageId.HasValue && viewModel.PageId != 0)
+            {
+                var slugUrl = viewModel.PageSlugUrl == null ? "" : $@"/{viewModel.PageSlugUrl}";
+                viewModel.Link = PageAddress + viewModel.PageId + slugUrl;
             }
 
             var entity = new Menu()
@@ -175,9 +182,15 @@ namespace Hatra.Services
                     isShow = false;
                 }
 
-                if (viewModel.PageId.HasValue && viewModel.PageId != 0)
+                if (viewModel.CategoryId.HasValue && viewModel.CategoryId != 0)
                 {
-                    viewModel.Link = PageAddress + viewModel.PageId;
+                    var slugUrl = viewModel.CategorySlugUrl == null ? "" : $@"/{viewModel.CategorySlugUrl}";
+                    viewModel.Link = CategoryAddress + viewModel.CategoryId + slugUrl;
+                }
+                else if (viewModel.PageId.HasValue && viewModel.PageId != 0)
+                {
+                    var slugUrl = viewModel.PageSlugUrl == null ? "" : $@"/{viewModel.PageSlugUrl}";
+                    viewModel.Link = PageAddress + viewModel.PageId + slugUrl;
                 }
 
                 entity.Name = viewModel.Name;

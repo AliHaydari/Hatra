@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hatra.Common.WebToolkit;
 
 namespace Hatra.Services
 {
@@ -48,8 +49,6 @@ namespace Hatra.Services
         public async Task<List<DropDownMenuViewModel>> GetAllWithoutCategoryDropDownMenuAsync()
         {
             return await _pages
-                .Include(p => p.Category)
-                .Include(p => p.Images)
                 .Where(p => p.CategoryId == null)
                 .Select(p => new DropDownMenuViewModel()
                 {
@@ -63,8 +62,6 @@ namespace Hatra.Services
         public async Task<List<DropDownMenuViewModel>> GetAllVisibleWithoutCategoryDropDownMenuAsync()
         {
             return await _pages
-                .Include(p => p.Category)
-                .Include(p => p.Images)
                 .Where(p => p.CategoryId == null && p.IsShow)
                 .Select(p => new DropDownMenuViewModel()
                 {
@@ -75,9 +72,33 @@ namespace Hatra.Services
                 .ToListAsync();
         }
 
+        public async Task<List<PageViewModel>> GetAllByCategoryIdAsync(int categoryId)
+        {
+            return await _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Where(p => p.CategoryId == categoryId)
+                .Select(p => new PageViewModel(p))
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<PageViewModel>> GetAllVisibleByCategoryIdAsync(int categoryId)
+        {
+            return await _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Where(p => p.IsShow && p.CategoryId == categoryId)
+                .Select(p => new PageViewModel(p))
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<PageViewModel> GetByIdAsync(int id)
         {
-            var entity = await _pages.FirstOrDefaultAsync(p => p.Id == id);
+            var entity = await _pages
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (entity != null)
             {
@@ -89,7 +110,9 @@ namespace Hatra.Services
 
         public async Task<PageViewModel> GetByIdAndUpdateViewNumberAsync(int id)
         {
-            var entity = await _pages.FirstOrDefaultAsync(p => p.Id == id);
+            var entity = await _pages
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (entity != null)
             {
@@ -111,7 +134,7 @@ namespace Hatra.Services
                 BriefDescription = viewModel.BriefDescription,
                 Body = viewModel.Body,
                 MetaDescription = viewModel.MetaDescription,
-                SlugUrl = viewModel.SlugUrl,
+                SlugUrl = SeoHelpers.GenerateSlug(viewModel.Title),
                 ViewNumber = 0,
                 Image = viewModel.Image,
                 Order = viewModel.Order,
@@ -134,7 +157,7 @@ namespace Hatra.Services
                 entity.BriefDescription = viewModel.BriefDescription;
                 entity.Body = viewModel.Body;
                 entity.MetaDescription = viewModel.MetaDescription;
-                entity.SlugUrl = viewModel.SlugUrl;
+                entity.SlugUrl = SeoHelpers.GenerateSlug(viewModel.Title);
                 entity.Image = viewModel.Image;
                 entity.Order = viewModel.Order;
                 entity.CategoryId = viewModel.CategoryId;
