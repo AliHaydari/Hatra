@@ -136,7 +136,7 @@ namespace Hatra.Services
                 isShow = false;
             }
 
-            if (viewModel.PageId != 0)
+            if (viewModel.PageId.HasValue && viewModel.PageId != 0)
             {
                 viewModel.Link = PageAddress + viewModel.PageId;
             }
@@ -175,7 +175,7 @@ namespace Hatra.Services
                     isShow = false;
                 }
 
-                if (viewModel.PageId != 0)
+                if (viewModel.PageId.HasValue && viewModel.PageId != 0)
                 {
                     viewModel.Link = PageAddress + viewModel.PageId;
                 }
