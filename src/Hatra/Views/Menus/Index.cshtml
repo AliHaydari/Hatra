@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MenuViewModel>
+﻿@model PagedAdminMenuViewModel
 
 @{
     ViewData["Title"] = "مدیریت منو ها";
@@ -9,14 +9,40 @@
         <h5 class="card-title">@ViewData["Title"]</h5>
     </div>
     <div class="card-body">
-        <partial name="_List" model="Model" />
+        <partial name="_List" model="Model.MenuViewModels" />
     </div>
     <footer class="card-footer">
-        <security-trimming asp-area="" asp-controller="Menus" asp-action="RenderCreate">
-            <a class="btn btn-success" asp-controller="Menus" asp-action="RenderCreate">
-                ایجاد یک منو جدید
-            </a>
-        </security-trimming>
+        <div class="form-group row">
+            <security-trimming asp-area="" asp-controller="Menus" asp-action="RenderCreate">
+                <a class="btn btn-success" asp-controller="Menus" asp-action="RenderCreate">
+                    ایجاد یک منو جدید
+                </a>
+            </security-trimming>
+        </div>
+        <div class="form-group row">
+            <cs-pager cs-paging-pagesize="@Model.Paging.ItemsPerPage"
+                      cs-paging-pagenumber="@Model.Paging.CurrentPage"
+                      cs-paging-totalitems="@Model.Paging.TotalItems"
+                      cs-pagenumber-param="page"
+                      asp-controller="Menus"
+                      asp-action="Index"
+                      asp-route-pagesize="@Model.Paging.ItemsPerPage"
+                      cs-show-first-last="true"
+                      cs-suppress-empty-nextprev="true"
+                      cs-suppress-inactive-firstlast="true"
+                      cs-first-page-text="ابتدا"
+                      cs-first-page-title="ابتدا"
+                      cs-last-page-text="انتها"
+                      cs-last-page-title="انتها"
+                      cs-pager-li-current-class="page-item active"
+                      cs-pager-li-other-class="page-item"
+                      cs-pager-li-non-active-class="page-item disabled"
+                      cs-pager-link-current-class="page-link"
+                      cs-pager-link-other-class="page-link"
+                      cs-pager-ul-class="pagination"
+                      cs-next-page-title="بعدی"
+                      cs-previous-page-title="قبلی"></cs-pager>
+        </div>
     </footer>
 </div>
 

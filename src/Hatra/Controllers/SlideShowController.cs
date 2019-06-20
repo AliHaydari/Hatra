@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using DNTBreadCrumb.Core;
+﻿using DNTBreadCrumb.Core;
 using DNTCommon.Web.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.Services.Contracts;
@@ -12,6 +7,9 @@ using Hatra.ViewModels;
 using Hatra.ViewModels.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace Hatra.Controllers
 {

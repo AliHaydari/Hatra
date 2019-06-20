@@ -22,6 +22,7 @@ namespace Hatra.Controllers
         private readonly IPageService _pageService;
         private readonly ICategoryService _categoryService;
 
+        private const int DefaultPageSize = 10;
         private const string RequestNotFound = "صفحه درخواستی یافت نشد.";
 
         public PagesController(IPageService pageService, ICategoryService categoryService)
@@ -35,10 +36,15 @@ namespace Hatra.Controllers
 
         [DisplayName("ایندکس")]
         [BreadCrumb(Title = "ایندکس", Order = 1)]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page = 1)
         {
-            var viewModels = await _pageService.GetAllAsync();
-            return View(viewModels);
+            var model = await _pageService.GetAllPagedAsync(page.Value - 1, DefaultPageSize);
+
+            model.Paging.CurrentPage = page.Value;
+            model.Paging.ItemsPerPage = DefaultPageSize;
+            model.Paging.ShowFirstLast = true;
+
+            return View(model);
         }
 
         [HttpGet]

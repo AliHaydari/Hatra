@@ -1,4 +1,5 @@
 ﻿using Hatra.ViewModels;
+using Hatra.ViewModels.Paged;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace Hatra.Services.Contracts
     public interface ICategoryService
     {
         Task<List<CategoryViewModel>> GetAllAsync();
+        Task<PagedAdminCategoryViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage);
         Task<List<CategoryViewModel>> GetAllVisibleAsync();
         Task<List<DropDownMenuViewModel>> GetAllDropDownMenuAsync();
         Task<List<DropDownMenuViewModel>> GetAllVisibleDropDownMenuAsync();

@@ -1,14 +1,15 @@
-﻿using Hatra.Common.GuardToolkit;
+﻿using EFSecondLevelCache.Core;
+using Hatra.Common.GuardToolkit;
+using Hatra.Common.WebToolkit;
 using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
 using Hatra.ViewModels;
+using Hatra.ViewModels.Paged;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EFSecondLevelCache.Core;
-using Hatra.Common.WebToolkit;
 
 namespace Hatra.Services
 {
@@ -34,6 +35,27 @@ namespace Hatra.Services
                 .Cacheable()
                 .AsNoTracking()
                 .ToListAsync();
+        }
+
+        public async Task<PagedAdminCategoryViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage)
+        {
+            var skipRecords = pageNumber * recordsPerPage;
+
+            var query = _categories
+                .Include(p => p.Pages)
+                .Select(p => new CategoryViewModel(p))
+                .Cacheable()
+                .AsNoTracking();
+
+            return new PagedAdminCategoryViewModel()
+            {
+                Paging =
+                {
+                    TotalItems = await query.CountAsync(),
+                },
+
+                CategoryViewModels = await query.Skip(skipRecords).Take(recordsPerPage).ToListAsync(),
+            };
         }
 
         public async Task<List<CategoryViewModel>> GetAllVisibleAsync()

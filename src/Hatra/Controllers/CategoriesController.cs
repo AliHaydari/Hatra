@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using DNTBreadCrumb.Core;
+﻿using DNTBreadCrumb.Core;
 using DNTCommon.Web.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.Services.Contracts;
@@ -12,6 +7,9 @@ using Hatra.ViewModels;
 using Hatra.ViewModels.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace Hatra.Controllers
 {
@@ -22,6 +20,7 @@ namespace Hatra.Controllers
     {
         private readonly ICategoryService _categoryService;
 
+        private const int DefaultPageSize = 10;
         private const string RequestNotFound = "گروه درخواستی یافت نشد.";
 
         public CategoriesController(ICategoryService categoryService)
@@ -32,10 +31,15 @@ namespace Hatra.Controllers
 
         [DisplayName("ایندکس")]
         [BreadCrumb(Title = "ایندکس", Order = 1)]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page = 1)
         {
-            var viewModels = await _categoryService.GetAllAsync();
-            return View(viewModels);
+            var model = await _categoryService.GetAllPagedAsync(page.Value - 1, DefaultPageSize);
+
+            model.Paging.CurrentPage = page.Value;
+            model.Paging.ItemsPerPage = DefaultPageSize;
+            model.Paging.ShowFirstLast = true;
+
+            return View(model);
         }
 
         [HttpGet]

@@ -1,13 +1,14 @@
 ﻿using Hatra.Common.GuardToolkit;
+using Hatra.Common.WebToolkit;
 using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
 using Hatra.ViewModels;
+using Hatra.ViewModels.Paged;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hatra.Common.WebToolkit;
 
 namespace Hatra.Services
 {
@@ -33,6 +34,27 @@ namespace Hatra.Services
                 .Select(p => new PageViewModel(p))
                 .AsNoTracking()
                 .ToListAsync();
+        }
+
+        public async Task<PagedAdminPageViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage)
+        {
+            var skipRecords = pageNumber * recordsPerPage;
+
+            var query = _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Select(p => new PageViewModel(p))
+                .AsNoTracking();
+
+            return new PagedAdminPageViewModel()
+            {
+                Paging =
+                {
+                    TotalItems = await query.CountAsync(),
+                },
+
+                PageViewModels = await query.Skip(skipRecords).Take(recordsPerPage).ToListAsync(),
+            };
         }
 
         public async Task<List<PageViewModel>> GetAllWithoutCategoryAsync()

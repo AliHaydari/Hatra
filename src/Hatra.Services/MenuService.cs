@@ -1,13 +1,14 @@
-﻿using Hatra.Common.GuardToolkit;
+﻿using EFSecondLevelCache.Core;
+using Hatra.Common.GuardToolkit;
 using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
 using Hatra.ViewModels;
+using Hatra.ViewModels.Paged;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EFSecondLevelCache.Core;
 
 namespace Hatra.Services
 {
@@ -50,6 +51,40 @@ namespace Hatra.Services
                 .Cacheable()
                 .AsNoTracking()
                 .ToListAsync();
+        }
+
+        public async Task<PagedAdminMenuViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage)
+        {
+            var skipRecords = pageNumber * recordsPerPage;
+
+            var query = (from menu in _menus
+                         join parent in _menus on menu.ParentId equals
+                             parent.Id into parent
+                         from menuParent in parent.DefaultIfEmpty()
+                         orderby menu.ParentId, menu.Order
+                         select new MenuViewModel()
+                         {
+                             Id = menu.Id,
+                             Name = menu.Name,
+                             Link = menu.Link,
+                             ParentId = menuParent.Id,
+                             ParentName = menuParent.Name,
+                             Order = menu.Order,
+                             Type = menu.Type,
+                             IsShow = menu.IsShow,
+                             IsMegaMenu = menu.IsMegaMenu,
+                         })
+                .AsNoTracking();
+
+            return new PagedAdminMenuViewModel()
+            {
+                Paging =
+                {
+                    TotalItems = await query.CountAsync(),
+                },
+
+                MenuViewModels = await query.Skip(skipRecords).Take(recordsPerPage).ToListAsync(),
+            };
         }
 
         public async Task<List<DropDownMenuViewModel>> GetAllParentAsync()
