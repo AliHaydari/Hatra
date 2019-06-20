@@ -44,9 +44,11 @@ namespace Hatra.Controllers
         [BreadCrumb(Order = 1)]
         public async Task<IActionResult> RenderCreate()
         {
+            var nextOrder = await _slideShowService.GetNextOrder();
             var viewModel = new SlideShowViewModel()
             {
                 IsShow = true,
+                Order = nextOrder,
             };
 
             return View("Create", viewModel);

@@ -52,10 +52,12 @@ namespace Hatra.Controllers
         [BreadCrumb(Order = 1)]
         public async Task<IActionResult> RenderCreate()
         {
+            var nextOrder = await _menuService.GetNextOrder();
             var viewModel = new MenuViewModel()
             {
                 Link = "#",
                 IsShow = true,
+                Order = nextOrder,
             };
 
             await PopulateMenusAsync(null);

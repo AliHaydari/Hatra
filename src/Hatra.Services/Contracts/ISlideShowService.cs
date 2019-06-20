@@ -14,5 +14,6 @@ namespace Hatra.Services.Contracts
         Task<bool> DeleteAsync(int id);
         Task<bool> CheckExistAsync(int id);
         Task<bool> CheckExistTitleAsync(int? id, string title);
+        Task<int> GetNextOrder();
     }
 }

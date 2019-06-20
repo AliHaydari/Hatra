@@ -14,12 +14,10 @@
                     <span class="input-group-text"><i class="fas fa-image"></i></span>
                 </span>
                 <input asp-for="@item.Url" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
-                <span class="input-group-prepend">
-                    <span class="input-group-text">
-                        <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="حذف">
-                            <i class="fas fa-trash text-danger"></i>
-                        </a>
-                    </span>
+                <span class="input-group-prepend input-group-text">
+                    <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="حذف">
+                        <i class="fas fa-trash text-danger"></i>
+                    </a>
                 </span>
             </div>
         </div>

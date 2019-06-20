@@ -8,6 +8,9 @@
     <script src="~/lib/ckeditor/ckeditor.js" asp-append-version="true"></script>
 }
 
+<!-- Modal placeholder -->
+<div id="modal-placeholder"></div>
+
 <div class="card mt-5">
     <div class="card-header">
         <h5 class="card-title">@ViewData["Title"]</h5>
@@ -39,26 +42,25 @@
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group row">
-                <label asp-for="Image" class="col-md-2 col-form-label text-md-left"></label>
-                <div class="col-md-10">
-                    <input dir="ltr" asp-for="Image" class="form-control" />
-                    <span asp-validation-for="Image" class="text-danger"></span>
-                </div>
-            </div>
+            @*<div class="form-group row">
+                    <label asp-for="Image" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="Image" class="form-control" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                </div>*@
 
             <div class="form-group row">
-            <div class="input-group row">
-                <input asp-for="Image" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
-                <span class="input-group-prepend">
-                    <span class="input-group-text">
-                        <a href="#" id="btnSelectPicture" title="انتخاب تصویر">
+                <label asp-for="Image" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="input-group col-sm-10">
+                    <input id="SelectedImage" asp-for="Image" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
+                    <span class="input-group-prepend input-group-text">
+                        <a href="#" id="btnSelectPicture" data-toggle="tooltip" data-placement="bottom" title="انتخاب تصویر">
                             <i class="fas fa-image text-info"></i>
                         </a>
                     </span>
-                </span>
+                </div>
             </div>
-        </div>
 
             <div class="form-group row">
                 <label asp-for="Link1" class="col-md-2 col-form-label text-md-left"></label>
@@ -110,69 +112,59 @@
             $('form').validate().element('#@nameof(SlideShowViewModel.Title)');
         }
 
-        CKEDITOR.replace('Description', {language: 'fa'});
+        CKEDITOR.replace('Description', { language: 'fa' });
     </script>
 
     <script type="text/javascript">
-        $(function () {
-
-            $('#btnSelectPicture').click(function (e) {
+        $(function() {
+            $('#btnSelectPicture').click(function(e) {
                 e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
 
-                $.bootstrapModalAjaxForm({
-                    postUrl: '@Url.Action("SelectPicture", "Folders")',
-                    renderModalPartialViewUrl: '@Url.Action("RenderAllPicture", "Folders")',
-                    loginUrl: '/identity/login',
-                    beforePostHandler: function() {
-                    },
-                    completeHandler: function (res) {
-                        alert(res);
-                        location.reload();
-                    },
-                    errorHandler: function() {
-                    }
-                });
-            });
+                var mainContainer = "<div id='dialogDiv' class='modal fade'><div id='dialogContent'></div></div>";
 
-        });
-
-        @*$(function () {
-            $(document).on('click', 'img', function (e) {
-                $('img').removeClass("border");
-                var $img = $(this);
-                $($img).addClass("border");
-                $('#@ViewBag.ElementId').val($img.attr('id'));
-            });
-        });*@
-
-        //$('#btnSelectPicture').click(function(e) {
-        //    e.preventDefault();
-        //    $('#dialogDiv').modal('show');
-        //});
-
-        @*$(function() {
-
-            $('#btnSelectPicture').on('click', function(e) {
-                e.preventDefault();
+                $.ajaxSetup({ cache: false });
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("RenderAllPicture", "Folders")',
-                    contentType: "application/json;charset=utf-8",
+                    //data: options.renderModalPartialViewData,
+                    contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    //data: JSON.stringify(response),
-                    complete: function(xhr, status) {
+                    complete: function (xhr, status) {
                         var data = xhr.responseText;
-                    },
-                    success: function(response) {
-                        alert(response['response']);
-                    },
-                    error: function() {
-                        alert('Error');
+                        if (xhr.status === 403 || xhr.status === 401) {
+                            //در حالت لاگین نبودن شخص اجرا می‌شود
+                            var loginLocation = xhr.getResponseHeader('Location');
+                            if (loginLocation) {
+                                window.location = loginLocation;
+                            }
+                            else {
+                                window.location = options.loginUrl;
+                            }
+                        }
+                        else if (status === 'error' || !data) {
+                            //if (options.errorHandler)
+                            //    options.errorHandler();
+                        }
+                        else {
+                            var dialogContainer = "#dialogDiv";
+                            $(dialogContainer).remove();
+                            $(mainContainer).appendTo('body');
+
+                            $('#dialogContent').html(data); // دریافت پویای اطلاعات مودال دیالوگ
+                            $.validator.unobtrusive.parse("#dialogContent"); // فعال سازی اعتبارسنجی فرمی که با ایجکس بارگذاری شده
+                            //enablePostbackValidation();
+                            // و سپس نمایش آن به صورت مودال
+                            $('#dialogDiv').modal({
+                                backdrop: 'static', //با کلیک کاربر روی صفحه، صفحه مودال بسته نمی‌شود
+                                keyboard: true
+                            }, 'show');
+                            // تحت نظر قرار دادن این فرم اضافه شده
+                            //processAjaxForm('#dialogContent');
+                        }
                     }
                 });
-                return false;
-            });
-        });*@
 
+            });
+        });
     </script>
 }

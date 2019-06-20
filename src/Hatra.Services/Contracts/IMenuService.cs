@@ -1,7 +1,5 @@
 ﻿using Hatra.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hatra.Services.Contracts
@@ -17,5 +15,6 @@ namespace Hatra.Services.Contracts
         Task<bool> CheckExistAsync(int id);
         Task<bool> CheckExistNameAsync(int? id, string name);
         Task<bool> CheckExistRelationAsync(int id);
+        Task<int> GetNextOrder();
     }
 }

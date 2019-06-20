@@ -311,14 +311,19 @@ namespace Hatra.Controllers
         }
 
         [AjaxOnly]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         [DisplayName("انتخاب تصویر")]
-        public async Task<IActionResult> SelectPicture(string elementId = "")
+        public async Task<IActionResult> SelectPicture([FromBody]ModelIdViewModel model)
         {
-            ViewBag.ElementId = elementId;
+            if (string.IsNullOrWhiteSpace(model?.Id))
+            {
+                return PartialView("_SelectPicture");
+            }
 
-            return Ok("ok");
+            var pictureViewModel = await _pictureService.GetByIdAsync(Convert.ToInt32(model.Id));
+
+            return new JsonResult(pictureViewModel);
         }
     }
 }

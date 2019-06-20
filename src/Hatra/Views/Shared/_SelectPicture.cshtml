@@ -1,65 +1,80 @@
 ﻿@model IEnumerable<PictureViewModel>
 
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title">انتخاب یک تصویر</h4>
-        </div>
-        <div class="modal-body">
-            @*<div class="container">
-                <div class="row">
-                    @foreach (var item in Model)
-                    {
-                        <div class="col">
-                            <a><img src="@item.ThumbnailUrl" class="img-thumbnail" alt="@item.Name"></a>
-                            <input asp-for="@item.Id" />
-                        </div>
-                    }
-                </div>
-            </div>*@
-
-            <div class="table-responsive">
-                <table class="table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center">نام</th>
-                            <th class="text-center w-50">عملیات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td class="text-center">
-                                    <img src="@item.ThumbnailUrl" class="img-thumbnail" alt="@item.Name">
-                                </td>
-                                <td class="text-center">
-                                    @*<a href="#" id="btnSelect-@item.Id" data-select-id="@item.Id" class="btn btn-sm btn-success">انتخاب</a>*@
-                                    <button id="btnSelect-@item.Id" data-select-id="@item.Id" class="btn btn-success" type="submit" data-dismiss="modal">انتخاب</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-
-                </table>
+<form asp-action="SelectPicture" method="post">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">انتخاب تصویر</h4>
             </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-center">نام</th>
+                                <th class="text-center w-50">عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        <img src="@item.ThumbnailUrl" class="img-thumbnail" alt="@item.Name">
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="#" id="btnSelect-@item.Id" data-select-id="@item.Id" class="btn btn-sm btn-success">انتخاب</a>
+                                        @*<button id="btnSelect-@item.Id" data-select-id="@item.Id" class="btn btn-success" type="submit" data-dismiss="modal">انتخاب</button>*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
 
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-success" type="submit">تائید</button>
-            <button class="btn" data-dismiss="modal" aria-hidden="true">انصراف</button>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                @*<button class="btn btn-primary" type="submit">ثبت</button>*@
+                <button class="btn" data-dismiss="modal" aria-hidden="true">انصراف</button>
+            </div>
         </div>
     </div>
-</div>
+</form>
 
-@*<script type="text/javascript">
-        $(function () {
-            $(document).on('click', 'img', function (e) {
-                $('img').removeClass("border");
-                var $img = $(this);
-                $($img).addClass("border");
-                $('#@ViewBag.ElementId').val($img.attr('id'));
+<script type="text/javascript">
+    $(function() {
+        $("a[id^='btnSelect']").click(function (e) {
+            e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+            var selectId = $(this).data("select-id");
+            var actionUrl = '@Url.Action("SelectPicture", "Folders")';
+
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                data: JSON.stringify({ "id": selectId }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result) {
+                        $('#dialogDiv').modal('hide');
+                        $("#SelectedImage").val(result.url);
+                        //if (options.completeHandler)
+                        //    options.completeHandler();
+                    } else {
+                        $('#dialogContent').html(result);
+
+                        //$.validator.unobtrusive.parse("#dialogContent");
+                        //enablePostbackValidation();
+                        //processAjaxForm('#dialogContent');
+
+                        //if (options.errorHandler)
+                        //    options.errorHandler();
+                    }
+                }
+            });
+
             });
         });
-    </script>*@
+</script>
