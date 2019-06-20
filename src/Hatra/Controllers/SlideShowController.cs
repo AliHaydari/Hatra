@@ -22,6 +22,7 @@ namespace Hatra.Controllers
     {
         private readonly ISlideShowService _slideShowService;
 
+        private const int DefaultPageSize = 10;
         private const string RequestNotFound = "اسلاید شو درخواستی یافت نشد.";
 
         public SlideShowController(ISlideShowService slideShowService)
@@ -32,11 +33,15 @@ namespace Hatra.Controllers
 
         [DisplayName("ایندکس")]
         [BreadCrumb(Title = "ایندکس", Order = 1)]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page = 1)
         {
-            var viewModels = await _slideShowService.GetAllAsync();
+            var model = await _slideShowService.GetAllPagedAsync(page.Value - 1, DefaultPageSize);
 
-            return View(viewModels);
+            model.Paging.CurrentPage = page.Value;
+            model.Paging.ItemsPerPage = DefaultPageSize;
+            model.Paging.ShowFirstLast = true;
+
+            return View(model);
         }
 
         [HttpGet]

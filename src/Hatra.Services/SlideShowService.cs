@@ -4,6 +4,7 @@ using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
 using Hatra.ViewModels;
+using Hatra.ViewModels.Paged;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,26 @@ namespace Hatra.Services
                 .Cacheable()
                 .AsNoTracking()
                 .ToListAsync();
+        }
+
+        public async Task<PagedAdminSlideShowViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage)
+        {
+            var skipRecords = pageNumber * recordsPerPage;
+
+            var query = _slideShows
+                .OrderBy(p => p.Order)
+                .Select(p => new SlideShowViewModel(p))
+                .AsNoTracking();
+
+            return new PagedAdminSlideShowViewModel()
+            {
+                Paging =
+                {
+                    TotalItems = await query.CountAsync(),
+                },
+
+                SlideShowViewModels = await query.Skip(skipRecords).Take(recordsPerPage).ToListAsync(),
+            };
         }
 
         public async Task<List<SlideShowViewModel>> GetAllVisibleAsync()
