@@ -256,7 +256,7 @@ namespace Hatra.Services
 
         public async Task<int> GetNextOrder()
         {
-            return await _menus.MaxAsync(p => p.Order) + 1;
+            return (await _menus.MaxAsync(p => (int?)p.Order)).GetValueOrDefault() + 1;
         }
     }
 }

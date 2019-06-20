@@ -128,7 +128,7 @@ namespace Hatra.Services
 
         public async Task<int> GetNextOrder()
         {
-            return await _slideShows.MaxAsync(p => p.Order) + 1;
+            return (await _slideShows.MaxAsync(p => (int?)p.Order)).GetValueOrDefault() + 1;
         }
 
     }
