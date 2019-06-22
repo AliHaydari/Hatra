@@ -1,7 +1,13 @@
-﻿@model PageViewModel
+﻿@using cloudscribe.Web.Common.Models
+@using cloudscribe.Web.Common.Components
+@using Microsoft.Extensions.Options
+@inject ICkeditorOptionsResolver editorOptionsResolver
+
+@model PageViewModel
 
 @{
     ViewData["Title"] = "ایجاد یک صفحه جدید";
+    var ckOptions = await editorOptionsResolver.GetCkeditorOptions();
 }
 
 @section styles{
@@ -44,6 +50,15 @@
                     </span>
                 </div>
             </div>
+
+            @*<textarea class="form-control" rows="5" asp-for="Body"
+                      data-ckeditor-unobtrusive=""
+                      data-ckeditor-config-url="@ckOptions.CustomConfigPath"
+                      data-ckeditor-config-language="@ckOptions.LanguageCode"
+                      data-ckeditor-config-dropfileuploadurl="@ckOptions.DropFileUrl"
+                      data-ckeditor-config-filebrowserurl="@ckOptions.FileBrowseUrl"
+                      data-ckeditor-config-imagebrowseurl="@ckOptions.ImageBrowseUrl"></textarea>
+            @{ await Html.RenderPartialAsync("_UnobtrusiveEditorScriptsPartial"); }*@
 
             <div class="form-group row">
                 <label asp-for="Body" class="col-md-2 col-form-label text-md-left"></label>

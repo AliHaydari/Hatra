@@ -41,6 +41,29 @@ namespace Hatra
             services.AddScoped<FilesHelper, FilesHelper>();
             services.AddScoped<FileUploadUtilities, FileUploadUtilities>();
 
+            //FileManager
+            services.AddAuthorization(options =>
+            {
+                //FileManagerDeletePolicy
+                options.AddPolicy("FileManagerPolicy",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireRole("Admin");
+                    });
+
+                options.AddPolicy("FileUploadPolicy",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireRole("Admin");
+                    });
+
+                options.AddPolicy("FileManagerDeletePolicy",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireRole("Admin");
+                    });
+            });
+
             var siteSettings = services.GetSiteSettings();
             services.AddRequiredEfInternalServices(siteSettings); // It's added to access services from the dbcontext, remove it if you are using the normal `AddDbContext` and normal constructor dependency injection.
             services.AddDbContextPool<ApplicationDbContext>((serviceProvider, optionsBuilder) =>
@@ -63,6 +86,11 @@ namespace Hatra
             services.AddDNTCommonWeb();
             services.AddDNTCaptcha();
             services.AddCloudscribePagination();
+
+            //FileManager
+            services.AddCloudscribeCommmon(Configuration);
+            services.AddCloudscribeFileManagerIntegration(Configuration);
+            services.AddCloudscribeFileManager(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -90,6 +118,9 @@ namespace Hatra
 
             app.UseMvc(routes =>
             {
+                //FileManager
+                routes.AddCloudscribeFileManagerRoutes();
+
                 routes.MapRoute(
                     name: "areas",
                     template: "{area:exists}/{controller=Account}/{action=Index}/{id?}");
