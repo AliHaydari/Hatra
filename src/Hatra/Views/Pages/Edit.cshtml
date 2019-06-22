@@ -32,6 +32,19 @@
                     <span asp-validation-for="BriefDescription" class="text-danger"></span>
                 </div>
             </div>
+
+            <div class="form-group row">
+                <label asp-for="Image" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="input-group col-sm-10">
+                    <input id="SelectedImage" asp-for="Image" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
+                    <span class="input-group-prepend input-group-text">
+                        <a href="#" id="btnSelectPicture" data-toggle="tooltip" data-placement="bottom" title="انتخاب تصویر">
+                            <i class="fas fa-image text-info"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label asp-for="Body" class="col-md-2 col-form-label text-md-left"></label>
                 <div class="col-md-10">
@@ -77,8 +90,61 @@
         function triggerRemoteValidation() {
             $('#@nameof(PageViewModel.Title)').removeData('previousValue');
             $('form').validate().element('#@nameof(PageViewModel.Title)');
-            }
+        }
 
         CKEDITOR.replace('Body', {language: 'fa'});
+    </script>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#btnSelectPicture').click(function(e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+
+                var mainContainer = "<div id='dialogDiv' class='modal fade'><div id='dialogContent'></div></div>";
+
+                $.ajaxSetup({ cache: false });
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RenderAllPicture", "Folders")',
+                    //data: options.renderModalPartialViewData,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    complete: function (xhr, status) {
+                        var data = xhr.responseText;
+                        if (xhr.status === 403 || xhr.status === 401) {
+                            //در حالت لاگین نبودن شخص اجرا می‌شود
+                            var loginLocation = xhr.getResponseHeader('Location');
+                            if (loginLocation) {
+                                window.location = loginLocation;
+                            }
+                            else {
+                                window.location = options.loginUrl;
+                            }
+                        }
+                        else if (status === 'error' || !data) {
+                            //if (options.errorHandler)
+                            //    options.errorHandler();
+                        }
+                        else {
+                            var dialogContainer = "#dialogDiv";
+                            $(dialogContainer).remove();
+                            $(mainContainer).appendTo('body');
+
+                            $('#dialogContent').html(data); // دریافت پویای اطلاعات مودال دیالوگ
+                            $.validator.unobtrusive.parse("#dialogContent"); // فعال سازی اعتبارسنجی فرمی که با ایجکس بارگذاری شده
+                            //enablePostbackValidation();
+                            // و سپس نمایش آن به صورت مودال
+                            $('#dialogDiv').modal({
+                                backdrop: 'static', //با کلیک کاربر روی صفحه، صفحه مودال بسته نمی‌شود
+                                keyboard: true
+                            }, 'show');
+                            // تحت نظر قرار دادن این فرم اضافه شده
+                            //processAjaxForm('#dialogContent');
+                        }
+                    }
+                });
+
+            });
+        });
     </script>
 }
