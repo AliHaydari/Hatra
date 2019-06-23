@@ -41,7 +41,8 @@ namespace Hatra.Services
             var skipRecords = pageNumber * recordsPerPage;
 
             var query = _slideShows
-                .OrderBy(p => p.Order)
+                .OrderByDescending(p=>p.Id)
+                .ThenBy(p => p.Order)
                 .Select(p => new SlideShowViewModel(p))
                 .AsNoTracking();
 

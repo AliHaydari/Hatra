@@ -44,6 +44,7 @@ namespace Hatra.Services
                 .Include(p => p.Category)
                 .Include(p => p.Images)
                 .Select(p => new PageViewModel(p))
+                .OrderByDescending(p => p.Id)
                 .AsNoTracking();
 
             return new PagedAdminPageViewModel()
@@ -124,6 +125,7 @@ namespace Hatra.Services
                 .Include(p => p.Category)
                 .Include(p => p.Images)
                 .Where(p => p.IsShow && p.CategoryId == categoryId)
+                .OrderByDescending(p => p.Id)
                 .Select(p => new PageViewModel(p))
                 .AsNoTracking();
 

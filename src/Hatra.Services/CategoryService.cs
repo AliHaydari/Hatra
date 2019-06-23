@@ -43,6 +43,7 @@ namespace Hatra.Services
 
             var query = _categories
                 .Include(p => p.Pages)
+                .OrderByDescending(p => p.Id)
                 .Select(p => new CategoryViewModel(p))
                 .Cacheable()
                 .AsNoTracking();
