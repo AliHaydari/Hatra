@@ -13,7 +13,14 @@
                 <span class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-image"></i></span>
                 </span>
-                <input asp-for="@item.Url" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
+                <input asp-for="@item.Url" id="path-@item.Id" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
+
+                <span class="input-group-prepend input-group-text">
+                    <a href="#" id="btnCopy-@item.Id" data-copy-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="ذخیره مسیر">
+                        <i class="fas fa-copy text-success"></i>
+                    </a>
+                </span>
+
                 <span class="input-group-prepend input-group-text">
                     <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="حذف">
                         <i class="fas fa-trash text-danger"></i>
@@ -28,6 +35,8 @@
         </div>
     </div>
 }
+
+<div id="alert_placeholder"></div>
 
 @section Scripts
 {
@@ -51,6 +60,35 @@
                     errorHandler: function () {
                     }
                 });
+            });
+
+        });
+
+        $(function () {
+
+            $("a[id^='btnCopy']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var copyId = $(this).data("copy-id");
+
+                var textBoxId = 'path-' + copyId;
+                var textBox = $("#" + textBoxId);
+
+                var textBoxValue = textBox.val();
+
+                textBox.focus();
+                textBox.select();
+
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'alert-success' : 'alert-danger';
+
+                var alertHtml= '<div class="alert '+msg+' alert-dismissible fade show" role="alert">'+
+                    '<strong>'+textBoxValue+'</strong>'+
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                    '<span aria-hidden="true">&times;</span>'+
+                    '</button>'+
+                    '</div>';
+
+                $('#alert_placeholder').html(alertHtml);
             });
 
         });
