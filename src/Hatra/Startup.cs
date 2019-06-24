@@ -4,6 +4,7 @@ using DNTCommon.Web.Core;
 using EFSecondLevelCache.Core;
 using Hatra.Common.WebToolkit;
 using Hatra.DataLayer.Context;
+using Hatra.Elastic;
 using Hatra.FileUpload;
 using Hatra.IocConfig;
 using Hatra.ViewModels.Identity.Settings;
@@ -63,6 +64,16 @@ namespace Hatra
             services.AddDNTCommonWeb();
             services.AddDNTCaptcha();
             services.AddCloudscribePagination();
+
+
+            // Get the connection settings from appsettings.json and inject them into ElasticConnectionSettings
+            services.AddOptions();
+            services.Configure<ElasticConnectionSettings>(Configuration.GetSection("ElasticConnectionSettings"));
+
+            services.AddSingleton(typeof(ElasticClientProvider));
+            services.AddTransient(typeof(DataIndexer));
+
+            services.AddTransient(typeof(SearchService));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

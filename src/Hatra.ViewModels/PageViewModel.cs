@@ -92,8 +92,8 @@ namespace Hatra.ViewModels
 
         public int CreatedByUserId { get; set; }
         public string CreatedUserName { get; set; }
-        public string CreatedUserNameSlugUrl => SeoHelpers.GenerateSlug(CreatedUserName);
+        public string CreatedUserNameSlugUrl => string.IsNullOrWhiteSpace(CreatedUserName) ? "" : SeoHelpers.GenerateSlug(CreatedUserName);
 
-        public DateTimeOffset CreatedDateTime { get; set; }
+        public DateTimeOffset CreatedDateTime { get; set; } = DateTimeOffset.Now;
     }
 }

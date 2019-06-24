@@ -28,6 +28,7 @@
     <PackageReference Include="EFSecondLevelCache.Core" Version="2.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="NEST" Version="6.8.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

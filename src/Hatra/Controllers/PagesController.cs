@@ -1,6 +1,7 @@
 ﻿using DNTBreadCrumb.Core;
 using DNTCommon.Web.Core;
 using Hatra.Common.GuardToolkit;
+using Hatra.Elastic;
 using Hatra.Services.Contracts;
 using Hatra.Services.Identity;
 using Hatra.ViewModels;
@@ -21,17 +22,20 @@ namespace Hatra.Controllers
     {
         private readonly IPageService _pageService;
         private readonly ICategoryService _categoryService;
+        private readonly DataIndexer indexer;
 
         private const int DefaultPageSize = 10;
         private const string RequestNotFound = "صفحه درخواستی یافت نشد.";
 
-        public PagesController(IPageService pageService, ICategoryService categoryService)
+        public PagesController(IPageService pageService, ICategoryService categoryService, DataIndexer dataIndexer)
         {
             _pageService = pageService;
             _pageService.CheckArgumentIsNull(nameof(_pageService));
 
             _categoryService = categoryService;
             _categoryService.CheckArgumentIsNull(nameof(_categoryService));
+
+            indexer = dataIndexer;
         }
 
         [DisplayName("ایندکس")]
@@ -78,6 +82,7 @@ namespace Hatra.Controllers
                 var result = await _pageService.InsertAsync(viewModel);
                 if (result)
                 {
+                    //var response = await indexer.IndexMyPages(viewModel);
                     return RedirectToAction("Index", "Pages");
                 }
 

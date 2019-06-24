@@ -12,6 +12,11 @@ namespace Hatra.Common.WebToolkit
         private const int MaxLenghtSlug = 45;
         public static string GenerateSlug(string title)
         {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                return "";
+            }
+
             var slug = RemoveAccent(title).ToLower();
             slug = Regex.Replace(slug, @"[^a-z0-9-\u0600-\u06FF]", "-");
             slug = Regex.Replace(slug, @"\s+", "-").Trim();
