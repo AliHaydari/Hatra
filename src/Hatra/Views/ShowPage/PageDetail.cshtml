@@ -32,11 +32,11 @@
                     <a href="#">
                         @if (!string.IsNullOrWhiteSpace(Model.Image))
                         {
-                            <img src="@Model.Image" alt="@Model.Title">
+                            <img src="@Model.Image" alt="@Model.Title" onerror="this.style.display = 'none'">
                         }
                         else
                         {
-                            <img src="/lib/deconsultrtl/assets/images/blog/lg/blog-image-lg-1.jpg" alt="blog image">
+                            <img src="/lib/deconsultrtl/assets/images/blog/lg/blog-image-lg-1.jpg" alt="blog image" onerror="this.style.display = 'none'">
                         }
                     </a>
                 </div>

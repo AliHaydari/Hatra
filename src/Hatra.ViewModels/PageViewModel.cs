@@ -79,5 +79,11 @@ namespace Hatra.ViewModels
         public string CreateDateTime { get; set; }
 
         public List<PageImageViewModel> PageImageViewModels { get; set; }
+
+
+        public string ImageName => Image?.Remove(0, 21).Substring(0, 32);
+        public string ImageExtension => Image?.Remove(0, 21).Remove(0, 33);
+        public string ImageThumbnail => ImageName + "370x200." + ImageExtension;
+        public string ImageThumbnailPath => "/UploadedFiles/Files/thumbs/" + ImageThumbnail;
     }
 }

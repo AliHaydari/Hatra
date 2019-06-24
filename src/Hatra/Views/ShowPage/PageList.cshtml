@@ -36,7 +36,14 @@
                                 <div class="tm-blog wow fadeInUp">
                                     <div class="tm-blog-image">
                                         <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">
-                                            <img src="/lib/deconsultrtl/assets/images/blog/blog-image-1.jpg" alt="blog image">
+                                            @if (!string.IsNullOrWhiteSpace(item.Image))
+                                            {
+                                                <img src="@item.Image" alt="@item.ImageName" onerror="this.style.display = 'none'">
+                                            }
+                                            else
+                                            {
+                                                <img src="/lib/deconsultrtl/assets/images/blog/blog-image-1.jpg" alt="@item.SlugUrl" onerror="this.style.display = 'none'">
+                                            }
                                         </a>
                                     </div>
                                     <div class="tm-blog-content">
@@ -57,29 +64,29 @@
                 </div>
 
                 <div class="tm-pagination mt-50">
-                        <cs-pager cs-paging-pagesize="@Model.Paging.ItemsPerPage"
-                                  cs-paging-pagenumber="@Model.Paging.CurrentPage"
-                                  cs-paging-totalitems="@Model.Paging.TotalItems"
-                                  cs-pagenumber-param="page"
-                                  asp-controller="ShowPage"
-                                  asp-action="ShowCategory"
-                                  asp-route-pagesize="@Model.Paging.ItemsPerPage"
-                                  asp-route-id="@Model.CategoryViewModel.Id"
-                                  cs-show-first-last="true"
-                                  cs-suppress-empty-nextprev="true"
-                                  cs-suppress-inactive-firstlast="true"
-                                  cs-first-page-text="ابتدا"
-                                  cs-first-page-title="ابتدا"
-                                  cs-last-page-text="انتها"
-                                  cs-last-page-title="انتها"
-                                  cs-pager-li-current-class="is-active"
-                                  cs-pager-li-non-active-class=""
-                                  cs-pager-ul-class=""
-                                  cs-pager-li-other-class=""
-                                  cs-pager-link-current-class=""
-                                  cs-pager-link-other-class=""
-                                  cs-next-page-title="بعدی"
-                                  cs-previous-page-title="قبلی"></cs-pager>
+                    <cs-pager cs-paging-pagesize="@Model.Paging.ItemsPerPage"
+                              cs-paging-pagenumber="@Model.Paging.CurrentPage"
+                              cs-paging-totalitems="@Model.Paging.TotalItems"
+                              cs-pagenumber-param="page"
+                              asp-controller="ShowPage"
+                              asp-action="ShowCategory"
+                              asp-route-pagesize="@Model.Paging.ItemsPerPage"
+                              asp-route-id="@Model.CategoryViewModel.Id"
+                              cs-show-first-last="true"
+                              cs-suppress-empty-nextprev="true"
+                              cs-suppress-inactive-firstlast="true"
+                              cs-first-page-text="ابتدا"
+                              cs-first-page-title="ابتدا"
+                              cs-last-page-text="انتها"
+                              cs-last-page-title="انتها"
+                              cs-pager-li-current-class="is-active"
+                              cs-pager-li-non-active-class=""
+                              cs-pager-ul-class=""
+                              cs-pager-li-other-class=""
+                              cs-pager-link-current-class=""
+                              cs-pager-link-other-class=""
+                              cs-next-page-title="بعدی"
+                              cs-previous-page-title="قبلی"></cs-pager>
                 </div>
             </div>
         </div>
