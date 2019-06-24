@@ -4,6 +4,8 @@
     ViewData["Title"] = "لیست تصاویر";
 }
 
+<div id="alert_placeholder"></div>
+
 @foreach (var item in Model)
 {
     <div class="form-group row">
@@ -35,8 +37,6 @@
         </div>
     </div>
 }
-
-<div id="alert_placeholder"></div>
 
 @section Scripts
 {
@@ -79,10 +79,11 @@
                 textBox.select();
 
                 var successful = document.execCommand('copy');
-                var msg = successful ? 'alert-success' : 'alert-danger';
+                var msgClass = successful ? 'alert-success' : 'alert-danger';
+                var msgText = successful ? ' - کپی شد ' : ' - کپی نشد ';
 
-                var alertHtml= '<div class="alert '+msg+' alert-dismissible fade show" role="alert">'+
-                    '<strong>'+textBoxValue+'</strong>'+
+                var alertHtml= '<div class="alert '+msgClass+' alert-dismissible fade show" role="alert">'+
+                    '<strong>'+textBoxValue+'</strong>'+msgText+
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                     '<span aria-hidden="true">&times;</span>'+
                     '</button>'+
