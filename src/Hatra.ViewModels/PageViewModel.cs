@@ -1,9 +1,12 @@
-﻿using Hatra.Entities;
+﻿using System;
+using Hatra.Entities;
 using Hatra.ViewModels.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using DNTPersianUtils.Core;
+using Hatra.Common.WebToolkit;
 
 namespace Hatra.ViewModels
 {
@@ -73,10 +76,10 @@ namespace Hatra.ViewModels
         [Display(Name = "گروه")]
         public string CategoryName { get; set; }
 
+        public string CategorySlugUrl { get; set; }
+
         [Display(Name = "نمایش داده شود")]
         public bool IsShow { get; set; }
-
-        public string CreateDateTime { get; set; }
 
         public List<PageImageViewModel> PageImageViewModels { get; set; }
 
@@ -85,5 +88,12 @@ namespace Hatra.ViewModels
         public string ImageExtension => Image?.Remove(0, 21).Remove(0, 33);
         public string ImageThumbnail => ImageName + "370x200." + ImageExtension;
         public string ImageThumbnailPath => "/UploadedFiles/Files/thumbs/" + ImageThumbnail;
+        public string CreatedPersianDateTime => CreatedDateTime.ToLongPersianDateString().ToPersianNumbers();
+
+        public int CreatedByUserId { get; set; }
+        public string CreatedUserName { get; set; }
+        public string CreatedUserNameSlugUrl => SeoHelpers.GenerateSlug(CreatedUserName);
+
+        public DateTimeOffset CreatedDateTime { get; set; }
     }
 }

@@ -1,15 +1,21 @@
 ﻿@model PagedPageViewModel
 
 @{
-    ViewData["Title"] = Model.CategoryViewModel.Name;
     Layout = "~/Views/Shared/_LayoutN.cshtml";
+    int userId = Model.PageViewModels.FirstOrDefault()?.CreatedByUserId ?? 0;
+    string userName = Model.PageViewModels.FirstOrDefault()?.CreatedUserName ?? "";
+
+    ViewData["Title"] = $@"مطالب نوشته توسط {userName}";
 }
 
 <!-- Breadcrumb Area -->
 <div class="tm-breadcrumb-area tm-padding-section text-center" data-overlay="1" data-bgimage="/lib/deconsultrtl/assets/images/bg/bg-breadcrumb.jpg">
     <div class="container">
         <div class="tm-breadcrumb">
-            <h2 class="tm-breadcrumb-title">@Model.CategoryViewModel.Name</h2>
+            @if (!string.IsNullOrWhiteSpace(userName))
+            {
+                <h2 class="tm-breadcrumb-title">مطالب نوشته توسط @userName</h2>
+            }
             <ul>
                 <li><a href="~/">خانه</a></li>
                 @*
@@ -48,8 +54,11 @@
                                     </div>
                                     <div class="tm-blog-content">
                                         <div class="tm-blog-meta">
-                                            <span><i class="fa fa-user-o"></i>توسط<a href="~/author/@item.CreatedByUserId/@item.CreatedUserNameSlugUrl"> @item.CreatedUserName </a></span>
                                             <span><i class="fa fa-calendar-o"></i>@item.CreatedPersianDateTime</span>
+                                            @if (item.CategoryId.HasValue)
+                                            {
+                                                <span><i class="fa fa-folder-o"></i><a href="~/category/@item.CategoryId/@item.CategorySlugUrl">@item.CategoryName</a></span>
+                                            }
                                         </div>
                                         <h5><a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">@item.Title</a></h5>
                                         <p>@item.BriefDescription</p>
@@ -69,9 +78,9 @@
                               cs-paging-totalitems="@Model.Paging.TotalItems"
                               cs-pagenumber-param="page"
                               asp-controller="ShowPage"
-                              asp-action="ShowCategory"
+                              asp-action="ShowPagesByUser"
                               asp-route-pagesize="@Model.Paging.ItemsPerPage"
-                              asp-route-id="@Model.CategoryViewModel.Id"
+                              asp-route-id="@userId"
                               cs-show-first-last="true"
                               cs-suppress-empty-nextprev="true"
                               cs-suppress-inactive-firstlast="true"

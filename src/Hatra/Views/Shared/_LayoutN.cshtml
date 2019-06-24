@@ -1,4 +1,5 @@
-﻿
+﻿@using Hatra.Common.WebToolkit
+
 @{
     var pageTitle = ViewData["Title"] ?? "تحلیلگران هوشمند آریا سیستم";
 }
@@ -8,10 +9,52 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
+    <meta name="description" content="تحلیلگران هوشمند آریا سیستم">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" href="~/assets/base/favicon.png">
-    <link rel="shortcut icon" href="~/assets/base/favicon.ico">
+    <link rel="shortcut icon" href="~/assets/base/favicon.ico" type="image/x-icon">
+
+
+    <meta property="og:type" content="نوع صفحه" />
+    <meta property="og:url" content="آدرس صفحه" />
+    <meta property="og:image" content="آدرس عکس" />
+    <meta property="og:audio" content="آدرس ویدیو" />
+    <meta property="og:description" content="توضیحات صفحه" />
+
+    <meta property="og:locale" content="fa_IR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@pageTitle" />
+    <meta property="og:description" content="تحلیلگران هوشمند آریا سیستم" />
+    <meta property="og:url" content="http://www.hatra24.ir/" />
+    <meta property="og:site_name" content="هاترا" />
+
+
+    <meta name="title" content="@pageTitle">
+    <link rel="canonical" href="https://www.hatra24.ir/">
+
+    @* Iris *@
+    <meta http-equiv="Content-Language" content="fa" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="application-name" content="@ViewBag.SiteName" />
+    <title>@SeoHelpers.GeneratePageTitle(ViewBag.Title, ViewBag.SiteName)</title>
+    @*<link rel="canonical" href="@(Request.Url?.AbsoluteUri)" />*@
+    @if (!string.IsNullOrWhiteSpace(ViewBag.Keywords))
+    {
+        <meta name="keywords" content="@ViewBag.Keywords" />
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.MetaDescription))
+    {
+        <meta name="description" content="@ViewBag.MetaDescription" />
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.LastModified))
+    {
+        <meta http-equiv="last-modified" content="@ViewBag.LastModified" />
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.Author))
+    {
+        @*<meta name="author" content="@ViewBag.Author (@Request.Url)" />*@
+    }
+
 
     <link rel="stylesheet" href="/lib/deconsultrtl/assets/css/bootstrap.min.css" asp-append-version="true">
     <link rel="stylesheet" href="/lib/deconsultrtl/assets/css/plugins.css" asp-append-version="true">

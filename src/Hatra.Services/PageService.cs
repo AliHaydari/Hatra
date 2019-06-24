@@ -1,4 +1,5 @@
-﻿using Hatra.Common.GuardToolkit;
+﻿using System;
+using Hatra.Common.GuardToolkit;
 using Hatra.Common.WebToolkit;
 using Hatra.DataLayer.Context;
 using Hatra.Entities;
@@ -125,8 +126,77 @@ namespace Hatra.Services
                 .Include(p => p.Category)
                 .Include(p => p.Images)
                 .Where(p => p.IsShow && p.CategoryId == categoryId)
+                .Where(p => p.CategoryId.HasValue ? (p.Category.IsShow == true) : true)
                 .OrderByDescending(p => p.Id)
-                .Select(p => new PageViewModel(p))
+                .Select(p => new PageViewModel(p)
+                {
+                    CreatedByUserId = EF.Property<int>(p, "CreatedByUserId"),
+                    CreatedDateTime = EF.Property<DateTimeOffset>(p, "CreatedDateTime"),
+                })
+                .AsNoTracking();
+
+            return new PagedPageViewModel()
+            {
+                Paging =
+                {
+                    TotalItems = await query.CountAsync(),
+                },
+                CategoryViewModel = new CategoryViewModel(),
+                PageViewModels = await query.Skip(skipRecords).Take(recordsPerPage).ToListAsync(),
+            };
+        }
+
+        public async Task<PagedPageViewModel> GetAllPagedVisibleByUserIdAsync(int userId, int pageNumber, int recordsPerPage)
+        {
+            var skipRecords = pageNumber * recordsPerPage;
+
+            var query = _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Where(p => p.IsShow && EF.Property<int>(p, "CreatedByUserId") == userId)
+                .Where(p => p.CategoryId.HasValue ? (p.Category.IsShow == true) : true)
+                .OrderByDescending(p => p.Id)
+                .Select(p => new PageViewModel(p)
+                {
+                    CreatedByUserId = EF.Property<int>(p, "CreatedByUserId"),
+                    CreatedDateTime = EF.Property<DateTimeOffset>(p, "CreatedDateTime"),
+
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name ?? "",
+                    CategorySlugUrl = p.Category.SlugUrl ?? "",
+                })
+                .AsNoTracking();
+
+            return new PagedPageViewModel()
+            {
+                Paging =
+                {
+                    TotalItems = await query.CountAsync(),
+                },
+                CategoryViewModel = new CategoryViewModel(),
+                PageViewModels = await query.Skip(skipRecords).Take(recordsPerPage).ToListAsync(),
+            };
+        }
+
+        public async Task<PagedPageViewModel> GetAllPagedVisibleByUserIdAndSlugUrlAsync(int userId, string slugUrl, int pageNumber, int recordsPerPage)
+        {
+            var skipRecords = pageNumber * recordsPerPage;
+
+            var query = _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Where(p => p.IsShow && EF.Property<int>(p, "CreatedByUserId") == userId && p.SlugUrl == slugUrl)
+                .Where(p => p.CategoryId.HasValue ? (p.Category.IsShow == true) : true)
+                .OrderByDescending(p => p.Id)
+                .Select(p => new PageViewModel(p)
+                {
+                    CreatedByUserId = EF.Property<int>(p, "CreatedByUserId"),
+                    CreatedDateTime = EF.Property<DateTimeOffset>(p, "CreatedDateTime"),
+
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name ?? "",
+                    CategorySlugUrl = p.Category.SlugUrl ?? "",
+                })
                 .AsNoTracking();
 
             return new PagedPageViewModel()
@@ -165,7 +235,38 @@ namespace Hatra.Services
                 entity.ViewNumber++;
                 await _unitOfWork.SaveChangesAsync();
 
-                return new PageViewModel(entity);
+                var createdByUserId = _unitOfWork.GetShadowPropertyValue<int>(entity, "CreatedByUserId");
+                var createdDateTime = _unitOfWork.GetShadowPropertyValue(entity, "CreatedDateTime");
+
+                return new PageViewModel(entity)
+                {
+                    CreatedByUserId = createdByUserId,
+                    CreatedDateTime = (DateTimeOffset)createdDateTime,
+                };
+            }
+
+            return null;
+        }
+
+        public async Task<PageViewModel> GetByIdAndSlugUrlAndUpdateViewNumberAsync(int id, string slugUrl)
+        {
+            var entity = await _pages
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.Id == id && p.SlugUrl == slugUrl);
+
+            if (entity != null)
+            {
+                entity.ViewNumber++;
+                await _unitOfWork.SaveChangesAsync();
+
+                var createdByUserId = _unitOfWork.GetShadowPropertyValue<int>(entity, "CreatedByUserId");
+                var createdDateTime = _unitOfWork.GetShadowPropertyValue(entity, "CreatedDateTime");
+
+                return new PageViewModel(entity)
+                {
+                    CreatedByUserId = createdByUserId,
+                    CreatedDateTime = (DateTimeOffset)createdDateTime,
+                };
             }
 
             return null;

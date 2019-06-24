@@ -15,8 +15,11 @@ namespace Hatra.Services.Contracts
         Task<List<PageViewModel>> GetAllByCategoryIdAsync(int categoryId);
         Task<List<PageViewModel>> GetAllVisibleByCategoryIdAsync(int categoryId);
         Task<PagedPageViewModel> GetAllPagedVisibleByCategoryIdAsync(int categoryId, int pageNumber, int recordsPerPage);
+        Task<PagedPageViewModel> GetAllPagedVisibleByUserIdAsync(int userId, int pageNumber, int recordsPerPage);
+        Task<PagedPageViewModel> GetAllPagedVisibleByUserIdAndSlugUrlAsync(int userId, string slugUrl, int pageNumber, int recordsPerPage);
         Task<PageViewModel> GetByIdAsync(int id);
         Task<PageViewModel> GetByIdAndUpdateViewNumberAsync(int id);
+        Task<PageViewModel> GetByIdAndSlugUrlAndUpdateViewNumberAsync(int id, string slugUrl);
         Task<bool> InsertAsync(PageViewModel viewModel);
         Task<bool> UpdateAsync(PageViewModel viewModel);
         Task<bool> DeleteAsync(int id);

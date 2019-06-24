@@ -111,6 +111,20 @@ namespace Hatra.Services
             return null;
         }
 
+        public async Task<CategoryViewModel> GetByIdAndSlugUrlAsync(int id, string slugUrl)
+        {
+            var entity = await _categories
+                .Include(p => p.Pages)
+                .FirstOrDefaultAsync(p => p.Id == id && p.SlugUrl == slugUrl);
+
+            if (entity != null)
+            {
+                return new CategoryViewModel(entity);
+            }
+
+            return null;
+        }
+
         public async Task<CategoryViewModel> GetVisibleByIdAsync(int id)
         {
             var entity = await _categories
