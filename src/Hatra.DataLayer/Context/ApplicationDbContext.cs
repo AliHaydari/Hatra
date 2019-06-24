@@ -178,10 +178,13 @@ namespace Hatra.DataLayer.Context
 
         #endregion
 
-        public virtual DbSet<Menu> Menus { set; get; }
         public virtual DbSet<Category> Categories { set; get; }
-        public virtual DbSet<PageImage> PageImages { get; set; }
+        public virtual DbSet<Folder> Folders { set; get; }
+        public virtual DbSet<Menu> Menus { set; get; }
         public virtual DbSet<Page> Pages { get; set; }
+        public virtual DbSet<PageImage> PageImages { get; set; }
+        public virtual DbSet<Picture> Pictures { get; set; }
+        public virtual DbSet<SlideShow> SlideShows { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
