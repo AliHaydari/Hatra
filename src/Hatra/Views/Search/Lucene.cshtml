@@ -1,0 +1,18 @@
+﻿@*@model IndexModel
+@{
+    ViewData["Title"] = "Lucene";
+}
+
+<h2>@Model.Action</h2>
+
+<form asp-page="Index" method="post">
+    <button type="submit" asp-page-handler="Index">Index</button>
+</form>
+
+<form asp-page="Index" method="post">
+    <button type="submit" asp-page-handler="Delete">Delete</button>
+</form>
+
+<form asp-page="Index" method="post">
+    <button type="submit" asp-page-handler="Clear">Clear</button>
+</form>*@

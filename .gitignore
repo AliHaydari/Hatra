@@ -246,3 +246,4 @@ ModelManifest.xml
 .fake/
 src/Hatra/package-lock.json
 /src/Hatra/wwwroot/UploadedFiles/Files
+/src/Hatra/Lucene_Index

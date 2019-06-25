@@ -13,6 +13,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Hatra.LuceneSearch\Hatra.LuceneSearch.csproj" />
     <ProjectReference Include="..\Hatra.Common\Hatra.Common.csproj" />
     <ProjectReference Include="..\Hatra.Entities\Hatra.Entities.csproj" />
     <ProjectReference Include="..\Hatra.Services\Hatra.Services.csproj" />
@@ -72,6 +73,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Lucene_Index\" />
     <Folder Include="wwwroot\assets\images\thumbs\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\lib\" />

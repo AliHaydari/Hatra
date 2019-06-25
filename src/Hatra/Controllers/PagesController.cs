@@ -2,6 +2,7 @@
 using DNTCommon.Web.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.Elastic;
+using Hatra.LuceneSearch;
 using Hatra.Services.Contracts;
 using Hatra.Services.Identity;
 using Hatra.ViewModels;
@@ -23,13 +24,12 @@ namespace Hatra.Controllers
     {
         private readonly IPageService _pageService;
         private readonly ICategoryService _categoryService;
-        //private readonly DataIndexer indexer;
-        private IElasticClient _elasticClient;
+        private readonly ISearchManager _searchManager;
 
         private const int DefaultPageSize = 10;
         private const string RequestNotFound = "صفحه درخواستی یافت نشد.";
 
-        public PagesController(IPageService pageService, ICategoryService categoryService, IElasticClient elasticClient)
+        public PagesController(IPageService pageService, ICategoryService categoryService, ISearchManager searchManager)
         {
             _pageService = pageService;
             _pageService.CheckArgumentIsNull(nameof(_pageService));
@@ -37,7 +37,8 @@ namespace Hatra.Controllers
             _categoryService = categoryService;
             _categoryService.CheckArgumentIsNull(nameof(_categoryService));
 
-            _elasticClient = elasticClient;
+            _searchManager = searchManager;
+            _searchManager.CheckArgumentIsNull(nameof(_searchManager));
         }
 
         [DisplayName("ایندکس")]
@@ -84,7 +85,8 @@ namespace Hatra.Controllers
                 var result = await _pageService.InsertTubleAsync(viewModel);
                 if (result.isSuccess)
                 {
-                    //var response = await _elasticClient.IndexDocumentAsync(result.page);
+                    viewModel.Id = result.page.Id;
+                    _searchManager.AddToIndex(viewModel);
                     return RedirectToAction("Index", "Pages");
                 }
 
@@ -134,6 +136,7 @@ namespace Hatra.Controllers
                 var result = await _pageService.UpdateAsync(viewModel);
                 if (result)
                 {
+                    _searchManager.AddToIndex(viewModel);
                     return RedirectToAction("Index", "Pages");
                 }
 
@@ -186,6 +189,7 @@ namespace Hatra.Controllers
                 var result = await _pageService.DeleteAsync(menuViewModel.Id);
                 if (result)
                 {
+                    _searchManager.DeleteFromIndex(menuViewModel);
                     return Json(new { success = true });
                 }
 
@@ -218,6 +222,25 @@ namespace Hatra.Controllers
         {
             var result = await _pageService.CheckExistTitleAsync(id, title);
             return Json(result ? "نام وارد شده تکراری است" : "true");
+        }
+
+        [AjaxOnly]
+        [DisplayName("نمایش فرم Re-Index")]
+        public IActionResult RenderReIndexlucene()
+        {
+            return PartialView("_ReIndexLucene");
+        }
+
+        [AjaxOnly]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [DisplayName("Re-Index")]
+        public async Task<IActionResult> ReIndexlucene()
+        {
+            var pageViewModels = await _pageService.GetAllAsync();
+            _searchManager.AddToIndex(pageViewModels.ToArray());
+
+            return Json(new { success = true });
         }
     }
 }

@@ -88,10 +88,9 @@
                 </nav>
                 <div class="header-icons">
                     <ul>
-                        @*
-                            <li>
-                                <button title="Search" class="header-searchtrigger"><i class="fa fa-search"></i></button>
-                            </li>*@
+                        <li>
+                            <button title="Search" class="header-searchtrigger"><i class="fa fa-search"></i></button>
+                        </li>
                         @*
                             <li>
                                 <a href="cart.html" title="Shopping Cart"><i class="fa fa-shopping-cart"></i></a>
@@ -109,14 +108,14 @@
                     </ul>
                 </div>
 
-                @*<!-- Header Searchform -->
-                    <div class="header-searchbox">
-                        <form action="#" class="header-searchform">
-                            <input type="text" placeholder="کلمه کلیدی جستجو را وارد کنید">
-                            <button type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>
-                    <!--// Header Searchform -->*@
+                <!-- Header Searchform -->
+                <div class="header-searchbox">
+                    <form asp-area="" asp-controller="Search" asp-action="SearchResult" class="header-searchform">
+                        <input id="term" name="term" type="text" placeholder="کلمه کلیدی جستجو را وارد کنید">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <!--// Header Searchform -->
 
             </div>
             <div class="header-mobilemenu clearfix">

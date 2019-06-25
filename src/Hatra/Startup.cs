@@ -7,6 +7,7 @@ using Hatra.DataLayer.Context;
 using Hatra.Elastic;
 using Hatra.FileUpload;
 using Hatra.IocConfig;
+using Hatra.LuceneSearch;
 using Hatra.ViewModels.Identity.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -75,7 +76,9 @@ namespace Hatra
 
             //services.AddTransient(typeof(SearchService));
 
-            services.AddElasticsearch(Configuration);
+            //services.AddElasticsearch(Configuration);
+
+            services.AddTransient<ISearchManager, SearchManager>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

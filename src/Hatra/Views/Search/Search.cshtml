@@ -1,0 +1,23 @@
+﻿@using Hatra.LuceneSearch
+@*@page "{search}"*@
+@model SearchModel
+
+@{
+    ViewData["Title"] = $"Search for '{Model.Search}'";
+}
+
+<h1>Search for: @Model.Search</h1>
+<h3>Found @Model.Results.Count result(s).</h3>
+
+<ul>
+    @foreach (var result in Model.Results.Data)
+    {
+        <li>
+            <a href="@result.LinkHref">
+                <div>@result.LinkText</div>
+                <div>@result.LinkHref</div>
+                <p><partial name="@result.DescriptionPath" /></p>
+            </a>
+        </li>
+    }
+</ul>

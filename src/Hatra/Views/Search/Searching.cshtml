@@ -1,0 +1,103 @@
+﻿@model IEnumerable<LuceneSearchModel>
+
+@{
+    ViewData["Title"] = $@"جستجو برای {ViewBag.SearchTerm}";
+    Layout = "~/Views/Shared/_LayoutN.cshtml";
+}
+
+<!-- Breadcrumb Area -->
+<div class="tm-breadcrumb-area tm-padding-section text-center" data-overlay="1" data-bgimage="/lib/deconsultrtl/assets/images/bg/bg-breadcrumb.jpg">
+    <div class="container">
+        <div class="tm-breadcrumb">
+            <h2 class="tm-breadcrumb-title">@ViewData["Title"]</h2>
+            <ul>
+                <li><a href="~/">خانه</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--// Breadcrumb Area -->
+<!-- Main Content -->
+<main class="main-content">
+
+    <!-- Blogs Area -->
+    <div class="tm-section blogs-area bg-white tm-padding-section">
+        <div class="container">
+            <div class="tm-blog-list">
+                @if (!Model.Any())
+                {
+                    <h3>هیچ موردی یافت نشد</h3>
+                }
+                else
+                {
+                    <h3>تعداد @Model.Count() مورد یافت شد</h3>
+
+                    <div class="row mt-30-reverse blog-masonry-active">
+                        <!-- Single Blog -->
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-4 col-md-6 col-12 mt-30 blog-masonry-item">
+                                <div class="blog-slider-item">
+                                    <div class="tm-blog wow fadeInUp">
+                                        <div class="tm-blog-image">
+                                            <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.PageId" asp-route-slugUrl="@item.SlugUrl">
+                                                @if (!string.IsNullOrWhiteSpace(item.Image))
+                                                {
+                                                    <img src="@item.Image" alt="@item.ImageName" onerror="this.style.display = 'none'">
+                                                }
+                                                else
+                                                {
+                                                    <img src="/lib/deconsultrtl/assets/images/blog/blog-image-1.jpg" alt="@item.SlugUrl" onerror="this.style.display = 'none'">
+                                                }
+                                            </a>
+                                        </div>
+                                        <div class="tm-blog-content">
+                                            <div class="tm-blog-meta">
+                                                @*<span><i class="fa fa-user-o"></i>توسط<a href="~/author/@item.CreatedByUserId/@item.CreatedUserNameSlugUrl"> @item.CreatedUserName </a></span>*@
+                                                <span>@*<i class="fa fa-calendar-o"></i>@item.CreatedPersianDateTime*@</span>
+                                            </div>
+                                            <h5><a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.PageId" asp-route-slugUrl="@item.SlugUrl">@item.Title</a></h5>
+                                            <p>@item.BriefDescription</p>
+                                            <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.PageId" asp-route-slugUrl="@item.SlugUrl" class="tm-readmore">ادامه مطلب...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    @*<div class="tm-pagination mt-50">
+                            <cs-pager cs-paging-pagesize="@Model.Paging.ItemsPerPage"
+                                      cs-paging-pagenumber="@Model.Paging.CurrentPage"
+                                      cs-paging-totalitems="@Model.Paging.TotalItems"
+                                      cs-pagenumber-param="page"
+                                      asp-controller="ShowPage"
+                                      asp-action="ShowCategory"
+                                      asp-route-pagesize="@Model.Paging.ItemsPerPage"
+                                      asp-route-id="@Model.CategoryViewModel.Id"
+                                      cs-show-first-last="true"
+                                      cs-suppress-empty-nextprev="true"
+                                      cs-suppress-inactive-firstlast="true"
+                                      cs-first-page-text="ابتدا"
+                                      cs-first-page-title="ابتدا"
+                                      cs-last-page-text="انتها"
+                                      cs-last-page-title="انتها"
+                                      cs-pager-li-current-class="is-active"
+                                      cs-pager-li-non-active-class=""
+                                      cs-pager-ul-class=""
+                                      cs-pager-li-other-class=""
+                                      cs-pager-link-current-class=""
+                                      cs-pager-link-other-class=""
+                                      cs-next-page-title="بعدی"
+                                      cs-previous-page-title="قبلی"></cs-pager>
+                        </div>*@
+                }
+                <!--// Single Blog -->
+
+            </div>
+        </div>
+    </div>
+    <!--// Blogs Area -->
+
+</main>
+<!--// Main Content -->

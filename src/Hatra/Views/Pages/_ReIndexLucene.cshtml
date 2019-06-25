@@ -1,0 +1,37 @@
+﻿<form asp-action="ReIndexlucene" method="post" class="form-horizontal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Re-Index-Lucene</h4>
+            </div>
+            <div class="modal-body">
+                <span class="text-center">
+                    آیا می‌خواهید
+                    <strong>Lecene Index</strong>
+                    را مجددا تولید کنید؟
+                    <br />
+                </span>
+            </div>
+            <div class="modal-footer">
+                <security-trimming asp-area="" asp-controller="Pages" asp-action="ReIndexlucene">
+                    <button id="btnReIndexSuccess" class="btn btn-success" type="submit">تائید</button>
+                </security-trimming>
+                <button id="btnCancelReIndex" class="btn" data-dismiss="modal" aria-hidden="true">انصراف</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        $('#btnReIndexSuccess').click(function (e) {
+            document.getElementById("btnReIndexSuccess").disabled = true;
+            document.getElementById("btnCancelReIndex").disabled = true;
+
+            e.disable = true;
+        });
+
+        document.getElementById("btnReIndexSuccess").disabled = true;
+        document.getElementById("btnCancelReIndex").disabled = true;
+</script>
