@@ -294,6 +294,28 @@ namespace Hatra.Services
             return result != 0;
         }
 
+        public async Task<(bool isSuccess, Page page)> InsertTubleAsync(PageViewModel viewModel)
+        {
+            var entity = new Page()
+            {
+                Id = viewModel.Id,
+                Title = viewModel.Title,
+                BriefDescription = viewModel.BriefDescription,
+                Body = viewModel.Body,
+                MetaDescription = viewModel.MetaDescription,
+                SlugUrl = SeoHelpers.GenerateSlug(viewModel.Title),
+                ViewNumber = 0,
+                Image = viewModel.Image,
+                Order = viewModel.Order,
+                CategoryId = viewModel.CategoryId,
+                IsShow = viewModel.IsShow,
+            };
+
+            await _pages.AddAsync(entity);
+            var result = await _unitOfWork.SaveChangesAsync();
+            return (result != 0, entity);
+        }
+
         public async Task<bool> UpdateAsync(PageViewModel viewModel)
         {
             var entity = await _pages.FirstOrDefaultAsync(p => p.Id == viewModel.Id);

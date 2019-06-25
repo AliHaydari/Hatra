@@ -67,13 +67,15 @@ namespace Hatra
 
 
             // Get the connection settings from appsettings.json and inject them into ElasticConnectionSettings
-            services.AddOptions();
-            services.Configure<ElasticConnectionSettings>(Configuration.GetSection("ElasticConnectionSettings"));
+            //services.AddOptions();
+            //services.Configure<ElasticConnectionSettings>(Configuration.GetSection("ElasticConnectionSettings"));
 
-            services.AddSingleton(typeof(ElasticClientProvider));
-            services.AddTransient(typeof(DataIndexer));
+            //services.AddSingleton(typeof(ElasticClientProvider));
+            //services.AddTransient(typeof(DataIndexer));
 
-            services.AddTransient(typeof(SearchService));
+            //services.AddTransient(typeof(SearchService));
+
+            services.AddElasticsearch(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

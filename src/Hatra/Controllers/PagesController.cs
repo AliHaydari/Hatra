@@ -9,6 +9,7 @@ using Hatra.ViewModels.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Nest;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -22,12 +23,13 @@ namespace Hatra.Controllers
     {
         private readonly IPageService _pageService;
         private readonly ICategoryService _categoryService;
-        private readonly DataIndexer indexer;
+        //private readonly DataIndexer indexer;
+        private IElasticClient _elasticClient;
 
         private const int DefaultPageSize = 10;
         private const string RequestNotFound = "صفحه درخواستی یافت نشد.";
 
-        public PagesController(IPageService pageService, ICategoryService categoryService, DataIndexer dataIndexer)
+        public PagesController(IPageService pageService, ICategoryService categoryService, IElasticClient elasticClient)
         {
             _pageService = pageService;
             _pageService.CheckArgumentIsNull(nameof(_pageService));
@@ -35,7 +37,7 @@ namespace Hatra.Controllers
             _categoryService = categoryService;
             _categoryService.CheckArgumentIsNull(nameof(_categoryService));
 
-            indexer = dataIndexer;
+            _elasticClient = elasticClient;
         }
 
         [DisplayName("ایندکس")]
@@ -79,10 +81,10 @@ namespace Hatra.Controllers
                     return View(viewModel);
                 }
 
-                var result = await _pageService.InsertAsync(viewModel);
-                if (result)
+                var result = await _pageService.InsertTubleAsync(viewModel);
+                if (result.isSuccess)
                 {
-                    //var response = await indexer.IndexMyPages(viewModel);
+                    //var response = await _elasticClient.IndexDocumentAsync(result.page);
                     return RedirectToAction("Index", "Pages");
                 }
 

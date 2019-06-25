@@ -1,4 +1,5 @@
-﻿using Hatra.ViewModels;
+﻿using Hatra.Entities;
+using Hatra.ViewModels;
 using Hatra.ViewModels.Paged;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace Hatra.Services.Contracts
         Task<PageViewModel> GetByIdAndUpdateViewNumberAsync(int id);
         Task<PageViewModel> GetByIdAndSlugUrlAndUpdateViewNumberAsync(int id, string slugUrl);
         Task<bool> InsertAsync(PageViewModel viewModel);
+        Task<(bool isSuccess, Page page)> InsertTubleAsync(PageViewModel viewModel);
         Task<bool> UpdateAsync(PageViewModel viewModel);
         Task<bool> DeleteAsync(int id);
         Task<bool> CheckExistAsync(int id);
