@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hatra.Common", "src\Hatra.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hatra.IocConfig", "src\Hatra.IocConfig\Hatra.IocConfig.csproj", "{824E25CA-A742-4785-BF86-19CB57902D9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hatra.LuceneSearch", "Hatra.LuceneSearch\Hatra.LuceneSearch.csproj", "{A4BA7AC0-FC87-4640-A4C1-7DBC8DA3DEE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hatra.LuceneSearch", "src\Hatra.LuceneSearch\Hatra.LuceneSearch.csproj", "{A4BA7AC0-FC87-4640-A4C1-7DBC8DA3DEE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
