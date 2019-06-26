@@ -6,8 +6,19 @@
     this.Context.Response.StatusCode = Model.StatusCode;
 }
 
-<main class="main-content">
+<div class="tm-breadcrumb-area tm-padding-section text-center" data-overlay="1" data-bgimage="assets/images/bg/bg-breadcrumb.jpg">
+    <div class="container">
+        <div class="tm-breadcrumb">
+            <h2 class="tm-breadcrumb-title">@Model.Description</h2>
+            <ul>
+                <li><a href="/">خانه</a></li>
+                <li>@Model.StatusCode</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
+<main class="main-content">
     <div class="tm-section page-not-found-area tm-padding-section bg-white">
         <div class="container">
             <div class="tm-pnf">
