@@ -1,0 +1,153 @@
+﻿@model ShowingSettingSite
+@{
+    ViewData["Title"] = "تنظیمات نمایشی سایت";
+}
+
+    <div class="card mt-5">
+        <div class="card-header">
+            <h5 class="card-title">@ViewData["Title"]</h5>
+        </div>
+        <div class="card-body">
+            <form asp-controller="SiteSettings"
+                  asp-action="Save"
+                  method="post"
+                  enctype="multipart/form-data">
+                <partial name="_CustomValidationSummary" />
+
+                <div class="form-group row">
+                    <label asp-for="EnglishSiteName" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="EnglishSiteName" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="EnglishSiteName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="PersianSiteName" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="PersianSiteName" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="PersianSiteName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Description" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Description" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="FooterDescription" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="FooterDescription" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="FooterDescription" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="SiteKeywords" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="SiteKeywords" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="SiteKeywords" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Owner" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Owner" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Owner" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Email" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Email" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="SiteUrl" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="SiteUrl" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="SiteUrl" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="WorkTime" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="WorkTime" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="WorkTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Tell1" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Tell1" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Tell1" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Tell2" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Tell2" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Tell2" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="Address" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Address" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Twitter" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Twitter" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Twitter" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Facebook" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Facebook" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Facebook" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Skype" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Skype" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Skype" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Pinterest" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Pinterest" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Pinterest" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Telegram" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Telegram" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Telegram" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Instagram" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="Instagram" class="form-control" onblur="triggerRemoteValidation()" />
+                        <span asp-validation-for="Instagram" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-md-2 col-md-10">
+                        <security-trimming asp-area="" asp-controller="SiteSettings" asp-action="Save">
+                            <button type="submit" class="btn btn-info col-md-2">ارسال</button>
+                        </security-trimming>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

@@ -1,5 +1,5 @@
 ﻿<!-- Call To Action Area -->
-<div class="tm-section call-to-action-area bg-theme">
+@*<div class="tm-section call-to-action-area bg-theme">
     <div class="container">
         <div class="row align-items-center tm-cta">
             <div class="col-lg-9 col-md-8 col-12">
@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <!--// Call To Action Area -->
 <!-- Footer Area -->
 <div class="footer fixed-footer">
@@ -30,13 +30,16 @@
                         <a class="widget-info-logo" asp-area="" asp-controller="Home" asp-action="Index">
                             <img src="~/assets/base/v9/tahlilgaran_logo.png" alt="footer logo">
                         </a>
-                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولو</p>
-                        <a href="#" class="tm-button">بیشتر بخوانید<b></b></a>
+                        @if (!string.IsNullOrWhiteSpace(ViewBag.FooterDescription))
+                        {
+                            <p>@ViewBag.FooterDescription</p>
+                        }
+                        @*<a href="#" class="tm-button">بیشتر بخوانید<b></b></a>*@
                     </div>
                     <!--// Single Widget (Widget Info) -->
                 </div>
 
-                <div class="col-lg-3 col-md-6 col-12">
+                @*<div class="col-lg-3 col-md-6 col-12">
                     <!-- Single Widget (Widget Contact) -->
                     <div class="single-widget widget-quicklinks">
                         <h5 class="widget-title">لینک های سریع</h5>
@@ -50,9 +53,9 @@
                         </ul>
                     </div>
                     <!--// Single Widget (Widget Contact) -->
-                </div>
+                </div>*@
 
-                <div class="col-lg-3 col-md-6 col-12">
+                @*<div class="col-lg-3 col-md-6 col-12">
                     <!-- Single Widget (Widget Blog) -->
                     <div class="single-widget widget-recentpost">
                         <h5 class="widget-title">پست های اخیر</h5>
@@ -87,9 +90,9 @@
                         </ul>
                     </div>
                     <!--// Single Widget (Widget Blog) -->
-                </div>
+                </div>*@
 
-                <div class="col-lg-3 col-md-6 col-12">
+                @*<div class="col-lg-3 col-md-6 col-12">
                     <!-- Single Widget (Widget Newsletter) -->
                     <div class="single-widget widget-newsletter">
                         <h5 class="widget-title">در تماس باشید</h5>
@@ -107,7 +110,7 @@
                         <!--// Mailchimp Alerts -->
                     </div>
                     <!--// Single Widget (Widget Newsletter) -->
-                </div>
+                </div>*@
 
             </div>
         </div>
@@ -118,15 +121,35 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-8 col-12">
-                    <p class="footer-copyright">کپی رایت © 2018<a href="#">آنها</a>تمام حقوق محفوظ است</p>
+                    <p class="footer-copyright">کپی رایت © @DateTimeOffset.Now.Year<a href="/"> @ViewBag.SiteName </a>تمام حقوق محفوظ است</p>
                 </div>
                 <div class="col-md-4 col-12">
                     <div class="footer-copyrightsocial">
                         <ul>
-                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook-f"></i></a></li>
-                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Skype"><i class="fa fa-skype"></i></a></li>
-                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest-p"></i></a></li>
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.Twitter))
+                            {
+                                <li><a href="@ViewBag.Twitter" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.Facebook))
+                            {
+                                <li><a href="@ViewBag.Facebook" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook-f"></i></a></li>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.Skype))
+                            {
+                                <li><a href="@ViewBag.Skype" data-toggle="tooltip" data-placement="top" title="Skype"><i class="fa fa-skype"></i></a></li>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.Pinterest))
+                            {
+                                <li><a href="@ViewBag.Pinterest" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest-p"></i></a></li>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.Telegram))
+                            {
+                                <li><a href="@ViewBag.Telegram" data-toggle="tooltip" data-placement="top" title="Telegram"><i class="fa fa-telegram"></i></a></li>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.Instagram))
+                            {
+                                <li><a href="@ViewBag.Instagram" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram"></i></a></li>
+                            }
                         </ul>
                     </div>
                 </div>

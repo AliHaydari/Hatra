@@ -24,5 +24,6 @@ namespace Hatra.ViewModels.Identity.Settings
         public UserAvatarImageOptions UserAvatarImageOptions { get; set; }
         public string[] EmailsBanList { get; set; }
         public string[] PasswordsBanList { get; set; }
+        //public ShowingSettingSite ShowingSettingSite { get; set; }
     }
 }

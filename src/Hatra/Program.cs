@@ -34,6 +34,18 @@ namespace Hatra
                            .AddJsonFile($"appsettings.{env}.json", optional: true)
                            .AddEnvironmentVariables();
                 })
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    var env = hostingContext.HostingEnvironment;
+                    config.SetBasePath(env.ContentRootPath);
+                    config.AddInMemoryCollection(new[]
+                        {
+                            new KeyValuePair<string,string>("the-key", "the-value")
+                        })
+                        .AddJsonFile("ShowingSettingSite.json", reloadOnChange: true, optional: false)
+                        .AddJsonFile($"ShowingSettingSite.{env}.json", optional: true)
+                        .AddEnvironmentVariables();
+                })
                 .ConfigureLogging((hostingContext, logging) =>
                 {
                     logging.AddDebug();

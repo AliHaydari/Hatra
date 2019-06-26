@@ -1,30 +1,36 @@
-﻿using DNTBreadCrumb.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Hatra.Common.GuardToolkit;
-using Hatra.Common.IdentityToolkit;
 using Hatra.ViewModels.Identity.Settings;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace Hatra.Controllers
+namespace Hatra.ViewComponents
 {
-    [BreadCrumb(Title = "خانه", UseDefaultRouteUrl = true, Order = 0)]
-    public class HomeController : Controller
+    public class FooterViewComponent : ViewComponent
     {
+        //private readonly IMenuService _menuService;
         private readonly IOptionsSnapshot<ShowingSettingSite> _settings;
 
-        public HomeController(IOptionsSnapshot<ShowingSettingSite> settings)
+        public FooterViewComponent(/*IMenuService menuService,*/ IOptionsSnapshot<ShowingSettingSite> settings)
         {
+            //_menuService = menuService;
+            //_menuService.CheckArgumentIsNull(nameof(_menuService));
+
             _settings = settings;
             _settings.CheckArgumentIsNull(nameof(_settings));
         }
 
-        [BreadCrumb(Title = "ایندکس", Order = 1)]
-        public IActionResult Index()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
+            //var viewModels = await _menuService.GetAllAsync();
+
             var showingSettingSite = _settings.Value;
             ViewBag.Keywords = showingSettingSite.SiteKeywords;
             ViewBag.MetaDescription = showingSettingSite.Description;
+            ViewBag.FooterDescription = showingSettingSite.FooterDescription;
             ViewBag.SiteName = showingSettingSite.PersianSiteName;
             ViewBag.WorkTime = showingSettingSite.WorkTime;
             ViewBag.Tell1 = showingSettingSite.Tell1;
@@ -38,24 +44,7 @@ namespace Hatra.Controllers
             ViewBag.Telegram = showingSettingSite.Telegram;
             ViewBag.Instagram = showingSettingSite.Instagram;
 
-            return View("IndexN");
-        }
-
-        [BreadCrumb(Title = "خطا", Order = 1)]
-        public IActionResult Error()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// To test automatic challenge after redirecting from another site
-        /// Sample URL: http://localhost:5000/Home/CallBackResult?token=1&status=2&orderId=3&terminalNo=4&rrn=5
-        /// </summary>
-        [Authorize]
-        public IActionResult CallBackResult(long token, string status, string orderId, string terminalNo, string rrn)
-        {
-            var userId = User.Identity.GetUserId();
-            return Json(new { userId, token, status, orderId, terminalNo, rrn });
+            return View(viewName: "~/Views/Shared/_Footer.cshtml"/*, viewModels.Where(p => p.IsShow).ToList()*/);
         }
     }
 }

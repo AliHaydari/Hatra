@@ -9,15 +9,28 @@
                 <div class="col-md-7 col-12">
                     <div class="header-topinfo">
                         <ul>
-                            <li><a href="tel_3A//+1-800-915-6270"><i class="fa fa-phone"></i>1-800-915-6270</a></li>
-                            <li><a href="mailto://contact@example.com"><i class="fa fa-envelope-o"></i>contact@example.com</a></li>
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.Tell1))
+                            {
+                                <li><a href="tel_3A//+@ViewBag.Tell1"><i class="fa fa-phone"></i>@ViewBag.Tell1</a></li>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.Tell2))
+                            {
+                                <li><a href="tel_3A//+@ViewBag.Tell2"><i class="fa fa-phone"></i>@ViewBag.Tell2</a></li>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.Email))
+                            {
+                                <li><a href="mailto://@ViewBag.Email"><i class="fa fa-envelope-o"></i>@ViewBag.Email</a></li>
+                            }
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-5 col-12">
                     <div class="header-topinfo text-right">
                         <ul>
-                            <li><i class="fa fa-clock-o"></i>شنبه تا پنج شنبه:9 تا 17 </li>
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.WorkTime))
+                            {
+                                <li><i class="fa fa-clock-o"></i>@ViewBag.WorkTime </li>
+                            }
                         </ul>
                     </div>
                 </div>

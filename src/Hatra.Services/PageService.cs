@@ -37,6 +37,22 @@ namespace Hatra.Services
                 .ToListAsync();
         }
 
+        public async Task<List<PageViewModel>> GetAllAsync(int take, int skip = 0)
+        {
+            return await _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Select(p => new PageViewModel(p)
+                {
+                    CreatedDateTime = EF.Property<DateTimeOffset>(p, "CreatedDateTime"),
+                    ModifiedDateTime = EF.Property<DateTimeOffset>(p, "ModifiedDateTime"),
+                })
+                .Skip(skip)
+                .Take(take)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<PagedAdminPageViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage)
         {
             var skipRecords = pageNumber * recordsPerPage;

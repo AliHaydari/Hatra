@@ -9,6 +9,7 @@ namespace Hatra.Services.Contracts
     public interface IPageService
     {
         Task<List<PageViewModel>> GetAllAsync();
+        Task<List<PageViewModel>> GetAllAsync(int take, int skip = 0);
         Task<PagedAdminPageViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage);
         Task<List<PageViewModel>> GetAllWithoutCategoryAsync();
         Task<List<DropDownMenuViewModel>> GetAllWithoutCategoryDropDownMenuAsync();

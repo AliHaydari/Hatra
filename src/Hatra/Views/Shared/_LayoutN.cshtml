@@ -1,7 +1,7 @@
 ﻿@using Hatra.Common.WebToolkit
 
 @{
-    var pageTitle = ViewData["Title"] ?? "تحلیلگران هوشمند آریا سیستم";
+    string pageTitle = ViewData["Title"]?.ToString() ?? "";
 }
 
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
     <meta property="og:url" content="آدرس صفحه" />
     <meta property="og:image" content="آدرس عکس" />
     <meta property="og:audio" content="آدرس ویدیو" />
-    <meta property="og:description" content="توضیحات صفحه" />
+
 
     <meta property="og:locale" content="fa_IR" />
     <meta property="og:type" content="website" />
@@ -36,7 +36,7 @@
     <meta http-equiv="Content-Language" content="fa" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="application-name" content="@ViewBag.SiteName" />
-    <title>@SeoHelpers.GeneratePageTitle(ViewBag.Title, ViewBag.SiteName)</title>
+    <title>@SeoHelpers.GeneratePageTitle(pageTitle, ViewBag.SiteName)</title>
     @*<link rel="canonical" href="@(Request.Url?.AbsoluteUri)" />*@
     @if (!string.IsNullOrWhiteSpace(ViewBag.Keywords))
     {
@@ -45,6 +45,7 @@
     @if (!string.IsNullOrWhiteSpace(ViewBag.MetaDescription))
     {
         <meta name="description" content="@ViewBag.MetaDescription" />
+        <meta property="og:description" content="@ViewBag.MetaDescription" />
     }
     @if (!string.IsNullOrWhiteSpace(ViewBag.LastModified))
     {
@@ -61,7 +62,7 @@
     <link rel="stylesheet" href="/lib/deconsultrtl/assets/css/style.css" asp-append-version="true">
     <link rel="stylesheet" href="/lib/deconsultrtl/assets/css/custom.css" asp-append-version="true">
     @await RenderSectionAsync("Styles", required: false)
-    <title>@pageTitle</title>
+    <title>@*@pageTitle*@</title>
 </head>
 <body>
 
@@ -77,7 +78,7 @@
 
         @RenderBody()
 
-        <partial name="_Footer" />
+        <vc:footer></vc:footer>
     </div>
     <!--// Wrapper -->
 

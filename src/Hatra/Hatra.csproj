@@ -80,4 +80,9 @@
     <Folder Include="wwwroot\UploadedFiles\Files\" />
     <Folder Include="wwwroot\UploadedFiles\Files\thumbs\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="ShowingSettingSite.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

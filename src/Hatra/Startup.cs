@@ -35,6 +35,7 @@ namespace Hatra
             //addRedisCacheServiceProvider(services);
 
             services.Configure<SiteSettings>(options => Configuration.Bind(options));
+            services.Configure<ShowingSettingSite>(options => Configuration.Bind(options));
 
             // Adds all of the ASP.NET Core Identity related services and configurations at once.
             services.AddCustomIdentityServices();

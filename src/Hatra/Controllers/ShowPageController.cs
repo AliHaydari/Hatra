@@ -39,6 +39,14 @@ namespace Hatra.Controllers
             var user = await _applicationUserManager.FindByIdAsync(pageViewModel.CreatedByUserId.ToString());
             pageViewModel.CreatedUserName = user.DisplayName;
 
+            ViewBag.Keywords = pageViewModel.CategoryName;
+
+            ViewBag.MetaDescription = pageViewModel.MetaDescription;
+
+            ViewBag.Author = pageViewModel.CreatedUserName;
+
+            ViewBag.LastModified = pageViewModel.CreatedDateTimeInDateTime.ToUniversalTime().ToString("ddd MMM dd yyyy HH:mm:ss \"GMT\"K");
+
             return View("PageDetail", pageViewModel);
         }
 
