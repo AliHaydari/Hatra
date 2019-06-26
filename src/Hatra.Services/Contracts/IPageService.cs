@@ -9,7 +9,7 @@ namespace Hatra.Services.Contracts
     public interface IPageService
     {
         Task<List<PageViewModel>> GetAllAsync();
-        Task<List<PageViewModel>> GetAllAsync(int take, int skip = 0);
+        Task<List<PageViewModel>> GetAllVisibleByRangeAsync(int take, int skip = 0);
         Task<PagedAdminPageViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage);
         Task<List<PageViewModel>> GetAllWithoutCategoryAsync();
         Task<List<DropDownMenuViewModel>> GetAllWithoutCategoryDropDownMenuAsync();
@@ -19,7 +19,7 @@ namespace Hatra.Services.Contracts
         Task<PagedPageViewModel> GetAllPagedVisibleByCategoryIdAsync(int categoryId, int pageNumber, int recordsPerPage);
         Task<PagedPageViewModel> GetAllPagedVisibleByUserIdAsync(int userId, int pageNumber, int recordsPerPage);
         Task<PagedPageViewModel> GetAllPagedVisibleByUserIdAndSlugUrlAsync(int userId, string slugUrl, int pageNumber, int recordsPerPage);
-        Task<List<PageViewModel>> GetLastRecordAsync(int skip = 0, int take = 10);
+        Task<List<PageViewModel>> GetAllVisibleDescendingByRangeAsync(int take, int skip = 0);
         Task<PageViewModel> GetByIdAsync(int id);
         Task<PageViewModel> GetByIdAndUpdateViewNumberAsync(int id);
         Task<PageViewModel> GetByIdAndSlugUrlAndUpdateViewNumberAsync(int id, string slugUrl);

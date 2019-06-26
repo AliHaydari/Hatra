@@ -37,20 +37,26 @@ namespace Hatra.Services
                 .ToListAsync();
         }
 
-        public async Task<List<PageViewModel>> GetAllAsync(int take, int skip = 0)
+        public async Task<List<PageViewModel>> GetAllVisibleByRangeAsync(int take, int skip = 0)
         {
-            return await _pages
+            var query = _pages
                 .Include(p => p.Category)
                 .Include(p => p.Images)
+                .Where(p => p.IsShow)
+                .Where(p => p.CategoryId.HasValue ? (p.Category.IsShow == true) : true)
+                .OrderBy(p => EF.Property<DateTimeOffset>(p, "CreatedDateTime"))
                 .Select(p => new PageViewModel(p)
                 {
+                    CreatedByUserId = EF.Property<int>(p, "CreatedByUserId"),
                     CreatedDateTime = EF.Property<DateTimeOffset>(p, "CreatedDateTime"),
-                    ModifiedDateTime = EF.Property<DateTimeOffset>(p, "ModifiedDateTime"),
+
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name ?? "",
+                    CategorySlugUrl = p.Category.SlugUrl ?? "",
                 })
-                .Skip(skip)
-                .Take(take)
-                .AsNoTracking()
-                .ToListAsync();
+                .AsNoTracking();
+
+            return await query.Skip(skip).Take(take).ToListAsync();
         }
 
         public async Task<PagedAdminPageViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage)
@@ -226,21 +232,26 @@ namespace Hatra.Services
             };
         }
 
-        public async Task<List<PageViewModel>> GetLastRecordAsync(int skip = 0, int take = 10)
+        public async Task<List<PageViewModel>> GetAllVisibleDescendingByRangeAsync(int take, int skip = 0)
         {
-            return await _pages
+            var query = _pages
                 .Include(p => p.Category)
                 .Include(p => p.Images)
-                .OrderByDescending(p => p.Id)
+                .Where(p => p.IsShow)
+                .Where(p => p.CategoryId.HasValue ? (p.Category.IsShow == true) : true)
+                .OrderByDescending(p => EF.Property<DateTimeOffset>(p, "CreatedDateTime"))
                 .Select(p => new PageViewModel(p)
                 {
+                    CreatedByUserId = EF.Property<int>(p, "CreatedByUserId"),
                     CreatedDateTime = EF.Property<DateTimeOffset>(p, "CreatedDateTime"),
-                    ModifiedDateTime = EF.Property<DateTimeOffset>(p, "ModifiedDateTime"),
+
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name ?? "",
+                    CategorySlugUrl = p.Category.SlugUrl ?? "",
                 })
-                .Skip(skip)
-                .Take(take)
-                .AsNoTracking()
-                .ToListAsync();
+                .AsNoTracking();
+
+            return await query.Skip(skip).Take(take).ToListAsync();
         }
 
         public async Task<PageViewModel> GetByIdAsync(int id)

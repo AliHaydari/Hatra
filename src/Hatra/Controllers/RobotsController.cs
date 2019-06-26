@@ -53,14 +53,14 @@ namespace Hatra.Controllers
                 xml.WriteStartDocument();
                 xml.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
-                var posts = await _pageService.GetAllAsync(int.MaxValue);
+                var posts = await _pageService.GetAllVisibleByRangeAsync(int.MaxValue);
 
                 foreach (var pageViewModel in posts)
                 {
                     var lastMod = new[] { pageViewModel.CreatedDateTimeInDateTime, pageViewModel.ModifiedDateTimeInDateTime };
 
                     xml.WriteStartElement("url");
-                    xml.WriteElementString("loc", host + $@"page/{pageViewModel.Id}/{pageViewModel.SlugUrl}");
+                    xml.WriteElementString("loc", host + $@"/page/{pageViewModel.Id}/{pageViewModel.SlugUrl}");
                     xml.WriteElementString("lastmod", lastMod.Max().ToString("yyyy-MM-ddThh:mmzzz"));
                     xml.WriteEndElement();
                 }
@@ -111,7 +111,7 @@ namespace Hatra.Controllers
 
             using (XmlWriter xmlWriter = XmlWriter.Create(Response.Body, new XmlWriterSettings() { Async = true, Indent = true }))
             {
-                var pageViewModels = await _pageService.GetAllAsync(10);
+                var pageViewModels = await _pageService.GetAllVisibleByRangeAsync(take: 10);
                 var writer = await GetWriter(type, xmlWriter, pageViewModels.Max(p => p.CreatedDateTimeInDateTime));
 
                 foreach (var pageViewModel in pageViewModels)
@@ -120,7 +120,7 @@ namespace Hatra.Controllers
                     {
                         Title = pageViewModel.Title,
                         Description = pageViewModel.BriefDescription,
-                        Id = host + $@"page/{pageViewModel.Id}/{pageViewModel.SlugUrl}",
+                        Id = host + $@"/page/{pageViewModel.Id}/{pageViewModel.SlugUrl}",
                         Published = pageViewModel.CreatedDateTimeInDateTime,
                         LastUpdated = pageViewModel.ModifiedDateTimeInDateTime,
                         ContentType = "html",

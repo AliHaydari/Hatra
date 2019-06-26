@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Hatra.ViewComponents
 {
-    public class LastTenPagesViewComponent : ViewComponent
+    public class LastPagesViewComponent : ViewComponent
     {
         private readonly IPageService _pageService;
 
-        public LastTenPagesViewComponent(IPageService pageService)
+        public LastPagesViewComponent(IPageService pageService)
         {
             _pageService = pageService;
             _pageService.CheckArgumentIsNull(nameof(_pageService));
@@ -17,8 +17,8 @@ namespace Hatra.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var viewModels = await _pageService.GetLastRecordAsync();
-            return View(viewName: "~/Views/Shared/_Last10Pages.cshtml", viewModels);
+            var viewModels = await _pageService.GetAllVisibleDescendingByRangeAsync(take: 12);
+            return View(viewName: "~/Views/Shared/_LastPages.cshtml", viewModels);
         }
     }
 }
