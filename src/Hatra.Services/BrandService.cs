@@ -98,6 +98,7 @@ namespace Hatra.Services
                 Name = viewModel.Name,
                 Image = viewModel.Image,
                 Link = viewModel.Link,
+                Description = viewModel.Description,
                 IsShow = viewModel.IsShow,
             };
 
