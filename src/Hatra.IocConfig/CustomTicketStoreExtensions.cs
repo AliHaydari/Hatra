@@ -13,7 +13,7 @@ namespace Hatra.IocConfig
         {
             // To manage large identity cookies
             var cookieOptions = siteSettings.CookieOptions;
-            if (cookieOptions.UseDistributedCacheTicketStore)
+            if (cookieOptions.UseDistributedCacheTicketStore && isActiveDatabaseSqlServer(siteSettings))
             {
                 services.AddDistributedSqlServerCache(options =>
                 {
@@ -34,6 +34,12 @@ namespace Hatra.IocConfig
             }
 
             return services;
+        }
+
+        private static bool isActiveDatabaseSqlServer(SiteSettings siteSettings)
+        {
+            return siteSettings.ActiveDatabase == ActiveDatabase.LocalDb
+                   || siteSettings.ActiveDatabase == ActiveDatabase.SqlServer;
         }
     }
 }

@@ -61,7 +61,15 @@ namespace Hatra.Services.Identity
             {
                 using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
                 {
-                    context.Database.Migrate();
+                    //context.Database.Migrate();
+                    if (_adminUserSeedOptions.Value.ActiveDatabase == ActiveDatabase.InMemoryDatabase)
+                    {
+                        context.Database.EnsureCreated();
+                    }
+                    else
+                    {
+                        context.Database.Migrate();
+                    }
                 }
             }
         }
