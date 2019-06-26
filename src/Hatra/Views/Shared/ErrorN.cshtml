@@ -1,0 +1,25 @@
+﻿@model ErrorViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = Layout = "~/Views/Shared/_LayoutN.cshtml";
+    this.Context.Response.StatusCode = Model.StatusCode;
+}
+
+<main class="main-content">
+
+    <div class="tm-section page-not-found-area tm-padding-section bg-white">
+        <div class="container">
+            <div class="tm-pnf">
+                <h1>@Model.StatusCode</h1>
+                <h2>مشکلی پیش آمده است</h2>
+                <h4>@Model.Description</h4>
+                <a href="/" class="tm-button">بازگشت به صفحه اصلی</a>
+                @if (Model.IsAuthenticated && User.IsInRole(ConstantRoles.Admin))
+                {
+                    <a asp-controller="SystemLog" asp-action="Index" asp-area="@AreaConstants.IdentityArea" class="tm-button">مشاهده‌ی لیست خطاهای ثبت شده</a>
+                }
+            </div>
+        </div>
+    </div>
+</main>

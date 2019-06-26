@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Text;
+using Hatra.ViewModels;
+using System.Net;
 
 namespace Hatra.Controllers
 {
@@ -41,22 +43,52 @@ namespace Hatra.Controllers
             }
             _logger.LogError(logBuilder.ToString());
 
+            var viewModel = new ErrorViewModel
+            {
+                IsAuthenticated = User.Identity.IsAuthenticated
+            };
+
             if (id == null)
             {
-                return View("Error");
+                viewModel.Title = "خطا!";
+                viewModel.StatusCode = (int)HttpStatusCode.InternalServerError;
+                viewModel.Description = "متاسفانه در حین پردازش درخواست جاری خطایی رخ داده‌است.";
+
+                //return View("Error");
+                return View("ErrorN", viewModel);
             }
 
+            //switch (id.Value)
+            //{
+            //    case 401:
+            //    case 403:
+            //        return View("AccessDenied");
+            //    case 404:
+            //        return View("NotFound");
+
+            //    default:
+            //        return View("Error");
+            //}
             switch (id.Value)
             {
                 case 401:
                 case 403:
-                    return View("AccessDenied");
+                    viewModel.Title = "عدم دسترسی!";
+                    viewModel.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    viewModel.Description = "متاسفانه شما مجوز دسترسی به صفحه‌ی درخواستی را ندارید.";
+                    return View("ErrorN", viewModel);
                 case 404:
-                    return View("NotFound");
-
+                    viewModel.Title = "یافت نشد!";
+                    viewModel.StatusCode = (int)HttpStatusCode.NotFound;
+                    viewModel.Description = "اطلاعات درخواستی یافت نشد.";
+                    return View("ErrorN", viewModel);
                 default:
-                    return View("Error");
+                    viewModel.Title = "خطا!";
+                    viewModel.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    viewModel.Description = "متاسفانه در حین پردازش درخواست جاری خطایی رخ داده‌است.";
+                    return View("ErrorN", viewModel);
             }
+
         }
     }
 }
