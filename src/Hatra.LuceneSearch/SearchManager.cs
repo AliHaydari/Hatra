@@ -2,7 +2,6 @@
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
-using Lucene.Net.Queries.Mlt;
 using Lucene.Net.QueryParsers.Classic;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
@@ -20,6 +19,7 @@ namespace Hatra.LuceneSearch
     {
         private static FSDirectory _directory;
         private readonly IHostingEnvironment _env;
+        private const LuceneVersion LuceneVersion = Lucene.Net.Util.LuceneVersion.LUCENE_48;
 
         public SearchManager(IHostingEnvironment env)
         {
@@ -80,9 +80,9 @@ namespace Hatra.LuceneSearch
 
         private void UseWriter(Action<IndexWriter> action)
         {
-            using (var analyzer = new StandardAnalyzer(LuceneVersion.LUCENE_48))
+            using (var analyzer = new StandardAnalyzer(LuceneVersion))
             {
-                using (var writer = new IndexWriter(Directory, new IndexWriterConfig(LuceneVersion.LUCENE_48, analyzer)))
+                using (var writer = new IndexWriter(Directory, new IndexWriterConfig(LuceneVersion, analyzer)))
                 {
                     action(writer);
                     writer.Commit();
@@ -145,12 +145,12 @@ namespace Hatra.LuceneSearch
 
             const int hitsLimit = 100;
             SearchResultCollection results;
-            using (var analyzer = new StandardAnalyzer(LuceneVersion.LUCENE_48))
+            using (var analyzer = new StandardAnalyzer(LuceneVersion))
             {
                 using (var reader = DirectoryReader.Open(Directory))
                 {
                     var searcher = new IndexSearcher(reader);
-                    var parser = new MultiFieldQueryParser(LuceneVersion.LUCENE_48, fields, analyzer);
+                    var parser = new MultiFieldQueryParser(LuceneVersion, fields, analyzer);
                     var query = parser.Parse(QueryParserBase.Escape(searchQuery.Trim()));
                     var hits = searcher.Search(query, null, hitsLimit, Sort.RELEVANCE).ScoreDocs;
                     results = new SearchResultCollection
@@ -168,36 +168,42 @@ namespace Hatra.LuceneSearch
             return new SearchResultCollection();
         }
 
-
         private IEnumerable<LuceneSearchModel> _search(string searchQuery, string[] searchFields)
         {
             // validation
             if (string.IsNullOrEmpty(searchQuery.Replace("*", "").Replace("?", "")))
                 return new List<LuceneSearchModel>();
 
-            // set up lucene searcher
-            using (var reader = DirectoryReader.Open(Directory))
+            try
             {
-                var searcher = new IndexSearcher(reader);
-                const int hitsLimit = 1000;
-                var analyzer = new StandardAnalyzer(LuceneVersion.LUCENE_48);
-
-
-                var parser = new MultiFieldQueryParser(LuceneVersion.LUCENE_48, searchFields, analyzer);
-                Query query = parseQuery(searchQuery, parser);
-                ScoreDoc[] hits = searcher.Search(query, null, hitsLimit, Sort.RELEVANCE).ScoreDocs;
-
-                if (hits.Length == 0)
+                // set up lucene searcher
+                using (var reader = DirectoryReader.Open(Directory))
                 {
-                    searchQuery = searchByPartialWords(searchQuery);
-                    query = parseQuery(searchQuery, parser);
-                    hits = searcher.Search(query, hitsLimit).ScoreDocs;
-                }
+                    var searcher = new IndexSearcher(reader);
+                    const int hitsLimit = 1000;
+                    var analyzer = new StandardAnalyzer(LuceneVersion);
 
-                IEnumerable<LuceneSearchModel> results = _mapLuceneToDataList(hits, searcher);
-                //analyzer.Close();
-                //searcher.Dispose();
-                return results;
+
+                    var parser = new MultiFieldQueryParser(LuceneVersion, searchFields, analyzer);
+                    Query query = parseQuery(searchQuery, parser);
+                    ScoreDoc[] hits = searcher.Search(query, null, hitsLimit, Sort.RELEVANCE).ScoreDocs;
+
+                    if (hits.Length == 0)
+                    {
+                        searchQuery = searchByPartialWords(searchQuery);
+                        query = parseQuery(searchQuery, parser);
+                        hits = searcher.Search(query, hitsLimit).ScoreDocs;
+                    }
+
+                    IEnumerable<LuceneSearchModel> results = _mapLuceneToDataList(hits, searcher);
+                    //analyzer.Close();
+                    //searcher.Dispose();
+                    return results;
+                }
+            }
+            catch (Exception e)
+            {
+                return new List<LuceneSearchModel>();
             }
         }
 
