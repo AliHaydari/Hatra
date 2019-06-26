@@ -18,19 +18,22 @@ namespace Hatra.ViewModels.Identity.Settings
             Tell1 = "031-33333333";
             Tell2 = "031-33333333";
             Address = "Address";
-            Twitter = "Twitter Account Address";
-            Facebook = "Facebook Account Address";
-            Skype = "Skype Account Address";
-            Pinterest = "Pinterest Account Address";
-            Telegram = "Telegram Account Address";
-            Instagram = "Instagram Account Address";
-            LinkedIn = "LinkedIn Account Address";
+            Twitter = "http://twitter.com/Twitter-Account-Address";
+            Facebook = "http://fb.com/Facebook-Account-Address";
+            Skype = "http://skype.com/Skype-Account-Address";
+            Pinterest = "http://pinterest.com/Pinterest-Account-Address";
+            Telegram = "http://t.me/Telegram-Account-Address";
+            Instagram = "http://instagram.com/Instagram-Account-Address";
+            LinkedIn = "http://linkedin.com/LinkedIn-Account-Address";
+            WhatsApp = "http://whatsapp.com/WhatsApp-Account-Address";
         }
 
         [Display(Name = "نام انگلیسی سایت")]
+        [RegularExpression("^[a-zA-Z_]*$", ErrorMessage = "لطفا تنها از حروف انگلیسی استفاده نمائید")]
         public string EnglishSiteName { get; set; }
 
         [Display(Name = "نام فارسی سایت")]
+        [RegularExpression(@"^[\u0600-\u06FF,\u0590-\u05FF\s]*$", ErrorMessage = "لطفا تنها از حروف فارسی استفاده نمائید")]
         public string PersianSiteName { get; set; }
 
         [Display(Name = "توضیحات")]
@@ -46,6 +49,8 @@ namespace Hatra.ViewModels.Identity.Settings
         public string Owner { get; set; }
 
         [Display(Name = "ایمیل")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "لطفا آدرس ایمیل معتبری را وارد نمائید.")]
+        [EmailAddress(ErrorMessage = "لطفا آدرس ایمیل معتبری را وارد نمائید.")]
         public string Email { get; set; }
 
         [Display(Name = "مسیر سایت")]
@@ -64,24 +69,35 @@ namespace Hatra.ViewModels.Identity.Settings
         public string Address { get; set; }
 
         [Display(Name = "آدرس اکانت Twitter")]
+        [DataType(DataType.Url, ErrorMessage = "لطفا آدرس را به درستی وارد کنید.")]
         public string Twitter { get; set; }
 
         [Display(Name = "آدرس اکانت Facebook")]
+        [DataType(DataType.Url, ErrorMessage = "لطفا آدرس را به درستی وارد کنید.")]
         public string Facebook { get; set; }
 
         [Display(Name = "آدرس اکانت Skype")]
+        [DataType(DataType.Url, ErrorMessage = "لطفا آدرس را به درستی وارد کنید.")]
         public string Skype { get; set; }
 
         [Display(Name = "آدرس اکانت Pinterest")]
+        [DataType(DataType.Url, ErrorMessage = "لطفا آدرس را به درستی وارد کنید.")]
         public string Pinterest { get; set; }
 
         [Display(Name = "آدرس اکانت Telegram")]
+        [DataType(DataType.Url, ErrorMessage = "لطفا آدرس را به درستی وارد کنید.")]
         public string Telegram { get; set; }
 
         [Display(Name = "آدرس اکانت Instagram")]
+        [DataType(DataType.Url, ErrorMessage = "لطفا آدرس را به درستی وارد کنید.")]
         public string Instagram { get; set; }
 
         [Display(Name = "آدرس اکانت LinkedIn")]
+        [DataType(DataType.Url, ErrorMessage = "لطفا آدرس را به درستی وارد کنید.")]
         public string LinkedIn { get; set; }
+
+        [Display(Name = "آدرس اکانت WhatsApp")]
+        [DataType(DataType.Url, ErrorMessage = "لطفا آدرس را به درستی وارد کنید.")]
+        public string WhatsApp { get; set; }
     }
 }

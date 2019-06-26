@@ -38,6 +38,7 @@ namespace Hatra.Controllers
             ViewBag.Telegram = showingSettingSite.Telegram;
             ViewBag.Instagram = showingSettingSite.Instagram;
             ViewBag.LinkedIn = showingSettingSite.LinkedIn;
+            ViewBag.WhatsApp = showingSettingSite.WhatsApp;
 
             return View("IndexN");
         }

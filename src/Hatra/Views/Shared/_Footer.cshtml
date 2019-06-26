@@ -120,10 +120,10 @@
     <div class="footer-copyrightarea">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-8 col-12">
+                <div class="col-md-6 col-12">
                     <p class="footer-copyright">کپی رایت © @DateTimeOffset.Now.Year<a href="/"> @ViewBag.SiteName </a>تمام حقوق محفوظ است</p>
                 </div>
-                <div class="col-md-4 col-12">
+                <div class="col-md-6 col-12">
                     <div class="footer-copyrightsocial">
                         <ul>
                             @if (!string.IsNullOrWhiteSpace(ViewBag.Twitter))
@@ -153,6 +153,10 @@
                             @if (!string.IsNullOrWhiteSpace(ViewBag.LinkedIn))
                             {
                                 <li><a href="@ViewBag.LinkedIn" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.WhatsApp))
+                            {
+                                <li><a href="@ViewBag.WhatsApp" data-toggle="tooltip" data-placement="top" title="WhatsApp"><i class="fa fa-whatsapp"></i></a></li>
                             }
                         </ul>
                     </div>

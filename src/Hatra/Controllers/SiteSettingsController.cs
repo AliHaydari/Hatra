@@ -61,10 +61,15 @@ namespace Hatra.Controllers
         [DisplayName("ثبت تنظیمات نمایشی سایت")]
         public IActionResult Save(ShowingSettingSite viewModel)
         {
-            var path = Path.Combine(_hostingEnvironment.ContentRootPath, "ShowingSettingSite.json");
-            System.IO.File.WriteAllText(path, JsonConvert.SerializeObject(viewModel));
+            if (ModelState.IsValid)
+            {
+                var path = Path.Combine(_hostingEnvironment.ContentRootPath, "ShowingSettingSite.json");
+                System.IO.File.WriteAllText(path, JsonConvert.SerializeObject(viewModel));
 
-            return View("Index");
+                return Redirect("/Identity/Home/Index");
+            }
+
+            return View("Index", viewModel);
         }
     }
 }

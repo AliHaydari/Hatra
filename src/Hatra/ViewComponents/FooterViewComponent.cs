@@ -44,6 +44,7 @@ namespace Hatra.ViewComponents
             ViewBag.Telegram = showingSettingSite.Telegram;
             ViewBag.Instagram = showingSettingSite.Instagram;
             ViewBag.LinkedIn = showingSettingSite.LinkedIn;
+            ViewBag.WhatsApp = showingSettingSite.WhatsApp;
 
             return View(viewName: "~/Views/Shared/_Footer.cshtml"/*, viewModels.Where(p => p.IsShow).ToList()*/);
         }
