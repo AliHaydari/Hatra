@@ -24,6 +24,7 @@ namespace Hatra.ViewModels.Identity.Settings
             Pinterest = "Pinterest Account Address";
             Telegram = "Telegram Account Address";
             Instagram = "Instagram Account Address";
+            LinkedIn = "LinkedIn Account Address";
         }
 
         [Display(Name = "نام انگلیسی سایت")]
@@ -79,5 +80,8 @@ namespace Hatra.ViewModels.Identity.Settings
 
         [Display(Name = "آدرس اکانت Instagram")]
         public string Instagram { get; set; }
+
+        [Display(Name = "آدرس اکانت LinkedIn")]
+        public string LinkedIn { get; set; }
     }
 }
