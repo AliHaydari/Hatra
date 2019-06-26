@@ -1,0 +1,49 @@
+﻿@model IEnumerable<PageViewModel>
+@if (Model.Any())
+{
+    <div class="tm-section blogs-area bg-white tm-padding-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-7 col-md-10 col-12">
+                    <div class="tm-section-title text-center">
+                        <h2>آخرین مطالب</h2>
+                        <span class="divider"><i class="fa fa-superpowers"></i></span>
+                        <p>@*آخرین خبرهای اقتصادی و مالیاتی ایران و جهان*@ </p>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-slider-active tm-slider-arrow tm-slider-arrow-hovervisible">
+                @foreach (var item in Model)
+                {
+                    <div class="blog-slider-item">
+                        <div class="tm-blog wow fadeInUp">
+                            <div class="tm-blog-imageslider tm-slider-arrow tm-slider-dots">
+                                @if (!string.IsNullOrWhiteSpace(item.Image))
+                                {
+                                    <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl" class="blogitem-imageslider-image">
+                                        <img src="@item.Image" alt="@item.ImageName" onerror="this.style.display = 'none'"><img src="assets/images/news/Tax_v3.jpg" alt="blog image">
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl" class="blogitem-imageslider-image">
+                                        <img src="/lib/deconsultrtl/assets/images/blog/blog-image-1.jpg" alt="@item.SlugUrl" onerror="this.style.display = 'none'">
+                                    </a>
+                                }
+                            </div>
+                            <div class="tm-blog-content">
+                                <div class="tm-blog-meta">
+                                    <span><i class="fa fa-user-o"></i>توسط<a href="~/author/@item.CreatedByUserId/@item.CreatedUserNameSlugUrl"> @item.CreatedUserName </a></span>
+                                    <span><i class="fa fa-calendar-o"></i>@item.CreatedPersianDateTime</span>
+                                </div>
+                                <h5><a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">@item.Title</a></h5>
+                                <p>@item.BriefDescription</p>
+                                <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl" class="tm-readmore">ادامه مطلب...</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

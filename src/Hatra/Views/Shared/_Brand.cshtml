@@ -1,0 +1,21 @@
+﻿@using Hatra.Common.WebToolkit
+@model IEnumerable<BrandViewModel>
+
+@if (Model.Any())
+{
+    <div class="tm-section brand-logo-area bg-grey tm-padding-section">
+        <div class="container">
+            <div class="brandlogo-slider tm-slider-arrow tm-slider-arrow-hovervisible">
+                @foreach (var item in Model)
+                {
+                    <div class="brandlogo">
+                        <a href="@item.Link">
+                            <img src="@item.Image" alt="@SeoHelpers.GenerateSlug(item.Name)">
+                        </a>
+                        <p>@item.Name</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

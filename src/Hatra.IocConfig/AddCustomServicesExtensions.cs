@@ -76,6 +76,7 @@ namespace Hatra.IocConfig
             services.AddScoped<ISlideShowService, SlideShowService>();
             services.AddScoped<IFolderService, FolderService>();
             services.AddScoped<IPictureService, PictureService>();
+            services.AddScoped<IBrandService, BrandService>();
 
             return services;
         }

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BrandViewModel>
+
+<div class="table-responsive">
+    <table id="all-roles-list" class="table table-striped table-hover table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th class="text-center">نام</th>
+                <th class="text-center">قابل نمایش</th>
+                <th class="text-center">توضیحات</th>
+                <th class="text-center w-25">عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="4" class="text-center">هیچ دیتایی یافت نشد</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">@item.Name</td>
+                        <td class="text-center">
+                            @if (item.IsShow)
+                            {
+                                <span class="fa fa-check"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-minus"></span>
+                            }
+                        </td>
+                        <td class="text-center">@item.Description</td>
+                        <td class="text-center">
+                            <security-trimming asp-area="" asp-controller="Brands" asp-action="RenderEdit">
+                                <a id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary" asp-controller="Brands" asp-action="RenderEdit" asp-route-id="@item.Id">ویرایش</a>
+                            </security-trimming>
+                            <security-trimming asp-area="" asp-controller="Brands" asp-action="RenderDelete">
+                                <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" class="btn btn-sm btn-danger">حذف</a>
+                            </security-trimming>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

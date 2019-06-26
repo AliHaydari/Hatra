@@ -226,6 +226,23 @@ namespace Hatra.Services
             };
         }
 
+        public async Task<List<PageViewModel>> GetLastRecordAsync(int skip = 0, int take = 10)
+        {
+            return await _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .OrderByDescending(p => p.Id)
+                .Select(p => new PageViewModel(p)
+                {
+                    CreatedDateTime = EF.Property<DateTimeOffset>(p, "CreatedDateTime"),
+                    ModifiedDateTime = EF.Property<DateTimeOffset>(p, "ModifiedDateTime"),
+                })
+                .Skip(skip)
+                .Take(take)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<PageViewModel> GetByIdAsync(int id)
         {
             var entity = await _pages

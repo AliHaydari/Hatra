@@ -178,6 +178,7 @@ namespace Hatra.DataLayer.Context
 
         #endregion
 
+        public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Category> Categories { set; get; }
         public virtual DbSet<Folder> Folders { set; get; }
         public virtual DbSet<Menu> Menus { set; get; }

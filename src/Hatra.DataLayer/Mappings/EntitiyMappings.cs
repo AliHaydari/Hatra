@@ -70,6 +70,12 @@ namespace Hatra.DataLayer.Mappings
                     .HasForeignKey(p => p.FolderId);
             });
 
+            modelBuilder.Entity<Brand>(build =>
+            {
+                build.Property(p => p.Name).HasMaxLength(100).IsRequired();
+                build.Property(p => p.Image).IsRequired();
+            });
+
         }
     }
 }
