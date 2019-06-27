@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using DNTPersianUtils.Core;
+using Hatra.Common.Constants;
 using Hatra.Common.WebToolkit;
 
 namespace Hatra.ViewModels
@@ -86,7 +87,7 @@ namespace Hatra.ViewModels
 
         public string ImageName => Image?.Remove(0, 21).Substring(0, 32);
         public string ImageExtension => Image?.Remove(0, 21).Remove(0, 33);
-        public string ImageThumbnail => ImageName + "370x200." + ImageExtension;
+        public string ImageThumbnail => ImageName + $@"{ImageConstants.Thumb370X180}." + ImageExtension;
         public string ImageThumbnailPath => "/UploadedFiles/Files/thumbs/" + ImageThumbnail;
         public string CreatedPersianDateTime => CreatedDateTime.ToLongPersianDateString().ToPersianNumbers();
 

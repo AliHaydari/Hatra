@@ -247,9 +247,10 @@ namespace Hatra.Controllers
             }
             else
             {
-                var result = await _pictureService.DeleteAsync(pictureViewModel.Id);
-                if (result)
+                var result = await _pictureService.DeleteInTupleAsync(pictureViewModel.Id);
+                if (result.isSuccess)
                 {
+                    var res = _filesHelper.DeleteFileWithExtension(result.pictureName, result.pictureName?.Remove(0, 33));
                     return Json(new { success = true });
                 }
 

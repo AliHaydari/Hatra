@@ -2,6 +2,7 @@
 using Hatra.ViewModels.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using Hatra.Common.Constants;
 
 namespace Hatra.ViewModels
 {
@@ -45,5 +46,10 @@ namespace Hatra.ViewModels
 
         [Display(Name = "نمایش داده شود")]
         public bool IsShow { get; set; }
+
+        public string ImageName => Image?.Remove(0, 21).Substring(0, 32);
+        public string ImageExtension => Image?.Remove(0, 21).Remove(0, 33);
+        public string ImageThumbnail => ImageName + $@"{ImageConstants.Thumb90X81}." + ImageExtension;
+        public string ImageThumbnailPath => "/UploadedFiles/Files/thumbs/" + ImageThumbnail;
     }
 }

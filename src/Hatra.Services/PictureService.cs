@@ -141,5 +141,21 @@ namespace Hatra.Services
 
             return await Task.FromResult(false);
         }
+
+        public async Task<(bool isSuccess, string pictureName)> DeleteInTupleAsync(int id)
+        {
+            var entity = await _pictures.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (entity != null)
+            {
+                var picName = entity.Name;
+
+                _pictures.Remove(entity);
+                var result = await _unitOfWork.SaveChangesAsync();
+                return (result != 0, picName);
+            }
+
+            return await Task.FromResult((false, ""));
+        }
     }
 }

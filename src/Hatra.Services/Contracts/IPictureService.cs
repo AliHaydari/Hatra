@@ -13,5 +13,6 @@ namespace Hatra.Services.Contracts
         Task<bool> InsertAllAsync(List<PictureViewModel> viewModels);
         Task<bool> UpdateAsync(PictureViewModel viewModel);
         Task<bool> DeleteAsync(int id);
+        Task<(bool isSuccess, string pictureName)> DeleteInTupleAsync(int id);
     }
 }

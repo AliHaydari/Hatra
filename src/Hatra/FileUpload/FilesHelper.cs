@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using Hatra.Common.Constants;
 using Hatra.ViewModels.FileUpload;
 using Microsoft.AspNetCore.Hosting;
 
@@ -59,45 +61,126 @@ namespace Hatra.FileUpload
 
         public string DeleteFile(string file)
         {
-            System.Diagnostics.Debug.WriteLine("DeleteFile");
-            //    var req = HttpContext.Current;
-            System.Diagnostics.Debug.WriteLine(file);
-
-            string fullPath = Path.Combine(_storageRootPath, file);
-            System.Diagnostics.Debug.WriteLine(fullPath);
-            System.Diagnostics.Debug.WriteLine(File.Exists(fullPath));
-            string thumbPath = "/" + file + "80x80.jpg";
-
-            string partThumb1 = Path.Combine(_storageRootPath, "thumbs");
-            string partThumb2 = Path.Combine(partThumb1, file + "80x80.jpg");
-
-            string partThumb11 = Path.Combine(_storageRootPath, "thumbs");
-            string partThumb22 = Path.Combine(partThumb1, file + "370x180.jpg");
-
-            System.Diagnostics.Debug.WriteLine(partThumb2);
-            System.Diagnostics.Debug.WriteLine(File.Exists(partThumb2));
-
-            System.Diagnostics.Debug.WriteLine(partThumb22);
-            System.Diagnostics.Debug.WriteLine(File.Exists(partThumb22));
-
-            if (File.Exists(fullPath))
+            try
             {
-                //delete thumb 
-                if (File.Exists(partThumb2))
+                System.Diagnostics.Debug.WriteLine("DeleteFile");
+                //    var req = HttpContext.Current;
+                System.Diagnostics.Debug.WriteLine(file);
+
+                string fullPath = Path.Combine(_storageRootPath, file);
+                System.Diagnostics.Debug.WriteLine(fullPath);
+                System.Diagnostics.Debug.WriteLine(File.Exists(fullPath));
+                string thumbPath = "/" + file + $@"{ImageConstants.Thumb80X80}.jpg";
+
+                string partThumb1 = Path.Combine(_storageRootPath, "thumbs");
+                string partThumb2 = Path.Combine(partThumb1, file + $@"{ImageConstants.Thumb80X80}.jpg");
+
+                string partThumb11 = Path.Combine(_storageRootPath, "thumbs");
+                string partThumb22 = Path.Combine(partThumb11, file + $@"{ImageConstants.Thumb370X180}.jpg");
+
+                string partThumb111 = Path.Combine(_storageRootPath, "thumbs");
+                string partThumb222 = Path.Combine(partThumb111, file + $@"{ImageConstants.Thumb90X81}.jpg");
+
+                System.Diagnostics.Debug.WriteLine(partThumb2);
+                System.Diagnostics.Debug.WriteLine(File.Exists(partThumb2));
+
+                System.Diagnostics.Debug.WriteLine(partThumb22);
+                System.Diagnostics.Debug.WriteLine(File.Exists(partThumb22));
+
+                System.Diagnostics.Debug.WriteLine(partThumb222);
+                System.Diagnostics.Debug.WriteLine(File.Exists(partThumb222));
+
+                if (File.Exists(fullPath))
                 {
-                    File.Delete(partThumb2);
+                    //delete thumb 
+                    if (File.Exists(partThumb2))
+                    {
+                        File.Delete(partThumb2);
+                    }
+                    if (File.Exists(partThumb22))
+                    {
+                        File.Delete(partThumb22);
+                    }
+                    if (File.Exists(partThumb222))
+                    {
+                        File.Delete(partThumb222);
+                    }
+                    File.Delete(fullPath);
+                    string succesMessage = "Ok";
+                    return succesMessage;
                 }
-                if (File.Exists(partThumb22))
-                {
-                    File.Delete(partThumb22);
-                }
-                File.Delete(fullPath);
-                string succesMessage = "Ok";
-                return succesMessage;
+                string failMessage = "Error Delete";
+                return failMessage;
             }
-            string failMessage = "Error Delete";
-            return failMessage;
+            catch (Exception e)
+            {
+                string failMessage = "Error Delete";
+                return failMessage;
+            }
         }
+
+        public string DeleteFileWithExtension(string file, string extension)
+        {
+            try
+            {
+                var newFile = file.Replace($@".{extension}", "");
+
+                System.Diagnostics.Debug.WriteLine("DeleteFile");
+                //    var req = HttpContext.Current;
+                System.Diagnostics.Debug.WriteLine(newFile);
+
+                string fullPath = Path.Combine(_storageRootPath, file);
+                System.Diagnostics.Debug.WriteLine(fullPath);
+                System.Diagnostics.Debug.WriteLine(File.Exists(fullPath));
+                string thumbPath = "/" + newFile + $@"{ImageConstants.Thumb80X80}.jpg";
+
+                string partThumb1 = Path.Combine(_storageRootPath, "thumbs");
+                string partThumb2 = Path.Combine(partThumb1, newFile + $@"{ImageConstants.Thumb80X80}.jpg");
+
+                string partThumb11 = Path.Combine(_storageRootPath, "thumbs");
+                string partThumb22 = Path.Combine(partThumb11, newFile + $@"{ImageConstants.Thumb370X180}.jpg");
+
+                string partThumb111 = Path.Combine(_storageRootPath, "thumbs");
+                string partThumb222 = Path.Combine(partThumb111, newFile + $@"{ImageConstants.Thumb90X81}.jpg");
+
+                System.Diagnostics.Debug.WriteLine(partThumb2);
+                System.Diagnostics.Debug.WriteLine(File.Exists(partThumb2));
+
+                System.Diagnostics.Debug.WriteLine(partThumb22);
+                System.Diagnostics.Debug.WriteLine(File.Exists(partThumb22));
+
+                System.Diagnostics.Debug.WriteLine(partThumb222);
+                System.Diagnostics.Debug.WriteLine(File.Exists(partThumb222));
+
+                if (File.Exists(fullPath))
+                {
+                    //delete thumb 
+                    if (File.Exists(partThumb2))
+                    {
+                        File.Delete(partThumb2);
+                    }
+                    if (File.Exists(partThumb22))
+                    {
+                        File.Delete(partThumb22);
+                    }
+                    if (File.Exists(partThumb222))
+                    {
+                        File.Delete(partThumb222);
+                    }
+                    File.Delete(fullPath);
+                    string succesMessage = "Ok";
+                    return succesMessage;
+                }
+                string failMessage = "Error Delete";
+                return failMessage;
+            }
+            catch (Exception e)
+            {
+                string failMessage = "Error Delete";
+                return failMessage;
+            }
+        }
+
         public JsonFiles GetFileList()
         {
 
@@ -247,7 +330,7 @@ namespace Hatra.FileUpload
                 string extansion = splited[1].ToLower();
                 if (extansion.Equals("jpeg") || extansion.Equals("jpg") || extansion.Equals("png") || extansion.Equals("gif"))
                 {
-                    string thumbnailUrl = URL_BASE + "thumbs/" + Path.GetFileNameWithoutExtension(FileName) + $"80x80{Path.GetExtension(FileName)}";
+                    string thumbnailUrl = URL_BASE + "thumbs/" + Path.GetFileNameWithoutExtension(FileName) + $@"{ImageConstants.Thumb80X80}{Path.GetExtension(FileName)}";
                     return thumbnailUrl;
                 }
                 else
@@ -267,7 +350,7 @@ namespace Hatra.FileUpload
             }
             else
             {
-                return URL_BASE + "/thumbs/" + Path.GetFileNameWithoutExtension(FileName) + "80x80.jpg";
+                return URL_BASE + "/thumbs/" + Path.GetFileNameWithoutExtension(FileName) + $@"{ImageConstants.Thumb80X80}.jpg";
             }
 
         }

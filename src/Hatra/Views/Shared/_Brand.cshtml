@@ -10,7 +10,7 @@
                 {
                     <div class="brandlogo">
                         <a href="@item.Link">
-                            <img src="@item.Image" alt="@SeoHelpers.GenerateSlug(item.Name)">
+                            <img src="@item.ImageThumbnailPath" alt="@SeoHelpers.GenerateSlug(item.Name)" onerror="this.style.display = 'none'">
                         </a>
                         <p>@item.Name</p>
                     </div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Hatra.Common.Constants;
 using Hatra.ViewModels.FileUpload;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -63,9 +64,9 @@ namespace Hatra.FileUpload
 
         private async Task UploadWholeFileAsync(List<IFormFile> files, CommandResult result)
         {
-            const int THUMB_WIDTH = 80;
-            const int THUMB_HEIGHT = 80;
-            const int NORMAL_IMAGE_MAX_WIDTH = 540;
+            //const int THUMB_WIDTH = 80;
+            //const int THUMB_HEIGHT = 80;
+            //const int NORMAL_IMAGE_MAX_WIDTH = 540;
             const string THUMBS_FOLDER_NAME = "thumbs";
 
             // Ensure the storage root exists.
@@ -96,20 +97,25 @@ namespace Hatra.FileUpload
                     //
 
                     //var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
-                    var thumbName = $"{fileName}{THUMB_WIDTH}x{THUMB_HEIGHT}{extension}";
+                    var thumbName = $"{fileName}{ImageConstants.ThumbWidth80}x{ImageConstants.ThumbHeight80}{extension}";
                     var thumbPath = Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME, thumbName);
 
                     // Create the thumnail directory if it doesn't exist.
                     Directory.CreateDirectory(Path.GetDirectoryName(thumbPath));
 
-                    using (var thumb = Image.Load(ResizeImage(fullPath, 80, 80)))
+                    using (var thumb = Image.Load(ResizeImage(fullPath, Convert.ToInt32(ImageConstants.ThumbWidth80), Convert.ToInt32(ImageConstants.ThumbHeight80))))
                     {
                         thumb.Save(thumbPath);
                     }
 
-                    using (var thumb = Image.Load(ResizeImage(fullPath, 370, 180)))
+                    using (var thumb = Image.Load(ResizeImage(fullPath, Convert.ToInt32(ImageConstants.ThumbWidth370), Convert.ToInt32(ImageConstants.ThumbHeight180))))
                     {
-                        thumb.Save(Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME, $"{fileName}{370}x{180}{extension}"));
+                        thumb.Save(Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME, $"{fileName}{ImageConstants.ThumbWidth370}x{ImageConstants.ThumbHeight180}{extension}"));
+                    }
+
+                    using (var thumb = Image.Load(ResizeImage(fullPath, Convert.ToInt32(ImageConstants.ThumbWidth90), Convert.ToInt32(ImageConstants.ThumbHeight81))))
+                    {
+                        thumb.Save(Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME, $"{fileName}{ImageConstants.ThumbWidth90}x{ImageConstants.ThumbHeight81}{extension}"));
                     }
 
                     // If the image is wider than 540px, resize it so that it is 540px wide. Otherwise, upload a copy of the original.
