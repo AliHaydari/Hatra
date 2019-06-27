@@ -45,6 +45,7 @@ namespace Hatra.Services
                 .Where(p => p.IsShow)
                 .Where(p => p.CategoryId.HasValue ? (p.Category.IsShow == true) : true)
                 .OrderBy(p => EF.Property<DateTimeOffset>(p, "CreatedDateTime"))
+                .ThenBy(p => p.Id)
                 .Select(p => new PageViewModel(p)
                 {
                     CreatedByUserId = EF.Property<int>(p, "CreatedByUserId"),
@@ -240,6 +241,7 @@ namespace Hatra.Services
                 .Where(p => p.IsShow)
                 .Where(p => p.CategoryId.HasValue ? (p.Category.IsShow == true) : true)
                 .OrderByDescending(p => EF.Property<DateTimeOffset>(p, "CreatedDateTime"))
+                .ThenByDescending(p => p.Id)
                 .Select(p => new PageViewModel(p)
                 {
                     CreatedByUserId = EF.Property<int>(p, "CreatedByUserId"),

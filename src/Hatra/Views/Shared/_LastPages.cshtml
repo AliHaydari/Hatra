@@ -17,11 +17,11 @@
                 {
                     <div class="blog-slider-item">
                         <div class="tm-blog wow fadeInUp">
-                            <div class="tm-blog-imageslider tm-slider-arrow tm-slider-dots">
+                            <div class="tm-blog-image">
                                 @if (!string.IsNullOrWhiteSpace(item.Image))
                                 {
                                     <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl" class="blogitem-imageslider-image">
-                                        <img src="@item.Image" alt="@item.ImageName" onerror="this.style.display = 'none'"><img src="assets/images/news/Tax_v3.jpg" alt="blog image">
+                                        <img src="@item.Image" alt="@item.ImageName" onerror="this.style.display = 'none'">
                                     </a>
                                 }
                                 else
