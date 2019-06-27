@@ -269,17 +269,17 @@
                     speed: 1000,
                     rtl: true,
                     responsive: [{
-                            breakpoint: 992,
-                            settings: {
-                                slidesToShow: 2,
-                            }
-                        },
-                        {
-                            breakpoint: 768,
-                            settings: {
-                                slidesToShow: 1,
-                            }
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 2,
                         }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1,
+                        }
+                    }
                     ]
                 });
             },
@@ -299,26 +299,26 @@
                     speed: 1000,
                     rtl: true,
                     responsive: [{
-                            breakpoint: 992,
-                            settings: {
-                                slidesToShow: 3,
-                                slidesToScroll: 2,
-                            }
-                        },
-                        {
-                            breakpoint: 768,
-                            settings: {
-                                slidesToShow: 2,
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 420,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1
-                            }
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 2,
                         }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 420,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
                     ]
                 });
             },
@@ -787,4 +787,5 @@
 
     deconsult.init();
 
+    $("#tabs").tabs();
 })(jQuery);
