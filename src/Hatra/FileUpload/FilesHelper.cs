@@ -67,17 +67,29 @@ namespace Hatra.FileUpload
             System.Diagnostics.Debug.WriteLine(fullPath);
             System.Diagnostics.Debug.WriteLine(File.Exists(fullPath));
             string thumbPath = "/" + file + "80x80.jpg";
+
             string partThumb1 = Path.Combine(_storageRootPath, "thumbs");
             string partThumb2 = Path.Combine(partThumb1, file + "80x80.jpg");
 
+            string partThumb11 = Path.Combine(_storageRootPath, "thumbs");
+            string partThumb22 = Path.Combine(partThumb1, file + "370x180.jpg");
+
             System.Diagnostics.Debug.WriteLine(partThumb2);
             System.Diagnostics.Debug.WriteLine(File.Exists(partThumb2));
+
+            System.Diagnostics.Debug.WriteLine(partThumb22);
+            System.Diagnostics.Debug.WriteLine(File.Exists(partThumb22));
+
             if (File.Exists(fullPath))
             {
                 //delete thumb 
                 if (File.Exists(partThumb2))
                 {
                     File.Delete(partThumb2);
+                }
+                if (File.Exists(partThumb22))
+                {
+                    File.Delete(partThumb22);
                 }
                 File.Delete(fullPath);
                 string succesMessage = "Ok";

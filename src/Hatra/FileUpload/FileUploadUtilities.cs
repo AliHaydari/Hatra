@@ -107,9 +107,9 @@ namespace Hatra.FileUpload
                         thumb.Save(thumbPath);
                     }
 
-                    using (var thumb = Image.Load(ResizeImage(fullPath, 370, 200)))
+                    using (var thumb = Image.Load(ResizeImage(fullPath, 370, 180)))
                     {
-                        thumb.Save(Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME, $"{fileName}{370}x{200}{extension}"));
+                        thumb.Save(Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME, $"{fileName}{370}x{180}{extension}"));
                     }
 
                     // If the image is wider than 540px, resize it so that it is 540px wide. Otherwise, upload a copy of the original.
