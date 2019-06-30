@@ -202,11 +202,11 @@ namespace Hatra.Controllers
         [NonAction]
         private async Task PopulateCategoriesAsync(int? categoryId)
         {
-            var data = await _categoryService.GetAllAsync();
+            var data = await _categoryService.GetAllDropDownMenuAsync();
 
             var selectList = new SelectList(data,
-                nameof(CategoryViewModel.Id),
-                nameof(CategoryViewModel.Name),
+                nameof(DropDownMenuViewModel.Id),
+                nameof(DropDownMenuViewModel.Name),
                 categoryId.GetValueOrDefault());
 
             ViewBag.PopulateCategories = selectList;
