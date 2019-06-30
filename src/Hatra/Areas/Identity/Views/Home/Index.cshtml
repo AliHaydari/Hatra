@@ -2,12 +2,12 @@
     ViewData["Title"] = "خانه";
 }
 
-<div class="alert alert-success mt-5">
-    <a href="#" class="close" data-dismiss="alert">×</a>
-    مثالی از نحوه‌ی سفارشی سازی ASP.NET Core Identity
-</div>
+@*<div class="alert alert-success mt-5">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        مثالی از نحوه‌ی سفارشی سازی ASP.NET Core Identity
+    </div>*@
 
-<div class="card card-info">
+<div class="card card-dark">
     <div class="card-header">
         <h4>خوش آمدید!</h4>
     </div>
@@ -20,52 +20,84 @@
     if (User.Identity.IsAuthenticated)
     {
         <security-trimming asp-area="" asp-controller="Menus" asp-action="Index">
-            <a class="btn btn-success" asp-controller="Menus" asp-action="Index">
-                منو ها
-            </a>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <a class="btn btn-outline-dark btn-block" asp-controller="Menus" asp-action="Index">
+                        منو ها
+                    </a>
+                </div>
+            </div>
         </security-trimming>
 
         <security-trimming asp-area="" asp-controller="Categories" asp-action="Index">
-            <a class="btn btn-success" asp-controller="Categories" asp-action="Index">
-                گروه ها
-            </a>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <a class="btn btn-outline-dark btn-block" asp-controller="Categories" asp-action="Index">
+                        گروه ها
+                    </a>
+                </div>
+            </div>
         </security-trimming>
 
         <security-trimming asp-area="" asp-controller="Pages" asp-action="Index">
-            <a class="btn btn-success" asp-controller="Pages" asp-action="Index">
-                صفحه ها
-            </a>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <a class="btn btn-outline-dark btn-block" asp-controller="Pages" asp-action="Index">
+                        صفحه ها
+                    </a>
+                </div>
+            </div>
         </security-trimming>
 
         <security-trimming asp-area="" asp-controller="SlideShow" asp-action="Index">
-            <a class="btn btn-success" asp-controller="SlideShow" asp-action="Index">
-                اسلاید شو ها
-            </a>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <a class="btn btn-outline-dark btn-block" asp-controller="SlideShow" asp-action="Index">
+                        اسلاید شو ها
+                    </a>
+                </div>
+            </div>
         </security-trimming>
 
         <security-trimming asp-area="" asp-controller="Folders" asp-action="Index">
-            <a class="btn btn-success" asp-controller="Folders" asp-action="Index">
-                فولدر ها
-            </a>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <a class="btn btn-outline-dark btn-block" asp-controller="Folders" asp-action="Index">
+                        فولدر ها
+                    </a>
+                </div>
+            </div>
         </security-trimming>
 
         <security-trimming asp-area="" asp-controller="Brands" asp-action="Index">
-            <a class="btn btn-success" asp-controller="Brands" asp-action="Index">
-                برند ها
-            </a>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <a class="btn btn-outline-dark btn-block" asp-controller="Brands" asp-action="Index">
+                        برند ها
+                    </a>
+                </div>
+            </div>
         </security-trimming>
 
         <security-trimming asp-area="" asp-controller="SiteSettings" asp-action="Index">
-            <a class="btn btn-success" asp-controller="SiteSettings" asp-action="Index">
-                تنظیمات نمایشی سایت
-            </a>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <a class="btn btn-outline-dark btn-block" asp-controller="SiteSettings" asp-action="Index">
+                        تنظیمات نمایشی سایت
+                    </a>
+                </div>
+            </div>
         </security-trimming>
 
         if (User.IsInRole(ConstantRoles.Admin))
         {
-            <a class="btn btn-success" asp-controller="FileUpload" asp-action="Index">
-                File Uploader
-            </a>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <a class="btn btn-outline-dark btn-block" asp-controller="FileUpload" asp-action="Index">
+                        File Uploader
+                    </a>
+                </div>
+            </div>
         }
     }
 }
