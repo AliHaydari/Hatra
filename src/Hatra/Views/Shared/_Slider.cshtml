@@ -1,43 +1,76 @@
 ﻿@model IEnumerable<SlideShowViewModel>
-<!-- Heroslider -->
-<div class="heroslider">
-    <div class="heroslider-slider heroslider-animted tm-slider-arrow">
 
-        @if (Model != null && Model.Any())
-        {
-            foreach (var item in Model)
+@if (Model.Any())
+{
+    <!-- Heroslider -->
+    <div class="heroslider">
+        <div class="heroslider-slider heroslider-animted tm-slider-arrow">
+
+            @if (Model != null && Model.Any())
             {
+                foreach (var item in Model)
+                {
+                    <div class="heroslider-wrapper">
+                        <div class="heroslider-single" data-bgimage="@item.Image" data-black-overlay="8">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-8 col-lg-10">
+                                        <div class="heroslider-content text-center">
+                                            <div class="heroslider-animatebox">
+                                                <h1>
+                                                    <span>@item.Title</span>
+                                                    @if (!string.IsNullOrWhiteSpace(item.BriefDescription))
+                                                    {
+                                                        <b>@item.BriefDescription</b>
+                                                    }
+                                                </h1>
+                                            </div>
+                                            <div class="heroslider-animatebox">
+                                                @if (!string.IsNullOrWhiteSpace(item.Description))
+                                                {
+                                                    @Html.Raw(item.Description)
+                                                }
+                                            </div>
+                                            <div class="heroslider-animatebox">
+                                                <div class="tm-buttongroup">
+                                                    @if (!string.IsNullOrWhiteSpace(item.Link1))
+                                                    {
+                                                        <a href="@item.Link1" class="tm-button">ادامه مطلب<b></b></a>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(item.Link2))
+                                                    {
+                                                        <a href="@item.Link2" class="tm-button tm-button-white">ادامه مطلب<b></b></a>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Heroslider Item -->
                 <div class="heroslider-wrapper">
-                    <div class="heroslider-single" data-bgimage="@item.Image" data-black-overlay="8">
+                    <div class="heroslider-single" data-bgimage="/lib/deconsultrtl/assets/images/hero/heroimage-1.jpg" data-black-overlay="8">
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-xl-8 col-lg-10">
                                     <div class="heroslider-content text-center">
                                         <div class="heroslider-animatebox">
                                             <h1>
-                                                <span>@item.Title</span>
-                                                @if (!string.IsNullOrWhiteSpace(item.BriefDescription))
-                                                {
-                                                    <b>@item.BriefDescription</b>
-                                                }
+                                                <span>ما بهترین ارائه می دهیم</span>
+                                                <b>خدمات مشاوره</b>
                                             </h1>
                                         </div>
                                         <div class="heroslider-animatebox">
-                                            @if (!string.IsNullOrWhiteSpace(item.Description))
-                                            {
-                                                @Html.Raw(item.Description)
-                                            }
+                                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گ</p>
                                         </div>
                                         <div class="heroslider-animatebox">
                                             <div class="tm-buttongroup">
-                                                @if (!string.IsNullOrWhiteSpace(item.Link1))
-                                                {
-                                                    <a href="@item.Link1" class="tm-button">ادامه مطلب<b></b></a>
-                                                }
-                                                @if (!string.IsNullOrWhiteSpace(item.Link2))
-                                                {
-                                                    <a href="@item.Link2" class="tm-button tm-button-white">ادامه مطلب<b></b></a>
-                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -46,40 +79,11 @@
                         </div>
                     </div>
                 </div>
+                <!--// Heroslider Item -->
             }
-        }
-        else
-        {
-            <!-- Heroslider Item -->
-            <div class="heroslider-wrapper">
-                <div class="heroslider-single" data-bgimage="/lib/deconsultrtl/assets/images/hero/heroimage-1.jpg" data-black-overlay="8">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-xl-8 col-lg-10">
-                                <div class="heroslider-content text-center">
-                                    <div class="heroslider-animatebox">
-                                        <h1>
-                                            <span>ما بهترین ارائه می دهیم</span>
-                                            <b>خدمات مشاوره</b>
-                                        </h1>
-                                    </div>
-                                    <div class="heroslider-animatebox">
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گ</p>
-                                    </div>
-                                    <div class="heroslider-animatebox">
-                                        <div class="tm-buttongroup">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--// Heroslider Item -->
-        }
 
+        </div>
+        <div class="heroslider-slidecounter"></div>
     </div>
-    <div class="heroslider-slidecounter"></div>
-</div>
-<!--// Heroslider -->
+    <!--// Heroslider -->
+}
