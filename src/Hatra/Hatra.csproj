@@ -64,6 +64,8 @@
     <Watch Remove="wwwroot\images\PageImges\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="wwwroot\App_Data\HatraWebSiteDb.mdf" />
+    <Content Remove="wwwroot\App_Data\HatraWebSiteDb_log.ldf" />
     <Content Remove="wwwroot\js\twitterFetcher.js" />
     <Watch Remove="Scripts\image-tab.js" />
   </ItemGroup>
@@ -79,6 +81,10 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\UploadedFiles\Files\" />
     <Folder Include="wwwroot\UploadedFiles\Files\thumbs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\App_Data\HatraWebSiteDb.mdf" />
+    <None Include="wwwroot\App_Data\HatraWebSiteDb_log.ldf" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="ShowingSettingSite.json">
