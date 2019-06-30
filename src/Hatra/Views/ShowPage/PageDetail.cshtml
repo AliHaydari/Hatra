@@ -29,20 +29,26 @@
         <div class="container">
             <div class="tm-blog tm-blog-details sticky-sidebar">
                 <div class="tm-blog-image">
-                    <a href="#">
-                        @if (!string.IsNullOrWhiteSpace(Model.Image))
-                        {
-                            <img src="@Model.Image" alt="@Model.Title" onerror="this.style.display = 'none'">
-                        }
-                        else
-                        {
-                            <img src="/lib/deconsultrtl/assets/images/blog/lg/blog-image-lg-1.jpg" alt="blog image" onerror="this.style.display = 'none'">
-                        }
-                    </a>
+                    @*<a href="#">*@
+                    @if (!string.IsNullOrWhiteSpace(Model.Image))
+                    {
+                        <img src="@Model.Image" alt="@Model.Title" onerror="this.style.display = 'none'">
+                    }
+                    else
+                    {
+                        <img src="/lib/deconsultrtl/assets/images/blog/lg/blog-image-lg-1.jpg" alt="blog image" onerror="this.style.display = 'none'">
+                    }
+                    @*</a>*@
                 </div>
                 <div class="tm-blog-content">
                     <div class="tm-blog-meta">
-                        <span><i class="fa fa-user-o"></i>توسط<a href="~/author/@Model.CreatedByUserId/@Model.CreatedUserNameSlugUrl"> @Model.CreatedUserName </a></span>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <security-trimming asp-area="" asp-controller="Pages" asp-action="RenderEdit">
+                                <span><i class="fa fa-edit"></i><a asp-controller="Pages" asp-action="RenderEdit" asp-route-id="@Model.Id">ویرایش</a></span>
+                            </security-trimming>
+                        }
+                        <span><i class="fa fa-user-o"></i>توسط<a asp-controller="ShowPage" asp-action="ShowPagesByUser" asp-route-id="@Model.CreatedByUserId" asp-route-slugUrl="@Model.CreatedUserNameSlugUrl"> @Model.CreatedUserName </a></span>
                         <span><i class="fa fa-calendar-o"></i>@Model.CreatedPersianDateTime</span>
                         @if (Model.CategoryId.HasValue)
                         {

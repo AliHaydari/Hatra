@@ -57,7 +57,7 @@
                                             <span><i class="fa fa-calendar-o"></i>@item.CreatedPersianDateTime</span>
                                             @if (item.CategoryId.HasValue)
                                             {
-                                                <span><i class="fa fa-folder-o"></i><a href="~/category/@item.CategoryId/@item.CategorySlugUrl">@item.CategoryName</a></span>
+                                                <span><i class="fa fa-folder-o"></i><a asp-controller="ShowPage" asp-action="ShowCategory" asp-route-id="@item.CategoryId" asp-route-slugUrl="@item.CategorySlugUrl">@item.CategoryName</a></span>
                                             }
                                         </div>
                                         <h5><a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">@item.Title</a></h5>
