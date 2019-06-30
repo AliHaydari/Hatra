@@ -61,8 +61,11 @@
             </a>
         </security-trimming>
 
-        <a class="btn btn-success" asp-controller="FileUpload" asp-action="Index">
-            File Uploader
-        </a>
+        if (User.IsInRole(ConstantRoles.Admin))
+        {
+            <a class="btn btn-success" asp-controller="FileUpload" asp-action="Index">
+                File Uploader
+            </a>
+        }
     }
 }
