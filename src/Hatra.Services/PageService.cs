@@ -208,7 +208,7 @@ namespace Hatra.Services
             var query = _pages
                 .Include(p => p.Category)
                 .Include(p => p.Images)
-                .Where(p => p.IsShow && EF.Property<int>(p, "CreatedByUserId") == userId && p.SlugUrl == slugUrl)
+                .Where(p => p.IsShow && EF.Property<int>(p, "CreatedByUserId") == userId /*&& p.SlugUrl == slugUrl*/)
                 .Where(p => p.CategoryId.HasValue ? (p.Category.IsShow == true) : true)
                 .OrderByDescending(p => p.Id)
                 .Select(p => new PageViewModel(p)
