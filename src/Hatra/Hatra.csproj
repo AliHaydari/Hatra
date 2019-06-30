@@ -83,10 +83,6 @@
     <Folder Include="wwwroot\UploadedFiles\Files\thumbs\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\App_Data\HatraWebSiteDb.mdf" />
-    <None Include="wwwroot\App_Data\HatraWebSiteDb_log.ldf" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Update="ShowingSettingSite.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>

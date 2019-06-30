@@ -26,25 +26,25 @@
                     <tr>
                         <td class="text-center">@item.Name</td>
                         <td class="text-center">@item.ParentName</td>
-                        <td class="text-center">@item.Order</td>
+                        <td class="text-center text-primary">@item.Order</td>
                         <td class="text-center">
                             @if (item.IsMegaMenu)
                             {
-                                <span class="fa fa-check"></span>
+                                <span class="fa fa-check text-success"></span>
                             }
                             else
                             {
-                                <span class="fa fa-minus"></span>
+                                <span class="fa fa-minus text-danger"></span>
                             }
                         </td>
                         <td class="text-center">
                             @if (item.IsShow)
                             {
-                                <span class="fa fa-check"></span>
+                                <span class="fa fa-check text-success"></span>
                             }
                             else
                             {
-                                <span class="fa fa-minus"></span>
+                                <span class="fa fa-minus text-danger"></span>
                             }
                         </td>
                         <td class="text-center">
