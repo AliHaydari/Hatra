@@ -29,7 +29,7 @@ namespace Hatra.ViewModels.Identity.Settings
         }
 
         [Display(Name = "نام انگلیسی سایت")]
-        [RegularExpression("^[a-zA-Z_]*$", ErrorMessage = "لطفا تنها از حروف انگلیسی استفاده نمائید")]
+        [RegularExpression("^[a-zA-Z_\\s]*$", ErrorMessage = "لطفا تنها از حروف انگلیسی استفاده نمائید")]
         public string EnglishSiteName { get; set; }
 
         [Display(Name = "نام فارسی سایت")]
