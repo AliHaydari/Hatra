@@ -75,6 +75,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Lucene_Index\" />
     <Folder Include="wwwroot\assets\images\thumbs\" />
+    <Folder Include="wwwroot\Files\somefiles\thumbs\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\UploadedFiles\Files\" />
     <Folder Include="wwwroot\UploadedFiles\Files\thumbs\" />
