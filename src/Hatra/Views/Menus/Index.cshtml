@@ -6,7 +6,39 @@
 
 <div class="card mt-5">
     <div class="card-header">
-        <h5 class="card-title">@ViewData["Title"]</h5>
+        <div class="row">
+            <div class="col-md-2">
+                <h5 class="card-title">@ViewData["Title"]</h5>
+            </div>
+            <div class="col-md-10">
+                <div class="btn-group float-left" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-file-excel"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <a class="dropdown-item" asp-area="" asp-controller="Menus" asp-action="Export"><i class="fas fa-upload"></i> Export</a>
+
+
+                        @*<form method="post"
+                            asp-controller="Menus"
+                            asp-action="Import"
+                            role="form"
+                            data-ajax="true"
+                            data-ajax-begin="dataAjaxBegin"
+                            data-ajax-success="dataAjaxSuccess"
+                            data-ajax-failure="dataAjaxFailure"
+                            data-ajax-method="POST"
+                            enctype="multipart/form-data">*@
+
+                        <a id="btnImportFromExcel" class="dropdown-item" href="#"><i class="fas fa-download"></i> Import</a>
+                        <input type="file" id="FileUploadInput" style="display:none">
+
+                        @*</form>*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <partial name="_List" model="Model.MenuViewModels" />
@@ -49,9 +81,9 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(function () {
+        $(function() {
 
-            $("a[id^='btnDelete']").click(function (e) {
+            $("a[id^='btnDelete']").click(function(e) {
                 e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
                 var requestTypeId = $(this).data("delete-id");
 
@@ -60,16 +92,96 @@
                     renderModalPartialViewUrl: '@Url.Action("RenderDelete", "Menus")',
                     renderModalPartialViewData: JSON.stringify({ "id": requestTypeId }),
                     loginUrl: '/identity/login',
-                    beforePostHandler: function () {
+                    beforePostHandler: function() {
                     },
-                    completeHandler: function () {
+                    completeHandler: function() {
                         location.reload();
                     },
-                    errorHandler: function () {
+                    errorHandler: function() {
                     }
                 });
             });
 
+        });
+
+        @*$("#btnImportFromExcel").click(function () {
+            //e.preventDefault();
+            var $input = $('<input type="file" />');
+            $input.change(function () {
+
+                var exc = $(this).val();
+
+                $.ajaxSetup({ cache: false });
+                $.ajax({
+                    url: '@Url.Action("Import", "Menus")',
+                    type: "POST",
+                    data: exc,
+                    success: function (result) {
+                        if (result.success) {
+                            alert('success');
+                        } else {
+                            alert('fail');
+                        }
+                    }
+                });
+            });
+            $input.trigger('click');
+        });*@
+
+        //$(document).ready(
+        //    function () {
+        //        initializeDragAndDropArea();
+        //    }
+        //);
+
+        $(document).ready(function() {
+
+            document.getElementById('btnImportFromExcel').addEventListener('click',
+                function(e) {
+                    e.preventDefault();
+                    document.getElementById('FileUploadInput').click();
+                });
+
+            document.getElementById('FileUploadInput').addEventListener('change',
+                function() {
+                    var fileInput = this;
+                    var formData = new FormData();
+                    for (var i = 0; i < fileInput.files.length; i++) {
+                        var file = fileInput.files[i];
+                        formData.append('upload', file, file.name);
+                    }
+
+                    $.ajaxSetup({ cache: false });
+                    $.ajax({
+                        //contentType: "application/json; charset=utf-8",
+                        url: '@Url.Action("Import", "Menus")',
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(result) {
+                            if (result === 'success') {
+                                alert('success');
+                            } else {
+                                alert('fail');
+                            }
+                        }
+                    });
+
+                    @*var xhr = new XMLHttpRequest();
+                xhr.open('POST', '@Url.Action("Import", "Menus")', true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // file(s) uploaded successfully
+                    } else {
+                        // error uploading file(s)
+                    }
+                };*@
+
+                    // Commented to not send a real AJAX request for this example
+                    // Uncomment in your real code to actually send the request
+                    // xhr.send(formData);
+                });
         });
     </script>
 }
