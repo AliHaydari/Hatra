@@ -1,20 +1,28 @@
 ﻿using DNTBreadCrumb.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.Common.IdentityToolkit;
+using Hatra.ViewModels;
 using Hatra.ViewModels.Identity.Settings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.ComponentModel;
+using Hatra.Services.Contracts;
+using System.Threading.Tasks;
 
 namespace Hatra.Controllers
 {
     [BreadCrumb(Title = "خانه", UseDefaultRouteUrl = true, Order = 0)]
     public class HomeController : Controller
     {
+        private readonly IContactUsService _contactUsService;
         private readonly IOptionsSnapshot<ShowingSettingSite> _settings;
 
-        public HomeController(IOptionsSnapshot<ShowingSettingSite> settings)
+        public HomeController(IContactUsService contactUsService, IOptionsSnapshot<ShowingSettingSite> settings)
         {
+            _contactUsService = contactUsService;
+            _contactUsService.CheckArgumentIsNull(nameof(_contactUsService));
+
             _settings = settings;
             _settings.CheckArgumentIsNull(nameof(_settings));
         }

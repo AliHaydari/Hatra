@@ -76,6 +76,14 @@ namespace Hatra.DataLayer.Mappings
                 build.Property(p => p.Image).IsRequired();
             });
 
+            modelBuilder.Entity<ContactUs>(build =>
+            {
+                build.Property(p => p.FullName).HasMaxLength(450).IsRequired();
+                build.Property(p => p.Email).HasMaxLength(450).IsRequired();
+                build.Property(p => p.Subject).HasMaxLength(100).IsRequired();
+                build.Property(p => p.Description).IsRequired();
+            });
+
         }
     }
 }

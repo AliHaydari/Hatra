@@ -1,0 +1,117 @@
+﻿@model ContactUsViewModel
+
+@{
+    ViewData["Title"] = "تماس با ما";
+    Layout = "~/Views/Shared/_LayoutN.cshtml";
+}
+
+<!-- Breadcrumb Area -->
+<div class="tm-breadcrumb-area tm-padding-section text-center" data-overlay="1" data-bgimage="/lib/deconsultrtl/assets/images/bg/bg-breadcrumb.jpg">
+    <div class="container">
+        <div class="tm-breadcrumb">
+            <h2 class="tm-breadcrumb-title">تماس با ما</h2>
+            <ul>
+                <li><a href="/">خانه</a></li>
+                <li>تماس با ما</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--// Breadcrumb Area -->
+<!-- Main Content -->
+<main class="main-content">
+
+    <!-- Contact Us -->
+    <div class="tm-section contact-us-area tm-padding-section bg-white">
+        <div class="container">
+            <div class="row justify-content-center mt-30-reverse">
+                @if (!string.IsNullOrWhiteSpace(ViewBag.Address))
+                {
+                    <div class="col-lg-4 col-md-6 col-12 mt-30">
+                        <div class="tm-contact-block text-center">
+                            <span class="tm-contact-icon">
+                                <i class="flaticon-pin"></i>
+                            </span>
+                            <h5>آدرس</h5>
+                            <p>@ViewBag.Address</p>
+                        </div>
+                    </div>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(ViewBag.Tell1))
+                {
+                    <div class="col-lg-4 col-md-6 col-12 mt-30">
+                        <div class="tm-contact-block text-center">
+                            <span class="tm-contact-icon">
+                                <i class="flaticon-phone"></i>
+                            </span>
+                            <h5>تلفن</h5>
+                            <p><a href="#">@ViewBag.Tell1</a></p>
+                            <p><a href="#">@ViewBag.Tell2</a></p>
+                        </div>
+                    </div>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(ViewBag.Email))
+                {
+                    <div class="col-lg-4 col-md-6 col-12 mt-30">
+                        <div class="tm-contact-block text-center">
+                            <span class="tm-contact-icon">
+                                <i class="flaticon-mail"></i>
+                            </span>
+                            <h5>آدرس</h5>
+                            <p>ایمیل:<a href="#">@ViewBag.Email</a></p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="container tm-padding-section-top">
+            <div class="row no-gutters">
+                <div class="col-lg-7">
+                    <div class="tm-contact-formwrapper">
+                        <h5>با ما تماس بگیرید</h5>
+                        <form asp-controller="ShowPage" asp-action="ContactUs" method="post" enctype="multipart/form-data" id="tm-contactform" class="tm-form">
+                            <div class="tm-form-inner">
+                                <div class="tm-form-field">
+                                    <input asp-for="FullName" type="text" name="name" placeholder="نام و نام خانوادگی*">
+                                    <span asp-validation-for="FullName" class="text-danger"></span>
+                                </div>
+                                <div class="tm-form-field">
+                                    <input asp-for="Email" type="email" name="email" placeholder="ایمیل*">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="tm-form-field">
+                                    <input asp-for="Subject" type="text" name="subject" placeholder="موضوع*">
+                                    <span asp-validation-for="Subject" class="text-danger"></span>
+                                </div>
+                                <div class="tm-form-field">
+                                    <textarea asp-for="Description" name="message" cols="30" rows="5" placeholder="پیام*"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="tm-form-field">
+                                    <button type="submit" class="tm-button">ارسال پیام<b></b></button>
+                                </div>
+                            </div>
+                        </form>
+                        <p class="form-messages"></p>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="tm-contact-map">
+                        @*<div id="google-map"></div>*@
+                        <img class="wow fadeInRight" src="~/assets/base/Location/v2/location_picture_long.jpg" alt="deconsult image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--// Contact Us -->
+</main>
+<!--// Main Content -->
+
+@section Styles
+{
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa0BcBoQ2AOyDJ3oyRIv07yLq2eOdT75w"></script>
+    <script src="~/lib/deconsultrtl/assets/js/google-map.js" asp-append-version="true"></script>*@
+}

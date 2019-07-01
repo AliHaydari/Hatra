@@ -11,7 +11,7 @@ function init() {
         scrollwheel: false,
 
         // The latitude and longitude to center the map (always required)
-        center: new google.maps.LatLng(51.517228, -0.078778), // New York
+        center: new google.maps.LatLng(32.860180, 51.553420), // New York
 
         // How you would like to style the map. 
         // This is where you would paste any style found on
@@ -189,7 +189,7 @@ function init() {
 
     // Let's also add a marker while we're at it
     var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(51.517228, -0.078778),
+        position: new google.maps.LatLng(32.860180, 51.553420),
         map: map,
         title: 'Deconsult',
         icon: 'assets/images/icons/marker.png',
