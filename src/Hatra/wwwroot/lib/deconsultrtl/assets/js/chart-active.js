@@ -187,6 +187,7 @@ window.chartColors = {
     };
 
     window.onload = function () {
+        return;
         var ctx = document.getElementById('business-growth').getContext('2d');
         window.myBar = new Chart(ctx, {
             type: 'bar',
