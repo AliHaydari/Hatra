@@ -28,6 +28,8 @@
     <PackageReference Include="DNTCommon.Web.Core" Version="1.4.0" />
     <PackageReference Include="EFSecondLevelCache.Core" Version="2.3.1" />
     <PackageReference Include="EPPlus" Version="4.5.3.1" />
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="NEST" Version="6.8.0" />

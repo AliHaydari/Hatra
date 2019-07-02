@@ -29,6 +29,18 @@ namespace Hatra.Services
             _menus.CheckArgumentIsNull(nameof(_menus));
         }
 
+        public async Task<List<Menu>> GetAllForExcelExportAsync()
+        {
+            return await (from menu in _menus
+                          join parent in _menus on menu.ParentId equals
+                              parent.Id into parent
+                          from menuParent in parent.DefaultIfEmpty()
+                          orderby menu.ParentId, menu.Order
+                          select menu)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<List<MenuViewModel>> GetAllAsync()
         {
             return await (from menu in _menus

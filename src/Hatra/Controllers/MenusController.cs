@@ -1,7 +1,9 @@
 ﻿using DNTBreadCrumb.Core;
 using DNTCommon.Web.Core;
+using ExcelDataReader;
 using Hatra.Common.Extensions;
 using Hatra.Common.GuardToolkit;
+using Hatra.Helpers;
 using Hatra.Services.Contracts;
 using Hatra.Services.Identity;
 using Hatra.ViewModels;
@@ -16,6 +18,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Hatra.Entities;
 
 namespace Hatra.Controllers
 {
@@ -46,13 +49,17 @@ namespace Hatra.Controllers
 
         public async Task<IActionResult> Export()
         {
-            byte[] reportBytes;
-            using (var package = await createExcelPackage())
-            {
-                reportBytes = package.GetAsByteArray();
-            }
+            //byte[] reportBytes;
+            //using (var package = await createExcelPackage())
+            //{
+            //    reportBytes = package.GetAsByteArray();
+            //}
 
-            return File(reportBytes, XlsxContentType, "report.xlsx");
+            //return File(reportBytes, XlsxContentType, "report.xlsx");
+
+            var list = await _menuService.GetAllForExcelExportAsync();
+            var excel = ExcelExportHelper.ExportExcel(list, IgnoredColumns: new[] { "SubMenus", "ParentMenu" });
+            return File(excel, XlsxContentType, "menu.xlsx");
         }
 
         [AjaxOnly]
@@ -80,6 +87,24 @@ namespace Hatra.Controllers
             if (!requestFile.FileName.ContainsExcel())
             {
                 return BadRequest(error: "لطفا فایل اکسل انتخاب کنید");
+            }
+
+            Stream stre = requestFile.OpenReadStream();
+            using (var reader = ExcelReaderFactory.CreateReader(stre))
+            {
+                var result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                {
+                    ConfigureDataTable = (tableReader) => new ExcelDataTableConfiguration()
+                    {
+                        // true: ردیف اول از فایل را به عنوان هدر در نظر می‌گیرد
+                        // مقدار پیش فرض: false
+                        UseHeaderRow = true
+                    }
+                });
+
+                var table = result.Tables[0];
+
+                var list = ExcelExportHelper.ConvertDataTable<Menu>(table);
             }
 
             using (var memoryStream = new MemoryStream())
@@ -111,6 +136,7 @@ namespace Hatra.Controllers
             package.Workbook.Properties.Author = "";
             package.Workbook.Properties.Subject = "Menus Report";
             package.Workbook.Properties.Keywords = "Menus";
+            package.Workbook.Properties.Created = DateTime.Now;
 
 
             var worksheet = package.Workbook.Worksheets.Add("Menus");
@@ -140,7 +166,7 @@ namespace Hatra.Controllers
             var list = await _menuService.GetAllAsync();
             for (int i = 0; i < list.Count; i++)
             {
-                worksheet.Cells[i + 2, 1].Value = list[i].Name;
+                worksheet.Cells[i + 2, 1].Value = list[i].Id;
                 worksheet.Cells[i + 2, 2].Value = list[i].Name;
                 worksheet.Cells[i + 2, 3].Value = list[i].Link;
                 worksheet.Cells[i + 2, 4].Value = list[i].ParentId;
@@ -170,6 +196,8 @@ namespace Hatra.Controllers
             //worksheet.HeaderFooter.OddFooter.InsertPicture(
             //    new FileInfo(Path.Combine(_hostingEnvironment.WebRootPath, "images", "captcha.jpg")),
             //    PictureAlignment.Right);
+
+            worksheet.Cells.AutoFitColumns();
 
             return package;
         }
