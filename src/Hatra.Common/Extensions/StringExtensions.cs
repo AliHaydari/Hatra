@@ -16,5 +16,20 @@ namespace Hatra.Common.Extensions
 
             return noHtmlNormalised;
         }
+
+        public static bool ContainsExcel(this string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                return false;
+            }
+
+            if (str.Contains(".xls") || str.Contains(".xlsx"))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

@@ -1,0 +1,27 @@
+﻿@model ImportFromExcelViewModel
+<partial name="_CustomValidationSummary" />
+<form asp-area="" asp-controller="Menus" asp-action="Import" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Import From Excel</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label asp-for="File" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <input asp-for="File" class="form-control" />
+                        <span asp-validation-for="File" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <security-trimming asp-area="" asp-controller="Menus" asp-action="Import">
+                    <button class="btn btn-success" type="submit">Import</button>
+                </security-trimming>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">انصراف</button>
+            </div>
+        </div>
+    </div>
+</form>

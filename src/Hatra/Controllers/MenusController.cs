@@ -1,5 +1,6 @@
 ﻿using DNTBreadCrumb.Core;
 using DNTCommon.Web.Core;
+using Hatra.Common.Extensions;
 using Hatra.Common.GuardToolkit;
 using Hatra.Services.Contracts;
 using Hatra.Services.Identity;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OfficeOpenXml;
-using OfficeOpenXml.Table;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -55,19 +55,32 @@ namespace Hatra.Controllers
             return File(reportBytes, XlsxContentType, "report.xlsx");
         }
 
-        //[ValidateAntiForgeryToken]
+        [AjaxOnly]
+        public IActionResult RenderImport()
+        {
+            return PartialView("_ImportFromExcel", new ImportFromExcelViewModel());
+        }
+
+        [AjaxOnly]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Import(IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
-                if (HttpContext.Request.Form.Files[0] == null)
+                if (HttpContext.Request.Form.Files.Count == 0)
                 {
-                    return RedirectToAction("Index");
+                    return BadRequest(error: "هیچ فایلی انتخاب نشده است");
                 }
             }
 
-            var requestFile = HttpContext.Request.Form.Files[0];
+            var requestFile = file ?? HttpContext.Request.Form.Files[0];
+
+            if (!requestFile.FileName.ContainsExcel())
+            {
+                return BadRequest(error: "لطفا فایل اکسل انتخاب کنید");
+            }
 
             using (var memoryStream = new MemoryStream())
             {
@@ -77,18 +90,17 @@ namespace Hatra.Controllers
                 {
                     try
                     {
-                        var worksheet = package.Workbook.Worksheets[0]; // Tip: To access the first worksheet, try index 1, not 0
+                        var worksheet = package.Workbook.Worksheets[0];
                         readExcelPackageToString(package, worksheet);
-                        return Content("success");
+
+                        return Json(new { success = true });
                     }
                     catch (Exception e)
                     {
-                        return Content("false");
+                        return BadRequest(error: "خطا در پردازش اطلاعات");
                     }
                 }
             }
-
-            //return Json("true");
         }
 
         [NonAction]
