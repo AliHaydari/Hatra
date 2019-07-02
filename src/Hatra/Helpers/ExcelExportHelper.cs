@@ -1,43 +1,16 @@
-﻿using OfficeOpenXml;
+﻿using Hatra.Common.WebToolkit;
+using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Linq;
-using System.Reflection;
 
 namespace Hatra.Helpers
 {
     public class ExcelExportHelper
     {
         public static string ExcelContentType => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-
-        public static DataTable ToDataTable<T>(List<T> data)
-        {
-            PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(T));
-            DataTable table = new DataTable();
-
-            for (int i = 0; i < props.Count; i++)
-            {
-                PropertyDescriptor prop = props[i];
-                //table.Columns.Add(prop.Name, prop.PropertyType);
-                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType); // to avoid nullable types
-            }
-
-            object[] values = new object[props.Count];
-            foreach (T item in data)
-            {
-                for (int i = 0; i < values.Length; i++)
-                {
-                    values[i] = props[i].GetValue(item);
-                }
-
-                table.Rows.Add(values);
-            }
-
-            return table;
-        }
 
         public static byte[] ExportExcel(DataTable dt, string Heading = "", params string[] IgnoredColumns)
         {
@@ -113,103 +86,7 @@ namespace Hatra.Helpers
 
         public static byte[] ExportExcel<T>(List<T> data, string Heading = "", params string[] IgnoredColumns)
         {
-            return ExportExcel(ToDataTable<T>(data), Heading, IgnoredColumns);
-        }
-
-
-        public static List<T> ConvertDataTable<T>(DataTable dt)
-        {
-            List<T> data = new List<T>();
-            foreach (DataRow row in dt.Rows)
-            {
-                T item = GetItem<T>(row);
-                data.Add(item);
-            }
-            return data;
-        }
-
-        private static T GetItem<T>(DataRow dr)
-        {
-            Type temp = typeof(T);
-            T obj = Activator.CreateInstance<T>();
-
-            foreach (DataColumn column in dr.Table.Columns)
-            {
-                foreach (PropertyInfo pro in temp.GetProperties())
-                {
-                    //var type = pro.PropertyType;
-
-                    //object convertedValue;
-
-                    //try
-                    //{
-                    //    convertedValue = Convert.ChangeType(dr[column.ColumnName], pro.PropertyType);
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    continue;
-                    //}
-
-                    //
-
-                    if (pro.Name == column.ColumnName)
-                    {
-                        try
-                        {
-                            //var convertedValue = Convert.ChangeType(dr[column.ColumnName], pro.PropertyType);
-                            var convertedValue = ChangeType(dr[column.ColumnName], pro.PropertyType);
-
-                            pro.SetValue(obj, convertedValue, null);
-                        }
-                        catch (Exception e)
-                        {
-                            continue;
-                        }
-                    }
-                    else
-                        continue;
-                }
-            }
-            return obj;
-        }
-
-        private static T ChangeType<T>(object value)
-        {
-            var t = typeof(T);
-
-            if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
-            {
-                if (value == null)
-                {
-                    return default(T);
-                }
-
-                t = Nullable.GetUnderlyingType(t);
-            }
-
-            return (T)Convert.ChangeType(value, t);
-        }
-
-        private static object ChangeType(object value, Type conversion)
-        {
-            var t = conversion;
-
-            if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
-            {
-                if (string.IsNullOrEmpty(value?.ToString()))
-                {
-                    return null;
-                }
-
-                t = Nullable.GetUnderlyingType(t);
-            }
-            else if (t.IsEnum)
-            {
-                var enumIntValue = Convert.ToInt32(value);
-                return Enum.Parse(t, enumIntValue.ToString());
-            }
-
-            return Convert.ChangeType(value, t);
+            return ExportExcel(ConvertData.ToDataTable<T>(data), Heading, IgnoredColumns);
         }
     }
 }

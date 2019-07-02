@@ -7,6 +7,7 @@ using Hatra.Services.Contracts;
 using Hatra.Services.Contracts.Identity;
 using Hatra.Services.Identity;
 using Hatra.Services.Identity.Logger;
+using Hatra.ViewModels.Excels;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -78,6 +79,12 @@ namespace Hatra.IocConfig
             services.AddScoped<IPictureService, PictureService>();
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IContactUsService, ContactUsService>();
+
+            services.AddScoped<IExcelExImService<ExcelMenuViewModel>, MenuService>();
+            services.AddScoped<IExcelExImService<ExcelSlideShowViewModel>, SlideShowService>();
+            services.AddScoped<IExcelExImService<ExcelBrandViewModel>, BrandService>();
+            services.AddScoped<IExcelExImService<ExcelCategoryViewModel>, CategoryService>();
+            services.AddScoped<IExcelExImService<ExcelPageViewModel>, PageService>();
 
             return services;
         }

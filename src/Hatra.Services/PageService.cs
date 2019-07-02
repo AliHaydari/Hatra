@@ -1,19 +1,20 @@
-﻿using System;
-using Hatra.Common.GuardToolkit;
+﻿using Hatra.Common.GuardToolkit;
 using Hatra.Common.WebToolkit;
 using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
 using Hatra.ViewModels;
+using Hatra.ViewModels.Excels;
 using Hatra.ViewModels.Paged;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hatra.Services
 {
-    public class PageService : IPageService
+    public class PageService : IPageService, IExcelExImService<ExcelPageViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly DbSet<Page> _pages;
@@ -430,6 +431,36 @@ namespace Hatra.Services
                 entity.ViewNumber++;
                 await _unitOfWork.SaveChangesAsync();
             }
+        }
+
+        public List<ExcelPageViewModel> ExportToExcel()
+        {
+            return _pages
+                .OrderBy(p => p.Id)
+                .Include(p => p.Category)
+                .Select(p => new ExcelPageViewModel(p))
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public async Task<List<ExcelPageViewModel>> ExportToExcelAsync()
+        {
+            return await _pages
+                .OrderBy(p => p.Id)
+                .Include(p => p.Category)
+                .Select(p => new ExcelPageViewModel(p))
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public int ImportFromExcel(List<ExcelPageViewModel> list)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> ImportFromExcelAsync(List<ExcelPageViewModel> list)
+        {
+            throw new NotImplementedException();
         }
     }
 }

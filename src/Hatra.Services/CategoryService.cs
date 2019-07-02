@@ -5,6 +5,7 @@ using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
 using Hatra.ViewModels;
+using Hatra.ViewModels.Excels;
 using Hatra.ViewModels.Paged;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Hatra.Services
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService : ICategoryService, IExcelExImService<ExcelCategoryViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly DbSet<Category> _categories;
@@ -208,6 +209,34 @@ namespace Hatra.Services
                 .AnyAsync(p => p.Pages.Any());
 
             return await Task.FromResult(result);
+        }
+
+        public List<ExcelCategoryViewModel> ExportToExcel()
+        {
+            return _categories
+                .OrderBy(p => p.Id)
+                .Select(p => new ExcelCategoryViewModel(p))
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public async Task<List<ExcelCategoryViewModel>> ExportToExcelAsync()
+        {
+            return await _categories
+                .OrderBy(p => p.Id)
+                .Select(p => new ExcelCategoryViewModel(p))
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public int ImportFromExcel(List<ExcelCategoryViewModel> list)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<int> ImportFromExcelAsync(List<ExcelCategoryViewModel> list)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

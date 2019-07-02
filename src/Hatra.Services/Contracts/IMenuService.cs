@@ -1,5 +1,4 @@
-﻿using Hatra.Entities;
-using Hatra.ViewModels;
+﻿using Hatra.ViewModels;
 using Hatra.ViewModels.Paged;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,7 +7,6 @@ namespace Hatra.Services.Contracts
 {
     public interface IMenuService
     {
-        Task<List<Menu>> GetAllForExcelExportAsync();
         Task<List<MenuViewModel>> GetAllAsync();
         Task<PagedAdminMenuViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage);
         Task<List<DropDownMenuViewModel>> GetAllParentAsync();

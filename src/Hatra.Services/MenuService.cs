@@ -4,6 +4,7 @@ using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
 using Hatra.ViewModels;
+using Hatra.ViewModels.Excels;
 using Hatra.ViewModels.Paged;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Hatra.Services
 {
-    public class MenuService : IMenuService
+    public class MenuService : IMenuService, IExcelExImService<ExcelMenuViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly DbSet<Menu> _menus;
@@ -27,18 +28,6 @@ namespace Hatra.Services
 
             _menus = _unitOfWork.Set<Menu>();
             _menus.CheckArgumentIsNull(nameof(_menus));
-        }
-
-        public async Task<List<Menu>> GetAllForExcelExportAsync()
-        {
-            return await (from menu in _menus
-                          join parent in _menus on menu.ParentId equals
-                              parent.Id into parent
-                          from menuParent in parent.DefaultIfEmpty()
-                          orderby menu.ParentId, menu.Order
-                          select menu)
-                .AsNoTracking()
-                .ToListAsync();
         }
 
         public async Task<List<MenuViewModel>> GetAllAsync()
@@ -304,6 +293,62 @@ namespace Hatra.Services
         public async Task<int> GetNextOrder()
         {
             return (await _menus.MaxAsync(p => (int?)p.Order)).GetValueOrDefault() + 1;
+        }
+
+        public List<ExcelMenuViewModel> ExportToExcel()
+        {
+            return (from menu in _menus
+                    join parent in _menus on menu.ParentId equals
+                        parent.Id into parent
+                    from menuParent in parent.DefaultIfEmpty()
+                    orderby menu.Id
+                    select new ExcelMenuViewModel()
+                    {
+                        Id = menu.Id,
+                        Name = menu.Name,
+                        Link = menu.Link,
+                        ParentId = menuParent.Id,
+                        ParentName = menuParent.Name,
+                        Order = menu.Order,
+                        Type = menu.Type,
+                        IsShow = menu.IsShow,
+                        IsMegaMenu = menu.IsMegaMenu,
+                    })
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public async Task<List<ExcelMenuViewModel>> ExportToExcelAsync()
+        {
+            return await (from menu in _menus
+                          join parent in _menus on menu.ParentId equals
+                              parent.Id into parent
+                          from menuParent in parent.DefaultIfEmpty()
+                          orderby menu.Id
+                          select new ExcelMenuViewModel()
+                          {
+                              Id = menu.Id,
+                              Name = menu.Name,
+                              Link = menu.Link,
+                              ParentId = menuParent.Id,
+                              ParentName = menuParent.Name,
+                              Order = menu.Order,
+                              Type = menu.Type,
+                              IsShow = menu.IsShow,
+                              IsMegaMenu = menu.IsMegaMenu,
+                          })
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public int ImportFromExcel(List<ExcelMenuViewModel> list)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<int> ImportFromExcelAsync(List<ExcelMenuViewModel> list)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

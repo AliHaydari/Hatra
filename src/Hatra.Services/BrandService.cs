@@ -4,6 +4,7 @@ using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
 using Hatra.ViewModels;
+using Hatra.ViewModels.Excels;
 using Hatra.ViewModels.Paged;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Hatra.Services
 {
-    public class BrandService : IBrandService
+    public class BrandService : IBrandService, IExcelExImService<ExcelBrandViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly DbSet<Brand> _brands;
@@ -150,6 +151,34 @@ namespace Hatra.Services
             return id == null
                 ? await _brands.AnyAsync(p => p.Name == name)
                 : await _brands.AnyAsync(p => p.Id != id && p.Name == name);
+        }
+
+        public List<ExcelBrandViewModel> ExportToExcel()
+        {
+            return _brands
+                .OrderBy(p => p.Id)
+                .Select(p => new ExcelBrandViewModel(p))
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public async Task<List<ExcelBrandViewModel>> ExportToExcelAsync()
+        {
+            return await _brands
+                .OrderBy(p => p.Id)
+                .Select(p => new ExcelBrandViewModel(p))
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public int ImportFromExcel(List<ExcelBrandViewModel> list)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<int> ImportFromExcelAsync(List<ExcelBrandViewModel> list)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

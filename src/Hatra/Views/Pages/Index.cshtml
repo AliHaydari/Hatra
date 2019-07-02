@@ -6,7 +6,43 @@
 
 <div class="card mt-5">
     <div class="card-header">
-        <h5 class="card-title">@ViewData["Title"]</h5>
+        <div class="row">
+            <div class="col-md-2">
+                <h5 class="card-title">@ViewData["Title"]</h5>
+            </div>
+            <div class="col-md-10">
+                <div class="btn-group float-left" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-file-excel"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <security-trimming asp-area="" asp-controller="ExcelExIm" asp-action="Export">
+                            <a class="dropdown-item" asp-area="" asp-controller="ExcelExIm" asp-action="Export" asp-route-type="@ExcelTypeEnum.Pages"><i class="fas fa-upload text-success"></i> Export</a>
+                        </security-trimming>
+                        <security-trimming asp-area="" asp-controller="ExcelExIm" asp-action="Import">
+                            <div class="dropdown-divider"></div>
+                            <form class="form-inline"
+                                  method="post"
+                                  asp-controller="ExcelExIm"
+                                  asp-action="Import"
+                                  asp-route-type="@ExcelTypeEnum.Pages"
+                                  role="form"
+                                  data-ajax="true"
+                                  data-ajax-begin="dataAjaxBegin"
+                                  data-ajax-success="dataAjaxSuccess"
+                                  data-ajax-failure="dataAjaxFailure"
+                                  data-ajax-method="POST"
+                                  enctype="multipart/form-data">
+                                <div class="form-group mb-2">
+                                    <input type="file" class="btn btn-outline-dark">
+                                </div>
+                                <button type="submit" class="dropdown-item"><i class="fas fa-download text-success"></i> Import</button>
+                            </form>
+                        </security-trimming>
+                    </div>
+                </div>
+            </div>
+        </div>
         <a id="btnReIndex" class="btn btn-outline-primary">
             Re-Index
         </a>

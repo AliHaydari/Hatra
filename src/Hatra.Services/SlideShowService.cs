@@ -4,6 +4,7 @@ using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
 using Hatra.ViewModels;
+using Hatra.ViewModels.Excels;
 using Hatra.ViewModels.Paged;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Hatra.Services
 {
-    public class SlideShowService : ISlideShowService
+    public class SlideShowService : ISlideShowService, IExcelExImService<ExcelSlideShowViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly DbSet<SlideShow> _slideShows;
@@ -41,7 +42,7 @@ namespace Hatra.Services
             var skipRecords = pageNumber * recordsPerPage;
 
             var query = _slideShows
-                .OrderByDescending(p=>p.Id)
+                .OrderByDescending(p => p.Id)
                 .ThenBy(p => p.Order)
                 .Select(p => new SlideShowViewModel(p))
                 .AsNoTracking();
@@ -153,5 +154,32 @@ namespace Hatra.Services
             return (await _slideShows.MaxAsync(p => (int?)p.Order)).GetValueOrDefault() + 1;
         }
 
+        public List<ExcelSlideShowViewModel> ExportToExcel()
+        {
+            return _slideShows
+                .OrderBy(p => p.Id)
+                .Select(p => new ExcelSlideShowViewModel(p))
+                .AsNoTracking()
+                .ToList();
+        }
+
+        public async Task<List<ExcelSlideShowViewModel>> ExportToExcelAsync()
+        {
+            return await _slideShows
+                .OrderBy(p => p.Id)
+                .Select(p => new ExcelSlideShowViewModel(p))
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public int ImportFromExcel(List<ExcelSlideShowViewModel> list)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<int> ImportFromExcelAsync(List<ExcelSlideShowViewModel> list)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
