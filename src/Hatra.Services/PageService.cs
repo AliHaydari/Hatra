@@ -18,6 +18,7 @@ namespace Hatra.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly DbSet<Page> _pages;
+        private readonly DbSet<Category> _categories;
 
         public PageService(IUnitOfWork unitOfWork)
         {
@@ -26,6 +27,9 @@ namespace Hatra.Services
 
             _pages = _unitOfWork.Set<Page>();
             _pages.CheckArgumentIsNull(nameof(_pages));
+
+            _categories = _unitOfWork.Set<Category>();
+            _categories.CheckArgumentIsNull(nameof(_categories));
         }
 
         public async Task<List<PageViewModel>> GetAllAsync()
@@ -455,12 +459,84 @@ namespace Hatra.Services
 
         public int ImportFromExcel(List<ExcelPageViewModel> list)
         {
-            throw new NotImplementedException();
+            var entities = new List<Page>(list.Count);
+
+            foreach (var viewModel in list)
+            {
+                int? categoryId = null;
+
+                if (viewModel.CategoryId.HasValue)
+                {
+                    var category = _categories.FirstOrDefault(p => p.Name == viewModel.CategoryName && p.SlugUrl == viewModel.CategorySlugUrl);
+
+                    if (category != null)
+                    {
+                        categoryId = category.Id;
+                    }
+                }
+
+                var entity = new Page()
+                {
+                    Id = viewModel.Id,
+                    Title = viewModel.Title,
+                    BriefDescription = viewModel.BriefDescription,
+                    Body = viewModel.Body,
+                    MetaDescription = viewModel.MetaDescription,
+                    SlugUrl = SeoHelpers.GenerateSlug(viewModel.Title),
+                    ViewNumber = 0,
+                    Image = viewModel.Image,
+                    Order = viewModel.Order,
+                    CategoryId = categoryId,
+                    IsShow = viewModel.IsShow,
+                };
+
+                entities.Add(entity);
+            }
+
+            _pages.AddRange(entities);
+            var result = _unitOfWork.SaveChanges();
+            return result;
         }
 
-        public Task<int> ImportFromExcelAsync(List<ExcelPageViewModel> list)
+        public async Task<int> ImportFromExcelAsync(List<ExcelPageViewModel> list)
         {
-            throw new NotImplementedException();
+            var entities = new List<Page>(list.Count);
+
+            foreach (var viewModel in list)
+            {
+                int? categoryId = null;
+
+                if (viewModel.CategoryId.HasValue)
+                {
+                    var category = await _categories.FirstOrDefaultAsync(p => p.Name == viewModel.CategoryName && p.SlugUrl == viewModel.CategorySlugUrl);
+
+                    if (category != null)
+                    {
+                        categoryId = category.Id;
+                    }
+                }
+
+                var entity = new Page()
+                {
+                    Id = viewModel.Id,
+                    Title = viewModel.Title,
+                    BriefDescription = viewModel.BriefDescription,
+                    Body = viewModel.Body,
+                    MetaDescription = viewModel.MetaDescription,
+                    SlugUrl = SeoHelpers.GenerateSlug(viewModel.Title),
+                    ViewNumber = 0,
+                    Image = viewModel.Image,
+                    Order = viewModel.Order,
+                    CategoryId = categoryId,
+                    IsShow = viewModel.IsShow,
+                };
+
+                entities.Add(entity);
+            }
+
+            await _pages.AddRangeAsync(entities);
+            var result = await _unitOfWork.SaveChangesAsync();
+            return result;
         }
     }
 }

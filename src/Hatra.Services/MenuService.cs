@@ -164,7 +164,7 @@ namespace Hatra.Services
         {
             bool isShow;
 
-            if (await CheckIsShowAvailableMainMenu())
+            if (await CheckIsShowAvailableMainMenuAsync())
             {
                 isShow = viewModel.IsShow;
             }
@@ -209,7 +209,7 @@ namespace Hatra.Services
             {
                 bool isShow;
 
-                if (await CheckIsShowAvailableMainMenu())
+                if (await CheckIsShowAvailableMainMenuAsync())
                 {
                     isShow = viewModel.IsShow;
                 }
@@ -280,7 +280,17 @@ namespace Hatra.Services
             return await Task.FromResult(result);
         }
 
-        private async Task<bool> CheckIsShowAvailableMainMenu()
+        private bool CheckIsShowAvailableMainMenu()
+        {
+            var items = _menus
+                .Count(p => p.IsShow == true && p.ParentId == null);
+
+            if (items > 7) return false;
+
+            return true;
+        }
+
+        private async Task<bool> CheckIsShowAvailableMainMenuAsync()
         {
             var items = await _menus
                 .CountAsync(p => p.IsShow == true && p.ParentId == null);
@@ -343,12 +353,98 @@ namespace Hatra.Services
 
         public int ImportFromExcel(List<ExcelMenuViewModel> list)
         {
-            throw new System.NotImplementedException();
+            var entities = new List<Menu>(list.Count);
+
+            foreach (var viewModel in list)
+            {
+                bool isShow;
+                if (CheckIsShowAvailableMainMenu())
+                {
+                    isShow = viewModel.IsShow;
+                }
+                else
+                {
+                    isShow = false;
+                }
+
+                int? parentId = null;
+
+                if (viewModel.ParentId.HasValue)
+                {
+                    var menu = _menus.FirstOrDefault(p => p.Name == viewModel.ParentName);
+
+                    if (menu != null)
+                    {
+                        parentId = menu.Id;
+                    }
+                }
+
+                var entity = new Menu()
+                {
+                    Id = viewModel.Id,
+                    Name = viewModel.Name,
+                    Link = viewModel.Link ?? "#",
+                    ParentId = parentId,
+                    Order = viewModel.Order,
+                    Type = viewModel.Type,
+                    IsShow = isShow,
+                    IsMegaMenu = !viewModel.ParentId.HasValue && viewModel.IsMegaMenu,
+                };
+
+                entities.Add(entity);
+            }
+
+            _menus.AddRange(entities);
+            var result = _unitOfWork.SaveChanges();
+            return result;
         }
 
-        public Task<int> ImportFromExcelAsync(List<ExcelMenuViewModel> list)
+        public async Task<int> ImportFromExcelAsync(List<ExcelMenuViewModel> list)
         {
-            throw new System.NotImplementedException();
+            var entities = new List<Menu>(list.Count);
+
+            foreach (var viewModel in list)
+            {
+                bool isShow;
+                if (await CheckIsShowAvailableMainMenuAsync())
+                {
+                    isShow = viewModel.IsShow;
+                }
+                else
+                {
+                    isShow = false;
+                }
+
+                int? parentId = null;
+
+                if (viewModel.ParentId.HasValue)
+                {
+                    var menu = await _menus.FirstOrDefaultAsync(p => p.Name == viewModel.ParentName);
+
+                    if (menu != null)
+                    {
+                        parentId = menu.Id;
+                    }
+                }
+
+                var entity = new Menu()
+                {
+                    Id = viewModel.Id,
+                    Name = viewModel.Name,
+                    Link = viewModel.Link ?? "#",
+                    ParentId = parentId,
+                    Order = viewModel.Order,
+                    Type = viewModel.Type,
+                    IsShow = isShow,
+                    IsMegaMenu = !viewModel.ParentId.HasValue && viewModel.IsMegaMenu,
+                };
+
+                entities.Add(entity);
+            }
+
+            await _menus.AddRangeAsync(entities);
+            var result = await _unitOfWork.SaveChangesAsync();
+            return result;
         }
     }
 }

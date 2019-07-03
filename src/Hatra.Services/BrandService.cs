@@ -173,12 +173,50 @@ namespace Hatra.Services
 
         public int ImportFromExcel(List<ExcelBrandViewModel> list)
         {
-            throw new System.NotImplementedException();
+            var entities = new List<Brand>(list.Count);
+
+            foreach (var viewModel in list)
+            {
+                var entity = new Brand()
+                {
+                    Id = viewModel.Id,
+                    Name = viewModel.Name,
+                    Image = viewModel.Image,
+                    Link = viewModel.Link,
+                    Description = viewModel.Description,
+                    IsShow = viewModel.IsShow,
+                };
+
+                entities.Add(entity);
+            }
+
+            _brands.AddRange(entities);
+            var result = _unitOfWork.SaveChanges();
+            return result;
         }
 
-        public Task<int> ImportFromExcelAsync(List<ExcelBrandViewModel> list)
+        public async Task<int> ImportFromExcelAsync(List<ExcelBrandViewModel> list)
         {
-            throw new System.NotImplementedException();
+            var entities = new List<Brand>(list.Count);
+
+            foreach (var viewModel in list)
+            {
+                var entity = new Brand()
+                {
+                    Id = viewModel.Id,
+                    Name = viewModel.Name,
+                    Image = viewModel.Image,
+                    Link = viewModel.Link,
+                    Description = viewModel.Description,
+                    IsShow = viewModel.IsShow,
+                };
+
+                entities.Add(entity);
+            }
+
+            await _brands.AddRangeAsync(entities);
+            var result = await _unitOfWork.SaveChangesAsync();
+            return result;
         }
     }
 }

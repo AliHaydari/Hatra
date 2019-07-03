@@ -174,12 +174,56 @@ namespace Hatra.Services
 
         public int ImportFromExcel(List<ExcelSlideShowViewModel> list)
         {
-            throw new System.NotImplementedException();
+            var entities = new List<SlideShow>(list.Count);
+
+            foreach (var viewModel in list)
+            {
+                var entity = new SlideShow()
+                {
+                    Id = viewModel.Id,
+                    Title = viewModel.Title,
+                    BriefDescription = viewModel.BriefDescription,
+                    Description = viewModel.Description,
+                    Image = viewModel.Image,
+                    Link1 = viewModel.Link1,
+                    Link2 = viewModel.Link2,
+                    Order = viewModel.Order,
+                    IsShow = viewModel.IsShow,
+                };
+
+                entities.Add(entity);
+            }
+
+            _slideShows.AddRange(entities);
+            var result = _unitOfWork.SaveChanges();
+            return result;
         }
 
-        public Task<int> ImportFromExcelAsync(List<ExcelSlideShowViewModel> list)
+        public async Task<int> ImportFromExcelAsync(List<ExcelSlideShowViewModel> list)
         {
-            throw new System.NotImplementedException();
+            var entities = new List<SlideShow>(list.Count);
+
+            foreach (var viewModel in list)
+            {
+                var entity = new SlideShow()
+                {
+                    Id = viewModel.Id,
+                    Title = viewModel.Title,
+                    BriefDescription = viewModel.BriefDescription,
+                    Description = viewModel.Description,
+                    Image = viewModel.Image,
+                    Link1 = viewModel.Link1,
+                    Link2 = viewModel.Link2,
+                    Order = viewModel.Order,
+                    IsShow = viewModel.IsShow,
+                };
+
+                entities.Add(entity);
+            }
+
+            await _slideShows.AddRangeAsync(entities);
+            var result = await _unitOfWork.SaveChangesAsync();
+            return result;
         }
     }
 }

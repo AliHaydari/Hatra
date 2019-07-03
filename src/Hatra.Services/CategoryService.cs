@@ -231,12 +231,48 @@ namespace Hatra.Services
 
         public int ImportFromExcel(List<ExcelCategoryViewModel> list)
         {
-            throw new System.NotImplementedException();
+            var entities = new List<Category>(list.Count);
+
+            foreach (var viewModel in list)
+            {
+                var entity = new Category()
+                {
+                    Id = viewModel.Id,
+                    Name = viewModel.Name,
+                    Description = viewModel.Description,
+                    IsShow = viewModel.IsShow,
+                    SlugUrl = SeoHelpers.GenerateSlug(viewModel.Name),
+                };
+
+                entities.Add(entity);
+            }
+
+            _categories.AddRange(entities);
+            var result = _unitOfWork.SaveChanges();
+            return result;
         }
 
-        public Task<int> ImportFromExcelAsync(List<ExcelCategoryViewModel> list)
+        public async Task<int> ImportFromExcelAsync(List<ExcelCategoryViewModel> list)
         {
-            throw new System.NotImplementedException();
+            var entities = new List<Category>(list.Count);
+
+            foreach (var viewModel in list)
+            {
+                var entity = new Category()
+                {
+                    Id = viewModel.Id,
+                    Name = viewModel.Name,
+                    Description = viewModel.Description,
+                    IsShow = viewModel.IsShow,
+                    SlugUrl = SeoHelpers.GenerateSlug(viewModel.Name),
+                };
+
+                entities.Add(entity);
+            }
+
+            await _categories.AddRangeAsync(entities);
+            var result = await _unitOfWork.SaveChangesAsync();
+            return result;
         }
     }
 }
