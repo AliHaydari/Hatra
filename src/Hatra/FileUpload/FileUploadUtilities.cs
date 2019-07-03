@@ -59,7 +59,10 @@ namespace Hatra.FileUpload
                 ".gif",
                 ".jpeg",
                 ".jpg",
-                ".png"
+                ".png",
+                ".pdf",
+                ".xls",
+                ".xlsx",
             };
 
         private async Task UploadWholeFileAsync(List<IFormFile> files, CommandResult result)
@@ -74,9 +77,23 @@ namespace Hatra.FileUpload
 
             foreach (var file in files)
             {
-                var fileName = Guid.NewGuid().ToString("N");
+                bool isImage;
+
+                string fileName = string.Empty;
 
                 var extension = Path.GetExtension(file.FileName);
+
+                isImage = Common.Extensions.ImageExtensions.IsImage(extension);
+
+                if (isImage)
+                {
+                    fileName = Guid.NewGuid().ToString("N");
+                }
+                else
+                {
+                    fileName = file.FileName;
+                }
+
                 if (!_allowedExtensions.Contains(extension))
                 {
                     // This is not a supported image type.
@@ -85,37 +102,60 @@ namespace Hatra.FileUpload
 
                 if (file.Length > 0L)
                 {
-                    var fullPath = Path.Combine(_filesHelper.StorageRootPath, Path.GetFileName(fileName + extension));
-                    using (var fs = new FileStream(fullPath, FileMode.Create))
+                    string fullPath = string.Empty;
+
+                    if (isImage)
                     {
-                        await file.CopyToAsync(fs);
+                        fullPath = Path.Combine(_filesHelper.StorageRootPath, Path.GetFileName(fileName + extension));
+                        using (var fs = new FileStream(fullPath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fs);
+                        }
+                    }
+                    else
+                    {
+                        fullPath = Path.Combine(_filesHelper.StorageRootPath, Path.GetFileName(fileName));
+                        using (var fs = new FileStream(fullPath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fs);
+                        }
                     }
 
 
-                    //
-                    // Create an 80x80 thumbnail.
-                    //
 
-                    //var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
-                    var thumbName = $"{fileName}{ImageConstants.ThumbWidth80}x{ImageConstants.ThumbHeight80}{extension}";
-                    var thumbPath = Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME, thumbName);
-
-                    // Create the thumnail directory if it doesn't exist.
-                    Directory.CreateDirectory(Path.GetDirectoryName(thumbPath));
-
-                    using (var thumb = Image.Load(ResizeImage(fullPath, Convert.ToInt32(ImageConstants.ThumbWidth80), Convert.ToInt32(ImageConstants.ThumbHeight80))))
+                    if (isImage)
                     {
-                        thumb.Save(thumbPath);
-                    }
+                        //
+                        // Create an 80x80 thumbnail.
+                        //
 
-                    using (var thumb = Image.Load(ResizeImage(fullPath, Convert.ToInt32(ImageConstants.ThumbWidth370), Convert.ToInt32(ImageConstants.ThumbHeight180))))
-                    {
-                        thumb.Save(Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME, $"{fileName}{ImageConstants.ThumbWidth370}x{ImageConstants.ThumbHeight180}{extension}"));
-                    }
+                        //var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
+                        var thumbName =
+                            $"{fileName}{ImageConstants.ThumbWidth80}x{ImageConstants.ThumbHeight80}{extension}";
+                        var thumbPath = Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME, thumbName);
 
-                    using (var thumb = Image.Load(ResizeImage(fullPath, Convert.ToInt32(ImageConstants.ThumbWidth90), Convert.ToInt32(ImageConstants.ThumbHeight81))))
-                    {
-                        thumb.Save(Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME, $"{fileName}{ImageConstants.ThumbWidth90}x{ImageConstants.ThumbHeight81}{extension}"));
+                        // Create the thumnail directory if it doesn't exist.
+                        Directory.CreateDirectory(Path.GetDirectoryName(thumbPath));
+
+                        using (var thumb = Image.Load(ResizeImage(fullPath, Convert.ToInt32(ImageConstants.ThumbWidth80),
+                            Convert.ToInt32(ImageConstants.ThumbHeight80))))
+                        {
+                            thumb.Save(thumbPath);
+                        }
+
+                        using (var thumb = Image.Load(ResizeImage(fullPath, Convert.ToInt32(ImageConstants.ThumbWidth370),
+                            Convert.ToInt32(ImageConstants.ThumbHeight180))))
+                        {
+                            thumb.Save(Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME,
+                                $"{fileName}{ImageConstants.ThumbWidth370}x{ImageConstants.ThumbHeight180}{extension}"));
+                        }
+
+                        using (var thumb = Image.Load(ResizeImage(fullPath, Convert.ToInt32(ImageConstants.ThumbWidth90),
+                            Convert.ToInt32(ImageConstants.ThumbHeight81))))
+                        {
+                            thumb.Save(Path.Combine(_filesHelper.StorageRootPath, THUMBS_FOLDER_NAME,
+                                $"{fileName}{ImageConstants.ThumbWidth90}x{ImageConstants.ThumbHeight81}{extension}"));
+                        }
                     }
 
                     // If the image is wider than 540px, resize it so that it is 540px wide. Otherwise, upload a copy of the original.
@@ -136,8 +176,12 @@ namespace Hatra.FileUpload
                     //    }
                     //}
                 }
+                else
+                {
 
-                result.FileResults.Add(UploadResult(fileName + extension, file.Length));
+                }
+
+                result.FileResults.Add(UploadResult(isImage ? fileName + extension : fileName, extension, file.Length));
             }
         }
 
@@ -153,7 +197,7 @@ namespace Hatra.FileUpload
                     IImageFormat format = originalImage.GetConfiguration().ImageFormatsManager.FindFormatByFileExtension(extension);
                     IImageEncoder encoder = originalImage.GetConfiguration().ImageFormatsManager.FindEncoder(format);
 
-                    if (IsJpeg(extension))
+                    if (Common.Extensions.ImageExtensions.IsJpeg(extension))
                     {
                         // It's a JPEG, so ensure we're maintaining quality.
                         encoder = new JpegEncoder { Quality = 90 };
@@ -178,21 +222,12 @@ namespace Hatra.FileUpload
             }
         }
 
-        /// <summary>
-        /// The file's extension, including the &quot;.&quot;.
-        /// </summary>
-        private bool IsJpeg(string extension)
-        {
-            return ".jpeg".Equals(extension, StringComparison.OrdinalIgnoreCase)
-                || ".jpg".Equals(extension, StringComparison.OrdinalIgnoreCase);
-        }
-
         private void UploadPartialFile(HttpContext httpContext, string partialFileName)
         {
             throw new NotImplementedException();
         }
 
-        private ViewDataUploadFilesResult UploadResult(string fileName, long fileSizeInBytes)
+        private ViewDataUploadFilesResult UploadResult(string fileName, string fileExtension, long fileSizeInBytes)
         {
             var getType = MimeMapping.GetMimeMapping(fileName);
 
@@ -203,8 +238,9 @@ namespace Hatra.FileUpload
                 type = getType,
                 url = _filesHelper.UrlBase + fileName,
                 deleteUrl = _filesHelper.DeleteUrl + fileName,
-                thumbnailUrl = _filesHelper.CheckThumb(getType, fileName),
+                thumbnailUrl = Common.Extensions.ImageExtensions.IsImage(fileExtension) ? _filesHelper.CheckThumb(getType, fileName) : null,
                 deleteType = _filesHelper.DeleteType,
+                extension = fileExtension,
             };
 
             return result;

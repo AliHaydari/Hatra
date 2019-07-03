@@ -9,5 +9,6 @@
         public string deleteUrl { get; set; }
         public string thumbnailUrl { get; set; }
         public string deleteType { get; set; }
+        public string extension { get; set; }
     }
 }

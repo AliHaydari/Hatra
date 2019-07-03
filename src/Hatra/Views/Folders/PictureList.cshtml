@@ -30,11 +30,22 @@
                 </span>
             </div>
         </div>
-        <div class="col col-md-2">
-            <div class="media">
-                <img src="@item.ThumbnailUrl" class="mr-3" alt="@item.Name">
+
+        @if (Hatra.Common.Extensions.ImageExtensions.IsImage(item.Extension))
+        {
+            <div class="col col-md-2">
+                <div class="media">
+                    <img src="@item.ThumbnailUrl" class="mr-3" alt="@item.Name">
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="col col-md-2">
+                <span><i class="fas fa-file" data-toggle="tooltip" data-placement="bottom" title="@item.Extension.Remove(0,1)"></i></span>
+            </div>
+        }
+
     </div>
 }
 

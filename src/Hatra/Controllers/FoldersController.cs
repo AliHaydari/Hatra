@@ -247,11 +247,23 @@ namespace Hatra.Controllers
             }
             else
             {
-                var result = await _pictureService.DeleteInTupleAsync(pictureViewModel.Id);
-                if (result.isSuccess)
+                var file = await _pictureService.GetByIdAsync(pictureViewModel.Id);
+                if (file == null)
                 {
-                    var res = _filesHelper.DeleteFileWithExtension(result.pictureName, result.pictureName?.Remove(0, 33));
-                    return Json(new { success = true });
+                    ModelState.AddModelError("", RequestPictureNotFound);
+                    return PartialView("_DeletePicture", model: viewModel);
+                }
+
+                var res = _filesHelper.DeleteFile(file.Name);
+                if (res == "Ok")
+                {
+                    var result = await _pictureService.DeleteInTupleAsync(pictureViewModel.Id);
+                    if (result.isSuccess)
+                    {
+                        return Json(new { success = true });
+                    }
+
+                    ModelState.AddModelError("", RequestPictureNotFound);
                 }
 
                 ModelState.AddModelError("", RequestPictureNotFound);
@@ -325,6 +337,18 @@ namespace Hatra.Controllers
             var pictureViewModel = await _pictureService.GetByIdAsync(Convert.ToInt32(model.Id));
 
             return new JsonResult(pictureViewModel);
+        }
+
+        public JsonResult GetFileList()
+        {
+            var list = _filesHelper.GetFileList();
+            return Json(list);
+        }
+
+        public JsonResult DeleteFile(string file)
+        {
+            _filesHelper.DeleteFile(file);
+            return Json("OK");
         }
     }
 }

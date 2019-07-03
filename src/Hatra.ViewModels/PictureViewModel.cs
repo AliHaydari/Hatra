@@ -24,6 +24,7 @@ namespace Hatra.ViewModels
             DeleteUrl = picture.DeleteUrl;
             ThumbnailUrl = picture.ThumbnailUrl;
             DeleteType = picture.DeleteType;
+            Extension = picture.Extension;
 
             FolderId = picture.FolderId;
             FolderName = picture.Folder?.Name;
@@ -38,6 +39,7 @@ namespace Hatra.ViewModels
             DeleteUrl = viewDataUploadFilesResult.deleteUrl;
             ThumbnailUrl = viewDataUploadFilesResult.thumbnailUrl;
             DeleteType = viewDataUploadFilesResult.deleteType;
+            Extension = viewDataUploadFilesResult.extension;
         }
 
         public PictureViewModel(ViewDataUploadFilesResult viewDataUploadFilesResult, int folderId)
@@ -51,6 +53,7 @@ namespace Hatra.ViewModels
             DeleteUrl = viewDataUploadFilesResult.deleteUrl;
             ThumbnailUrl = viewDataUploadFilesResult.thumbnailUrl;
             DeleteType = viewDataUploadFilesResult.deleteType;
+            Extension = viewDataUploadFilesResult.extension;
         }
 
         [HiddenInput]
@@ -66,6 +69,7 @@ namespace Hatra.ViewModels
         public string DeleteUrl { get; set; }
         public string ThumbnailUrl { get; set; }
         public string DeleteType { get; set; }
+        public string Extension { get; set; }
 
         [HiddenInput]
         public int FolderId { get; set; }

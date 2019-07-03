@@ -9,24 +9,24 @@
             <!-- The fileinput-button span is used to style the file input field as button -->
             <span class="btn btn-success fileinput-button">
                 <i class="glyphicon glyphicon-plus"></i>
-                <span>Add files...</span>
+                <span>افزودن فایل ...</span>
                 <input type="file" name="files" multiple>
             </span>
             <button type="submit" class="btn btn-primary start">
                 <i class="glyphicon glyphicon-upload"></i>
-                <span>Start upload</span>
+                <span>شروع آپلود</span>
             </button>
-            @*<button type="reset" class="btn btn-warning cancel">
+            <button type="reset" class="btn btn-warning cancel">
                 <i class="glyphicon glyphicon-ban-circle"></i>
-                <span>Cancel upload</span>
-            </button>*@
-            @*<button type="button" class="btn btn-danger delete">
+                <span>لغو آپلود</span>
+            </button>
+            <button type="button" class="btn btn-danger delete">
                 <i class="glyphicon glyphicon-trash"></i>
-                <span>Delete</span>
-            </button>*@
-            @*<input type="checkbox" class="toggle">
-             The global file processing state 
-            <span class="fileupload-process"></span>*@
+                <span>حذف</span>
+            </button>
+            <input type="checkbox" class="toggle">
+             @*The global file processing state*@ 
+            <span class="fileupload-process"></span>
         </div>
         <!-- The global progress state -->
         <div class="col-lg-5 fileupload-progress fade">
@@ -83,13 +83,13 @@
             {% if (!i && !o.options.autoUpload) { %}
             <button class="btn btn-primary start" disabled>
                 <i class="glyphicon glyphicon-upload"></i>
-                <span>Start</span>
+                <span>شروع آپلود</span>
             </button>
             {% } %}
             {% if (!i) { %}
             <button class="btn btn-warning cancel">
                 <i class="glyphicon glyphicon-ban-circle"></i>
-                <span>Cancel</span>
+                <span>لغو آپلود</span>
             </button>
             {% } %}
         </td>
@@ -124,11 +124,11 @@
         </td>
         <td>
             {% if (file.deleteUrl) { %}
-            @*<button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deletewithcredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+            <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deletewithcredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
                 <i class="glyphicon glyphicon-trash"></i>
-                <span>Delete</span>
+                <span>حذف</span>
             </button>
-            <input type="checkbox" name="delete" value="1" class="toggle">*@
+            <input type="checkbox" name="delete" value="1" class="toggle">
             {% } else { %}
             <button class="btn btn-warning cancel">
                 <i class="glyphicon glyphicon-ban-circle"></i>

@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Hatra.Common.GuardToolkit;
 using Hatra.FileUpload;
+using Hatra.Services.Contracts;
 using Hatra.ViewModels.FileUpload;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,14 +16,18 @@ namespace Hatra.Controllers
     {
         private readonly FilesHelper _filesHelper;
         private readonly FileUploadUtilities _fileUploadUtilities;
+        private readonly IPictureService _pictureService;
 
-        public FileUploadController(FilesHelper filesHelper, FileUploadUtilities fileUploadUtilities)
+        public FileUploadController(FilesHelper filesHelper, FileUploadUtilities fileUploadUtilities, IPictureService pictureService)
         {
             _filesHelper = filesHelper;
             _filesHelper.CheckArgumentIsNull(nameof(_filesHelper));
 
             _fileUploadUtilities = fileUploadUtilities;
             _fileUploadUtilities.CheckArgumentIsNull(nameof(_fileUploadUtilities));
+
+            _pictureService = pictureService;
+            _pictureService.CheckArgumentIsNull(nameof(_pictureService));
         }
 
         public ActionResult Index()
@@ -66,10 +71,27 @@ namespace Hatra.Controllers
             return Json(list);
         }
 
-        public JsonResult DeleteFile(string file)
+        public async Task<JsonResult> DeleteFile(string file)
         {
-            _filesHelper.DeleteFile(file);
-            return Json("OK");
+            var pictureViewModel = await _pictureService.GetByNameAsync(file);
+            if (pictureViewModel == null)
+            {
+                return Json("Error");
+            }
+            else
+            {
+                var res = _filesHelper.DeleteFile(file);
+                if (res == "Ok")
+                {
+                    var result = await _pictureService.DeleteAsync(pictureViewModel.Id);
+                    if (result)
+                    {
+                        return Json("OK");
+                    }
+                }
+
+                return Json("Error");
+            }
         }
     }
 }

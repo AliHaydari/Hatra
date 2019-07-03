@@ -15,6 +15,16 @@
     <link href="~/lib/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" asp-append-version="true" />
 }
 
+<div class="alert alert-warning mt-5">
+    <a href="#" class="close" data-dismiss="alert">×</a>
+    <ul>
+        <li><strong>فرمت های قابل آپلود شامل موارد زیر است :</strong></li>
+        <li>
+            <strong>gif</strong> | <strong>jpeg</strong> | <strong>jpg</strong> | <strong>png</strong> | <strong>pdf</strong> | <strong>xls</strong> | <strong>xlsx</strong>
+        </li>
+    </ul>
+</div>
+
 <form method="POST" enctype="multipart/form-data" asp-area="" asp-action="Upload" asp-controller="Folders">
     <partial name="_Image" />
     <input asp-for="Id" />

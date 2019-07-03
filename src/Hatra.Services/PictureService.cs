@@ -56,6 +56,30 @@ namespace Hatra.Services
             return null;
         }
 
+        public PictureViewModel GetByName(string name)
+        {
+            var entity = _pictures.FirstOrDefault(p => p.Name == name);
+
+            if (entity != null)
+            {
+                return new PictureViewModel(entity);
+            }
+
+            return null;
+        }
+
+        public async Task<PictureViewModel> GetByNameAsync(string name)
+        {
+            var entity = await _pictures.FirstOrDefaultAsync(p => p.Name == name);
+
+            if (entity != null)
+            {
+                return new PictureViewModel(entity);
+            }
+
+            return null;
+        }
+
         public async Task<bool> InsertAsync(PictureViewModel viewModel)
         {
             var entity = new Picture()
@@ -71,6 +95,7 @@ namespace Hatra.Services
                 DeleteUrl = viewModel.DeleteUrl,
                 ThumbnailUrl = viewModel.ThumbnailUrl,
                 DeleteType = viewModel.DeleteType,
+                Extension = viewModel.Extension,
             };
 
             await _pictures.AddAsync(entity);
@@ -95,6 +120,7 @@ namespace Hatra.Services
                     DeleteUrl = viewModel.DeleteUrl,
                     ThumbnailUrl = viewModel.ThumbnailUrl,
                     DeleteType = viewModel.DeleteType,
+                    Extension = viewModel.Extension,
                 };
 
                 await _pictures.AddAsync(entity);
@@ -120,6 +146,7 @@ namespace Hatra.Services
                 entity.DeleteUrl = viewModel.DeleteUrl;
                 entity.ThumbnailUrl = viewModel.ThumbnailUrl;
                 entity.DeleteType = viewModel.DeleteType;
+                entity.Extension = viewModel.Extension;
 
                 var result = await _unitOfWork.SaveChangesAsync();
                 return result != 0;

@@ -6,9 +6,9 @@ $(function () {
 
     $form = $('#fileupload').fileupload({
         dataType: 'json',
-        autoUpload: true,
+        autoUpload: false,
         maxFileSize: 99900000,
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|pdf|xls|xlsx)$/i
     });
 
 });
