@@ -1,5 +1,5 @@
 ﻿@{
-    var pageTitle = ViewData["Title"].ToString();
+    var pageTitle = ViewData["Title"]?.ToString() ?? "";
 }
 
 <!DOCTYPE html>

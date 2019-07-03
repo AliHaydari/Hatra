@@ -1,4 +1,5 @@
-﻿using EFSecondLevelCache.Core;
+﻿using System;
+using EFSecondLevelCache.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.DataLayer.Context;
 using Hatra.Entities;
@@ -311,7 +312,7 @@ namespace Hatra.Services
                     join parent in _menus on menu.ParentId equals
                         parent.Id into parent
                     from menuParent in parent.DefaultIfEmpty()
-                    orderby menu.Id
+                    orderby menu.ParentId, menu.Order
                     select new ExcelMenuViewModel()
                     {
                         Id = menu.Id,
@@ -334,7 +335,7 @@ namespace Hatra.Services
                           join parent in _menus on menu.ParentId equals
                               parent.Id into parent
                           from menuParent in parent.DefaultIfEmpty()
-                          orderby menu.Id
+                          orderby menu.ParentId, menu.Order
                           select new ExcelMenuViewModel()
                           {
                               Id = menu.Id,
@@ -376,6 +377,14 @@ namespace Hatra.Services
                     if (menu != null)
                     {
                         parentId = menu.Id;
+                    }
+                    else
+                    {
+                        var exc = list.FirstOrDefault(p => p.Id == viewModel.ParentId);
+                        if (exc != null)
+                        {
+                            parentId = exc.Id;
+                        }
                     }
                 }
 
@@ -425,6 +434,14 @@ namespace Hatra.Services
                     {
                         parentId = menu.Id;
                     }
+                    else
+                    {
+                        var exc = list.FirstOrDefault(p => p.Id == viewModel.ParentId);
+                        if (exc != null)
+                        {
+                            parentId = exc.Id;
+                        }
+                    }
                 }
 
                 var entity = new Menu()
@@ -443,8 +460,18 @@ namespace Hatra.Services
             }
 
             await _menus.AddRangeAsync(entities);
-            var result = await _unitOfWork.SaveChangesAsync();
-            return result;
+
+            int? result = null;
+            try
+            {
+                result = await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                result = -1;
+            }
+
+            return result.GetValueOrDefault();
         }
     }
 }

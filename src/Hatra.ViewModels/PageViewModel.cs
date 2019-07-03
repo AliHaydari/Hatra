@@ -85,8 +85,8 @@ namespace Hatra.ViewModels
         public List<PageImageViewModel> PageImageViewModels { get; set; }
 
 
-        public string ImageName => Image?.Remove(0, 21).Substring(0, 32);
-        public string ImageExtension => Image?.Remove(0, 21).Remove(0, 33);
+        public string ImageName => Image.Length >= 53 ? Image?.Remove(0, 21).Substring(0, 32) : "";
+        public string ImageExtension => Image.Length >= 53 ? Image?.Remove(0, 21).Remove(0, 33) : "";
         public string ImageThumbnail => ImageName + $@"{ImageConstants.Thumb370X180}." + ImageExtension;
         public string ImageThumbnailPath => "/UploadedFiles/Files/thumbs/" + ImageThumbnail;
         public string CreatedPersianDateTime => CreatedDateTime.ToLongPersianDateString().ToPersianNumbers();
