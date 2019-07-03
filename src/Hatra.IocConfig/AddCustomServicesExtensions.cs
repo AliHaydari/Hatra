@@ -79,12 +79,14 @@ namespace Hatra.IocConfig
             services.AddScoped<IPictureService, PictureService>();
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IContactUsService, ContactUsService>();
+            services.AddScoped<IUsefulLinkService, UsefulLinkService>();
 
             services.AddScoped<IExcelExImService<ExcelMenuViewModel>, MenuService>();
             services.AddScoped<IExcelExImService<ExcelSlideShowViewModel>, SlideShowService>();
             services.AddScoped<IExcelExImService<ExcelBrandViewModel>, BrandService>();
             services.AddScoped<IExcelExImService<ExcelCategoryViewModel>, CategoryService>();
             services.AddScoped<IExcelExImService<ExcelPageViewModel>, PageService>();
+            services.AddScoped<IExcelExImService<ExcelUsefulLinkViewModel>, UsefulLinkService>();
 
             return services;
         }

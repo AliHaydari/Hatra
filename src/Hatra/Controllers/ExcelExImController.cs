@@ -33,13 +33,15 @@ namespace Hatra.Controllers
         private readonly IExcelExImService<ExcelBrandViewModel> _excelExImBrandService;
         private readonly IExcelExImService<ExcelCategoryViewModel> _excelExImCategoryService;
         private readonly IExcelExImService<ExcelPageViewModel> _excelExImPageService;
+        private readonly IExcelExImService<ExcelUsefulLinkViewModel> _excelExImUsefulLinkService;
 
         public ExcelExImController(
             IExcelExImService<ExcelMenuViewModel> excelExImMenuService,
             IExcelExImService<ExcelSlideShowViewModel> excelExImSlideShowService,
             IExcelExImService<ExcelBrandViewModel> excelExImBrandService,
             IExcelExImService<ExcelCategoryViewModel> excelExImCategoryService,
-            IExcelExImService<ExcelPageViewModel> excelExImPageService)
+            IExcelExImService<ExcelPageViewModel> excelExImPageService,
+            IExcelExImService<ExcelUsefulLinkViewModel> excelExImUsefulLinkService)
         {
             _excelExImMenuService = excelExImMenuService;
             _excelExImMenuService.CheckArgumentIsNull(nameof(_excelExImMenuService));
@@ -55,6 +57,9 @@ namespace Hatra.Controllers
 
             _excelExImPageService = excelExImPageService;
             _excelExImPageService.CheckArgumentIsNull(nameof(_excelExImPageService));
+
+            _excelExImUsefulLinkService = excelExImUsefulLinkService;
+            _excelExImUsefulLinkService.CheckArgumentIsNull(nameof(_excelExImUsefulLinkService));
         }
 
         [Route("export/{type}")]
@@ -81,6 +86,9 @@ namespace Hatra.Controllers
                     break;
                 case ExcelTypeEnum.Pages:
                     excel = await ExportPagesAsync();
+                    break;
+                case ExcelTypeEnum.UsefulLinks:
+                    excel = await ExportUsefulLinksAsync();
                     break;
                 default:
                     return NotFound();
@@ -156,6 +164,9 @@ namespace Hatra.Controllers
                     case ExcelTypeEnum.Pages:
                         importResult = await ImportPagesAsync(table);
                         break;
+                    case ExcelTypeEnum.UsefulLinks:
+                        importResult = await ImportUsefulLinksAsync(table);
+                        break;
                     default:
                         return NotFound();
                 }
@@ -226,6 +237,13 @@ namespace Hatra.Controllers
             return ExcelExportHelper.ExportExcel(list);
         }
 
+        [NonAction]
+        private async Task<byte[]> ExportUsefulLinksAsync()
+        {
+            var list = await _excelExImUsefulLinkService.ExportToExcelAsync();
+            return ExcelExportHelper.ExportExcel(list);
+        }
+
         #endregion
 
         #region ImportMethods
@@ -263,6 +281,13 @@ namespace Hatra.Controllers
         {
             var list = ConvertData.ConvertDataTable<ExcelPageViewModel>(table);
             return await _excelExImPageService.ImportFromExcelAsync(list);
+        }
+
+        [NonAction]
+        private async Task<int> ImportUsefulLinksAsync(DataTable table)
+        {
+            var list = ConvertData.ConvertDataTable<ExcelUsefulLinkViewModel>(table);
+            return await _excelExImUsefulLinkService.ImportFromExcelAsync(list);
         }
 
         #endregion

@@ -1,7 +1,7 @@
-﻿@model PagedAdminBrandViewModel
+﻿@model PagedAdminUsefulLinkViewModel
 
 @{
-    ViewData["Title"] = "مدیریت برند ها";
+    ViewData["Title"] = "مدیریت لینک های مفید";
 }
 
 <div class="card mt-5">
@@ -19,7 +19,7 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                             <security-trimming asp-area="" asp-controller="ExcelExIm" asp-action="Export">
-                                <a class="dropdown-item" asp-area="" asp-controller="ExcelExIm" asp-action="Export" asp-route-type="@ExcelTypeEnum.Brands"><i class="fas fa-upload text-success"></i> Export</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="ExcelExIm" asp-action="Export" asp-route-type="@ExcelTypeEnum.UsefulLinks"><i class="fas fa-upload text-success"></i> Export</a>
                             </security-trimming>
                             <security-trimming asp-area="" asp-controller="ExcelExIm" asp-action="Import">
                                 <div class="dropdown-divider"></div>
@@ -27,7 +27,7 @@
                                       method="post"
                                       asp-controller="ExcelExIm"
                                       asp-action="Import"
-                                      asp-route-type="@ExcelTypeEnum.Brands"
+                                      asp-route-type="@ExcelTypeEnum.UsefulLinks"
                                       role="form"
                                       data-ajax="true"
                                       data-ajax-begin="dataAjaxBegin"
@@ -48,13 +48,13 @@
         </div>
     </div>
     <div class="card-body">
-        <partial name="_List" model="Model.BrandViewModels" />
+        <partial name="_List" model="Model.UsefulLinkViewModels" />
     </div>
     <footer class="card-footer">
         <div class="form-group row">
-            <security-trimming asp-area="" asp-controller="Brands" asp-action="RenderCreate">
-                <a class="btn btn-success" asp-controller="Brands" asp-action="RenderCreate">
-                    ایجاد یک برند جدید
+            <security-trimming asp-area="" asp-controller="UsefulLinks" asp-action="RenderCreate">
+                <a class="btn btn-success" asp-controller="UsefulLinks" asp-action="RenderCreate">
+                    ایجاد یک لینک مفید جدید
                 </a>
             </security-trimming>
         </div>
@@ -63,7 +63,7 @@
                       cs-paging-pagenumber="@Model.Paging.CurrentPage"
                       cs-paging-totalitems="@Model.Paging.TotalItems"
                       cs-pagenumber-param="page"
-                      asp-controller="Brands"
+                      asp-controller="UsefulLinks"
                       asp-action="Index"
                       asp-route-pagesize="@Model.Paging.ItemsPerPage"
                       cs-show-first-last="true"
@@ -95,8 +95,8 @@
                 var requestTypeId = $(this).data("delete-id");
 
                 $.bootstrapModalAjaxForm({
-                    postUrl: '@Url.Action("Delete", "Brands")',
-                    renderModalPartialViewUrl: '@Url.Action("RenderDelete", "Brands")',
+                    postUrl: '@Url.Action("Delete", "UsefulLinks")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDelete", "UsefulLinks")',
                     renderModalPartialViewData: JSON.stringify({ "id": requestTypeId }),
                     loginUrl: '/identity/login',
                     beforePostHandler: function () {

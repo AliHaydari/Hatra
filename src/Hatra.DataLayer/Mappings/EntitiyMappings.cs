@@ -84,6 +84,13 @@ namespace Hatra.DataLayer.Mappings
                 build.Property(p => p.Description).IsRequired();
             });
 
+            modelBuilder.Entity<UsefulLink>(build =>
+            {
+                build.Property(p => p.Name).HasMaxLength(100).IsRequired();
+                build.Property(p => p.Link).IsRequired();
+                build.Property(p => p.Order).IsRequired();
+            });
+
         }
     }
 }

@@ -18,5 +18,8 @@ namespace Hatra.ViewModels.Excels
 
         [Display(Name = "صفحه")]
         Pages,
+
+        [Display(Name = "لینک مفید")]
+        UsefulLinks,
     }
 }

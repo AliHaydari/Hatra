@@ -1,0 +1,16 @@
+﻿@model IEnumerable<UsefulLinkViewModel>
+
+@if (Model.Any())
+{
+    <div class="col-lg-3 col-md-6 col-12">
+        <div class="single-widget widget-quicklinks">
+            <h5 class="widget-title">لینک های مفید</h5>
+            <ul>
+                @foreach (var item in Model)
+                {
+                    <li><a href="@item.Link">@item.Name</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+}
