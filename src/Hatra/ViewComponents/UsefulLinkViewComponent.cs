@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hatra.Common.GuardToolkit;
+﻿using Hatra.Common.GuardToolkit;
 using Hatra.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Hatra.ViewComponents
 {
