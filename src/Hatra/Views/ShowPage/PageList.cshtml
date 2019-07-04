@@ -48,8 +48,18 @@
                                     </div>
                                     <div class="tm-blog-content">
                                         <div class="tm-blog-meta">
-                                            <span><i class="fa fa-user-o"></i>توسط<a href="~/author/@item.CreatedByUserId/@item.CreatedUserNameSlugUrl"> @item.CreatedUserName </a></span>
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <security-trimming asp-area="" asp-controller="Pages" asp-action="RenderEdit">
+                                                    <span><i class="fa fa-edit"></i><a asp-controller="Pages" asp-action="RenderEdit" asp-route-id="@item.Id">ویرایش</a></span>
+                                                </security-trimming>
+                                            }
+                                            <span><i class="fa fa-user-o"></i>توسط<a asp-controller="ShowPage" asp-action="ShowPagesByUser" asp-route-id="@item.CreatedByUserId" asp-route-slugUrl="@item.CreatedUserNameSlugUrl"> @item.CreatedUserName </a></span>
                                             <span><i class="fa fa-calendar-o"></i>@item.CreatedPersianDateTime</span>
+                                            @if (item.CategoryId.HasValue)
+                                            {
+                                                <span><i class="fa fa-folder-o"></i><a asp-controller="ShowPage" asp-action="ShowCategory" asp-route-id="@item.CategoryId" asp-route-slugUrl="@item.SlugUrl">@item.CategoryName</a></span>
+                                            }
                                         </div>
                                         <h5><a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">@item.Title</a></h5>
                                         <p>@item.BriefDescription</p>

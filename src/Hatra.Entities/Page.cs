@@ -21,6 +21,7 @@ namespace Hatra.Entities
         public int Order { get; set; }
         public int? CategoryId { get; set; }
         public bool IsShow { get; set; }
+        public bool IsShowInLastContent { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual ICollection<PageImage> Images { get; set; }

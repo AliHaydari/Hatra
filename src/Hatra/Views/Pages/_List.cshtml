@@ -6,15 +6,16 @@
             <tr>
                 <th class="text-center">نام</th>
                 <th class="text-center">قابل نمایش</th>
+                <th class="text-center">نمایش در آخرین مطالب</th>
                 <th class="text-center w-25">عملیات</th>
             </tr>
         </thead>
         <tbody>
             @if (!Model.Any())
             {
-            <tr>
-                <td colspan="3" class="text-center">هیچ دیتایی یافت نشد</td>
-            </tr>
+                <tr>
+                    <td colspan="4" class="text-center">هیچ دیتایی یافت نشد</td>
+                </tr>
             }
             else
             {
@@ -24,6 +25,16 @@
                         <td class="text-center">@item.Title</td>
                         <td class="text-center">
                             @if (item.IsShow)
+                            {
+                                <span class="fa fa-check text-success"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-minus text-danger"></span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            @if (item.IsShowInLastContent)
                             {
                                 <span class="fa fa-check text-success"></span>
                             }

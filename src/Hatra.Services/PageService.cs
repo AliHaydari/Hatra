@@ -261,6 +261,29 @@ namespace Hatra.Services
             return await query.Skip(skip).Take(take).ToListAsync();
         }
 
+        public async Task<List<PageViewModel>> GetAllLastContentVisibleDescendingByRangeAsync(int take, int skip = 0)
+        {
+            var query = _pages
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Where(p => p.IsShow && p.IsShowInLastContent)
+                .Where(p => p.CategoryId.HasValue ? (p.Category.IsShow == true) : true)
+                .OrderByDescending(p => EF.Property<DateTimeOffset>(p, "CreatedDateTime"))
+                .ThenByDescending(p => p.Id)
+                .Select(p => new PageViewModel(p)
+                {
+                    CreatedByUserId = EF.Property<int>(p, "CreatedByUserId"),
+                    CreatedDateTime = EF.Property<DateTimeOffset>(p, "CreatedDateTime"),
+
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name ?? "",
+                    CategorySlugUrl = p.Category.SlugUrl ?? "",
+                })
+                .AsNoTracking();
+
+            return await query.Skip(skip).Take(take).ToListAsync();
+        }
+
         public async Task<PageViewModel> GetByIdAsync(int id)
         {
             var entity = await _pages
@@ -338,6 +361,7 @@ namespace Hatra.Services
                 Order = viewModel.Order,
                 CategoryId = viewModel.CategoryId,
                 IsShow = viewModel.IsShow,
+                IsShowInLastContent = viewModel.IsShowInLastContent,
             };
 
             await _pages.AddAsync(entity);
@@ -360,6 +384,7 @@ namespace Hatra.Services
                 Order = viewModel.Order,
                 CategoryId = viewModel.CategoryId,
                 IsShow = viewModel.IsShow,
+                IsShowInLastContent = viewModel.IsShowInLastContent,
             };
 
             await _pages.AddAsync(entity);
@@ -382,6 +407,7 @@ namespace Hatra.Services
                 entity.Order = viewModel.Order;
                 entity.CategoryId = viewModel.CategoryId;
                 entity.IsShow = viewModel.IsShow;
+                entity.IsShowInLastContent = viewModel.IsShowInLastContent;
 
                 var result = await _unitOfWork.SaveChangesAsync();
                 return result != 0;

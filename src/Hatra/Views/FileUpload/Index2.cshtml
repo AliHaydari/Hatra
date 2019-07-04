@@ -15,7 +15,16 @@
     <link href="~/lib/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" asp-append-version="true" />
 }
 
-<h2>Index2</h2>
+<div class="alert alert-info mt-5">
+    <a href="#" class="close" data-dismiss="alert">×</a>
+    <ul>
+        <li><strong>فرمت های قابل آپلود شامل موارد زیر است :</strong></li>
+        <li>
+            <strong>gif</strong> | <strong>jpeg</strong> | <strong>jpg</strong> | <strong>png</strong> | <strong>svg</strong> | <strong>tif</strong> | <strong>pdf</strong> | <strong>xls</strong> | <strong>xlsx</strong> | <strong>zip</strong> | <strong>rar</strong> | <strong>apk</strong>
+        </li>
+        <li>حداکثر حجم قابل آپلود <strong>99.9 MB</strong> است</li>
+    </ul>
+</div>
 
 <form method="POST" enctype="multipart/form-data" asp-area="" asp-action="Upload" asp-controller="FileUpload">
     <partial name="_Image" model="Model" />

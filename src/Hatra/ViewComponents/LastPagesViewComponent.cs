@@ -22,7 +22,7 @@ namespace Hatra.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var viewModels = await _pageService.GetAllVisibleDescendingByRangeAsync(take: 12);
+            var viewModels = await _pageService.GetAllLastContentVisibleDescendingByRangeAsync(take: 12);
 
             foreach (var pageViewModel in viewModels)
             {

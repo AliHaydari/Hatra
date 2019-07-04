@@ -32,6 +32,7 @@ namespace Hatra.ViewModels
             CategoryId = page.CategoryId;
             CategoryName = page.Category?.Name;
             IsShow = page.IsShow;
+            IsShowInLastContent = page.IsShowInLastContent;
 
             PageImageViewModels = page.Images?.Select(p => new PageImageViewModel(p)).ToList() ?? new List<PageImageViewModel>();
         }
@@ -81,6 +82,9 @@ namespace Hatra.ViewModels
 
         [Display(Name = "نمایش داده شود")]
         public bool IsShow { get; set; }
+
+        [Display(Name = "نمایش در آخرین مطالب")]
+        public bool IsShowInLastContent { get; set; }
 
         public List<PageImageViewModel> PageImageViewModels { get; set; }
 

@@ -23,6 +23,7 @@ namespace Hatra.ViewModels.Excels
             CategoryName = page.Category?.Name;
             CategorySlugUrl = page.Category?.SlugUrl;
             IsShow = page.IsShow;
+            IsShowInLastContent = page.IsShowInLastContent;
         }
 
         public int Id { get; set; }
@@ -48,5 +49,7 @@ namespace Hatra.ViewModels.Excels
         public string CategorySlugUrl { get; set; }
 
         public bool IsShow { get; set; }
+
+        public bool IsShowInLastContent { get; set; }
     }
 }
