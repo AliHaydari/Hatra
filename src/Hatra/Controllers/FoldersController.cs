@@ -195,7 +195,7 @@ namespace Hatra.Controllers
         }
 
         [HttpGet]
-        [DisplayName("نمایش فرم لیست تصاویر فولدر")]
+        [DisplayName("نمایش فرم لیست فایل های فولدر")]
         [BreadCrumb(Order = 1)]
         public async Task<IActionResult> RenderPictureList(int? id)
         {
@@ -210,7 +210,7 @@ namespace Hatra.Controllers
         }
 
         [AjaxOnly]
-        [DisplayName("نمایش فرم حذف تصویر")]
+        [DisplayName("نمایش فرم حذف فایل")]
         public async Task<IActionResult> RenderDeletePicture([FromBody]ModelIdViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model?.Id))
@@ -237,7 +237,7 @@ namespace Hatra.Controllers
         [AjaxOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [DisplayName("حذف تصویر")]
+        [DisplayName("حذف فایل")]
         public async Task<IActionResult> DeletePicture(PictureViewModel viewModel)
         {
             var pictureViewModel = await _pictureService.GetByIdAsync(viewModel.Id);
@@ -273,7 +273,7 @@ namespace Hatra.Controllers
         }
 
         [HttpGet]
-        [DisplayName("نمایش فرم درج تصاویر")]
+        [DisplayName("نمایش فرم درج فایل")]
         [BreadCrumb(Order = 1)]
         public async Task<IActionResult> RenderAddPicture(int? id)
         {
@@ -315,7 +315,7 @@ namespace Hatra.Controllers
         }
 
         [AjaxOnly]
-        [DisplayName("نمایش فرم همه تصاویر")]
+        [DisplayName("نمایش فرم همه فایل ها")]
         public async Task<IActionResult> RenderAllPicture()
         {
             var viewModel = await _pictureService.GetAllAsync();
