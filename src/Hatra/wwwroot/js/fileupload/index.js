@@ -8,7 +8,7 @@ $(function () {
         dataType: 'json',
         autoUpload: false,
         maxFileSize: 99900000, // 99.9MB
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|pdf|xls|xlsx|zip|rar)$/i
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|svg|tif|pdf|xls|xlsx|zip|rar|apk)$/i
     });
 
 });
