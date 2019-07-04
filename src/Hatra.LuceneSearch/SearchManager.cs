@@ -128,7 +128,7 @@ namespace Hatra.LuceneSearch
                     new TextField(nameof(model.PageId), model.PageId?.ToString(), Lucene.Net.Documents.Field.Store.YES),
                     new TextField(nameof(model.Title), model.Title, Lucene.Net.Documents.Field.Store.YES){ Boost = 4.0f },
                     new StringField(nameof(model.BriefDescription),model.BriefDescription, Lucene.Net.Documents.Field.Store.YES),
-                    new StringField(nameof(model.Body), model.Body??"", Lucene.Net.Documents.Field.Store.NO),
+                    //new StringField(nameof(model.Body), model.Body??"", Lucene.Net.Documents.Field.Store.NO),
                     new StringField(nameof(model.SlugUrl), model.SlugUrl??"", Lucene.Net.Documents.Field.Store.YES),
                     new StringField(nameof(model.Image), model.Image??"", Lucene.Net.Documents.Field.Store.YES),
                     new StringField(nameof(model.CategoryId), model.CategoryId?.ToString()??"", Lucene.Net.Documents.Field.Store.YES),
@@ -257,7 +257,7 @@ namespace Hatra.LuceneSearch
                     PageId = viewModel.Id,
                     Title = viewModel.Title,
                     BriefDescription = viewModel.BriefDescription,
-                    Body = viewModel.Body,
+                    //Body = viewModel.Body,
                     Image = viewModel.Image,
                     SlugUrl = viewModel.SlugUrl,
                     CategoryId = viewModel.CategoryId,
@@ -274,7 +274,7 @@ namespace Hatra.LuceneSearch
             var a1 = doc.Get("PageId") ?? "0";
             var a2 = doc.Get("Title") ?? "";
             var a3 = doc.Get("BriefDescription") ?? "";
-            var a4 = doc.Get("Body") ?? "";
+            //var a4 = doc.Get("Body") ?? "";
             var a5 = doc.Get("Image") ?? "";
             var a6 = doc.Get("SlugUrl") ?? "";
             var a7 = doc.Get("CategoryId") ?? "0";
@@ -286,7 +286,7 @@ namespace Hatra.LuceneSearch
                 PageId = Convert.ToInt32(a1), // Convert.ToInt32(doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.PageId))),
                 Title = a2, // doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Title ?? "")),
                 BriefDescription = a3, // doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.BriefDescription ?? "")),
-                Body = a4, // doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Body ?? "")),
+                //Body = a4, // doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Body ?? "")),
                 Image = a5, // doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.Image ?? "")),
                 SlugUrl = a6, // doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.SlugUrl ?? "")),
                 CategoryId = a7 == "" ? 0 : Convert.ToInt32(a7), // Convert.ToInt32(doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.CategoryId))),

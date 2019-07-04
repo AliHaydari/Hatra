@@ -5,7 +5,7 @@
         public int? PageId { get; set; }
         public string Title { get; set; }
         public string BriefDescription { get; set; }
-        public string Body { get; set; }
+        //public string Body { get; set; }
         public string SlugUrl { get; set; }
         public string Image { get; set; }
         public int? CategoryId { get; set; }
