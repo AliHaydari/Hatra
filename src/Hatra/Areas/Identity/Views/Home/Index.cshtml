@@ -19,47 +19,47 @@
 <div class="row">
 
     @*@if (Model.Any())
-    {
+        {
         <div class="col-md-3">
             @foreach (var item in Model)
             {
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        نام درایو
-                        <span class="badge badge-dark badge-pill">@item.Name</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        نوع درایو
-                        <span class="badge badge-dark badge-pill">@item.DriveType</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        برچسب درایو
-                        <span class="badge badge-dark badge-pill">@item.VolumeLabel</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        فرمت درایو
-                        <span class="badge badge-dark badge-pill">@item.DriveFormat</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        فضای خالی دردسترس
-                        <span class="badge badge-dark badge-pill">@item.AvailableFreeSpace bytes</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        کل فضای خالی
-                        <span class="badge badge-dark badge-pill">@item.TotalFreeSpace bytes</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        سایز کل
-                        <span class="badge badge-dark badge-pill">@item.TotalSize bytes</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        فضای خالی دردسترس
-                        <span class="badge badge-dark badge-pill">@item.AvailableFreeSpaceInMb Mb</span>
-                    </li>
-                </ul>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    نام درایو
+                    <span class="badge badge-dark badge-pill">@item.Name</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    نوع درایو
+                    <span class="badge badge-dark badge-pill">@item.DriveType</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    برچسب درایو
+                    <span class="badge badge-dark badge-pill">@item.VolumeLabel</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    فرمت درایو
+                    <span class="badge badge-dark badge-pill">@item.DriveFormat</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    فضای خالی دردسترس
+                    <span class="badge badge-dark badge-pill">@item.AvailableFreeSpace bytes</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    کل فضای خالی
+                    <span class="badge badge-dark badge-pill">@item.TotalFreeSpace bytes</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    سایز کل
+                    <span class="badge badge-dark badge-pill">@item.TotalSize bytes</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    فضای خالی دردسترس
+                    <span class="badge badge-dark badge-pill">@item.AvailableFreeSpaceInMb Mb</span>
+                </li>
+            </ul>
             }
         </div>
-    }*@
+        }*@
 
     @{
         <div class="col-md-9">
@@ -155,16 +155,24 @@
                     </div>
                 </security-trimming>
 
-                if (User.IsInRole(ConstantRoles.Admin))
-                {
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="FileUpload" asp-action="Index">
-                                File Uploader
-                            </a>
-                        </div>
-                    </div>
-                }
+                @if (User.IsInRole(ConstantRoles.Admin))
+                 {
+                     <div class="form-group row">
+                         <div class="col-md-4">
+                             <a class="btn btn-outline-dark btn-block text-right" asp-controller="FileUpload" asp-action="Index">
+                                 File Uploader
+                             </a>
+                         </div>
+                     </div>
+
+                     <div class="form-group row">
+                         <div class="col-md-4">
+                             <a class="btn btn-outline-dark btn-block text-right" asp-controller="StaticContents" asp-action="Index">
+                                 محتواهای ثابت
+                             </a>
+                         </div>
+                     </div>
+                 }
             }
         </div>
     }

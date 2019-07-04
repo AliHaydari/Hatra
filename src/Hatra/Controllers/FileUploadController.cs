@@ -1,17 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using DNTBreadCrumb.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.FileUpload;
 using Hatra.Services.Contracts;
+using Hatra.Services.Identity;
 using Hatra.ViewModels.FileUpload;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Hatra.Controllers
 {
+    [Authorize(Policy = ConstantPolicies.DynamicPermission)]
+    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0)]
+    [DisplayName("File Upload Management")]
     public class FileUploadController : Controller
     {
         private readonly FilesHelper _filesHelper;

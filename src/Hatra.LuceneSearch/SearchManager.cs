@@ -48,12 +48,19 @@ namespace Hatra.LuceneSearch
             {
                 foreach (var searchable in searchables)
                 {
-                    var doc = new Document();
-                    foreach (var field in GetFields(searchable))
+                    try
                     {
-                        doc.Add(field);
+                        var doc = new Document();
+                        foreach (var field in GetFields(searchable))
+                        {
+                            doc.Add(field);
+                        }
+                        x.AddDocument(doc);
                     }
-                    x.AddDocument(doc);
+                    catch
+                    {
+                        
+                    }
                 }
             });
         }
@@ -68,12 +75,19 @@ namespace Hatra.LuceneSearch
             {
                 foreach (var searchable in list)
                 {
-                    var doc = new Document();
-                    foreach (var field in GetFields(searchable))
+                    try
                     {
-                        doc.Add(field);
+                        var doc = new Document();
+                        foreach (var field in GetFields(searchable))
+                        {
+                            doc.Add(field);
+                        }
+                        x.AddDocument(doc);
                     }
-                    x.AddDocument(doc);
+                    catch
+                    {
+                        
+                    }
                 }
             });
         }

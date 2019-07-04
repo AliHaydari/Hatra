@@ -80,6 +80,7 @@ namespace Hatra.IocConfig
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IContactUsService, ContactUsService>();
             services.AddScoped<IUsefulLinkService, UsefulLinkService>();
+            services.AddScoped<IStaticContentService, StaticContentService>();
 
             services.AddScoped<IExcelExImService<ExcelMenuViewModel>, MenuService>();
             services.AddScoped<IExcelExImService<ExcelSlideShowViewModel>, SlideShowService>();

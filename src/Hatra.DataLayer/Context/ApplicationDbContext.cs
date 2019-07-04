@@ -188,6 +188,7 @@ namespace Hatra.DataLayer.Context
         public virtual DbSet<SlideShow> SlideShows { get; set; }
         public virtual DbSet<ContactUs> ContactUses { get; set; }
         public virtual DbSet<UsefulLink> UsefulLinks { get; set; }
+        public DbSet<StaticContent> StaticContents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

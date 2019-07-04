@@ -1,14 +1,11 @@
 ﻿using DNTBreadCrumb.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.Common.IdentityToolkit;
-using Hatra.ViewModels;
+using Hatra.Services.Contracts;
 using Hatra.ViewModels.Identity.Settings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System.ComponentModel;
-using Hatra.Services.Contracts;
-using System.Threading.Tasks;
 
 namespace Hatra.Controllers
 {

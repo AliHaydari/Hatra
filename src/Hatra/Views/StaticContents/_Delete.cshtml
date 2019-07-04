@@ -1,15 +1,15 @@
-﻿@model UsefulLinkViewModel
+﻿@model StaticContentViewModel
 <partial name="_CustomValidationSummary" />
 <form asp-action="Delete" method="post" class="form-horizontal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">حذف یک لینک مفید</h4>
+                <h4 class="modal-title">حذف یک محتوای ثابت</h4>
             </div>
             <div class="modal-body">
                 <span class="text-center">
-                    آیا می‌خواهید لینک مفید
+                    آیا می‌خواهید محتوای ثابت
                     <strong>@Model.Name</strong>
                     را حذف کنید؟
                     <br />
@@ -17,7 +17,7 @@
                 <input asp-for="Id" />
             </div>
             <div class="modal-footer">
-                <security-trimming asp-area="" asp-controller="UsefulLinks" asp-action="Delete">
+                <security-trimming asp-area="" asp-controller="StaticContents" asp-action="Delete">
                     <button class="btn btn-danger" type="submit">تائید حذف</button>
                 </security-trimming>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">انصراف</button>
