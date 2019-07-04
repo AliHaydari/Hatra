@@ -7,8 +7,8 @@ $(function () {
     $form = $('#fileupload').fileupload({
         dataType: 'json',
         autoUpload: false,
-        maxFileSize: 99900000,
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|pdf|xls|xlsx)$/i
+        maxFileSize: 99900000, // 99.9MB
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|pdf|xls|xlsx|zip|rar)$/i
     });
 
 });

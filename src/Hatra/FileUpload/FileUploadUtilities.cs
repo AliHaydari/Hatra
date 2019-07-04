@@ -60,9 +60,14 @@ namespace Hatra.FileUpload
                 ".jpeg",
                 ".jpg",
                 ".png",
+                ".svg",
+                ".tif",
                 ".pdf",
                 ".xls",
                 ".xlsx",
+                ".zip",
+                ".rar",
+                ".apk",
             };
 
         private async Task UploadWholeFileAsync(List<IFormFile> files, CommandResult result)
