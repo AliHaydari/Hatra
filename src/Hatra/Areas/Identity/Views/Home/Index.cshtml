@@ -16,108 +16,156 @@
 <br />
 <br />
 
-@{
-    if (User.Identity.IsAuthenticated)
+<div class="row">
+
+    @*@if (Model.Any())
     {
-        <security-trimming asp-area="" asp-controller="Menus" asp-action="Index">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-dark btn-block text-right" asp-controller="Menus" asp-action="Index">
-                        <i class="fas fa-bars"></i> منو ها
-                    </a>
-                </div>
-            </div>
-        </security-trimming>
+        <div class="col-md-3">
+            @foreach (var item in Model)
+            {
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        نام درایو
+                        <span class="badge badge-dark badge-pill">@item.Name</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        نوع درایو
+                        <span class="badge badge-dark badge-pill">@item.DriveType</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        برچسب درایو
+                        <span class="badge badge-dark badge-pill">@item.VolumeLabel</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        فرمت درایو
+                        <span class="badge badge-dark badge-pill">@item.DriveFormat</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        فضای خالی دردسترس
+                        <span class="badge badge-dark badge-pill">@item.AvailableFreeSpace bytes</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        کل فضای خالی
+                        <span class="badge badge-dark badge-pill">@item.TotalFreeSpace bytes</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        سایز کل
+                        <span class="badge badge-dark badge-pill">@item.TotalSize bytes</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        فضای خالی دردسترس
+                        <span class="badge badge-dark badge-pill">@item.AvailableFreeSpaceInMb Mb</span>
+                    </li>
+                </ul>
+            }
+        </div>
+    }*@
 
-        <security-trimming asp-area="" asp-controller="Categories" asp-action="Index">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-dark btn-block text-right" asp-controller="Categories" asp-action="Index">
-                        <i class="fas fa-tasks"></i> گروه ها
-                    </a>
-                </div>
-            </div>
-        </security-trimming>
+    @{
+        <div class="col-md-9">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <security-trimming asp-area="" asp-controller="Menus" asp-action="Index">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="Menus" asp-action="Index">
+                                <i class="fas fa-bars"></i> منو ها
+                            </a>
+                        </div>
+                    </div>
+                </security-trimming>
 
-        <security-trimming asp-area="" asp-controller="Pages" asp-action="Index">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-dark btn-block text-right" asp-controller="Pages" asp-action="Index">
-                        <i class="fas fa-sticky-note"></i> صفحه ها
-                    </a>
-                </div>
-            </div>
-        </security-trimming>
+                <security-trimming asp-area="" asp-controller="Categories" asp-action="Index">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="Categories" asp-action="Index">
+                                <i class="fas fa-tasks"></i> گروه ها
+                            </a>
+                        </div>
+                    </div>
+                </security-trimming>
 
-        <security-trimming asp-area="" asp-controller="SlideShow" asp-action="Index">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-dark btn-block text-right" asp-controller="SlideShow" asp-action="Index">
-                        <i class="fas fa-images"></i> اسلاید شو ها
-                    </a>
-                </div>
-            </div>
-        </security-trimming>
+                <security-trimming asp-area="" asp-controller="Pages" asp-action="Index">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="Pages" asp-action="Index">
+                                <i class="fas fa-sticky-note"></i> صفحه ها
+                            </a>
+                        </div>
+                    </div>
+                </security-trimming>
 
-        <security-trimming asp-area="" asp-controller="Folders" asp-action="Index">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-dark btn-block text-right" asp-controller="Folders" asp-action="Index">
-                        <i class="fas fa-folder"></i> فولدر ها
-                    </a>
-                </div>
-            </div>
-        </security-trimming>
+                <security-trimming asp-area="" asp-controller="SlideShow" asp-action="Index">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="SlideShow" asp-action="Index">
+                                <i class="fas fa-images"></i> اسلاید شو ها
+                            </a>
+                        </div>
+                    </div>
+                </security-trimming>
 
-        <security-trimming asp-area="" asp-controller="Brands" asp-action="Index">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-dark btn-block text-right" asp-controller="Brands" asp-action="Index">
-                        <i class="fas fa-copyright"></i> برند ها
-                    </a>
-                </div>
-            </div>
-        </security-trimming>
+                <security-trimming asp-area="" asp-controller="Folders" asp-action="Index">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="Folders" asp-action="Index">
+                                <i class="fas fa-folder"></i> فولدر ها
+                            </a>
+                        </div>
+                    </div>
+                </security-trimming>
 
-        <security-trimming asp-area="" asp-controller="ContactUsManagement" asp-action="Index">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-dark btn-block text-right" asp-controller="ContactUsManagement" asp-action="Index">
-                        <i class="fas fa-file-archive"></i> تماس مشتری ها
-                    </a>
-                </div>
-            </div>
-        </security-trimming>
+                <security-trimming asp-area="" asp-controller="Brands" asp-action="Index">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="Brands" asp-action="Index">
+                                <i class="fas fa-copyright"></i> برند ها
+                            </a>
+                        </div>
+                    </div>
+                </security-trimming>
 
-        <security-trimming asp-area="" asp-controller="SiteSettings" asp-action="Index">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-dark btn-block text-right" asp-controller="SiteSettings" asp-action="Index">
-                        <i class="fas fa-cog"></i> تنظیمات نمایشی سایت
-                    </a>
-                </div>
-            </div>
-        </security-trimming>
+                <security-trimming asp-area="" asp-controller="ContactUsManagement" asp-action="Index">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="ContactUsManagement" asp-action="Index">
+                                <i class="fas fa-phone"></i> تماس مشتری ها
+                            </a>
+                        </div>
+                    </div>
+                </security-trimming>
 
-        <security-trimming asp-area="" asp-controller="UsefulLinks" asp-action="Index">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-dark btn-block text-right" asp-controller="UsefulLinks" asp-action="Index">
-                        <i class="fa fa-link"></i> لینک های مفید
-                    </a>
-                </div>
-            </div>
-        </security-trimming>
+                <security-trimming asp-area="" asp-controller="SiteSettings" asp-action="Index">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="SiteSettings" asp-action="Index">
+                                <i class="fas fa-cog"></i> تنظیمات نمایشی سایت
+                            </a>
+                        </div>
+                    </div>
+                </security-trimming>
 
-        if (User.IsInRole(ConstantRoles.Admin))
-        {
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-dark btn-block text-right" asp-controller="FileUpload" asp-action="Index">
-                        File Uploader
-                    </a>
-                </div>
-            </div>
-        }
+                <security-trimming asp-area="" asp-controller="UsefulLinks" asp-action="Index">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="UsefulLinks" asp-action="Index">
+                                <i class="fa fa-link"></i> لینک های مفید
+                            </a>
+                        </div>
+                    </div>
+                </security-trimming>
+
+                if (User.IsInRole(ConstantRoles.Admin))
+                {
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="FileUpload" asp-action="Index">
+                                File Uploader
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
     }
-}
+</div>
