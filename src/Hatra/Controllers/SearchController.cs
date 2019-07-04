@@ -43,7 +43,7 @@ namespace Hatra.Controllers
 
             ViewBag.SearchTerm = "'" + term + "'";
 
-            return View("Searching", res);
+            return View("Searching", res.Where(p => p.IsShow));
         }
     }
 }

@@ -10,6 +10,7 @@
         public string Image { get; set; }
         public int? CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public bool IsShow { get; set; }
 
         public string ImageName => Image?.Remove(0, 21).Substring(0, 32);
     }

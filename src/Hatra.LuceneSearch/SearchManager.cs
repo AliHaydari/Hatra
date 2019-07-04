@@ -133,6 +133,7 @@ namespace Hatra.LuceneSearch
                     new StringField(nameof(model.Image), model.Image??"", Lucene.Net.Documents.Field.Store.YES),
                     new StringField(nameof(model.CategoryId), model.CategoryId?.ToString()??"", Lucene.Net.Documents.Field.Store.YES),
                     new StringField(nameof(model.CategoryName), model.CategoryName??"", Lucene.Net.Documents.Field.Store.YES),
+                    new StringField(nameof(model.IsShow), Convert.ToString(model.IsShow), Lucene.Net.Documents.Field.Store.YES),
             };
         }
 
@@ -261,6 +262,7 @@ namespace Hatra.LuceneSearch
                     SlugUrl = viewModel.SlugUrl,
                     CategoryId = viewModel.CategoryId,
                     CategoryName = viewModel.CategoryName,
+                    IsShow = viewModel.IsShow,
                 });
             }
 
@@ -277,6 +279,7 @@ namespace Hatra.LuceneSearch
             var a6 = doc.Get("SlugUrl") ?? "";
             var a7 = doc.Get("CategoryId") ?? "0";
             var a8 = doc.Get("CategoryName") ?? "";
+            var a9 = doc.Get("IsShow") ?? "";
 
             return new LuceneSearchModel
             {
@@ -288,6 +291,7 @@ namespace Hatra.LuceneSearch
                 SlugUrl = a6, // doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.SlugUrl ?? "")),
                 CategoryId = a7 == "" ? 0 : Convert.ToInt32(a7), // Convert.ToInt32(doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.CategoryId))),
                 CategoryName = a8, // doc.Get(StronglyTyped.PropertyName<LuceneSearchModel>(x => x.CategoryName ?? "")),
+                IsShow = Convert.ToBoolean(a9),
             };
         }
 
