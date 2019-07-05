@@ -30,9 +30,17 @@
                 </span>
             </div>
         </div>
-        @if (!string.IsNullOrEmpty(item.Extension))
+        @if (Hatra.Common.Extensions.ImageExtensions.IsImage(item.Extension))
         {
-            @if (Hatra.Common.Extensions.ImageExtensions.IsImage(item.Extension))
+            <div class="col col-md-2">
+                <div class="media">
+                    <img src="@item.ThumbnailUrl" class="mr-3" alt="@item.Name">
+                </div>
+            </div>
+        }
+        else
+        {
+            @if (Hatra.Common.Extensions.ImageExtensions.IsFileIsImage(item.Name))
              {
                  <div class="col col-md-2">
                      <div class="media">
