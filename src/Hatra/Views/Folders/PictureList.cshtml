@@ -15,7 +15,7 @@
                 <span class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-image"></i></span>
                 </span>
-                <input asp-for="@item.Url" id="path-@item.Id" autocomplete="off" dir="ltr" class="form-control" readonly="readonly" />
+                <input asp-for="@item.Url" id="path-@item.Id" autocomplete="off" dir="ltr" class="form-control" readonly="readonly"/>
 
                 <span class="input-group-prepend input-group-text">
                     <a href="#" id="btnCopy-@item.Id" data-copy-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="ذخیره مسیر">
@@ -30,22 +30,23 @@
                 </span>
             </div>
         </div>
-
-        @if (Hatra.Common.Extensions.ImageExtensions.IsImage(item.Extension))
+        @if (!string.IsNullOrEmpty(item.Extension))
         {
-            <div class="col col-md-2">
-                <div class="media">
-                    <img src="@item.ThumbnailUrl" class="mr-3" alt="@item.Name">
-                </div>
-            </div>
+            @if (Hatra.Common.Extensions.ImageExtensions.IsImage(item.Extension))
+             {
+                 <div class="col col-md-2">
+                     <div class="media">
+                         <img src="@item.ThumbnailUrl" class="mr-3" alt="@item.Name">
+                     </div>
+                 </div>
+             }
+             else
+             {
+                 <div class="col col-md-2">
+                     <span><i class="fas fa-file" data-toggle="tooltip" data-placement="bottom" title="@item.Extension?.Remove(0, 1)"></i></span>
+                 </div>
+             }
         }
-        else
-        {
-            <div class="col col-md-2">
-                <span><i class="fas fa-file" data-toggle="tooltip" data-placement="bottom" title="@item.Extension.Remove(0,1)"></i></span>
-            </div>
-        }
-
     </div>
 }
 
