@@ -119,7 +119,7 @@ namespace Hatra.Controllers
             var showingSettingSite = _settings.Value;
             ViewBag.Keywords = showingSettingSite.SiteKeywords;
             ViewBag.MetaDescription = showingSettingSite.Description;
-            ViewBag.SiteName = showingSettingSite.PersianSiteName;
+            ViewBag.PersianSiteName = showingSettingSite.PersianSiteName;
             ViewBag.WorkTime = showingSettingSite.WorkTime;
             ViewBag.Tell1 = showingSettingSite.Tell1;
             ViewBag.Tell2 = showingSettingSite.Tell2;
@@ -133,6 +133,8 @@ namespace Hatra.Controllers
             ViewBag.Instagram = showingSettingSite.Instagram;
             ViewBag.LinkedIn = showingSettingSite.LinkedIn;
             ViewBag.WhatsApp = showingSettingSite.WhatsApp;
+            ViewBag.Latitude = showingSettingSite.Latitude;
+            ViewBag.Longitude = showingSettingSite.Longitude;
 
             return View(new ContactUsViewModel());
         }
@@ -163,7 +165,7 @@ namespace Hatra.Controllers
         //    var showingSettingSite = _settings.Value;
         //    ViewBag.Keywords = showingSettingSite.SiteKeywords;
         //    ViewBag.MetaDescription = showingSettingSite.Description;
-        //    ViewBag.SiteName = showingSettingSite.PersianSiteName;
+        //    ViewBag.PersianSiteName = showingSettingSite.PersianSiteName;
         //    ViewBag.WorkTime = showingSettingSite.WorkTime;
         //    ViewBag.Tell1 = showingSettingSite.Tell1;
         //    ViewBag.Tell2 = showingSettingSite.Tell2;

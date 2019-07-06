@@ -155,6 +155,20 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label asp-for="Latitude" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="Latitude" class="form-control" />
+                        <span asp-validation-for="Latitude" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Longitude" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="Longitude" class="form-control" />
+                        <span asp-validation-for="Longitude" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <div class="offset-md-2 col-md-10">
                         <security-trimming asp-area="" asp-controller="SiteSettings" asp-action="Save">
                             <button type="submit" class="btn btn-info col-md-2">ارسال</button>

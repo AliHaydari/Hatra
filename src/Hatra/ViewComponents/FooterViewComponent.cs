@@ -31,7 +31,7 @@ namespace Hatra.ViewComponents
             ViewBag.Keywords = showingSettingSite.SiteKeywords;
             ViewBag.MetaDescription = showingSettingSite.Description;
             ViewBag.FooterDescription = showingSettingSite.FooterDescription;
-            ViewBag.SiteName = showingSettingSite.PersianSiteName;
+            ViewBag.PersianSiteName = showingSettingSite.PersianSiteName;
             ViewBag.WorkTime = showingSettingSite.WorkTime;
             ViewBag.Tell1 = showingSettingSite.Tell1;
             ViewBag.Tell2 = showingSettingSite.Tell2;
@@ -45,6 +45,8 @@ namespace Hatra.ViewComponents
             ViewBag.Instagram = showingSettingSite.Instagram;
             ViewBag.LinkedIn = showingSettingSite.LinkedIn;
             ViewBag.WhatsApp = showingSettingSite.WhatsApp;
+            ViewBag.Latitude = showingSettingSite.Latitude;
+            ViewBag.Longitude = showingSettingSite.Longitude;
 
             return View(viewName: "~/Views/Shared/_Footer.cshtml"/*, viewModels.Where(p => p.IsShow).ToList()*/);
         }

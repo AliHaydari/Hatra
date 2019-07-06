@@ -5,6 +5,14 @@
     Layout = "~/Views/Shared/_LayoutN.cshtml";
 }
 
+@section Styles
+{
+    <link href="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.css" rel="stylesheet" type="text/css">
+    <script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript"></script>
+
+    <script src="~/js/neshanmap/neshan-map.js" asp-append-version="true"></script>
+}
+
 <!-- Breadcrumb Area -->
 <div class="tm-breadcrumb-area tm-padding-section text-center" data-overlay="1" data-bgimage="/lib/deconsultrtl/assets/images/bg/bg-breadcrumb.jpg">
     <div class="container">
@@ -27,42 +35,42 @@
             <div class="row justify-content-center mt-30-reverse">
                 @if (!string.IsNullOrWhiteSpace(ViewBag.Address))
                 {
-                    <div class="col-lg-4 col-md-6 col-12 mt-30">
-                        <div class="tm-contact-block text-center">
-                            <span class="tm-contact-icon">
-                                <i class="flaticon-pin"></i>
-                            </span>
-                            <h5>آدرس</h5>
-                            <p>@ViewBag.Address</p>
-                        </div>
+                <div class="col-lg-4 col-md-6 col-12 mt-30">
+                    <div class="tm-contact-block text-center">
+                        <span class="tm-contact-icon">
+                            <i class="flaticon-pin"></i>
+                        </span>
+                        <h5>آدرس</h5>
+                        <p>@ViewBag.Address</p>
                     </div>
+                </div>
                 }
 
                 @if (!string.IsNullOrWhiteSpace(ViewBag.Tell1))
                 {
-                    <div class="col-lg-4 col-md-6 col-12 mt-30">
-                        <div class="tm-contact-block text-center">
-                            <span class="tm-contact-icon">
-                                <i class="flaticon-phone"></i>
-                            </span>
-                            <h5>تلفن</h5>
-                            <p><a href="#">@ViewBag.Tell1</a></p>
-                            <p><a href="#">@ViewBag.Tell2</a></p>
-                        </div>
+                <div class="col-lg-4 col-md-6 col-12 mt-30">
+                    <div class="tm-contact-block text-center">
+                        <span class="tm-contact-icon">
+                            <i class="flaticon-phone"></i>
+                        </span>
+                        <h5>تلفن</h5>
+                        <p><a href="#">@ViewBag.Tell1</a></p>
+                        <p><a href="#">@ViewBag.Tell2</a></p>
                     </div>
+                </div>
                 }
 
                 @if (!string.IsNullOrWhiteSpace(ViewBag.Email))
                 {
-                    <div class="col-lg-4 col-md-6 col-12 mt-30">
-                        <div class="tm-contact-block text-center">
-                            <span class="tm-contact-icon">
-                                <i class="flaticon-mail"></i>
-                            </span>
-                            <h5>آدرس</h5>
-                            <p>ایمیل:<a href="#">@ViewBag.Email</a></p>
-                        </div>
+                <div class="col-lg-4 col-md-6 col-12 mt-30">
+                    <div class="tm-contact-block text-center">
+                        <span class="tm-contact-icon">
+                            <i class="flaticon-mail"></i>
+                        </span>
+                        <h5>آدرس</h5>
+                        <p>ایمیل:<a href="#">@ViewBag.Email</a></p>
                     </div>
+                </div>
                 }
             </div>
         </div>
@@ -99,8 +107,9 @@
                 </div>
                 <div class="col-lg-5">
                     <div class="tm-contact-map">
-                        <div id="google-map"></div>
+                        @*<div id="google-map"></div>*@
                         @*<img class="wow fadeInRight" src="~/assets/base/Location/v2/location_picture_long.jpg" alt="deconsult image">*@
+                        <div id="google-map"></div>
                     </div>
                 </div>
             </div>
@@ -110,8 +119,33 @@
 </main>
 <!--// Main Content -->
 
-@section Styles
+@section Scripts
 {
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa0BcBoQ2AOyDJ3oyRIv07yLq2eOdT75w"></script>
-    <script src="~/lib/deconsultrtl/assets/js/google-map.js" asp-append-version="true"></script>
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa0BcBoQ2AOyDJ3oyRIv07yLq2eOdT75w"></script>
+        <script src="~/lib/deconsultrtl/assets/js/google-map.js" asp-append-version="true"></script>*@
+
+    <script type="text/javascript">
+        @*var myMap = new L.Map('google-map', {
+            key: 'web.oRd14Kh8WgB1wz3J8pluhy9cEHcqWTRlK5nPQEYM',
+            maptype: 'dreamy',
+            poi: true,
+            traffic: false,
+            center: [@ViewBag.Latitude, @ViewBag.Longitude],
+            zoom: 14
+        });
+
+        var marker = new L.marker([@ViewBag.Latitude, @ViewBag.Longitude]).addTo(myMap);
+
+        marker.bindPopup("<b>@ViewBag.PersianSiteName</b>").openPopup();*@
+
+        $(function() {
+            neshanmap({
+                tagName: 'google-map',
+                latitude: @ViewBag.Latitude,
+                longitude: @ViewBag.Longitude,
+                siteName: '@ViewBag.PersianSiteName'
+            });
+        });
+
+    </script>
 }

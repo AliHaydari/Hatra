@@ -26,6 +26,8 @@ namespace Hatra.ViewModels.Identity.Settings
             Instagram = "http://instagram.com/Instagram-Account-Address";
             LinkedIn = "http://linkedin.com/LinkedIn-Account-Address";
             WhatsApp = "http://whatsapp.com/WhatsApp-Account-Address";
+            Latitude = "0";
+            Longitude = "0";
         }
 
         [Display(Name = "نام انگلیسی سایت")]
@@ -99,5 +101,11 @@ namespace Hatra.ViewModels.Identity.Settings
         [Display(Name = "آدرس اکانت WhatsApp")]
         [DataType(DataType.Url, ErrorMessage = "لطفا آدرس را به درستی وارد کنید.")]
         public string WhatsApp { get; set; }
+
+        [Display(Name = "عرض جغرافیایی")]
+        public string Latitude { get; set; }
+
+        [Display(Name = "طول جغرافیایی")]
+        public string Longitude { get; set; }
     }
 }

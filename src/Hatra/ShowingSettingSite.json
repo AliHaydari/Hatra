@@ -1,1 +1,24 @@
-{"EnglishSiteName":"EnglishSiteName","PersianSiteName":"نام فارسی سایت","Description":"A short description of the site","FooterDescription":"A short description of the footer site","SiteKeywords":null,"Owner":"The Owner","Email":"site@email.com","SiteUrl":"localhost","WorkTime":"شنبه تا پنج شنبه:9 تا 17","Tell1":"031-33333333","Tell2":"031-33333333","Address":"Address","Twitter":"http://twitter.com/Twitter-Account-Address","Facebook":"http://fb.com/Facebook-Account-Address","Skype":"http://skype.com/Skype-Account-Address","Pinterest":"http://pinterest.com/Pinterest-Account-Address","Telegram":"http://t.me/Telegram-Account-Address","Instagram":"http://instagram.com/Instagram-Account-Address","LinkedIn":"http://linkedin.com/LinkedIn-Account-Address","WhatsApp":"http://whatsapp.com/WhatsApp-Account-Address"}
+{
+  "EnglishSiteName": "EnglishSiteName",
+  "PersianSiteName": "نام فارسی سایت",
+  "Description": "A short description of the site",
+  "FooterDescription": "A short description of the footer site",
+  "SiteKeywords": null,
+  "Owner": "The Owner",
+  "Email": "site@email.com",
+  "SiteUrl": "localhost",
+  "WorkTime": "شنبه تا پنج شنبه:9 تا 17",
+  "Tell1": "031-33333333",
+  "Tell2": "031-33333333",
+  "Address": "Address",
+  "Twitter": "http://twitter.com/Twitter-Account-Address",
+  "Facebook": "http://fb.com/Facebook-Account-Address",
+  "Skype": "http://skype.com/Skype-Account-Address",
+  "Pinterest": "http://pinterest.com/Pinterest-Account-Address",
+  "Telegram": "http://t.me/Telegram-Account-Address",
+  "Instagram": "http://instagram.com/Instagram-Account-Address",
+  "LinkedIn": "http://linkedin.com/LinkedIn-Account-Address",
+  "WhatsApp": "http://whatsapp.com/WhatsApp-Account-Address",
+  "Latitude": "32.860143",
+  "Longitude": "51.553267"
+}
