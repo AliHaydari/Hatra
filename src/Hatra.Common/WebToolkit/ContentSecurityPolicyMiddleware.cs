@@ -32,16 +32,31 @@ namespace Hatra.Common.WebToolkit
                 throw new NullReferenceException("Please set the `ContentSecurityPolicyErrorLogUri` value in `appsettings.json` file.");
             }
 
+            //string[] csp =
+            //{
+            //    "default-src 'self' blob:",
+            //    "style-src 'self' 'unsafe-inline'",
+            //    "script-src 'self' https://freegeoip.net/ 'unsafe-inline' 'unsafe-eval' ",
+            //    "font-src 'self'",
+            //    "img-src 'self' data: blob:",
+            //    "connect-src 'self'",
+            //    "media-src 'self'",
+            //    "object-src 'self' blob:",
+            //    $"report-uri {contentSecurityPolicyErrorLogUri}"
+            //};
+
             string[] csp =
             {
               "default-src 'self' blob:",
-              "style-src 'self' 'unsafe-inline'",
-              "script-src 'self' https://freegeoip.net/ 'unsafe-inline' 'unsafe-eval' ",
-              "font-src 'self'",
-              "img-src 'self' data: blob:",
-              "connect-src 'self'",
-              "media-src 'self'",
-              "object-src 'self' blob:",
+              "style-src 'self' 'unsafe-inline' https:",
+              "script-src 'self' https://freegeoip.net/ 'unsafe-inline' 'unsafe-eval' https:",
+              "font-src 'self' data: https:",
+              "img-src 'self' data: blob: https:",
+              "connect-src 'self' https:",
+              "media-src 'self' https:",
+              "object-src 'self' blob: https:",
+              //"connect-src https://maps.googleapis.com",
+              //"img-src https://maps.google.com",
               $"report-uri {contentSecurityPolicyErrorLogUri}"
             };
             return string.Join("; ", csp);
