@@ -1,4 +1,5 @@
 ﻿using DNTBreadCrumb.Core;
+using DNTCaptcha.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.Services.Contracts;
 using Hatra.Services.Contracts.Identity;
@@ -142,6 +143,7 @@ namespace Hatra.Controllers
         [Route("contact-us")]
         [HttpPost, ValidateAntiForgeryToken]
         [DisplayName("ثبت تماس")]
+        [ValidateDNTCaptcha(CaptchaGeneratorLanguage = DNTCaptcha.Core.Providers.Language.Persian)]
         public async Task<IActionResult> ContactUs(ContactUsViewModel viewModel)
         {
             if (ModelState.IsValid)

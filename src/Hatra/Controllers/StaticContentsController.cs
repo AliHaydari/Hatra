@@ -15,7 +15,7 @@ namespace Hatra.Controllers
 {
     [Authorize(Policy = ConstantPolicies.DynamicPermission)]
     [BreadCrumb(UseDefaultRouteUrl = true, Order = 0)]
-    [DisplayName("مدیریت لینک های مفید")]
+    [DisplayName("مدیریت محتواهای ثابت")]
     public class StaticContentsController : Controller
     {
         private readonly IStaticContentService _staticContentService;
@@ -45,9 +45,14 @@ namespace Hatra.Controllers
         [HttpGet]
         [DisplayName("نمایش فرم محتوای ثابت جدید")]
         [BreadCrumb(Order = 1)]
-        public IActionResult RenderCreate()
+        public async Task<IActionResult> RenderCreate()
         {
-            var viewModel = new StaticContentViewModel();
+            var nextOrder = await _staticContentService.GetNextOrder();
+            var viewModel = new StaticContentViewModel()
+            {
+                Order = nextOrder,
+                IsShow = true,
+            };
 
             return View("Create", viewModel);
         }

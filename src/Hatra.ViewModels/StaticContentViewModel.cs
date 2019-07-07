@@ -17,6 +17,8 @@ namespace Hatra.ViewModels
             Id = staticContent.Id;
             Name = staticContent.Name;
             Content = staticContent.Content;
+            Order = staticContent.Order;
+            IsShow = staticContent.IsShow;
         }
 
         [HiddenInput]
@@ -33,5 +35,12 @@ namespace Hatra.ViewModels
         [Required(ErrorMessage = "(*)")]
         [Display(Name = "محتوا")]
         public string Content { get; set; }
+
+        [Required(ErrorMessage = "(*)")]
+        [Display(Name = "اولویت")]
+        public int Order { get; set; }
+
+        [Display(Name = "نمایش داده شود")]
+        public bool IsShow { get; set; }
     }
 }

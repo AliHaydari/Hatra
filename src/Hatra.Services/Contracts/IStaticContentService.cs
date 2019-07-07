@@ -8,6 +8,7 @@ namespace Hatra.Services.Contracts
     public interface IStaticContentService
     {
         Task<List<StaticContentViewModel>> GetAllAsync();
+        Task<List<StaticContentViewModel>> GetAllVisibleAsync();
         Task<PagedAdminStaticContentViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage);
         Task<StaticContentViewModel> GetByIdAsync(int id);
         Task<StaticContentViewModel> GetByNameAsync(string name);
@@ -17,5 +18,6 @@ namespace Hatra.Services.Contracts
         Task<bool> DeleteAsync(int id);
         Task<bool> CheckExistAsync(int id);
         Task<bool> CheckExistNameAsync(int? id, string name);
+        Task<int> GetNextOrder();
     }
 }

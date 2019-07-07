@@ -1,4 +1,5 @@
-﻿using Hatra.Common.GuardToolkit;
+﻿using EFSecondLevelCache.Core;
+using Hatra.Common.GuardToolkit;
 using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
@@ -29,6 +30,17 @@ namespace Hatra.Services
         {
             return await _staticContents
                 .Select(p => new StaticContentViewModel(p))
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<StaticContentViewModel>> GetAllVisibleAsync()
+        {
+            return await _staticContents
+                .Where(p => p.IsShow)
+                .OrderBy(p => p.Order)
+                .Select(p => new StaticContentViewModel(p))
+                .Cacheable()
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -82,7 +94,7 @@ namespace Hatra.Services
         public async Task<StaticContentViewModel> GetVisibleByIdAsync(int id)
         {
             var entity = await _staticContents
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .FirstOrDefaultAsync(p => p.Id == id && p.IsShow);
 
             if (entity != null)
             {
@@ -99,6 +111,8 @@ namespace Hatra.Services
                 Id = viewModel.Id,
                 Name = viewModel.Name,
                 Content = viewModel.Content,
+                Order = viewModel.Order,
+                IsShow = viewModel.IsShow,
             };
 
             await _staticContents.AddAsync(entity);
@@ -114,6 +128,8 @@ namespace Hatra.Services
             {
                 entity.Name = viewModel.Name;
                 entity.Content = viewModel.Content;
+                entity.Order = viewModel.Order;
+                entity.IsShow = viewModel.IsShow;
 
                 var result = await _unitOfWork.SaveChangesAsync();
                 return result != 0;
@@ -146,6 +162,11 @@ namespace Hatra.Services
             return id == null
                 ? await _staticContents.AnyAsync(p => p.Name == name)
                 : await _staticContents.AnyAsync(p => p.Id != id && p.Name == name);
+        }
+
+        public async Task<int> GetNextOrder()
+        {
+            return (await _staticContents.MaxAsync(p => (int?)p.Order)).GetValueOrDefault() + 1;
         }
     }
 }

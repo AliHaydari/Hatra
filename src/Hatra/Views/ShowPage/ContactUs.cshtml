@@ -35,42 +35,42 @@
             <div class="row justify-content-center mt-30-reverse">
                 @if (!string.IsNullOrWhiteSpace(ViewBag.Address))
                 {
-                <div class="col-lg-4 col-md-6 col-12 mt-30">
-                    <div class="tm-contact-block text-center">
-                        <span class="tm-contact-icon">
-                            <i class="flaticon-pin"></i>
-                        </span>
-                        <h5>آدرس</h5>
-                        <p>@ViewBag.Address</p>
+                    <div class="col-lg-4 col-md-6 col-12 mt-30">
+                        <div class="tm-contact-block text-center">
+                            <span class="tm-contact-icon">
+                                <i class="flaticon-pin"></i>
+                            </span>
+                            <h5>آدرس</h5>
+                            <p>@ViewBag.Address</p>
+                        </div>
                     </div>
-                </div>
                 }
 
                 @if (!string.IsNullOrWhiteSpace(ViewBag.Tell1))
                 {
-                <div class="col-lg-4 col-md-6 col-12 mt-30">
-                    <div class="tm-contact-block text-center">
-                        <span class="tm-contact-icon">
-                            <i class="flaticon-phone"></i>
-                        </span>
-                        <h5>تلفن</h5>
-                        <p><a href="#">@ViewBag.Tell1</a></p>
-                        <p><a href="#">@ViewBag.Tell2</a></p>
+                    <div class="col-lg-4 col-md-6 col-12 mt-30">
+                        <div class="tm-contact-block text-center">
+                            <span class="tm-contact-icon">
+                                <i class="flaticon-phone"></i>
+                            </span>
+                            <h5>تلفن</h5>
+                            <p><a href="#">@ViewBag.Tell1</a></p>
+                            <p><a href="#">@ViewBag.Tell2</a></p>
+                        </div>
                     </div>
-                </div>
                 }
 
                 @if (!string.IsNullOrWhiteSpace(ViewBag.Email))
                 {
-                <div class="col-lg-4 col-md-6 col-12 mt-30">
-                    <div class="tm-contact-block text-center">
-                        <span class="tm-contact-icon">
-                            <i class="flaticon-mail"></i>
-                        </span>
-                        <h5>آدرس</h5>
-                        <p>ایمیل:<a href="#">@ViewBag.Email</a></p>
+                    <div class="col-lg-4 col-md-6 col-12 mt-30">
+                        <div class="tm-contact-block text-center">
+                            <span class="tm-contact-icon">
+                                <i class="flaticon-mail"></i>
+                            </span>
+                            <h5>آدرس</h5>
+                            <p>ایمیل:<a href="#">@ViewBag.Email</a></p>
+                        </div>
                     </div>
-                </div>
                 }
             </div>
         </div>
@@ -96,6 +96,19 @@
                                 <div class="tm-form-field">
                                     <textarea asp-for="Description" name="message" cols="30" rows="5" placeholder="پیام*"></textarea>
                                     <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="tm-form-field">
+                                    <dnt-captcha asp-captcha-generator-max="9000"
+                                                 asp-captcha-generator-min="1"
+                                                 asp-captcha-generator-language="Persian"
+                                                 asp-font-name="Tahoma"
+                                                 asp-font-size="20"
+                                                 asp-refresh-button-class="fas fa-redo btn-sm"
+                                                 asp-fore-color="#333333"
+                                                 asp-back-color="#ccc"
+                                                 asp-text-box-class="text-box form-control"
+                                                 asp-text-box-template="<div class='input-group'><span class='input-group-prepend'><span class='input-group-text'><i class='fas fa-lock'></i></span></span>{0}</div>"
+                                                 asp-validation-message-class="text-danger" />
                                 </div>
                                 <div class="tm-form-field">
                                     <button type="submit" class="tm-button">ارسال پیام<b></b></button>
