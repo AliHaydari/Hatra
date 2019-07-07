@@ -146,9 +146,29 @@ namespace Hatra.Controllers
         [ValidateDNTCaptcha(CaptchaGeneratorLanguage = DNTCaptcha.Core.Providers.Language.Persian)]
         public async Task<IActionResult> ContactUs(ContactUsViewModel viewModel)
         {
+            var showingSettingSite = _settings.Value;
+            ViewBag.Keywords = showingSettingSite.SiteKeywords;
+            ViewBag.MetaDescription = showingSettingSite.Description;
+            ViewBag.PersianSiteName = showingSettingSite.PersianSiteName;
+            ViewBag.WorkTime = showingSettingSite.WorkTime;
+            ViewBag.Tell1 = showingSettingSite.Tell1;
+            ViewBag.Tell2 = showingSettingSite.Tell2;
+            ViewBag.Email = showingSettingSite.Email;
+            ViewBag.Address = showingSettingSite.Address;
+            ViewBag.Twitter = showingSettingSite.Twitter;
+            ViewBag.Facebook = showingSettingSite.Facebook;
+            ViewBag.Skype = showingSettingSite.Skype;
+            ViewBag.Pinterest = showingSettingSite.Pinterest;
+            ViewBag.Telegram = showingSettingSite.Telegram;
+            ViewBag.Instagram = showingSettingSite.Instagram;
+            ViewBag.LinkedIn = showingSettingSite.LinkedIn;
+            ViewBag.WhatsApp = showingSettingSite.WhatsApp;
+            ViewBag.Latitude = showingSettingSite.Latitude;
+            ViewBag.Longitude = showingSettingSite.Longitude;
+
             if (ModelState.IsValid)
             {
-                var result = await _contactUsService.UpdateAsync(viewModel);
+                var result = await _contactUsService.InsertAsync(viewModel);
                 if (result)
                 {
                     return View(new ContactUsViewModel());

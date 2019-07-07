@@ -101,11 +101,12 @@ namespace Hatra.Services
 
             if (entity != null)
             {
-                entity.FullName = viewModel.FullName;
-                entity.Email = viewModel.Email;
-                entity.Subject = viewModel.Subject;
-                entity.Description = viewModel.Description;
-                entity.IsAnsered = viewModel.IsAnsered;
+                //entity.FullName = viewModel.FullName;
+                //entity.Email = viewModel.Email;
+                //entity.Subject = viewModel.Subject;
+                //entity.Description = viewModel.Description;
+                //entity.IsAnsered = viewModel.IsAnsered;
+                entity.IsAnsered = true;
                 entity.Answer = viewModel.Answer;
 
                 var result = await _unitOfWork.SaveChangesAsync();

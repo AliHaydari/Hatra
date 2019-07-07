@@ -1,12 +1,17 @@
 ﻿using DNTBreadCrumb.Core;
 using DNTCommon.Web.Core;
+using DNTPersianUtils.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.Services.Contracts;
+using Hatra.Services.Contracts.Identity;
 using Hatra.Services.Identity;
 using Hatra.ViewModels;
 using Hatra.ViewModels.Identity;
+using Hatra.ViewModels.Identity.Emails;
+using Hatra.ViewModels.Identity.Settings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -19,14 +24,22 @@ namespace Hatra.Controllers
     public class ContactUsManagementController : Controller
     {
         private readonly IContactUsService _contactUsService;
+        private readonly IOptionsSnapshot<SiteSettings> _siteOptions;
+        private readonly IEmailSender _emailSender;
 
         private const int DefaultPageSize = 10;
         private const string RequestNotFound = "تماس مشتری درخواستی یافت نشد.";
 
-        public ContactUsManagementController(IContactUsService contactUsService)
+        public ContactUsManagementController(IContactUsService contactUsService, IOptionsSnapshot<SiteSettings> siteOptions, IEmailSender emailSender)
         {
             _contactUsService = contactUsService;
             _contactUsService.CheckArgumentIsNull(nameof(_contactUsService));
+
+            _siteOptions = siteOptions;
+            _siteOptions.CheckArgumentIsNull(nameof(_siteOptions));
+
+            _emailSender = emailSender;
+            _emailSender.CheckArgumentIsNull(nameof(_emailSender));
         }
 
         [DisplayName("ایندکس")]
@@ -43,7 +56,7 @@ namespace Hatra.Controllers
         }
 
         [HttpGet]
-        [DisplayName("نمایش فرم ویرایش تماس مشتری")]
+        [DisplayName("نمایش فرم پاسخ تماس مشتری")]
         [BreadCrumb(Order = 1)]
         public async Task<IActionResult> RenderEdit(int? id)
         {
@@ -63,7 +76,7 @@ namespace Hatra.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        [DisplayName("ویرایش تماس مشتری")]
+        [DisplayName("پاسخ تماس مشتری")]
         public async Task<IActionResult> Edit(ContactUsViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -71,6 +84,22 @@ namespace Hatra.Controllers
                 var result = await _contactUsService.UpdateAsync(viewModel);
                 if (result)
                 {
+                    await _emailSender.SendEmailAsync(
+                        email: viewModel.Email,
+                        subject: "پاسخ پیام",
+                        viewNameOrPath: "~/Areas/Identity/Views/EmailTemplates/_ContactUsAnswer.cshtml",
+                        model: new ContactUsConfirmationViewModel
+                        {
+                            Id = viewModel.Id,
+                            FullName = viewModel.FullName,
+                            Email = viewModel.Email,
+                            Subject = viewModel.Subject,
+                            Description = viewModel.Description,
+                            Answer = viewModel.Answer,
+                            EmailSignature = _siteOptions.Value.Smtp.FromName,
+                            MessageDateTime = DateTime.UtcNow.ToLongPersianDateTimeString()
+                        });
+
                     return RedirectToAction("Index", "ContactUsManagement");
                 }
 
@@ -78,6 +107,39 @@ namespace Hatra.Controllers
             }
 
             return View(viewModel);
+        }
+
+        [AjaxOnly]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("{id:int?}")]
+        [DisplayName("باز ارسال پاسخ تماس مشتری")]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> ReSend(int? id)
+        {
+            if (!id.HasValue) return BadRequest();
+
+            var viewModel = await _contactUsService.GetByIdAsync(id.Value);
+
+            if (viewModel == null) return BadRequest();
+
+            await _emailSender.SendEmailAsync(
+                email: viewModel.Email,
+                subject: "پاسخ پیام",
+                viewNameOrPath: "~/Areas/Identity/Views/EmailTemplates/_ContactUsAnswer.cshtml",
+                model: new ContactUsConfirmationViewModel
+                {
+                    Id = viewModel.Id,
+                    FullName = viewModel.FullName,
+                    Email = viewModel.Email,
+                    Subject = viewModel.Subject,
+                    Description = viewModel.Description,
+                    Answer = viewModel.Answer,
+                    EmailSignature = _siteOptions.Value.Smtp.FromName,
+                    MessageDateTime = DateTime.UtcNow.ToLongPersianDateTimeString()
+                });
+
+            return Json(new { success = true });
         }
 
         [AjaxOnly]
