@@ -57,7 +57,7 @@ namespace Hatra.Controllers
         [HttpGet]
         [DisplayName("نمایش فرم فولدر جدید")]
         [BreadCrumb(Order = 1)]
-        public async Task<IActionResult> RenderCreate()
+        public IActionResult RenderCreate()
         {
             var viewModel = new FolderViewModel();
 
@@ -275,7 +275,7 @@ namespace Hatra.Controllers
         [HttpGet]
         [DisplayName("نمایش فرم درج فایل")]
         [BreadCrumb(Order = 1)]
-        public async Task<IActionResult> RenderAddPicture(int? id)
+        public IActionResult RenderAddPicture(int? id)
         {
             if (!id.HasValue)
             {

@@ -45,7 +45,7 @@ namespace Hatra.Controllers
         [HttpGet]
         [DisplayName("نمایش فرم گروه جدید")]
         [BreadCrumb(Order = 1)]
-        public async Task<IActionResult> RenderCreate()
+        public IActionResult RenderCreate()
         {
             var viewModel = new CategoryViewModel()
             {

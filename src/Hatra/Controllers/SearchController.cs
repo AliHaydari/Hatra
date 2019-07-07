@@ -32,7 +32,7 @@ namespace Hatra.Controllers
         //    return View();
         //}
 
-        public async Task<IActionResult> SearchResult(string term)
+        public IActionResult SearchResult(string term)
         {
             if (string.IsNullOrWhiteSpace(term))
             {
