@@ -3,19 +3,81 @@ Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 
-body
-{
-	/* Font */
-	font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
-	font-size: 12px;
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 900;
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum)_Black.eot');
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum)_Black.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+    url('/lib/deconsultrtl/assets/fonts/woff2/IRANSansWeb(FaNum)_Black.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+    url('/lib/deconsultrtl/assets/fonts/woff/IRANSansWeb(FaNum)_Black.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('/lib/deconsultrtl/assets/fonts/ttf/IRANSansWeb(FaNum)_Black.ttf') format('truetype');
+}
 
-	/* Text color */
-	color: #333;
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: bold;
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum)_Bold.eot');
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum)_Bold.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+    url('/lib/deconsultrtl/assets/fonts/woff2/IRANSansWeb(FaNum)_Bold.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+    url('/lib/deconsultrtl/assets/fonts/woff/IRANSansWeb(FaNum)_Bold.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('/lib/deconsultrtl/assets/fonts/ttf/IRANSansWeb(FaNum)_Bold.ttf') format('truetype');
+}
 
-	/* Remove the background color to make it transparent */
-	background-color: #fff;
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 500;
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum)_Medium.eot');
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum)_Medium.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+    url('/lib/deconsultrtl/assets/fonts/woff2/IRANSansWeb(FaNum)_Medium.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+    url('/lib/deconsultrtl/assets/fonts/woff/IRANSansWeb(FaNum)_Medium.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('/lib/deconsultrtl/assets/fonts/ttf/IRANSansWeb(FaNum)_Medium.ttf') format('truetype');
+}
 
-	margin: 20px;
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 300;
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum)_Light.eot');
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum)_Light.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+    url('/lib/deconsultrtl/assets/fonts/woff2/IRANSansWeb(FaNum)_Light.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+    url('/lib/deconsultrtl/assets/fonts/woff/IRANSansWeb(FaNum)_Light.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('/lib/deconsultrtl/assets/fonts/ttf/IRANSansWeb(FaNum)_Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 200;
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum)_UltraLight.eot');
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum)_UltraLight.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+    url('/lib/deconsultrtl/assets/fonts/woff2/IRANSansWeb(FaNum)_UltraLight.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+    url('/lib/deconsultrtl/assets/fonts/woff/IRANSansWeb(FaNum)_UltraLight.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('/lib/deconsultrtl/assets/fonts/ttf/IRANSansWeb(FaNum)_UltraLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: normal;
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum).eot');
+    src: url('/lib/deconsultrtl/assets/fonts/eot/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+    url('/lib/deconsultrtl/assets/fonts/woff2/IRANSansWeb(FaNum).woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+    url('/lib/deconsultrtl/assets/fonts/woff/IRANSansWeb(FaNum).woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('/lib/deconsultrtl/assets/fonts/ttf/IRANSansWeb(FaNum).ttf') format('truetype');
+}
+
+body {
+    /* Font */
+    font-family: 'IRANSans', sans-serif, Arial, Verdana, "Trebuchet MS";
+    font-size: 12px;
+    /* Text color */
+    color: #333;
+    /* Remove the background color to make it transparent */
+    background-color: #fff;
+    margin: 20px;
 }
 
 .cke_editable
