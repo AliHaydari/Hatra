@@ -81,6 +81,12 @@ namespace Hatra.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (string.IsNullOrWhiteSpace(viewModel.Answer))
+                {
+                    ModelState.AddModelError(nameof(viewModel.Answer), "لطفا متن پاسخ را وارد کنید");
+                    return View(viewModel);
+                }
+
                 var result = await _contactUsService.UpdateAsync(viewModel);
                 if (result)
                 {
