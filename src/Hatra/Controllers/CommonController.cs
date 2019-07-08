@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using DNTBreadCrumb.Core;
+using DNTPersianUtils.Core;
 using Hatra.Services.Identity;
 using Microsoft.AspNetCore.Authorization;
 
@@ -156,8 +157,37 @@ namespace Hatra.Controllers
                 return BadRequest(RequestNotFound);
             }
 
+            if (viewModel.CreatedByUserId.HasValue)
+            {
+                var user = await _userManager.FindByIdAsync(viewModel.CreatedByUserId.Value.ToString());
+                viewModel.CreatedByUserName = user?.DisplayName ?? "-";
+            }
+            else
+            {
+                viewModel.CreatedByUserName = "-";
+            }
+
+            if (viewModel.ModifiedByUserId.HasValue)
+            {
+                var user = await _userManager.FindByIdAsync(viewModel.ModifiedByUserId.Value.ToString());
+                viewModel.ModifiedByUserName = user?.DisplayName ?? "-";
+            }
+            else
+            {
+                viewModel.ModifiedByUserName = "-";
+            }
+
+            viewModel.CreatedPersianDateTime = viewModel.CreatedDateTime.HasValue
+                ? viewModel.CreatedDateTime.ToFriendlyPersianDateTextify()
+                : "-";
+
+            viewModel.ModifiedPersianDateTime = viewModel.ModifiedDateTime.HasValue
+                ? viewModel.CreatedDateTime.ToFriendlyPersianDateTextify()
+                : "-";
+
             //return PartialView("_AuditableInformation", model: viewModel);
-            return Json(new { success = true });
+            return Json(new { data = viewModel });
+            //return PartialView("_RenderAuditableInformation");
         }
     }
 }

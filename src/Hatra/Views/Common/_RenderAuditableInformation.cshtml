@@ -1,0 +1,36 @@
+﻿@model AuditableInformationViewModel
+
+<ul id="ratings1" data-title="Ratings" class="list-unstyled">
+    <li>
+        @Model.CreatedByBrowserName
+        <span class="pull-right">@Model.CreatedByBrowserName</span>
+    </li>
+    <li>
+        @Model.CreatedByIp
+        <span dir="ltr" class="pull-right">@Model.CreatedByIp</span>
+    </li>
+    <li>
+        @Model.CreatedByUserName
+        <span dir="ltr" class="pull-right">@Model.CreatedByUserName</span>
+    </li>
+    <li>
+        @Model.CreatedDateTime
+        <span dir="ltr" class="pull-right">@Model.CreatedPersianDateTime</span>
+    </li>
+    <li>
+        @Model.ModifiedByBrowserName
+        <span dir="ltr" class="pull-right">@Model.ModifiedByBrowserName</span>
+    </li>
+    <li>
+        @Model.ModifiedByIp
+        <span dir="ltr" class="pull-right">@Model.ModifiedByIp</span>
+    </li>
+    <li>
+        @Model.ModifiedByUserName
+        <span dir="ltr" class="pull-right">@Model.ModifiedByUserName</span>
+    </li>
+    <li>
+        @Model.ModifiedDateTime
+        <span dir="ltr" class="pull-right">@Model.ModifiedPersianDateTime</span>
+    </li>
+</ul>

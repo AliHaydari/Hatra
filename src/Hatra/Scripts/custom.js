@@ -110,6 +110,27 @@ function dataAjaxFailure(xhr, status, error) {
         body: '<div class="alert alert-danger"> <span class="fas fa-thumbs-down" aria-hidden="true"></span> ' + xhr.responseText + '</div>'
     });
 }
+
+function dataAjaxSuccessInformation(data, status, xhr) {
+    var body = '<ul>' +
+        '<li> ایجاد شده با مرورگر : ' + '<span  dir="ltr" class="pull-left">' + data.data.createdByBrowserName + '</span>' + '</li>' +
+        '<li> ویرایش شده با مرورگر : ' + '<span  dir="ltr" class="pull-left">' + data.data.modifiedByBrowserName + '</span>' + '</li>' +
+        '<li> ایجاد شده با IP : ' + '<span  dir="ltr" class="pull-left">' + data.data.createdByIp + '</span>' + '</li>' +
+        '<li> ویرایش شده با IP : ' + '<span  dir="ltr" class="pull-left">' + data.data.modifiedByIp + '</span>' + '</li>' +
+        '<li> ایجاد شده با کاربر : ' + '<span  dir="ltr" class="pull-left">' + data.data.createdByUserName + '</span>' + '</li>' +
+        '<li>ویرایش شده با کاربر : ' + '<span  dir="ltr" class="pull-left">' + data.data.modifiedByUserName + '</span>' + '</li>' +
+        '<li>ایجاد شده در تاریخ : ' + '<span  dir="ltr" class="pull-left">' + data.data.createdPersianDateTime + '</span>' + '</li>' +
+        '<li>ویرایش شده در تاریخ : ' + '<span  dir="ltr" class="pull-left">' + data.data.modifiedPersianDateTime + '</span>' + '</li>' +
+        '</ul>';
+
+    $.bootstrapModalAlert({
+        caption: 'اطلاعات',
+        body: body,
+        size: ' modal-xl',
+        isScrollable: true,
+        isCentered: true
+    });
+}
 //-----------------------Ajax forms
 
 //--------------------- Set dir rtl

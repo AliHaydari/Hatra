@@ -25,13 +25,25 @@ namespace Hatra.ViewModels
         [Display(Name = "ایجاد شده با شناسه کاربر")]
         public int? CreatedByUserId { get; set; }
 
+        [Display(Name = "ایجاد شده با کاربر")]
+        public string CreatedByUserName { get; set; }
+
         [Display(Name = "ویرایش شده با شناسه کاربر")]
         public int? ModifiedByUserId { get; set; }
+
+        [Display(Name = "ویرایش شده با کاربر")]
+        public string ModifiedByUserName { get; set; }
 
         [Display(Name = "ایجاد شده در تاریخ")]
         public DateTimeOffset? CreatedDateTime { get; set; }
 
+        [Display(Name = "ایجاد شده در تاریخ")]
+        public string CreatedPersianDateTime { get; set; }
+
         [Display(Name = "ویرایش شده در تاریخ")]
         public DateTimeOffset? ModifiedDateTime { get; set; }
+
+        [Display(Name = "ویرایش شده در تاریخ")]
+        public string ModifiedPersianDateTime { get; set; }
     }
 }
