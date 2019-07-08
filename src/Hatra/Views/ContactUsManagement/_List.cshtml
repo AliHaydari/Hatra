@@ -24,8 +24,8 @@
                 {
                     <tr>
                         <td class="text-center">@item.FullName</td>
-                        <td class="text-center text-primary">@item.Email</td>
-                        <td class="text-center text-primary">@item.Subject</td>
+                        <td class="text-center">@item.Email</td>
+                        <td class="text-center">@item.Subject</td>
                         <td class="text-center">
                             @if (item.IsAnsered)
                             {
@@ -37,8 +37,26 @@
                             }
                         </td>
                         <td class="text-center">
+                            @if (item.IsAnsered)
+                            {
+                                <security-trimming asp-area="" asp-controller="ContactUsManagement" asp-action="ReSend">
+                                    <form method="post"
+                                          asp-controller="ContactUsManagement"
+                                          asp-action="ReSend"
+                                          asp-route-id="@item.Id"
+                                          role="form"
+                                          data-ajax="true"
+                                          data-ajax-begin="dataAjaxBegin"
+                                          data-ajax-success="dataAjaxSuccess"
+                                          data-ajax-failure="dataAjaxFailure"
+                                          data-ajax-method="POST"
+                                          enctype="multipart/form-data">
+                                        <button type="submit" class="btn btn-sm btn-info">باز ارسال</button>
+                                    </form>
+                                </security-trimming>
+                            }
                             <security-trimming asp-area="" asp-controller="ContactUsManagement" asp-action="RenderEdit">
-                                <a id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary" asp-controller="ContactUsManagement" asp-action="RenderEdit" asp-route-id="@item.Id">ویرایش</a>
+                                <a id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary" asp-controller="ContactUsManagement" asp-action="RenderEdit" asp-route-id="@item.Id">پاسخ</a>
                             </security-trimming>
                             <security-trimming asp-area="" asp-controller="ContactUsManagement" asp-action="RenderDelete">
                                 <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" class="btn btn-sm btn-danger">حذف</a>

@@ -8,6 +8,7 @@ using Hatra.ViewModels;
 using Hatra.ViewModels.Excels;
 using Hatra.ViewModels.Paged;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,6 +66,18 @@ namespace Hatra.Services
             return await _categories
                 .Include(p => p.Pages)
                 .Where(p => p.IsShow)
+                .Select(p => new CategoryViewModel(p))
+                .Cacheable()
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<CategoryViewModel>> GetAllVisibleSidebarWidgetAsync()
+        {
+            return await _categories
+                .Where(p => p.IsShow)
+                .OrderByDescending(p => EF.Property<DateTimeOffset>(p, "CreatedDateTime"))
+                .ThenBy(p => p.Id)
                 .Select(p => new CategoryViewModel(p))
                 .Cacheable()
                 .AsNoTracking()

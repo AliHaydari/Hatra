@@ -82,19 +82,19 @@
                         <form asp-controller="ShowPage" asp-action="ContactUs" method="post" enctype="multipart/form-data" id="tm-contactform" class="tm-form">
                             <div class="tm-form-inner">
                                 <div class="tm-form-field">
-                                    <input asp-for="FullName" type="text" name="name" placeholder="نام و نام خانوادگی*">
+                                    <input asp-for="FullName" type="text" placeholder="نام و نام خانوادگی*">
                                     <span asp-validation-for="FullName" class="text-danger"></span>
                                 </div>
                                 <div class="tm-form-field">
-                                    <input asp-for="Email" type="email" name="email" placeholder="ایمیل*">
+                                    <input asp-for="Email" type="email" placeholder="ایمیل*">
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                                 <div class="tm-form-field">
-                                    <input asp-for="Subject" type="text" name="subject" placeholder="موضوع*">
+                                    <input asp-for="Subject" type="text" placeholder="موضوع*">
                                     <span asp-validation-for="Subject" class="text-danger"></span>
                                 </div>
                                 <div class="tm-form-field">
-                                    <textarea asp-for="Description" name="message" cols="30" rows="5" placeholder="پیام*"></textarea>
+                                    <textarea asp-for="Description" cols="30" rows="5" placeholder="پیام*"></textarea>
                                     <span asp-validation-for="Description" class="text-danger"></span>
                                 </div>
                                 <div class="tm-form-field">

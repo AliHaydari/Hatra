@@ -27,80 +27,81 @@
 <!--// Breadcrumb Area -->
 <!-- Main Content -->
 <main class="main-content">
-
     <!-- Blogs Area -->
     <div class="tm-section blogs-area bg-white tm-padding-section">
         <div class="container">
-            <div class="tm-blog-list">
-                <div class="row mt-30-reverse blog-masonry-active">
-
-                    <!-- Single Blog -->
-                    @foreach (var item in Model.PageViewModels)
-                    {
-                        <div class="col-lg-4 col-md-6 col-12 mt-30 blog-masonry-item">
-                            <div class="blog-slider-item">
-                                <div class="tm-blog wow fadeInUp">
-                                    <div class="tm-blog-image">
-                                        <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">
-                                            @if (!string.IsNullOrWhiteSpace(item.Image))
-                                            {
-                                                <img src="@item.Image" alt="@item.ImageName" onerror="this.style.display = 'none'">
-                                            }
-                                            else
-                                            {
-                                                <img src="/lib/deconsultrtl/assets/images/blog/blog-image-1.jpg" alt="@item.SlugUrl" onerror="this.style.display = 'none'">
-                                            }
-                                        </a>
-                                    </div>
-                                    <div class="tm-blog-content">
-                                        <div class="tm-blog-meta">
-                                            <span><i class="fa fa-calendar-o"></i>@item.CreatedPersianDateTime</span>
-                                            @if (item.CategoryId.HasValue)
-                                            {
-                                                <span><i class="fa fa-folder-o"></i><a asp-controller="ShowPage" asp-action="ShowCategory" asp-route-id="@item.CategoryId" asp-route-slugUrl="@item.CategorySlugUrl">@item.CategoryName</a></span>
-                                            }
+            <div class="row">
+                <div class="col-lg-8 col-12 order-1 order-lg-2">
+                    <div class="tm-blog-list sticky-sidebar">
+                        <div class="row mt-30-reverse blog-masonry-active">
+                            @foreach (var item in Model.PageViewModels)
+                            {
+                                <div class="col-lg-6 col-md-6 col-12 mt-30 blog-masonry-item">
+                                    <div class="blog-slider-item">
+                                        <div class="tm-blog wow fadeInUp">
+                                            <div class="tm-blog-image">
+                                                <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">
+                                                    @if (!string.IsNullOrWhiteSpace(item.Image))
+                                                    {
+                                                        <img src="@item.Image" alt="@item.ImageName" onerror="this.style.display = 'none'">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="/lib/deconsultrtl/assets/images/blog/blog-image-1.jpg" alt="@item.SlugUrl" onerror="this.style.display = 'none'">
+                                                    }
+                                                </a>
+                                            </div>
+                                            <div class="tm-blog-content">
+                                                <div class="tm-blog-meta">
+                                                    <span><i class="fa fa-calendar-o"></i>@item.CreatedPersianDateTime</span>
+                                                    @if (item.CategoryId.HasValue)
+                                                    {
+                                                        <span><i class="fa fa-folder-o"></i><a asp-controller="ShowPage" asp-action="ShowCategory" asp-route-id="@item.CategoryId" asp-route-slugUrl="@item.CategorySlugUrl">@item.CategoryName</a></span>
+                                                    }
+                                                </div>
+                                                <h5><a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">@item.Title</a></h5>
+                                                <p>@item.BriefDescription</p>
+                                                <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl" class="tm-readmore">ادامه مطلب...</a>
+                                            </div>
                                         </div>
-                                        <h5><a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">@item.Title</a></h5>
-                                        <p>@item.BriefDescription</p>
-                                        <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl" class="tm-readmore">ادامه مطلب...</a>
                                     </div>
                                 </div>
-                            </div>
+                            }
+                            <!--// Single Blog -->
                         </div>
-                    }
-                    <!--// Single Blog -->
-
+                        <div class="tm-pagination mt-50">
+                            <cs-pager cs-paging-pagesize="@Model.Paging.ItemsPerPage"
+                                      cs-paging-pagenumber="@Model.Paging.CurrentPage"
+                                      cs-paging-totalitems="@Model.Paging.TotalItems"
+                                      cs-pagenumber-param="page"
+                                      asp-controller="ShowPage"
+                                      asp-action="ShowPagesByUser"
+                                      asp-route-pagesize="@Model.Paging.ItemsPerPage"
+                                      asp-route-id="@userId"
+                                      cs-show-first-last="true"
+                                      cs-suppress-empty-nextprev="true"
+                                      cs-suppress-inactive-firstlast="true"
+                                      cs-first-page-text="ابتدا"
+                                      cs-first-page-title="ابتدا"
+                                      cs-last-page-text="انتها"
+                                      cs-last-page-title="انتها"
+                                      cs-pager-li-current-class="is-active"
+                                      cs-pager-li-non-active-class=""
+                                      cs-pager-ul-class=""
+                                      cs-pager-li-other-class=""
+                                      cs-pager-link-current-class=""
+                                      cs-pager-link-other-class=""
+                                      cs-next-page-title="بعدی"
+                                      cs-previous-page-title="قبلی"></cs-pager>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="tm-pagination mt-50">
-                    <cs-pager cs-paging-pagesize="@Model.Paging.ItemsPerPage"
-                              cs-paging-pagenumber="@Model.Paging.CurrentPage"
-                              cs-paging-totalitems="@Model.Paging.TotalItems"
-                              cs-pagenumber-param="page"
-                              asp-controller="ShowPage"
-                              asp-action="ShowPagesByUser"
-                              asp-route-pagesize="@Model.Paging.ItemsPerPage"
-                              asp-route-id="@userId"
-                              cs-show-first-last="true"
-                              cs-suppress-empty-nextprev="true"
-                              cs-suppress-inactive-firstlast="true"
-                              cs-first-page-text="ابتدا"
-                              cs-first-page-title="ابتدا"
-                              cs-last-page-text="انتها"
-                              cs-last-page-title="انتها"
-                              cs-pager-li-current-class="is-active"
-                              cs-pager-li-non-active-class=""
-                              cs-pager-ul-class=""
-                              cs-pager-li-other-class=""
-                              cs-pager-link-current-class=""
-                              cs-pager-link-other-class=""
-                              cs-next-page-title="بعدی"
-                              cs-previous-page-title="قبلی"></cs-pager>
+                <div class="col-lg-4 col-12 order-2 order-lg-1">
+                    <vc:sidebar-widget active-category-id="null"></vc:sidebar-widget>
                 </div>
             </div>
         </div>
     </div>
     <!--// Blogs Area -->
-
 </main>
 <!--// Main Content -->

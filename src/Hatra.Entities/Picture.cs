@@ -1,6 +1,8 @@
-﻿namespace Hatra.Entities
+﻿using Hatra.Entities.AuditableEntity;
+
+namespace Hatra.Entities
 {
-    public class Picture
+    public class Picture : IAuditableEntity
     {
         public int Id { get; set; }
 

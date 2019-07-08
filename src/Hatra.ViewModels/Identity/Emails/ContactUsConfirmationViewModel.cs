@@ -1,27 +1,10 @@
-﻿using Hatra.Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace Hatra.ViewModels
+namespace Hatra.ViewModels.Identity.Emails
 {
-    public class ContactUsViewModel
+    public class ContactUsConfirmationViewModel : EmailsBase
     {
-        public ContactUsViewModel()
-        {
-
-        }
-
-        public ContactUsViewModel(ContactUs contactUs)
-        {
-            Id = contactUs.Id;
-            FullName = contactUs.FullName;
-            Email = contactUs.Email;
-            Subject = contactUs.Subject;
-            Description = contactUs.Description;
-            IsAnsered = contactUs.IsAnsered;
-            Answer = contactUs.Answer;
-        }
-
         [HiddenInput]
         public int Id { get; set; }
 
