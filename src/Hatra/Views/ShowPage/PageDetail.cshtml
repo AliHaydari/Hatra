@@ -27,51 +27,58 @@
     <!-- Blogs Area -->
     <div class="tm-section blogs-area bg-white tm-padding-section">
         <div class="container">
-            <div class="tm-blog tm-blog-details sticky-sidebar">
-                <div class="tm-blog-image">
-                    @*<a href="#">*@
-                    @if (!string.IsNullOrWhiteSpace(Model.Image))
-                    {
-                        <img src="@Model.Image" alt="@Model.Title" onerror="this.style.display = 'none'">
-                    }
-                    else
-                    {
-                        <img src="/lib/deconsultrtl/assets/images/blog/lg/blog-image-lg-1.jpg" alt="blog image" onerror="this.style.display = 'none'">
-                    }
-                    @*</a>*@
-                </div>
-                <div class="tm-blog-content">
-                    <div class="tm-blog-meta">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <security-trimming asp-area="" asp-controller="Pages" asp-action="RenderEdit">
-                                <span><i class="fa fa-edit"></i><a asp-controller="Pages" asp-action="RenderEdit" asp-route-id="@Model.Id">ویرایش</a></span>
-                            </security-trimming>
-                        }
-                        <span><i class="fa fa-user-o"></i>توسط<a asp-controller="ShowPage" asp-action="ShowPagesByUser" asp-route-id="@Model.CreatedByUserId" asp-route-slugUrl="@Model.CreatedUserNameSlugUrl"> @Model.CreatedUserName </a></span>
-                        <span><i class="fa fa-calendar-o"></i>@Model.CreatedPersianDateTime</span>
-                        @if (Model.CategoryId.HasValue)
-                        {
-                            <span><i class="fa fa-folder-o"></i><a asp-controller="ShowPage" asp-action="ShowCategory" asp-route-id="@Model.CategoryId" asp-route-slugUrl="@Model.SlugUrl">@Model.CategoryName</a></span>
-                        }
+            <div class="row">
+                <div class="col-lg-8 col-12 order-1 order-lg-2">
+                    <div class="tm-blog tm-blog-details sticky-sidebar">
+                        <div class="tm-blog-image">
+                            @*<a href="#">*@
+                            @if (!string.IsNullOrWhiteSpace(Model.Image))
+                            {
+                                <img src="@Model.Image" alt="@Model.Title" onerror="this.style.display = 'none'">
+                            }
+                            else
+                            {
+                                <img src="/lib/deconsultrtl/assets/images/blog/lg/blog-image-lg-1.jpg" alt="blog image" onerror="this.style.display = 'none'">
+                            }
+                            @*</a>*@
+                        </div>
+                        <div class="tm-blog-content">
+                            <div class="tm-blog-meta">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <security-trimming asp-area="" asp-controller="Pages" asp-action="RenderEdit">
+                                        <span><i class="fa fa-edit"></i><a asp-controller="Pages" asp-action="RenderEdit" asp-route-id="@Model.Id">ویرایش</a></span>
+                                    </security-trimming>
+                                }
+                                <span><i class="fa fa-user-o"></i>توسط<a asp-controller="ShowPage" asp-action="ShowPagesByUser" asp-route-id="@Model.CreatedByUserId" asp-route-slugUrl="@Model.CreatedUserNameSlugUrl"> @Model.CreatedUserName </a></span>
+                                <span><i class="fa fa-calendar-o"></i>@Model.CreatedPersianDateTime</span>
+                                @if (Model.CategoryId.HasValue)
+                                {
+                                    <span><i class="fa fa-folder-o"></i><a asp-controller="ShowPage" asp-action="ShowCategory" asp-route-id="@Model.CategoryId" asp-route-slugUrl="@Model.SlugUrl">@Model.CategoryName</a></span>
+                                }
+                            </div>
+                            <h3>@Model.Title</h3>
+                            <br />
+                            <p>@Html.Raw(Model.Body)</p>
+                        </div>
+
+                        @*<div class="tm-blog-tags">
+                            <span class="tm-blog-tags-title">
+                                    <i class="fa fa-tags"></i>
+                                </span>
+                                <ul>
+                                    <li><a href="#">نرم افزار</a></li>
+                                    <li><a href="#">توسعه</a></li>
+                                    <li><a href="#">php</a></li>
+                                    <li><a href="#">وب</a></li>
+                                </ul>
+                        </div>*@
+
                     </div>
-                    <h3>@Model.Title</h3>
-                    <br />
-                    <p>@Html.Raw(Model.Body)</p>
                 </div>
-
-                <div class="tm-blog-tags">
-                    @*<span class="tm-blog-tags-title">
-                            <i class="fa fa-tags"></i>
-                        </span>
-                        <ul>
-                            <li><a href="#">نرم افزار</a></li>
-                            <li><a href="#">توسعه</a></li>
-                            <li><a href="#">php</a></li>
-                            <li><a href="#">وب</a></li>
-                        </ul>*@
+                <div class="col-lg-4 col-12 order-2 order-lg-1">
+                    <vc:sidebar-widget active-category-id="@Model.CategoryId"></vc:sidebar-widget>
                 </div>
-
             </div>
         </div>
     </div>

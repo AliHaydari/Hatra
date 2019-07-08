@@ -1,0 +1,52 @@
+﻿@model SidebarWidgetViewModel
+
+<div class="widgets sidebar-widgets sticky-sidebar">
+    <div class="single-widget widget-search">
+        <h5 class="widget-title">جستجو</h5>
+        <form asp-area="" asp-controller="Search" asp-action="SearchResult" class="widget-search-form">
+            <input id="term" name="term" type="text" placeholder="جستجوی...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    @if (Model.CategoryViewModels.Any())
+    {
+        <div class="single-widget widget-tags">
+            <h5 class="widget-title">دسته بندی ها</h5>
+            <ul>
+                @foreach (var item in Model.CategoryViewModels)
+                {
+                    <li><a asp-area="" asp-controller="ShowPage" asp-action="ShowCategory" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">@item.Name</a></li>
+                }
+            </ul>
+        </div>
+    }
+    @if (Model.LastPageViewModels.Any())
+    {
+        <div class="single-widget widget-recentpost">
+            <h5 class="widget-title">مطالب اخیر</h5>
+            <ul>
+                @foreach (var item in Model.LastPageViewModels)
+                {
+                    <li>
+                        <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl" class="widget-recentpost-image">
+                            @if (!string.IsNullOrWhiteSpace(item.Image))
+                            {
+                                <img src="@item.Image" alt="@item.ImageName" onerror="this.style.display = 'none'">
+                            }
+                            else
+                            {
+                                <img src="/lib/deconsultrtl/assets/images/blog/thumbnails/blog-thumbnail-1.jpg" alt="@item.SlugUrl" onerror="this.style.display = 'none'">
+                            }
+                        </a>
+                        <div class="widget-recentpost-content">
+                            <h6>
+                                <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">@item.BriefDescription.Substring(0, 65).Insert(65, "...")</a>
+                            </h6>
+                            <span>@item.CreatedPersianDateTime</span>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>

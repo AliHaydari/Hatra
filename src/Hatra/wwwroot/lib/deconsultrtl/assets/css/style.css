@@ -6399,12 +6399,13 @@ button.tm-videobutton {
     }
 
 .tm-contact-map {
-    height: 611px;
+    height: 723px;
 }
 
     .tm-contact-map #google-map {
         height: 100%;
         width: 100%;
+        z-index: 1;
     }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {

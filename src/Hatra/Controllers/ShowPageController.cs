@@ -20,7 +20,7 @@ namespace Hatra.Controllers
         private readonly IApplicationUserManager _applicationUserManager;
         private readonly IContactUsService _contactUsService;
 
-        private const int DefaultPageSize = 9;
+        private const int DefaultPageSize = 8;
 
         public ShowPageController(IOptionsSnapshot<ShowingSettingSite> settings, IPageService pageService, ICategoryService categoryService, IApplicationUserManager applicationUserManager, IContactUsService contactUsService)
         {

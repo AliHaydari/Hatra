@@ -677,7 +677,7 @@
 
         /* Datepicker */
         datepickerActivation: function () {
-            $('[data-toggle="datepicker"]').datepicker();
+            //$('[data-toggle="datepicker"]').datepicker();
         },
 
 
@@ -722,13 +722,13 @@
 
         /* Sticky Sidebar Active */
         stickySidebarActive: function () {
-            var winWidth = $(window).width();
-            if (winWidth > 991) {
-                $('.sticky-sidebar').stickySidebar({
-                    topSpacing: 0,
-                    bottomSpacing: 30
-                });
-            }
+            //var winWidth = $(window).width();
+            //if (winWidth > 991) {
+            //    $('.sticky-sidebar').stickySidebar({
+            //        topSpacing: 0,
+            //        bottomSpacing: 30
+            //    });
+            //}
         },
 
         /* Ripple Js Active */
