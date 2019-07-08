@@ -782,7 +782,18 @@
             deconsult.stickySidebarActive();
             deconsult.rippleJsActive();
             deconsult.dropdownHasChildren();
+
+            // Initialize the media query
+            var mediaQuery = window.matchMedia('(min-width: 1199px)');
+
+            // Add a listen event
+            mediaQuery.addListener(doSomething);
+
+            doSomething(mediaQuery);
+
+            $("ul.pricing li:first-child").click();
         }
+
     };
 
     deconsult.init();
