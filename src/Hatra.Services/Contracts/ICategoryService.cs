@@ -16,6 +16,7 @@ namespace Hatra.Services.Contracts
         Task<CategoryViewModel> GetByIdAsync(int id);
         Task<CategoryViewModel> GetByIdAndSlugUrlAsync(int id, string slugUrl);
         Task<CategoryViewModel> GetVisibleByIdAsync(int id);
+        Task<AuditableInformationViewModel> GetAuditableInformationByIdAsync(int id);
         Task<bool> InsertAsync(CategoryViewModel viewModel);
         Task<bool> UpdateAsync(CategoryViewModel viewModel);
         Task<bool> DeleteAsync(int id);

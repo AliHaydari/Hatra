@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Hatra.Entities.AuditableEntity;
+using System.Collections.Generic;
 
 namespace Hatra.Entities
 {
-    public class Folder
+    public class Folder : IAuditableEntity
     {
         public Folder()
         {

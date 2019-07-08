@@ -24,6 +24,7 @@ namespace Hatra.Services.Contracts
         Task<PageViewModel> GetByIdAsync(int id);
         Task<PageViewModel> GetByIdAndUpdateViewNumberAsync(int id);
         Task<PageViewModel> GetByIdAndSlugUrlAndUpdateViewNumberAsync(int id, string slugUrl);
+        Task<AuditableInformationViewModel> GetAuditableInformationByIdAsync(int id);
         Task<bool> InsertAsync(PageViewModel viewModel);
         Task<(bool isSuccess, Page page)> InsertTubleAsync(PageViewModel viewModel);
         Task<bool> UpdateAsync(PageViewModel viewModel);

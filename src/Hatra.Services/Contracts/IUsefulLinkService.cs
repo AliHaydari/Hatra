@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Hatra.ViewModels;
+﻿using Hatra.ViewModels;
 using Hatra.ViewModels.Paged;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hatra.Services.Contracts
 {
@@ -14,6 +12,7 @@ namespace Hatra.Services.Contracts
         Task<List<UsefulLinkViewModel>> GetAllVisibleAsync();
         Task<UsefulLinkViewModel> GetByIdAsync(int id);
         Task<UsefulLinkViewModel> GetVisibleByIdAsync(int id);
+        Task<AuditableInformationViewModel> GetAuditableInformationByIdAsync(int id);
         Task<bool> InsertAsync(UsefulLinkViewModel viewModel);
         Task<bool> UpdateAsync(UsefulLinkViewModel viewModel);
         Task<bool> DeleteAsync(int id);

@@ -1,0 +1,75 @@
+﻿@model AuditableInformationViewModel
+<partial name="_CustomValidationSummary" />
+<div class="form-horizontal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">اطلاعات</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <label asp-for="CreatedByBrowserName" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="CreatedByBrowserName" class="form-control" />
+                        <span asp-validation-for="CreatedByBrowserName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="ModifiedByBrowserName" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="ModifiedByBrowserName" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="CreatedByIp" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="CreatedByIp" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="ModifiedByIp" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="ModifiedByIp" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="CreatedByUserId" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="CreatedByUserId" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="ModifiedByUserId" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="ModifiedByUserId" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="CreatedDateTime" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="CreatedDateTime" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="ModifiedDateTime" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="ModifiedDateTime" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">تایید</button>
+            </div>
+        </div>
+    </div>
+</div>

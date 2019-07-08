@@ -109,6 +109,25 @@
                 });
             });
 
+            @*$("a[id^='btnAuditableInformation']").click(function(e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var requestTypeName = '@nameof(Menu)';
+                var requestId = $(this).data("auditable-information-id");
+
+                $.bootstrapModalAjaxForm({
+                    renderModalPartialViewUrl: '@Url.Action("GetAuditableInformation", "Common")',
+                    renderModalPartialViewData: JSON.stringify({ "typeName": requestTypeName, "id": requestId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function() {
+                    },
+                    completeHandler: function() {
+                        location.reload();
+                    },
+                    errorHandler: function() {
+                    }
+                });
+            });*@
+
         });
     </script>
 }

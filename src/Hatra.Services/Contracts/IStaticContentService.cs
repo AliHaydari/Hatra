@@ -13,6 +13,7 @@ namespace Hatra.Services.Contracts
         Task<StaticContentViewModel> GetByIdAsync(int id);
         Task<StaticContentViewModel> GetByNameAsync(string name);
         Task<StaticContentViewModel> GetVisibleByIdAsync(int id);
+        Task<AuditableInformationViewModel> GetAuditableInformationByIdAsync(int id);
         Task<bool> InsertAsync(StaticContentViewModel viewModel);
         Task<bool> UpdateAsync(StaticContentViewModel viewModel);
         Task<bool> DeleteAsync(int id);

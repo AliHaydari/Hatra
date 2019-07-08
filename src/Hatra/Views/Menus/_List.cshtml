@@ -54,6 +54,30 @@
                             <security-trimming asp-area="" asp-controller="Menus" asp-action="RenderDelete">
                                 <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" class="btn btn-sm btn-danger">حذف</a>
                             </security-trimming>
+
+                            <security-trimming asp-area="" asp-controller="Common" asp-action="GetAuditableInformation">
+                                
+
+                                @*<a href="#" id="btnAuditableInformation-@item.Id" data-auditable-information-id="@item.Id"><i class="fas fa-info-circle"></i></a>*@
+
+
+                                <form method="post"
+                                      asp-controller="Common"
+                                      asp-action="GetAuditableInformation"
+                                      asp-route-typeName="@nameof(Menu)"
+                                      asp-route-id="@item.Id"
+                                      role="form"
+                                      data-ajax="true"
+                                      data-ajax-begin="dataAjaxBegin"
+                                      data-ajax-success="dataAjaxSuccess"
+                                      data-ajax-failure="dataAjaxFailure"
+                                      data-ajax-method="POST"
+                                      enctype="multipart/form-data">
+                                    <button type="submit" class="btn" data-toggle="tooltip" data-placement="bottom" title="اطلاعات"><i class="fas fa-info-circle"></i></button>
+                                </form>
+
+
+                            </security-trimming>
                         </td>
                     </tr>
                 }

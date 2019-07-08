@@ -11,6 +11,7 @@ namespace Hatra.Services.Contracts
         Task<PictureViewModel> GetByIdAsync(int id);
         PictureViewModel GetByName(string name);
         Task<PictureViewModel> GetByNameAsync(string name);
+        Task<AuditableInformationViewModel> GetAuditableInformationByIdAsync(int id);
         Task<bool> InsertAsync(PictureViewModel viewModel);
         Task<bool> InsertAllAsync(List<PictureViewModel> viewModels);
         Task<bool> UpdateAsync(PictureViewModel viewModel);

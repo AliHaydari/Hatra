@@ -346,6 +346,26 @@ namespace Hatra.Services
             return null;
         }
 
+        public async Task<AuditableInformationViewModel> GetAuditableInformationByIdAsync(int id)
+        {
+            var query = _pages
+                .Where(p => p.Id == id)
+                .Select(p => new AuditableInformationViewModel()
+                {
+                    CreatedByBrowserName = EF.Property<string>(p, nameof(AuditableInformationViewModel.CreatedByBrowserName)),
+                    ModifiedByBrowserName = EF.Property<string>(p, nameof(AuditableInformationViewModel.ModifiedByBrowserName)),
+                    CreatedByIp = EF.Property<string>(p, nameof(AuditableInformationViewModel.CreatedByIp)),
+                    ModifiedByIp = EF.Property<string>(p, nameof(AuditableInformationViewModel.ModifiedByIp)),
+                    CreatedByUserId = EF.Property<int?>(p, nameof(AuditableInformationViewModel.CreatedByUserId)),
+                    ModifiedByUserId = EF.Property<int?>(p, nameof(AuditableInformationViewModel.ModifiedByUserId)),
+                    CreatedDateTime = EF.Property<DateTimeOffset?>(p, nameof(AuditableInformationViewModel.CreatedDateTime)),
+                    ModifiedDateTime = EF.Property<DateTimeOffset?>(p, nameof(AuditableInformationViewModel.ModifiedDateTime)),
+                })
+                .AsNoTracking();
+
+            return await query.FirstOrDefaultAsync();
+        }
+
         public async Task<bool> InsertAsync(PageViewModel viewModel)
         {
             var entity = new Page()

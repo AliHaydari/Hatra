@@ -12,6 +12,7 @@ namespace Hatra.Services.Contracts
         Task<List<BrandViewModel>> GetAllVisibleAsync();
         Task<BrandViewModel> GetByIdAsync(int id);
         Task<BrandViewModel> GetVisibleByIdAsync(int id);
+        Task<AuditableInformationViewModel> GetAuditableInformationByIdAsync(int id);
         Task<bool> InsertAsync(BrandViewModel viewModel);
         Task<bool> UpdateAsync(BrandViewModel viewModel);
         Task<bool> DeleteAsync(int id);

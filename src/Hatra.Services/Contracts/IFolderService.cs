@@ -8,6 +8,7 @@ namespace Hatra.Services.Contracts
     {
         Task<List<FolderViewModel>> GetAllAsync();
         Task<FolderViewModel> GetByIdAsync(int id);
+        Task<AuditableInformationViewModel> GetAuditableInformationByIdAsync(int id);
         Task<bool> InsertAsync(FolderViewModel viewModel);
         Task<bool> UpdateAsync(FolderViewModel viewModel);
         Task<bool> DeleteAsync(int id);

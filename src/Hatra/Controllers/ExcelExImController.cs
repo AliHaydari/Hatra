@@ -1,24 +1,20 @@
 ﻿using DNTBreadCrumb.Core;
 using DNTCommon.Web.Core;
 using ExcelDataReader;
+using Hatra.Common.Enums;
 using Hatra.Common.Extensions;
 using Hatra.Common.GuardToolkit;
 using Hatra.Common.WebToolkit;
-using Hatra.Entities;
 using Hatra.Helpers;
 using Hatra.Services.Contracts;
 using Hatra.Services.Identity;
-using Hatra.ViewModels;
 using Hatra.ViewModels.Excels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OfficeOpenXml;
-using System;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hatra.Controllers
@@ -113,8 +109,6 @@ namespace Hatra.Controllers
         public async Task<IActionResult> Import(IFormFile file, ExcelTypeEnum? type)
         {
             if (type == null) return BadRequest();
-
-
 
             if (file == null || file.Length == 0)
             {

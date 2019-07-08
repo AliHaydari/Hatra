@@ -11,6 +11,7 @@ namespace Hatra.Services.Contracts
         Task<PagedAdminSlideShowViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage);
         Task<List<SlideShowViewModel>> GetAllVisibleAsync();
         Task<SlideShowViewModel> GetByIdAsync(int id);
+        Task<AuditableInformationViewModel> GetAuditableInformationByIdAsync(int id);
         Task<bool> InsertAsync(SlideShowViewModel viewModel);
         Task<bool> UpdateAsync(SlideShowViewModel viewModel);
         Task<bool> DeleteAsync(int id);

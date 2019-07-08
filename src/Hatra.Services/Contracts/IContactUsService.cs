@@ -11,6 +11,7 @@ namespace Hatra.Services.Contracts
         Task<PagedAdminContactUsViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage);
         Task<List<ContactUsViewModel>> GetAllAnsweredAsync();
         Task<ContactUsViewModel> GetByIdAsync(int id);
+        Task<AuditableInformationViewModel> GetAuditableInformationByIdAsync(int id);
         Task<bool> InsertAsync(ContactUsViewModel viewModel);
         Task<bool> UpdateAsync(ContactUsViewModel viewModel);
         Task<bool> DeleteAsync(int id);
