@@ -722,13 +722,13 @@
 
         /* Sticky Sidebar Active */
         stickySidebarActive: function () {
-            var winWidth = $(window).width();
-            if (winWidth > 991) {
-                $('.sticky-sidebar').stickySidebar({
-                    topSpacing: 0,
-                    bottomSpacing: 30
-                });
-            }
+            //var winWidth = $(window).width();
+            //if (winWidth > 991) {
+            //    $('.sticky-sidebar').stickySidebar({
+            //        topSpacing: 0,
+            //        bottomSpacing: 30
+            //    });
+            //}
         },
 
         /* Ripple Js Active */
@@ -782,7 +782,18 @@
             deconsult.stickySidebarActive();
             deconsult.rippleJsActive();
             deconsult.dropdownHasChildren();
+
+            // Initialize the media query
+            var mediaQuery = window.matchMedia('(min-width: 1199px)');
+
+            // Add a listen event
+            mediaQuery.addListener(doSomething);
+
+            doSomething(mediaQuery);
+
+            $("ul.pricing li:first-child").click();
         }
+
     };
 
     deconsult.init();
