@@ -182,7 +182,7 @@ namespace Hatra.Controllers
                 : "-";
 
             viewModel.ModifiedPersianDateTime = viewModel.ModifiedDateTime.HasValue
-                ? viewModel.CreatedDateTime.ToFriendlyPersianDateTextify()
+                ? viewModel.ModifiedDateTime.ToFriendlyPersianDateTextify()
                 : "-";
 
             //return PartialView("_AuditableInformation", model: viewModel);

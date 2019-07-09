@@ -7,12 +7,12 @@
 <div class="card mt-5">
     <div class="card-header">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <h5 class="card-title">@ViewData["Title"]</h5>
             </div>
             @if (User.IsInRole(ConstantRoles.Admin))
             {
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <div class="btn-group float-left" role="group">
                         <button id="btnGroupDrop1" type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-file-excel"></i>
@@ -52,35 +52,39 @@
     </div>
     <footer class="card-footer">
         <div class="form-group row">
-            <security-trimming asp-area="" asp-controller="Brands" asp-action="RenderCreate">
-                <a class="btn btn-success" asp-controller="Brands" asp-action="RenderCreate">
-                    ایجاد یک برند جدید
-                </a>
-            </security-trimming>
-        </div>
-        <div class="form-group row">
-            <cs-pager cs-paging-pagesize="@Model.Paging.ItemsPerPage"
-                      cs-paging-pagenumber="@Model.Paging.CurrentPage"
-                      cs-paging-totalitems="@Model.Paging.TotalItems"
-                      cs-pagenumber-param="page"
-                      asp-controller="Brands"
-                      asp-action="Index"
-                      asp-route-pagesize="@Model.Paging.ItemsPerPage"
-                      cs-show-first-last="true"
-                      cs-suppress-empty-nextprev="true"
-                      cs-suppress-inactive-firstlast="true"
-                      cs-first-page-text="ابتدا"
-                      cs-first-page-title="ابتدا"
-                      cs-last-page-text="انتها"
-                      cs-last-page-title="انتها"
-                      cs-pager-li-current-class="page-item active"
-                      cs-pager-li-other-class="page-item"
-                      cs-pager-li-non-active-class="page-item disabled"
-                      cs-pager-link-current-class="page-link"
-                      cs-pager-link-other-class="page-link"
-                      cs-pager-ul-class="pagination"
-                      cs-next-page-title="بعدی"
-                      cs-previous-page-title="قبلی"></cs-pager>
+            <div class="col-md-4">
+                <security-trimming asp-area="" asp-controller="Brands" asp-action="RenderCreate">
+                    <a class="btn btn-success btn-block" asp-controller="Brands" asp-action="RenderCreate">
+                        <i class="fas fa-plus"></i> ایجاد یک برند جدید
+                    </a>
+                </security-trimming>
+            </div>
+            <div class="col-md-8">
+                <div class="float-left">
+                    <cs-pager cs-paging-pagesize="@Model.Paging.ItemsPerPage"
+                              cs-paging-pagenumber="@Model.Paging.CurrentPage"
+                              cs-paging-totalitems="@Model.Paging.TotalItems"
+                              cs-pagenumber-param="page"
+                              asp-controller="Brands"
+                              asp-action="Index"
+                              asp-route-pagesize="@Model.Paging.ItemsPerPage"
+                              cs-show-first-last="true"
+                              cs-suppress-empty-nextprev="true"
+                              cs-suppress-inactive-firstlast="true"
+                              cs-first-page-text="ابتدا"
+                              cs-first-page-title="ابتدا"
+                              cs-last-page-text="انتها"
+                              cs-last-page-title="انتها"
+                              cs-pager-li-current-class="page-item active"
+                              cs-pager-li-other-class="page-item"
+                              cs-pager-li-non-active-class="page-item disabled"
+                              cs-pager-link-current-class="page-link"
+                              cs-pager-link-other-class="page-link"
+                              cs-pager-ul-class="pagination"
+                              cs-next-page-title="بعدی"
+                              cs-previous-page-title="قبلی"></cs-pager>
+                </div>
+            </div>
         </div>
     </footer>
 </div>

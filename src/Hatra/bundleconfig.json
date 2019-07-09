@@ -28,7 +28,8 @@
       "scripts/jquery.bootstrap-modal-confirm.js",
       "scripts/jquery.bootstrap-modal-alert.js",
       "scripts/jquery.bootstrap-modal-ajax-form.js",
-      "scripts/custom.js"
+      "scripts/custom.js",
+      "scripts/clock.js"
     ],
     "minify": {
       "enabled": true,
