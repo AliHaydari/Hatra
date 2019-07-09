@@ -70,6 +70,7 @@
     <Content Remove="wwwroot\App_Data\HatraWebSiteDb.mdf" />
     <Content Remove="wwwroot\App_Data\HatraWebSiteDb_log.ldf" />
     <Content Remove="wwwroot\js\twitterFetcher.js" />
+    <Watch Remove="Scripts\clock.js" />
     <Watch Remove="Scripts\file-upload.js" />
     <Watch Remove="Scripts\image-tab.js" />
   </ItemGroup>
