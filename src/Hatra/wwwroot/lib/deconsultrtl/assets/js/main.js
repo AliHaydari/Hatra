@@ -784,7 +784,7 @@
             deconsult.dropdownHasChildren();
 
             // Initialize the media query
-            var mediaQuery = window.matchMedia('(min-width: 1199px)');
+            var mediaQuery = window.matchMedia('(min-width: 1200px)');
 
             // Add a listen event
             mediaQuery.addListener(doSomething);

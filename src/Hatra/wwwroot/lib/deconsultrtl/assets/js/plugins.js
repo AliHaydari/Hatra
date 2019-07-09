@@ -185,7 +185,7 @@ $("ul.pricing").on("click", "li", function () {
 // Function to do something with the media query
 function doSomething(mediaQuery) {
     if (mediaQuery.matches) {
-        $('.sep').attr('colspan', 5);
+        $('.sep').attr('colspan', 4);
     } else {
         $('.sep').attr('colspan', 2);
     }

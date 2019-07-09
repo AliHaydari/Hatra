@@ -131,7 +131,7 @@
 }
 
 html {
-    color: #222;
+    color: #000;
     font-size: 1em;
     line-height: 1.4;
 }
@@ -423,7 +423,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: "IRANSans", sans-serif;
-    color: #444444;
+    color: #000000;
     font-weight: 400;
 }
 
@@ -5270,7 +5270,7 @@ button.tm-videobutton {
             position: relative;
             white-space: inherit;
             padding: 10px 30px;
-            padding-left: 55px;
+            padding-right: 55px;
             background: #3f51b5;
             color: #ffffff;
             font-size: 16px;
@@ -5281,8 +5281,8 @@ button.tm-videobutton {
                 content: "\f067";
                 font-family: 'fontAwesome';
                 position: absolute;
-                right: auto;
-                left: 0;
+                left: auto;
+                right: 0;
                 top: 50%;
                 margin-top: -15px;
                 width: 40px;
@@ -5290,7 +5290,7 @@ button.tm-videobutton {
                 line-height: 30px;
                 text-align: center;
                 font-size: 12px;
-                border-right: 1px solid rgba(255, 255, 255, 0.3);
+                border-left: 1px solid rgba(255, 255, 255, 0.3);
             }
 
             .tm-accordion .card-header button.collapsed::before {
@@ -7721,7 +7721,6 @@ article.pricing {
     width: 100%;
     /*max-width: 1000px;*/
     margin: 0 auto;
-    height: 1000px;
     position: relative;
 }
 
@@ -7805,10 +7804,15 @@ ul.pricing {
     border-top: 3px solid #0097CF !important;
 }
 
-    .pricing .sep {
-        background: #F5F5F5;
-        font-weight: bold;
-    }
+.pricing .bg-green {
+    border-top: 3px solid #328f34 !important;
+}
+
+.pricing .sep {
+    background: #F5F5F5;
+    font-weight: bold;
+    color: #212121;
+}
 
     .pricing .txt-l {
         font-size: 28px;
@@ -7825,11 +7829,25 @@ ul.pricing {
         font-size: 18px;
         color: #2CA01C;
     }
-
+.pricing .cross {
+    font-size: 18px;
+    color: #c31d00;
+}
     .pricing .hide {
         border: 0 !important;
         background: none;
     }
+.pricing .text {
+    color: #002592;
+}
+
+.pricing tr:hover {
+    background-color: #ebebeb;
+    cursor:pointer;
+}
+.pricing tr:first-child:hover {
+    background-color: transparent;
+}
 
 @media (min-width: 1200px) {
     .pricing ul {
@@ -7841,7 +7859,7 @@ ul.pricing {
     }
 
     .pricing td, .pricing th {
-        width: 220px;
+        width: 180px;
     }
 
         .pricing td + .pricing td, .pricing th + .pricing th {
