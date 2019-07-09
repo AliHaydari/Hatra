@@ -1,16 +1,17 @@
-﻿using DNTCommon.Web.Core;
+﻿using DNTBreadCrumb.Core;
+using DNTCommon.Web.Core;
+using DNTPersianUtils.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
 using Hatra.Services.Contracts.Identity;
+using Hatra.Services.Identity;
 using Hatra.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using DNTBreadCrumb.Core;
-using DNTPersianUtils.Core;
-using Hatra.Services.Identity;
-using Microsoft.AspNetCore.Authorization;
+using UAParser;
 
 namespace Hatra.Controllers
 {
@@ -184,6 +185,20 @@ namespace Hatra.Controllers
             viewModel.ModifiedPersianDateTime = viewModel.ModifiedDateTime.HasValue
                 ? viewModel.ModifiedDateTime.ToFriendlyPersianDateTextify()
                 : "-";
+
+            var uaParser = Parser.GetDefault();
+
+            if (!string.IsNullOrEmpty(viewModel.CreatedByBrowserName))
+            {
+                ClientInfo c = uaParser.Parse(viewModel.CreatedByBrowserName);
+                viewModel.CreatedByBrowserName = $@"{c.OS} - {c.UA}";
+            }
+
+            if (!string.IsNullOrEmpty(viewModel.ModifiedByBrowserName))
+            {
+                ClientInfo c = uaParser.Parse(viewModel.ModifiedByBrowserName);
+                viewModel.ModifiedByBrowserName = $@"{c.OS} - {c.UA}";
+            }
 
             //return PartialView("_AuditableInformation", model: viewModel);
             return Json(new { data = viewModel });
