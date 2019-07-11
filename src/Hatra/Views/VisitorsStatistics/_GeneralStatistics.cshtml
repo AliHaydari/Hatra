@@ -1,0 +1,38 @@
+﻿@model GeneralStatisticsViewModel
+
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    امروز
+    <span class="">@DateTimeOffset.UtcNow.ToShortPersianDateString().ToPersianNumbers()</span>
+</li>
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    بازدید امروز
+    <span class="badge badge-primary badge-pill">@Model.TodayVisits</span>
+</li>
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    بازدید دیروز
+    <span class="badge badge-primary badge-pill">@Model.YesterdayVisits</span>
+</li>
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    بازدید این ماه
+    <span class="badge badge-primary badge-pill">@Model.ThisMonthVisits</span>
+</li>
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    بازدید امسال
+    <span class="badge badge-primary badge-pill">@Model.ThisYearVisits</span>
+</li>
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    پر بازدید ترین روز
+    <span class="badge badge-primary badge-pill">@Model.PeakDate</span>
+</li>
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    کم بازدید ترین روز
+    <span class="badge badge-primary badge-pill">@Model.LowDate</span>
+</li>
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    بازدید کل
+    <span class="badge badge-primary badge-pill">@Model.TotalVisits</span>
+</li>
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    بازدید یونیک
+    <span class="badge badge-primary badge-pill">@Model.UniqueVisitors</span>
+</li>

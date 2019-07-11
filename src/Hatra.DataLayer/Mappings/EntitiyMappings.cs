@@ -97,6 +97,17 @@ namespace Hatra.DataLayer.Mappings
                 build.Property(p => p.Content).IsRequired();
             });
 
+            modelBuilder.Entity<VisitorsStatistics>(build =>
+            {
+                build.Property(p => p.UserAgent).HasMaxLength(1000);
+                build.Property(p => p.UserOs).HasMaxLength(1000);
+                build.Property(p => p.BrowserName).HasMaxLength(1000);
+                build.Property(p => p.DeviceName).HasMaxLength(1000);
+                build.Property(p => p.IpAddress).HasMaxLength(1000);
+                build.Property(p => p.PageViewed).HasMaxLength(1000);
+                build.Property(p => p.VisitDate).IsRequired();
+            });
+
         }
     }
 }

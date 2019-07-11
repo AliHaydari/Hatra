@@ -1,0 +1,23 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Hatra.ViewModels.VisitorsStatistics
+{
+    public class CurrentVisitorViewModel
+    {
+        [Display(Name = "مرورگر")]
+        public string Browser { get; set; }
+
+        public string BrowserIcon { get; set; }
+
+        [Display(Name = "IP")]
+        public string IpAddress { get; set; }
+
+        [Display(Name = "نام کشور")]
+        public string CountryName { get; set; }
+
+        [Display(Name = "سیستم عامل")]
+        public string OsName { get; set; }
+
+        public string OsIcon { get; set; }
+    }
+}

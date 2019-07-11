@@ -22,6 +22,10 @@
     <Compile Remove="Migrations\20190612102453_AddMenuPageCategoryPageImage.Designer.cs" />
     <Compile Remove="Migrations\20190612103421_AddMenuPageCategoryPageImage.cs" />
     <Compile Remove="Migrations\20190612103421_AddMenuPageCategoryPageImage.Designer.cs" />
+    <Compile Remove="Migrations\20190709121350_AddStat.cs" />
+    <Compile Remove="Migrations\20190709121350_AddStat.Designer.cs" />
+    <Compile Remove="Migrations\20190710065245_AddVisitorsStatistics.cs" />
+    <Compile Remove="Migrations\20190710065245_AddVisitorsStatistics.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hatra.Entities\Hatra.Entities.csproj" />

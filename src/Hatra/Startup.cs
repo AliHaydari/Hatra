@@ -4,10 +4,10 @@ using DNTCommon.Web.Core;
 using EFSecondLevelCache.Core;
 using Hatra.Common.WebToolkit;
 using Hatra.DataLayer.Context;
-using Hatra.Elastic;
 using Hatra.FileUpload;
 using Hatra.IocConfig;
 using Hatra.LuceneSearch;
+using Hatra.Middlewares;
 using Hatra.ViewModels.Identity.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -104,6 +104,8 @@ namespace Hatra
 
             app.UseAuthentication();
             // app.UseNoBrowserCache();
+
+            app.UseVisitorsStatistics();
 
             app.UseMvc(routes =>
             {

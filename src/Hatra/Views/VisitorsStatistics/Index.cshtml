@@ -1,0 +1,169 @@
+﻿@model CurrentVisitorViewModel
+
+@{
+    ViewData["Title"] = "آمار بازدید";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header text-white bg-info">
+                <i class="fas fa-user"></i>
+                مشخصات شما
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <i class="fab fa-@Model.BrowserIcon"></i>
+                    <span class="">@Model.Browser</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <i class="fas fa-server"></i>
+                    <span class="">@Model.IpAddress</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <i class="fab fa-@Model.OsIcon"></i>
+                    <span class="">@Model.OsName</span>
+                </li>
+            </ul>
+        </div>
+        <br />
+        <div class="card bg-info mb-3">
+            <div class="card-header text-white bg-info">
+                <i class="fas fa-history"></i>
+                آمار کلی
+            </div>
+            <ul id="GeneralStatistics" class="list-group list-group-flush"></ul>
+            <div id="progressGeneralStatistics" align="center" style="display: none">
+                <br />
+                <img src="/assets/images/loadingAnimation.gif" alt="loading..." />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header text-white bg-dark">
+                <i class="fas fa-th-list"></i>
+                نمایش بازدیدها به تفکیک مرورگرها
+            </div>
+            <ul id="UserBrowser" class="list-group list-group-flush"></ul>
+            <div id="progressUserBrowser" align="center" style="display: none">
+                <br />
+                <img src="/assets/images/loadingAnimation.gif" alt="loading..." />
+            </div>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-header text-white bg-dark">
+                <i class="fas fa-th-list"></i>
+                نمایش آمار بازدید به تفکیک سیستم عامل
+            </div>
+            <ul id="UserOs" class="list-group list-group-flush"></ul>
+            <div id="progressUserOs" align="center" style="display: none">
+                <br />
+                <img src="/assets/images/loadingAnimation.gif" alt="loading..." />
+            </div>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-header text-white bg-dark">
+                <i class="fas fa-sliders-h"></i>
+                صفحات مشاهده شده
+            </div>
+            <ul id="PageView" class="list-group list-group-flush"></ul>
+            <div id="progressPageView" align="center" style="display: none">
+                <br />
+                <img src="/assets/images/loadingAnimation.gif" alt="loading..." />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#progressGeneralStatistics").css("display", "block");
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("RenderGeneralStatisticsAsync", "VisitorsStatistics")',
+                complete: function (xhr, status) {
+                    var data = xhr.responseText;
+                    if (xhr.status == 403) {
+                        window.location = "/identity/login";
+                    }
+                    else if (status === 'error' || !data || data == "nok") {
+                        alert('خطايي رخ داده است');
+                    }
+                    else {
+                        $("#progressGeneralStatistics").css("display", "none");
+                        $("#GeneralStatistics").html(data);
+                    }
+                }
+            });
+        });
+
+        $(function () {
+            $("#progressUserBrowser").css("display", "block");
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("RenderUserBrowserAsync", "VisitorsStatistics")',
+                complete: function (xhr, status) {
+                    var data = xhr.responseText;
+                    if (xhr.status == 403) {
+                        window.location = "/identity/login";
+                    }
+                    else if (status === 'error' || !data || data == "nok") {
+                        alert('خطايي رخ داده است');
+                    }
+                    else {
+                        $("#progressUserBrowser").css("display", "none");
+                        $("#UserBrowser").html(data);
+                    }
+                }
+            });
+        });
+
+        $(function () {
+            $("#progressUserOs").css("display", "block");
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("RenderUserOsAsync", "VisitorsStatistics")',
+                complete: function (xhr, status) {
+                    var data = xhr.responseText;
+                    if (xhr.status == 403) {
+                        window.location = "/identity/login";
+                    }
+                    else if (status === 'error' || !data || data == "nok") {
+                        alert('خطايي رخ داده است');
+                    }
+                    else {
+                        $("#progressUserOs").css("display", "none");
+                        $("#UserOs").html(data);
+                    }
+                }
+            });
+        });
+
+        $(function () {
+            $("#progressPageView").css("display", "block");
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("RenderPageViewAsync", "VisitorsStatistics")',
+                complete: function (xhr, status) {
+                    var data = xhr.responseText;
+                    if (xhr.status == 403) {
+                        window.location = "/identity/login";
+                    }
+                    else if (status === 'error' || !data || data == "nok") {
+                        alert('خطايي رخ داده است');
+                    }
+                    else {
+                        $("#progressPageView").css("display", "none");
+                        $("#PageView").html(data);
+                    }
+                }
+            });
+        });
+    </script>
+}

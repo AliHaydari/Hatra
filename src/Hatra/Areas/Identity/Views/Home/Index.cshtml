@@ -155,24 +155,34 @@
                     </div>
                 </security-trimming>
 
-                @if (User.IsInRole(ConstantRoles.Admin))
-                 {
-                     <div class="form-group row">
-                         <div class="col-md-4">
-                             <a class="btn btn-outline-dark btn-block text-right" asp-controller="FileUpload" asp-action="Index">
-                                 File Uploader
-                             </a>
-                         </div>
-                     </div>
+                <security-trimming asp-area="" asp-controller="VisitorsStatistics" asp-action="Index">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="VisitorsStatistics" asp-action="Index">
+                                <i class="fa fa-history"></i> آمار بازدید
+                            </a>
+                        </div>
+                    </div>
+                </security-trimming>
 
-                     <div class="form-group row">
-                         <div class="col-md-4">
-                             <a class="btn btn-outline-dark btn-block text-right" asp-controller="StaticContents" asp-action="Index">
-                                 محتواهای ثابت
-                             </a>
-                         </div>
-                     </div>
-                 }
+                @if (User.IsInRole(ConstantRoles.Admin))
+                {
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="FileUpload" asp-action="Index">
+                                File Uploader
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="StaticContents" asp-action="Index">
+                                محتواهای ثابت
+                            </a>
+                        </div>
+                    </div>
+                }
             }
         </div>
     }
