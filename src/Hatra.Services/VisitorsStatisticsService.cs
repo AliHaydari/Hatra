@@ -1,14 +1,14 @@
-﻿using System;
+﻿using DNTPersianUtils.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.DataLayer.Context;
 using Hatra.Entities;
 using Hatra.Services.Contracts;
 using Hatra.ViewModels.VisitorsStatistics;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DNTPersianUtils.Core;
 
 namespace Hatra.Services
 {
@@ -46,12 +46,10 @@ namespace Hatra.Services
         public async Task<List<UserOsViewModel>> GetAllUserOsAsync()
         {
             var query = await _statistics
-                .GroupBy(p => p.UserOs)
+                .GroupBy(p => p.UserAgent)
                 .OrderByDescending(p => p.Count())
-                .Select(p => new UserOsViewModel()
+                .Select(p => new UserOsViewModel(p.Key)
                 {
-                    Icon = p.Key,
-                    Name = p.Key,
                     ViewCount = p.LongCount(),
                 })
                 .ToListAsync();
@@ -62,12 +60,10 @@ namespace Hatra.Services
         public async Task<List<UserBrowserViewModel>> GetAllUserBrowserAsync()
         {
             var query = await _statistics
-                .GroupBy(p => p.BrowserName)
+                .GroupBy(p => p.UserAgent)
                 .OrderByDescending(p => p.Count())
-                .Select(p => new UserBrowserViewModel()
+                .Select(p => new UserBrowserViewModel(p.Key)
                 {
-                    Icon = p.Key,
-                    Name = p.Key,
                     ViewCount = p.LongCount(),
                 })
                 .ToListAsync();

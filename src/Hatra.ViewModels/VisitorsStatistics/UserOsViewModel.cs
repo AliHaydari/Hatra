@@ -1,9 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Hatra.Common.WebToolkit;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hatra.ViewModels.VisitorsStatistics
 {
     public class UserOsViewModel
     {
+        public UserOsViewModel()
+        {
+            
+        }
+
+        public UserOsViewModel(string userAgent)
+        {
+            var clientInfo = VisitorsStatisticsHelper.GetUserOsName(userAgent);
+
+            Icon = clientInfo.Family.ToLowerInvariant();
+            Name = clientInfo.ToString();
+        }
+
         private string _icon;
         [Display(Name = "آیکون")]
         public string Icon {

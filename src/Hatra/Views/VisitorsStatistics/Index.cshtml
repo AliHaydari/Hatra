@@ -87,6 +87,7 @@
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("RenderGeneralStatisticsAsync", "VisitorsStatistics")',
+                data: { "totalVisits": @Model.TotalVisits },
                 complete: function (xhr, status) {
                     var data = xhr.responseText;
                     if (xhr.status == 403) {
@@ -108,6 +109,7 @@
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("RenderUserBrowserAsync", "VisitorsStatistics")',
+                data: { "totalVisits": @Model.TotalVisits },
                 complete: function (xhr, status) {
                     var data = xhr.responseText;
                     if (xhr.status == 403) {
@@ -129,6 +131,7 @@
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("RenderUserOsAsync", "VisitorsStatistics")',
+                data: { "totalVisits": @Model.TotalVisits },
                 complete: function (xhr, status) {
                     var data = xhr.responseText;
                     if (xhr.status == 403) {
@@ -146,10 +149,12 @@
         });
 
         $(function () {
+
             $("#progressPageView").css("display", "block");
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("RenderPageViewAsync", "VisitorsStatistics")',
+                data: { "totalVisits": @Model.TotalVisits },
                 complete: function (xhr, status) {
                     var data = xhr.responseText;
                     if (xhr.status == 403) {

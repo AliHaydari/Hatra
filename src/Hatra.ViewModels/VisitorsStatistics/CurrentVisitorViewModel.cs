@@ -19,5 +19,8 @@ namespace Hatra.ViewModels.VisitorsStatistics
         public string OsName { get; set; }
 
         public string OsIcon { get; set; }
+
+        [Display(Name = "بازدید کل")]
+        public long TotalVisits { get; set; }
     }
 }

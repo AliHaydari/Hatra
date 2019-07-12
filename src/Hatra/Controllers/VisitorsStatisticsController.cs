@@ -35,13 +35,7 @@ namespace Hatra.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //var viewModels1 = await _visitorsStatisticsService.GetAllAsync();
-            //var viewModels2 = await _visitorsStatisticsService.GetTotalVisitsAsync();
-            //var viewModels3 = await _visitorsStatisticsService.GetAllUserOsAsync();
-            //var viewModels4 = await _visitorsStatisticsService.GetAllUserBrowserAsync();
-            //var viewModels5 = await _visitorsStatisticsService.GetAllPageViewAsync();
-            //var viewModels6 = await _visitorsStatisticsService.GetGeneralStatisticsAsync(DateTimeOffset.UtcNow);
-
+            var totalVisits = await _visitorsStatisticsService.GetTotalVisitsAsync();
 
             var ip = _httpRequestInfoService.GetIP();
             var userAgent = _httpRequestInfoService.GetHeaderValue("User-Agent");
@@ -58,6 +52,7 @@ namespace Hatra.Controllers
                 CountryName = "",
                 OsName = userOs.ToString(),
                 OsIcon = userOs.Family.ToLowerInvariant(),
+                TotalVisits = totalVisits,
             };
 
             return View(viewModel);
@@ -65,23 +60,20 @@ namespace Hatra.Controllers
 
         [AjaxOnly]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [DisplayName("آمار کلی")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> RenderGeneralStatisticsAsync()
+        public async Task<IActionResult> RenderGeneralStatisticsAsync(long? totalVisits)
         {
             var viewModel = await _visitorsStatisticsService.GetGeneralStatisticsAsync(DateTimeOffset.UtcNow);
-            var totalVisits = await _visitorsStatisticsService.GetTotalVisitsAsync();
-            viewModel.TotalVisits = totalVisits;
+            viewModel.TotalVisits = totalVisits ?? await _visitorsStatisticsService.GetTotalVisitsAsync();
             return PartialView("_GeneralStatistics", viewModel);
         }
 
         [AjaxOnly]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [DisplayName("نمایش بازدیدها به تفکیک مرورگرها")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> RenderUserBrowserAsync()
+        public async Task<IActionResult> RenderUserBrowserAsync(long? totalVisits)
         {
             var viewModels = await _visitorsStatisticsService.GetAllUserBrowserAsync();
             return PartialView("_UserBrowser", viewModels);
@@ -89,10 +81,9 @@ namespace Hatra.Controllers
 
         [AjaxOnly]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [DisplayName("نمایش آمار بازدید به تفکیک سیستم عامل")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> RenderUserOsAsync()
+        public async Task<IActionResult> RenderUserOsAsync(long? totalVisits)
         {
             var viewModels = await _visitorsStatisticsService.GetAllUserOsAsync();
             return PartialView("_UserOs", viewModels);
@@ -100,10 +91,9 @@ namespace Hatra.Controllers
 
         [AjaxOnly]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [DisplayName("صفحات مشاهده شده")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> RenderPageViewAsync()
+        public async Task<IActionResult> RenderPageViewAsync(long? totalVisits)
         {
             var viewModels = await _visitorsStatisticsService.GetAllPageViewAsync();
             return PartialView("_PageView", viewModels);
