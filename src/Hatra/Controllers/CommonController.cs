@@ -190,14 +190,20 @@ namespace Hatra.Controllers
 
             if (!string.IsNullOrEmpty(viewModel.CreatedByBrowserName))
             {
-                ClientInfo c = uaParser.Parse(viewModel.CreatedByBrowserName);
-                viewModel.CreatedByBrowserName = $@"{c.OS} - {c.UA}";
+                if (viewModel.CreatedByBrowserName != "-")
+                {
+                    ClientInfo c = uaParser.Parse(viewModel.CreatedByBrowserName);
+                    viewModel.CreatedByBrowserName = $@"{c.OS} - {c.UA}";
+                }
             }
 
             if (!string.IsNullOrEmpty(viewModel.ModifiedByBrowserName))
             {
-                ClientInfo c = uaParser.Parse(viewModel.ModifiedByBrowserName);
-                viewModel.ModifiedByBrowserName = $@"{c.OS} - {c.UA}";
+                if (viewModel.ModifiedByBrowserName != "-")
+                {
+                    ClientInfo c = uaParser.Parse(viewModel.ModifiedByBrowserName);
+                    viewModel.ModifiedByBrowserName = $@"{c.OS} - {c.UA}";
+                }
             }
 
             //return PartialView("_AuditableInformation", model: viewModel);
