@@ -36,9 +36,9 @@ namespace Hatra.Middlewares
                     var viewModel = new VisitorsStatisticsViewModel()
                     {
                         UserAgent = userAgent,
-                        UserOs = userOs.ToString(),
-                        BrowserName = browserName.ToString(),
-                        DeviceName = deviceName.ToString(),
+                        UserOs = userOs.Family,
+                        BrowserName = browserName.Family,
+                        DeviceName = deviceName.Family,
                         IpAddress = userIp,
                         PageViewed = context.Request?.Path.Value ?? "/",
                         VisitDate = DateTimeOffset.UtcNow,

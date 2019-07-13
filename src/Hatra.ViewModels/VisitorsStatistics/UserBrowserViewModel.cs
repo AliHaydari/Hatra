@@ -26,19 +26,37 @@ namespace Hatra.ViewModels.VisitorsStatistics
                 switch (value)
                 {
                     case "InternetExplorer":
-                        _icon = "internet-explorer";
-                        break;
                     case "IE":
-                        _icon = "internet-explorer";
+                        _icon = "fab fa-internet-explorer";
                         break;
-                    case "Unknown":
-                        _icon = "question-circle";
-                        break;
+
+                    case "Firefox":
+                    case "Firefox Mobile":
+                    case "FireFox":
+                    case "FireFox Mobile":
                     case "Mozilla":
-                        _icon = "firefox";
+                        _icon = "fab fa-firefox";
                         break;
+
+                    case "Chrome":
+                    case "Chrome Mobile":
+                        _icon = "fab fa-chrome";
+                        break;
+
+                    case "Edge":
+                    case "Edge Mobile":
+                        _icon = "fab fa-edge";
+                        break;
+
+                    case "Opera":
+                    case "Opera Mobile":
+                    case "Opera Mini":
+                    case "Opera Touch":
+                        _icon = "fab fa-opera";
+                        break;
+
                     default:
-                        _icon = value;
+                        _icon = "fas fa-question-circle";
                         break;
                 }
             }
@@ -49,8 +67,5 @@ namespace Hatra.ViewModels.VisitorsStatistics
 
         [Display(Name = "تعداد بازدید")]
         public long ViewCount { get; set; }
-
-        [Display(Name = "بازدید کل")]
-        public long TotalVisits { get; set; }
     }
 }

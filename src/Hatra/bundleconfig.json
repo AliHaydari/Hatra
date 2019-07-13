@@ -7,6 +7,7 @@
       "node_modules/@ghalamborm/bootstrap4-rtl/bootstrap-rtl.css",
       "node_modules/components-font-awesome/css/all.min.css",
       //"node_modules/components-font-awesome/css/fontawesome.min.css",
+      "node_modules/md.bootstrappersiandatetimepicker/dist/jquery.md.bootstrap.datetimepicker.style.css",
       "Content/custom.css"
     ],
     "minify": {
@@ -29,7 +30,8 @@
       "scripts/jquery.bootstrap-modal-alert.js",
       "scripts/jquery.bootstrap-modal-ajax-form.js",
       "scripts/custom.js",
-      "scripts/clock.js"
+      "scripts/clock.js",
+      "node_modules/md.bootstrappersiandatetimepicker/dist/jquery.md.bootstrap.datetimepicker.js"
     ],
     "minify": {
       "enabled": true,

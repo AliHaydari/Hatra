@@ -46,10 +46,12 @@ namespace Hatra.Services
         public async Task<List<UserOsViewModel>> GetAllUserOsAsync()
         {
             var query = await _statistics
-                .GroupBy(p => p.UserAgent)
+                .GroupBy(p => p.UserOs)
                 .OrderByDescending(p => p.Count())
-                .Select(p => new UserOsViewModel(p.Key)
+                .Select(p => new UserOsViewModel()
                 {
+                    Name = p.Key,
+                    Icon = p.Key,
                     ViewCount = p.LongCount(),
                 })
                 .ToListAsync();
@@ -60,10 +62,12 @@ namespace Hatra.Services
         public async Task<List<UserBrowserViewModel>> GetAllUserBrowserAsync()
         {
             var query = await _statistics
-                .GroupBy(p => p.UserAgent)
+                .GroupBy(p => p.BrowserName)
                 .OrderByDescending(p => p.Count())
-                .Select(p => new UserBrowserViewModel(p.Key)
+                .Select(p => new UserBrowserViewModel()
                 {
+                    Name = p.Key,
+                    Icon = p.Key,
                     ViewCount = p.LongCount(),
                 })
                 .ToListAsync();
