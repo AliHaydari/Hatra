@@ -26,22 +26,28 @@ namespace Hatra.ViewModels.VisitorsStatistics
                 switch (value)
                 {
                     case "Other":
-                        _icon = "question-circle";
+                        _icon = "fas fa-question-circle";
                         break;
                     case "iOS":
-                        _icon = "apple";
+                        _icon = "fab fa-apple";
                         break;
                     case "Mac OS X":
-                        _icon = "apple";
+                        _icon = "fab fa-apple";
                         break;
                     case "Mac OS":
-                        _icon = "apple";
+                        _icon = "fab fa-apple";
                         break;
                     case "Ubuntu":
-                        _icon = "linux";
+                        _icon = "fab fa-linux";
+                        break;
+                    case "Windows":
+                        _icon = "fab fa-windows";
+                        break;
+                    case "Android":
+                        _icon = "fab fa-android";
                         break;
                     default:
-                        _icon = value;
+                        _icon = "fas fa-question-circle";
                         break;
                 }
             }

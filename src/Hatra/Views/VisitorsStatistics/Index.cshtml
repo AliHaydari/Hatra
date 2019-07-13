@@ -4,6 +4,47 @@
     ViewData["Title"] = "آمار بازدید";
 }
 
+@*<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header text-white bg-info">
+                <i class="fas fa-user"></i>
+                آمار بازدید : از تاریخ تا تاریخ
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="offset-1 col-md-11">
+                            <input id="FromDate" class="form-control" placeholder="از تاریخ" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-1 col-md-11">
+                            <input id="ToDate" class="form-control" placeholder="تا تاریخ" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-1 col-md-11">
+                            <a class="btn btn-outline-info btn-block" id="selectRangeDate">پردازش</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div id="rangeDate" class="table-responsive"></div>
+                    <div id="progressRangeDate" align="center" style="display: none">
+                        <br />
+                        <img src="/assets/images/loadingAnimation.gif" alt="loading..." />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<br />
+<br />
+
 <div class="row">
     <div class="col-md-4">
         <div class="card">
@@ -13,21 +54,21 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <i class="fab fa-@Model.BrowserIcon"></i>
-                    <span class="">@Model.Browser</span>
+                    <i class="fab fa-@Model.BrowserIcon" data-toggle="tooltip" data-placement="bottom" title="مرورگر"></i>
+                    <span class="badge">@Model.Browser</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <i class="fas fa-server"></i>
-                    <span class="">@Model.IpAddress</span>
+                    <i class="fas fa-server" data-toggle="tooltip" data-placement="bottom" title="IP"></i>
+                    <span class="badge">@Model.IpAddress</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <i class="fab fa-@Model.OsIcon"></i>
-                    <span class="">@Model.OsName</span>
+                    <i class="fab fa-@Model.OsIcon" data-toggle="tooltip" data-placement="bottom" title="سیستم عامل"></i>
+                    <span class="badge">@Model.OsName</span>
                 </li>
             </ul>
         </div>
         <br />
-        <div class="card bg-info mb-3">
+        <div class="card">
             <div class="card-header text-white bg-info">
                 <i class="fas fa-history"></i>
                 آمار کلی
@@ -46,7 +87,7 @@
                 <i class="fas fa-th-list"></i>
                 نمایش بازدیدها به تفکیک مرورگرها
             </div>
-            <ul id="UserBrowser" class="list-group list-group-flush"></ul>
+            <div id="UserBrowser" class="table-responsive"></div>
             <div id="progressUserBrowser" align="center" style="display: none">
                 <br />
                 <img src="/assets/images/loadingAnimation.gif" alt="loading..." />
@@ -58,7 +99,7 @@
                 <i class="fas fa-th-list"></i>
                 نمایش آمار بازدید به تفکیک سیستم عامل
             </div>
-            <ul id="UserOs" class="list-group list-group-flush"></ul>
+            <div id="UserOs" class="table-responsive"></div>
             <div id="progressUserOs" align="center" style="display: none">
                 <br />
                 <img src="/assets/images/loadingAnimation.gif" alt="loading..." />
@@ -170,5 +211,58 @@
                 }
             });
         });
+
+        @*$(function () {
+
+            $('#FromDate').MdPersianDateTimePicker({
+                targetTextSelector: '#FromDate',
+                fromDate: true,
+                enableTimePicker: false,
+                groupId: 'rangeSelector1',
+                //dateFormat: 'yyyy-MM-dd HH:mm:ss',
+                //textFormat: 'yyyy-MM-dd HH:mm:ss'
+            });
+
+            $('#ToDate').MdPersianDateTimePicker({
+                targetTextSelector: '#ToDate',
+                toDate: true,
+                groupId: 'rangeSelector1',
+                placement: 'top',
+                enableTimePicker: false,
+                //dateFormat: 'yyyy-MM-dd HH:mm:ss',
+                //textFormat: 'yyyy-MM-dd HH:mm:ss'
+            });
+
+
+            $('#selectRangeDate').click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var fromDate = $('#FromDate').MdPersianDateTimePicker('getDate');
+                var toDate = $('#ToDate').MdPersianDateTimePicker('getDate');
+
+                $("#progressRangeDate").css("display", "block");
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RenderRangeDateAsync", "VisitorsStatistics")',
+                    data: JSON.stringify({ "fromDate": fromDate, "toDate": toDate }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    complete: function (xhr, status) {
+                        var data = xhr.responseText;
+                        if (xhr.status == 403) {
+                            window.location = "/identity/login";
+                        }
+                        else if (status === 'error' || !data || data == "nok") {
+                            alert('خطايي رخ داده است');
+                        }
+                        else {
+                            $("#progressRangeDate").css("display", "none");
+                            $("#rangeDate").html(data);
+                        }
+                    }
+                });
+            });
+
+
+        });*@
     </script>
 }

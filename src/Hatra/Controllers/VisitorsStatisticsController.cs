@@ -76,7 +76,14 @@ namespace Hatra.Controllers
         public async Task<IActionResult> RenderUserBrowserAsync(long? totalVisits)
         {
             var viewModels = await _visitorsStatisticsService.GetAllUserBrowserAsync();
-            return PartialView("_UserBrowser", viewModels);
+
+            var viewModel = new StatisticsHelperViewModel<UserBrowserViewModel>()
+            {
+                TotalVisits = totalVisits ?? await _visitorsStatisticsService.GetTotalVisitsAsync(),
+                ViewModels = viewModels,
+            };
+
+            return PartialView("_UserBrowser", viewModel);
         }
 
         [AjaxOnly]
@@ -86,7 +93,14 @@ namespace Hatra.Controllers
         public async Task<IActionResult> RenderUserOsAsync(long? totalVisits)
         {
             var viewModels = await _visitorsStatisticsService.GetAllUserOsAsync();
-            return PartialView("_UserOs", viewModels);
+
+            var viewModel = new StatisticsHelperViewModel<UserOsViewModel>()
+            {
+                TotalVisits = totalVisits ?? await _visitorsStatisticsService.GetTotalVisitsAsync(),
+                ViewModels = viewModels,
+            };
+
+            return PartialView("_UserOs", viewModel);
         }
 
         [AjaxOnly]
@@ -98,6 +112,16 @@ namespace Hatra.Controllers
             var viewModels = await _visitorsStatisticsService.GetAllPageViewAsync();
             return PartialView("_PageView", viewModels);
         }
+
+        //[AjaxOnly]
+        //[HttpPost]
+        //[DisplayName("از تاریخ تا تاریخ")]
+        //[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        //public async Task<IActionResult> RenderRangeDateAsync(string fromDate, string toDate)
+        //{
+        //    var viewModels = await _visitorsStatisticsService.GetAllPageViewAsync();
+        //    return PartialView("_PageView", viewModels);
+        //}
 
     }
 }

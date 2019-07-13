@@ -1,9 +1,20 @@
-﻿@model IEnumerable<UserBrowserViewModel>
+﻿@model StatisticsHelperViewModel<UserBrowserViewModel>
 
-@foreach (var item in Model)
-{
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        @item.Name
-        <span class="badge badge-primary badge-pill">@item.ViewCount</span>
-    </li>
-}
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.ViewModels)
+        {
+            double currentNum = (double)item.ViewCount * 100 / Model.TotalVisits;
+            <tr>
+                <td class="text-danger"><i class="@item.Icon"></i></td>
+                <td>@item.Name</td>
+                <td class="text-primary">@item.ViewCount</td>
+                <td>
+                    <div class="progress flex-fill">
+                        <div class="progress-bar bg-info" role="progressbar" style="min-width: 20px; width: @currentNum%;" aria-valuenow="@currentNum" aria-valuemin="0" aria-valuemax="100">@currentNum.ToString("F1")%</div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
