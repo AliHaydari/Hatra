@@ -90,6 +90,21 @@ namespace Hatra.Services
             return query;
         }
 
+        public async Task<List<ReferrerViewModel>> GetAllReferrerAsync()
+        {
+            var query = await _statistics
+                .GroupBy(p => p.Referrer)
+                .OrderByDescending(p => p.Count())
+                .Select(p => new ReferrerViewModel()
+                {
+                    Referrer = p.Key,
+                    ViewCount = p.LongCount(),
+                })
+                .ToListAsync();
+
+            return query;
+        }
+
         public async Task<GeneralStatisticsViewModel> GetGeneralStatisticsAsync(DateTimeOffset dt)
         {
             var todayVisits = await _statistics.LongCountAsync(p => p.VisitDate.Day == dt.Day);
@@ -140,6 +155,11 @@ namespace Hatra.Services
 
         public async Task<bool> InsertAsync(VisitorsStatisticsViewModel viewModel)
         {
+            if (string.IsNullOrEmpty(viewModel.Referrer))
+            {
+                viewModel.Referrer = "Direct";
+            }
+
             var entity = new VisitorsStatistics()
             {
                 Id = viewModel.Id,
@@ -149,6 +169,7 @@ namespace Hatra.Services
                 DeviceName = viewModel.DeviceName,
                 IpAddress = viewModel.IpAddress,
                 PageViewed = viewModel.PageViewed,
+                Referrer = viewModel.Referrer,
                 VisitDate = viewModel.VisitDate,
             };
 

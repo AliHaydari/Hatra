@@ -32,6 +32,7 @@ namespace Hatra.Middlewares
                     var userOs = VisitorsStatisticsHelper.GetUserOsName(userAgent);
                     var browserName = VisitorsStatisticsHelper.GetUserBrowserName(userAgent);
                     var deviceName = VisitorsStatisticsHelper.GetUserDeviceName(userAgent);
+                    var referer = context.Request?.Headers["Referer"].ToString() ?? "Direct";
 
                     var viewModel = new VisitorsStatisticsViewModel()
                     {
@@ -41,6 +42,7 @@ namespace Hatra.Middlewares
                         DeviceName = deviceName.Family,
                         IpAddress = userIp,
                         PageViewed = context.Request?.Path.Value ?? "/",
+                        Referrer = referer,
                         VisitDate = DateTimeOffset.UtcNow,
                     };
 

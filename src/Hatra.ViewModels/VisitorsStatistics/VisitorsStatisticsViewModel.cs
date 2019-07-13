@@ -21,6 +21,7 @@ namespace Hatra.ViewModels.VisitorsStatistics
             DeviceName = visitorsStatistics.DeviceName;
             IpAddress = visitorsStatistics.IpAddress;
             PageViewed = visitorsStatistics.PageViewed;
+            Referrer = visitorsStatistics.Referrer;
             VisitDate = visitorsStatistics.VisitDate;
         }
 
@@ -44,6 +45,9 @@ namespace Hatra.ViewModels.VisitorsStatistics
 
         [Display(Name = "صفحه بازدید شده")]
         public string PageViewed { get; set; }
+
+        [Display(Name = "ارجاع دهنده")]
+        public string Referrer { get; set; }
 
         [Display(Name = "تاریخ بازدید")]
         public DateTimeOffset VisitDate { get; set; }

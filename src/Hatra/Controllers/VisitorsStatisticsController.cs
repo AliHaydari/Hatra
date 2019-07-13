@@ -113,6 +113,16 @@ namespace Hatra.Controllers
             return PartialView("_PageView", viewModels);
         }
 
+        [AjaxOnly]
+        [HttpPost]
+        [DisplayName("ارجاعات")]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> RenderReferrerAsync(long? totalVisits)
+        {
+            var viewModels = await _visitorsStatisticsService.GetAllReferrerAsync();
+            return PartialView("_Referrer", viewModels);
+        }
+
         //[AjaxOnly]
         //[HttpPost]
         //[DisplayName("از تاریخ تا تاریخ")]

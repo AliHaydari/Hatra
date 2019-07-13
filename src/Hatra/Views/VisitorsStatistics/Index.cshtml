@@ -108,11 +108,23 @@
         <br />
         <div class="card">
             <div class="card-header text-white bg-dark">
-                <i class="fas fa-sliders-h"></i>
+                <i class="fas fa-file"></i>
                 صفحات مشاهده شده
             </div>
             <ul id="PageView" class="list-group list-group-flush"></ul>
             <div id="progressPageView" align="center" style="display: none">
+                <br />
+                <img src="/assets/images/loadingAnimation.gif" alt="loading..." />
+            </div>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-header text-white bg-dark">
+                <i class="fas fa-globe"></i>
+                ارجاعات
+            </div>
+            <ul id="Referrer" class="list-group list-group-flush"></ul>
+            <div id="progressReferrer" align="center" style="display: none">
                 <br />
                 <img src="/assets/images/loadingAnimation.gif" alt="loading..." />
             </div>
@@ -207,6 +219,29 @@
                     else {
                         $("#progressPageView").css("display", "none");
                         $("#PageView").html(data);
+                    }
+                }
+            });
+        });
+
+        $(function () {
+
+            $("#progressReferrer").css("display", "block");
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("RenderReferrerAsync", "VisitorsStatistics")',
+                data: { "totalVisits": @Model.TotalVisits },
+                complete: function (xhr, status) {
+                    var data = xhr.responseText;
+                    if (xhr.status == 403) {
+                        window.location = "/identity/login";
+                    }
+                    else if (status === 'error' || !data || data == "nok") {
+                        alert('خطايي رخ داده است');
+                    }
+                    else {
+                        $("#progressReferrer").css("display", "none");
+                        $("#Referrer").html(data);
                     }
                 }
             });

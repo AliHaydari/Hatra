@@ -18,6 +18,8 @@ namespace Hatra.Entities
 
         public string PageViewed { get; set; }
 
+        public string Referrer { get; set; }
+
         public DateTimeOffset VisitDate { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace Hatra.Services.Contracts
         Task<List<UserOsViewModel>> GetAllUserOsAsync();
         Task<List<UserBrowserViewModel>> GetAllUserBrowserAsync();
         Task<List<PageViewViewModel>> GetAllPageViewAsync();
+        Task<List<ReferrerViewModel>> GetAllReferrerAsync();
         Task<GeneralStatisticsViewModel> GetGeneralStatisticsAsync(DateTimeOffset dt);
 
         Task<bool> InsertAsync(VisitorsStatisticsViewModel viewModel);

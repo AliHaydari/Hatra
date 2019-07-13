@@ -105,6 +105,7 @@ namespace Hatra.DataLayer.Mappings
                 build.Property(p => p.DeviceName).HasMaxLength(1000);
                 build.Property(p => p.IpAddress).HasMaxLength(1000);
                 build.Property(p => p.PageViewed).HasMaxLength(1000);
+                build.Property(p => p.Referrer).HasMaxLength(1000);
                 build.Property(p => p.VisitDate).IsRequired();
             });
 
