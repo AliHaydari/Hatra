@@ -4243,7 +4243,6 @@ button.tm-videobutton {
     box-shadow: 0 0 10px rgba(1, 2, 119, 0.47);
     background: #0026ff17;
     border-top: 5px solid rgba(1, 2, 119, 0.27);
-    height: 143px;
     margin: 0px 10px;
 }
 
@@ -4265,11 +4264,11 @@ button.tm-videobutton {
 
 .tm-testimonial.blue-theme .tm-testimonial-content::after {
     background: #e8ebff;
-    -webkit-box-shadow: -5px 5px 4px rgba(1, 2, 119, 0.17);
-    box-shadow: -5px 5px 4px rgba(1, 2, 119, 0.17);
-    left: -11px;
+    -webkit-box-shadow: 3px -2px 5px rgba(1, 2, 119, 0.17);
+    box-shadow: 3px -2px 5px rgba(1, 2, 119, 0.17);
+    left: auto;
     top: 50%;
-    right: auto;
+    right: -11px;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -4304,8 +4303,8 @@ button.tm-videobutton {
     align-items: center;
 }
 .tm-testimonial.blue-theme .tm-testimonial-bottom {
-    margin-top: 7px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
+    margin-top: 20px;
 }
 
 .tm-testimonial-authorimage {
@@ -7918,5 +7917,53 @@ ul.pricing {
 @media (max-width: 1199px) {
     ul.pricing {
         padding: 0;
+    }
+}
+/*********************Vmap********************/
+
+#vmapDetail {
+    position: absolute;
+    top: 100px;
+    right: -120px;
+    left: 35px;
+}
+
+@media (max-width: 575px) {
+    #vmapDetail {
+        position: relative !important;
+        left: auto;
+        right: auto;
+        top: auto;
+    }
+}
+
+@media (min-width: 576px) {
+    #vmapDetail {
+        right: -15px;
+    }
+}
+
+@media (min-width: 768px) {
+    #vmapDetail {
+        right: -20px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #vmapDetail {
+        right: -22px;
+    }
+}
+
+
+@media (min-width: 1400px) {
+    #vmapDetail {
+        right: -27px;
+    }
+}
+
+@media (min-width: 1600px) {
+    #vmapDetail {
+        right: -87px;
     }
 }

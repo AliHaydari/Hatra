@@ -21,6 +21,7 @@ jQuery(document).ready(function () {
         "45": "#5469DF"
     }
 
+    $('#vmapDetail').html("");
     $('#vmapDetail').hide('slide', { direction: 'left' }, 1400);
     jQuery('#vmap').vectorMap({
         map: 'iran_ir',
@@ -42,6 +43,8 @@ jQuery(document).ready(function () {
                 + '" which has the code: '
                 + code.toUpperCase();
 
+            $('#vmapDetail').html("");
+            $('#vmapDetail').hide('slide', { direction: 'right' }, 1400);
 
             if (code === "16") {//آذربایجان غربی
                 var content = "";
@@ -124,7 +127,7 @@ jQuery(document).ready(function () {
                 });
 
                 $('#vmapDetail').html(content);
-                
+
             }
             else if (code === "45") {//هرمزگان
                 var content = "";
@@ -144,11 +147,15 @@ jQuery(document).ready(function () {
 
             var right = left + $("#vmap").outerWidth();
 
-            $("#vmapDetail").css("top", "absolute");
-            $("#vmapDetail").css("top", top + 100);
-            $("#vmapDetail").css("right", left);
-            $("#vmapDetail").css("position", "absolute");
-            $('#vmapDetail').show('slide', { direction: 'right' }, 1400);
+            //$("#vmapDetail").css("top", "absolute");
+            //$("#vmapDetail").css("top", top + 100);
+            //$("#vmapDetail").css("right", left);
+            //$("#vmapDetail").css("position", "absolute");
+
+            var content = $("#vmapDetail").html();
+
+            if (content != "")
+                $('#vmapDetail').show('slide', { direction: 'right' }, 1400);
         }
     });
 });
