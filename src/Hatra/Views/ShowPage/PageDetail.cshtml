@@ -5,6 +5,28 @@
     Layout = "~/Views/Shared/_LayoutN.cshtml";
 }
 
+@section Styles{
+  
+
+}
+@section Scripts{
+    <script>
+    if ($( "#vmap" ) && $( "#vmap" ).length ) {
+        $("<link/>", {  rel: "stylesheet",
+                        type: "text/css",
+                        href: "/lib/deconsultrtl/assets/css/jqvmap.css"
+        }).appendTo("head");
+
+        $.getScript('/lib/deconsultrtl/assets/js/jquery.vmap.js', function () {
+        });
+     $.getScript('/lib/deconsultrtl/assets/js/jquery.vmap.iran.js', function () {
+     });
+
+        }
+/**/</script>
+
+}
+
 <!-- Breadcrumb Area -->
 <div class="tm-breadcrumb-area tm-padding-section text-center" data-overlay="1" data-bgimage="/lib/deconsultrtl/assets/images/bg/bg-breadcrumb.jpg">
     <div class="container">
@@ -62,16 +84,16 @@
                         </div>
 
                         @*<div class="tm-blog-tags">
-                            <span class="tm-blog-tags-title">
-                                    <i class="fa fa-tags"></i>
-                                </span>
-                                <ul>
-                                    <li><a href="#">نرم افزار</a></li>
-                                    <li><a href="#">توسعه</a></li>
-                                    <li><a href="#">php</a></li>
-                                    <li><a href="#">وب</a></li>
-                                </ul>
-                        </div>*@
+                                <span class="tm-blog-tags-title">
+                                        <i class="fa fa-tags"></i>
+                                    </span>
+                                    <ul>
+                                        <li><a href="#">نرم افزار</a></li>
+                                        <li><a href="#">توسعه</a></li>
+                                        <li><a href="#">php</a></li>
+                                        <li><a href="#">وب</a></li>
+                                    </ul>
+                            </div>*@
 
                     </div>
                 </div>

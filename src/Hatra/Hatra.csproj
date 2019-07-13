@@ -71,6 +71,9 @@
     <Content Remove="wwwroot\App_Data\HatraWebSiteDb.mdf" />
     <Content Remove="wwwroot\App_Data\HatraWebSiteDb_log.ldf" />
     <Content Remove="wwwroot\js\twitterFetcher.js" />
+    <Watch Remove="Content\deconsultrtl\assets\css\jquery.vmap.js" />
+    <Watch Remove="Content\deconsultrtl\assets\css\jquery.vmap.min.js" />
+    <Watch Remove="Content\deconsultrtl\assets\js\jquery.vmap.iran.js" />
     <Watch Remove="Scripts\clock.js" />
     <Watch Remove="Scripts\file-upload.js" />
     <Watch Remove="Scripts\image-tab.js" />
@@ -87,6 +90,13 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\UploadedFiles\Files\" />
     <Folder Include="wwwroot\UploadedFiles\Files\thumbs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\lib\deconsultrtl\assets\css\jqvmap.css" />
+    <None Include="wwwroot\lib\deconsultrtl\assets\css\jqvmap.min.css" />
+    <None Include="wwwroot\lib\deconsultrtl\assets\js\jquery.vmap.iran.js" />
+    <None Include="wwwroot\lib\deconsultrtl\assets\js\jquery.vmap.js" />
+    <None Include="wwwroot\lib\deconsultrtl\assets\js\jquery.vmap.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="ShowingSettingSite.json">
