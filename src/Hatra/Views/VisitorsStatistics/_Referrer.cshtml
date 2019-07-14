@@ -1,9 +1,18 @@
 ﻿@model IEnumerable<ReferrerViewModel>
 
-@foreach (var item in Model)
+@if (Model.Any())
 {
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span class="badge badge-secondary badge-pill">@item.ViewCount</span>
-        @item.Referrer
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span class="badge badge-secondary badge-pill">@item.ViewCount</span>
+            @item.Referrer
+        </li>
+    }
+}
+else
+{
+    <li class="list-group-item text-center">
+        هیچ دیتایی یافت نشد
     </li>
 }

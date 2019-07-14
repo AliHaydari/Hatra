@@ -38,6 +38,9 @@ namespace Hatra.ViewModels.VisitorsStatistics
                         _icon = "fab fa-apple";
                         break;
                     case "Ubuntu":
+                        _icon = "fab fa-ubuntu";
+                        break;
+                    case "Linux":
                         _icon = "fab fa-linux";
                         break;
                     case "Windows":

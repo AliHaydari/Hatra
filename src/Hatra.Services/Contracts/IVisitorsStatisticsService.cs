@@ -14,6 +14,7 @@ namespace Hatra.Services.Contracts
         Task<List<PageViewViewModel>> GetAllPageViewAsync();
         Task<List<ReferrerViewModel>> GetAllReferrerAsync();
         Task<GeneralStatisticsViewModel> GetGeneralStatisticsAsync(DateTimeOffset dt);
+        Task<VisitorsStatisticsInRangeDateViewModel> GetInRangeDateAsync(DateTimeOffset fromDate, DateTimeOffset toDate);
 
         Task<bool> InsertAsync(VisitorsStatisticsViewModel viewModel);
     }

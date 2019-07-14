@@ -2,43 +2,43 @@
 
 <li class="list-group-item d-flex justify-content-between align-items-center">
     امروز
-    <span class="badge">@DateTimeOffset.UtcNow.ToShortPersianDateString().ToPersianNumbers()</span>
+    <span class="">@DateTimeOffset.UtcNow.ToShortPersianDateString().ToPersianNumbers()</span>
 </li>
 <li class="list-group-item d-flex justify-content-between align-items-center">
     بازدید امروز
-    <span class="badge">@Model.TodayVisits</span>
+    <span class="">@Model.TodayVisits</span>
 </li>
 <li class="list-group-item d-flex justify-content-between align-items-center">
     بازدید دیروز
-    <span class="badge">@Model.YesterdayVisits</span>
+    <span class="">@Model.YesterdayVisits</span>
 </li>
 <li class="list-group-item d-flex justify-content-between align-items-center">
     بازدید این ماه
-    <span class="badge">@Model.ThisMonthVisits</span>
+    <span class="">@Model.ThisMonthVisits</span>
 </li>
 <li class="list-group-item d-flex justify-content-between align-items-center">
     بازدید امسال
-    <span class="badge">@Model.ThisYearVisits</span>
+    <span class="">@Model.ThisYearVisits</span>
 </li>
 <li class="list-group-item d-flex justify-content-between align-items-center text-success">
     <span>
         <i class="fas fa-arrow-alt-circle-up"></i>
         پر بازدید ترین روز
     </span>
-    <span class="badge">@Model.PeakDate.ToPersianDateTextify()</span>
+    <span class="">@Model.PeakDate?.ToPersianDateTextify()</span>
 </li>
 <li class="list-group-item d-flex justify-content-between align-items-center text-danger">
     <span>
         <i class="fas fa-arrow-alt-circle-down"></i>
         کم بازدید ترین روز
     </span>
-    <span class="badge">@Model.LowDate.ToPersianDateTextify()</span>
+    <span class="">@Model.LowDate?.ToPersianDateTextify()</span>
 </li>
 <li class="list-group-item d-flex justify-content-between align-items-center">
     بازدید کل
-    <span class="badge">@Model.TotalVisits</span>
+    <span class="">@Model.TotalVisits</span>
 </li>
 <li class="list-group-item d-flex justify-content-between align-items-center">
     بازدید یونیک
-    <span class="badge">@Model.UniqueVisitors</span>
+    <span class="">@Model.UniqueVisitors</span>
 </li>

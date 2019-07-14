@@ -1,0 +1,209 @@
+﻿@model VisitorsStatisticsInRangeDateViewModel
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header text-white bg-info" data-toggle="collapse" href="#collapseGeneralInRangeDate" role="button" aria-expanded="false" aria-controls="collapseGeneralInRangeDate">
+            <i class="fas fa-history"></i>
+            آمار کلی
+            <span style="position: absolute; left: 10px;" id="siGeneralInRangeDate"><i class="fas fa-angle-down"></i></span>
+        </div>
+        <div class="collapse show" id="collapseGeneralInRangeDate">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center text-success">
+                    <span>
+                        <i class="fas fa-arrow-alt-circle-up"></i>
+                        پر بازدید ترین روز
+                    </span>
+                    <span class="">@Model.PeakDate?.ToPersianDateTextify()</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center text-danger">
+                    <span>
+                        <i class="fas fa-arrow-alt-circle-down"></i>
+                        کم بازدید ترین روز
+                    </span>
+                    <span class="">@Model.LowDate?.ToPersianDateTextify()</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    بازدید کل
+                    <span class="">@Model.TotalVisits</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    بازدید یونیک
+                    <span class="">@Model.UniqueVisitors</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header text-white bg-dark" data-toggle="collapse" href="#collapseUserBrowserInRangeDate" role="button" aria-expanded="false" aria-controls="collapseUserBrowserInRangeDate">
+            <i class="fas fa-th-list"></i>
+            نمایش بازدیدها به تفکیک مرورگرها
+            <span style="position: absolute; left: 10px;" id="siUserBrowserInRangeDate"><i class="fas fa-angle-down"></i></span>
+        </div>
+        <div class="collapse show" id="collapseUserBrowserInRangeDate">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        @if (Model.UserOsViewModels.Any())
+                        {
+                            @foreach (var item in Model.UserBrowserViewModels)
+                            {
+                                double currentNum = (double)item.ViewCount * 100 / Model.TotalVisits;
+                                <tr>
+                                    <td class="text-danger"><i class="@item.Icon"></i></td>
+                                    <td>@item.Name</td>
+                                    <td class="text-primary">@item.ViewCount</td>
+                                    <td>
+                                        <div class="progress flex-fill">
+                                            <div class="progress-bar bg-info" role="progressbar" style="min-width: 20px; width: @currentNum%;" aria-valuenow="@currentNum" aria-valuemin="0" aria-valuemax="100">@currentNum.ToString("F1")%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td class="text-center">هیچ دیتایی یافت نشد</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header text-white bg-dark" data-toggle="collapse" href="#collapseUserOsInRangeDate" role="button" aria-expanded="false" aria-controls="collapseUserOsInRangeDate">
+            <i class="fas fa-th-list"></i>
+            نمایش آمار بازدید به تفکیک سیستم عامل
+            <span style="position: absolute; left: 10px;" id="siUserOsInRangeDate"><i class="fas fa-angle-down"></i></span>
+        </div>
+        <div class="collapse show" id="collapseUserOsInRangeDate">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        @if (Model.UserOsViewModels.Any())
+                        {
+                            @foreach (var item in Model.UserOsViewModels)
+                            {
+                                double currentNum = (double)item.ViewCount * 100 / Model.TotalVisits;
+                                <tr>
+                                    <td class="text-success"><i class="@item.Icon"></i></td>
+                                    <td>@item.Name</td>
+                                    <td class="text-primary">@item.ViewCount</td>
+                                    <td>
+                                        <div class="progress flex-fill">
+                                            <div class="progress-bar bg-info" role="progressbar" style="min-width: 20px; width: @currentNum%;" aria-valuenow="@currentNum" aria-valuemin="0" aria-valuemax="100">@currentNum.ToString("F1")%</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td class="text-center">هیچ دیتایی یافت نشد</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header text-white bg-dark" data-toggle="collapse" href="#collapsePageViewInRangeDate" role="button" aria-expanded="false" aria-controls="collapsePageViewInRangeDate">
+            <i class="fas fa-file"></i>
+            صفحات مشاهده شده
+            <span style="position: absolute; left: 10px;" id="siPageViewInRangeDate"><i class="fas fa-angle-down"></i></span>
+        </div>
+        <div class="collapse show" id="collapsePageViewInRangeDate">
+            <ul class="list-group list-group-flush">
+                @if (Model.PageViewViewModels.Any())
+                {
+                    @foreach (var item in Model.PageViewViewModels)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="badge badge-secondary badge-pill">@item.ViewCount</span>
+                            @item.PageUrl
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item text-center">
+                        هیچ دیتایی یافت نشد
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header text-white bg-dark" data-toggle="collapse" href="#collapseReferrerInRangeDate" role="button" aria-expanded="false" aria-controls="collapseReferrerInRangeDate">
+            <i class="fas fa-globe"></i>
+            ارجاعات
+            <span style="position: absolute; left: 10px;" id="siReferrerInRangeDate"><i class="fas fa-angle-down"></i></span>
+        </div>
+        <div class="collapse show" id="collapseReferrerInRangeDate">
+            <ul class="list-group list-group-flush">
+                @if (Model.ReferrerViewModels.Any())
+                {
+                    @foreach (var item in Model.ReferrerViewModels)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="badge badge-secondary badge-pill">@item.ViewCount</span>
+                            @item.Referrer
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item text-center">
+                        هیچ دیتایی یافت نشد
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<br />
+
+<script type="text/javascript">
+    $('#collapseGeneralInRangeDate').on('shown.bs.collapse', function () {
+        $('#siGeneralInRangeDate').html('<i class="fas fa-angle-up"></i>');
+    });
+    $('#collapseGeneralInRangeDate').on('hidden.bs.collapse', function () {
+        $('#siGeneralInRangeDate').html('<i class="fas fa-angle-down"></i>');
+    });
+
+    $('#collapseUserBrowserInRangeDate').on('shown.bs.collapse', function () {
+        $('#siUserBrowserInRangeDate').html('<i class="fas fa-angle-up"></i>');
+    });
+    $('#collapseUserBrowserInRangeDate').on('hidden.bs.collapse', function () {
+        $('#siUserBrowserInRangeDate').html('<i class="fas fa-angle-down"></i>');
+    });
+
+    $('#collapseUserOsInRangeDate').on('shown.bs.collapse', function () {
+        $('#siUserOsInRangeDate').html('<i class="fas fa-angle-up"></i>');
+    });
+    $('#collapseUserOsInRangeDate').on('hidden.bs.collapse', function () {
+        $('#siUserOsInRangeDate').html('<i class="fas fa-angle-down"></i>');
+    });
+
+    $('#collapsePageViewInRangeDate').on('shown.bs.collapse', function () {
+        $('#siPageViewInRangeDate').html('<i class="fas fa-angle-up"></i>');
+    });
+    $('#collapsePageViewInRangeDate').on('hidden.bs.collapse', function () {
+        $('#siPageViewInRangeDate').html('<i class="fas fa-angle-down"></i>');
+    });
+
+    $('#collapseReferrerInRangeDate').on('shown.bs.collapse', function () {
+        $('#siReferrerInRangeDate').html('<i class="fas fa-angle-up"></i>');
+    });
+    $('#collapseReferrerInRangeDate').on('hidden.bs.collapse', function () {
+        $('#siReferrerInRangeDate').html('<i class="fas fa-angle-down"></i>');
+    });
+</script>

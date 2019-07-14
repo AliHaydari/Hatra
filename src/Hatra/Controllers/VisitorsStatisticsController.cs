@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using DNTBreadCrumb.Core;
+﻿using DNTBreadCrumb.Core;
 using DNTCommon.Web.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.Common.WebToolkit;
@@ -13,6 +7,9 @@ using Hatra.Services.Identity;
 using Hatra.ViewModels.VisitorsStatistics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace Hatra.Controllers
 {
@@ -33,6 +30,8 @@ namespace Hatra.Controllers
             _httpRequestInfoService.CheckArgumentIsNull(nameof(_httpRequestInfoService));
         }
 
+        [DisplayName("ایندکس")]
+        [BreadCrumb(Title = "ایندکس", Order = 1)]
         public async Task<IActionResult> Index()
         {
             var totalVisits = await _visitorsStatisticsService.GetTotalVisitsAsync();
@@ -123,15 +122,27 @@ namespace Hatra.Controllers
             return PartialView("_Referrer", viewModels);
         }
 
-        //[AjaxOnly]
-        //[HttpPost]
-        //[DisplayName("از تاریخ تا تاریخ")]
-        //[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        //public async Task<IActionResult> RenderRangeDateAsync(string fromDate, string toDate)
-        //{
-        //    var viewModels = await _visitorsStatisticsService.GetAllPageViewAsync();
-        //    return PartialView("_PageView", viewModels);
-        //}
+        [AjaxOnly]
+        [HttpPost]
+        [DisplayName("آمار بازدید در تاریخ انتخابی")]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> RenderRangeDateAsync([FromBody]RangeDateSelectedViewModel model)
+        {
+            //if (!model.FromDate.HasValue)
+            //    return BadRequest("لطفا تاریخ شروع را انتخاب کنید");
+
+            //if (!model.ToDate.HasValue)
+            //    return BadRequest("لطفا تاریخ پایان را انتخاب کنید");
+
+            if (!model.FromDate.HasValue)
+                model.FromDate = DateTimeOffset.MinValue;
+
+            if (!model.ToDate.HasValue)
+                model.ToDate = DateTimeOffset.MaxValue;
+
+            var viewModel = await _visitorsStatisticsService.GetInRangeDateAsync(model.FromDate.Value, model.ToDate.Value);
+            return PartialView("_InRangeDate", viewModel);
+        }
 
     }
 }

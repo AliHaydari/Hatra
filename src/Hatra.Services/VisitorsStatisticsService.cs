@@ -54,6 +54,7 @@ namespace Hatra.Services
                     Icon = p.Key,
                     ViewCount = p.LongCount(),
                 })
+                .AsNoTracking()
                 .ToListAsync();
 
             return query;
@@ -70,6 +71,7 @@ namespace Hatra.Services
                     Icon = p.Key,
                     ViewCount = p.LongCount(),
                 })
+                .AsNoTracking()
                 .ToListAsync();
 
             return query;
@@ -85,6 +87,7 @@ namespace Hatra.Services
                     PageUrl = p.Key,
                     ViewCount = p.LongCount(),
                 })
+                .AsNoTracking()
                 .ToListAsync();
 
             return query;
@@ -100,6 +103,7 @@ namespace Hatra.Services
                     Referrer = p.Key,
                     ViewCount = p.LongCount(),
                 })
+                .AsNoTracking()
                 .ToListAsync();
 
             return query;
@@ -107,8 +111,13 @@ namespace Hatra.Services
 
         public async Task<GeneralStatisticsViewModel> GetGeneralStatisticsAsync(DateTimeOffset dt)
         {
-            var todayVisits = await _statistics.LongCountAsync(p => p.VisitDate.Day == dt.Day);
-            var yesterdayVisits = await _statistics.LongCountAsync(p => p.VisitDate.Day == dt.AddDays(-1).Day);
+            var todayVisits = await _statistics
+                .AsNoTracking()
+                .LongCountAsync(p => p.VisitDate.Day == dt.Day);
+
+            var yesterdayVisits = await _statistics
+                .AsNoTracking()
+                .LongCountAsync(p => p.VisitDate.Day == dt.AddDays(-1).Day);
 
             var iranDateTime = dt.GetDateTimeOffsetPart(DateTimeOffsetPart.IranLocalDateTime);
 
@@ -119,22 +128,28 @@ namespace Hatra.Services
             var endDateMonth = iranDateTime.GetPersianMonthStartAndEndDates().EndDate;
 
             var thisMonth = await _statistics
+                .AsNoTracking()
                 .LongCountAsync(p => p.VisitDate >= startDateMonth && p.VisitDate <= endDateMonth);
+
             var thisYear = await _statistics
+                .AsNoTracking()
                 .LongCountAsync(p => p.VisitDate >= startDateYear && p.VisitDate <= endDateYear);
 
             var uniqueVisitors = await _statistics
                 .GroupBy(p => p.IpAddress)
+                .AsNoTracking()
                 .LongCountAsync();
 
             var peakDate = await _statistics
                 .GroupBy(p => p.VisitDate.Date)
                 .OrderByDescending(p => p.LongCount())
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             var lowDate = await _statistics
                 .GroupBy(p => p.VisitDate.Date)
                 .OrderBy(p => p.LongCount())
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             var viewModel = new GeneralStatisticsViewModel()
@@ -148,6 +163,101 @@ namespace Hatra.Services
                 LowDate = lowDate.Key.Date,
                 TotalVisits = 0,
                 UniqueVisitors = uniqueVisitors,
+            };
+
+            return viewModel;
+        }
+
+        public async Task<VisitorsStatisticsInRangeDateViewModel> GetInRangeDateAsync(DateTimeOffset fromDate, DateTimeOffset toDate)
+        {
+            var iranFromDateTime = fromDate.GetDateTimeOffsetPart(DateTimeOffsetPart.IranLocalDateTime).Date;
+            var iranToDateTime = toDate.GetDateTimeOffsetPart(DateTimeOffsetPart.IranLocalDateTime).Date;
+
+            var peakDate = await _statistics
+                .Where(p => p.VisitDate.Date >= iranFromDateTime && p.VisitDate.Date <= iranToDateTime)
+                .GroupBy(p => p.VisitDate.Date)
+                .OrderByDescending(p => p.LongCount())
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+            var lowDate = await _statistics
+                .Where(p => p.VisitDate.Date >= iranFromDateTime && p.VisitDate.Date <= iranToDateTime)
+                .GroupBy(p => p.VisitDate.Date)
+                .OrderBy(p => p.LongCount())
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+            var totalVisits = await _statistics
+                .Where(p => p.VisitDate.Date >= iranFromDateTime && p.VisitDate.Date <= iranToDateTime)
+                .AsNoTracking()
+                .LongCountAsync();
+
+            var uniqueVisitors = await _statistics
+                .Where(p => p.VisitDate.Date >= iranFromDateTime && p.VisitDate.Date <= iranToDateTime)
+                .GroupBy(p => p.IpAddress)
+                .AsNoTracking()
+                .LongCountAsync();
+
+            var userBrowserViewModels = await _statistics
+                .Where(p => p.VisitDate.Date >= iranFromDateTime && p.VisitDate.Date <= iranToDateTime)
+                .GroupBy(p => p.BrowserName)
+                .OrderByDescending(p => p.Count())
+                .Select(p => new UserBrowserViewModel()
+                {
+                    Name = p.Key,
+                    Icon = p.Key,
+                    ViewCount = p.LongCount(),
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            var userOsViewModels = await _statistics
+                .Where(p => p.VisitDate.Date >= iranFromDateTime && p.VisitDate.Date <= iranToDateTime)
+                .GroupBy(p => p.UserOs)
+                .OrderByDescending(p => p.Count())
+                .Select(p => new UserOsViewModel()
+                {
+                    Name = p.Key,
+                    Icon = p.Key,
+                    ViewCount = p.LongCount(),
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            var pageViewViewModels = await _statistics
+                .Where(p => p.VisitDate.Date >= iranFromDateTime && p.VisitDate.Date <= iranToDateTime)
+                .GroupBy(p => p.PageViewed)
+                .OrderByDescending(p => p.Count())
+                .Select(p => new PageViewViewModel()
+                {
+                    PageUrl = p.Key,
+                    ViewCount = p.LongCount(),
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            var referrerViewModels = await _statistics
+                .Where(p => p.VisitDate.Date >= iranFromDateTime && p.VisitDate.Date <= iranToDateTime)
+                .GroupBy(p => p.Referrer)
+                .OrderByDescending(p => p.Count())
+                .Select(p => new ReferrerViewModel()
+                {
+                    Referrer = p.Key,
+                    ViewCount = p.LongCount(),
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            var viewModel = new VisitorsStatisticsInRangeDateViewModel()
+            {
+                PeakDate = peakDate?.Key.Date,
+                LowDate = lowDate?.Key.Date,
+                TotalVisits = totalVisits,
+                UniqueVisitors = uniqueVisitors,
+                UserBrowserViewModels = userBrowserViewModels,
+                UserOsViewModels = userOsViewModels,
+                PageViewViewModels = pageViewViewModels,
+                ReferrerViewModels = referrerViewModels,
             };
 
             return viewModel;

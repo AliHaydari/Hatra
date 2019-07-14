@@ -35,6 +35,8 @@ namespace Hatra
             //addRedisCacheServiceProvider(services);
 
             services.Configure<SiteSettings>(options => Configuration.Bind(options));
+            services.Configure<AntiDosConfig>(options => Configuration.GetSection("AntiDosConfig").Bind(options));
+            services.Configure<AntiXssConfig>(options => Configuration.GetSection("AntiXssConfig").Bind(options));
             services.Configure<ShowingSettingSite>(options => Configuration.Bind(options));
 
             // Adds all of the ASP.NET Core Identity related services and configurations at once.
@@ -88,6 +90,8 @@ namespace Hatra
             {
                 app.UseHsts();
             }
+
+            app.UseAntiDos();
 
             app.UseHttpsRedirection();
             app.UseExceptionHandler("/error/index/500");

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Hatra.ViewModels.VisitorsStatistics
 {
@@ -23,9 +22,5 @@ namespace Hatra.ViewModels.VisitorsStatistics
 
         [Display(Name = "بازدید کل")]
         public long TotalVisits { get; set; }
-
-        public DateTime? FromDate { get; set; }
-
-        public DateTime? ToDate { get; set; }
     }
 }

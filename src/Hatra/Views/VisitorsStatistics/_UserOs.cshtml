@@ -2,18 +2,27 @@
 
 <table class="table">
     <tbody>
-        @foreach (var item in Model.ViewModels)
+        @if (Model.ViewModels.Any())
         {
-            double currentNum = (double)item.ViewCount * 100 / Model.TotalVisits;
+            @foreach (var item in Model.ViewModels)
+            {
+                double currentNum = (double)item.ViewCount * 100 / Model.TotalVisits;
+                <tr>
+                    <td class="text-success"><i class="@item.Icon"></i></td>
+                    <td>@item.Name</td>
+                    <td class="text-primary">@item.ViewCount</td>
+                    <td>
+                        <div class="progress flex-fill">
+                            <div class="progress-bar bg-info" role="progressbar" style="min-width: 20px; width: @currentNum%;" aria-valuenow="@currentNum" aria-valuemin="0" aria-valuemax="100">@currentNum.ToString("F1")%</div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
             <tr>
-                <td class="text-success"><i class="@item.Icon"></i></td>
-                <td>@item.Name</td>
-                <td class="text-primary">@item.ViewCount</td>
-                <td>
-                    <div class="progress flex-fill">
-                        <div class="progress-bar bg-info" role="progressbar" style="min-width: 20px; width: @currentNum%;" aria-valuenow="@currentNum" aria-valuemin="0" aria-valuemax="100">@currentNum.ToString("F1")%</div>
-                    </div>
-                </td>
+                <td class="text-center">هیچ دیتایی یافت نشد</td>
             </tr>
         }
     </tbody>

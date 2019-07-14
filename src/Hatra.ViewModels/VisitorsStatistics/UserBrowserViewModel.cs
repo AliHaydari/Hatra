@@ -55,6 +55,14 @@ namespace Hatra.ViewModels.VisitorsStatistics
                         _icon = "fab fa-opera";
                         break;
 
+                    case "Java":
+                        _icon = "fab fa-java";
+                        break;
+
+                    case "Instagram":
+                        _icon = "fab fa-instagram";
+                        break;
+
                     default:
                         _icon = "fas fa-question-circle";
                         break;
