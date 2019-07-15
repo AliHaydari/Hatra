@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Hatra.Controllers
 {
     [Authorize(Policy = ConstantPolicies.DynamicPermission)]
-    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0)]
+    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0, GlyphIcon = "fas fa-bars")]
     [DisplayName("مدیریت منو ها")]
     public class MenusController : Controller
     {
@@ -53,7 +53,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم منو جدید")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
         public async Task<IActionResult> RenderCreate()
         {
             var nextOrder = await _menuService.GetNextOrder();
@@ -117,7 +117,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم ویرایش منو")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-edit")]
         public async Task<IActionResult> RenderEdit(int? id)
         {
             if (!id.HasValue)

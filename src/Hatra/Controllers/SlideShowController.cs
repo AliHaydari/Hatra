@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Hatra.Controllers
 {
     [Authorize(Policy = ConstantPolicies.DynamicPermission)]
-    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0)]
+    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0, GlyphIcon = "fas fa-images")]
     [DisplayName("مدیریت اسلاید شو ها")]
     public class SlideShowController : Controller
     {
@@ -44,7 +44,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم اسلاید شو جدید")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
         public async Task<IActionResult> RenderCreate()
         {
             var nextOrder = await _slideShowService.GetNextOrder();
@@ -83,7 +83,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم ویرایش اسلاید شو")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-edit")]
         public async Task<IActionResult> RenderEdit(int? id)
         {
             if (!id.HasValue)

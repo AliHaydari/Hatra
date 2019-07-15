@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DNTBreadCrumb.Core;
+﻿using DNTBreadCrumb.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.Services.Identity;
 using Hatra.ViewModels.Identity.Settings;
@@ -14,11 +7,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Hatra.Controllers
 {
     [Authorize(Policy = ConstantPolicies.DynamicPermission)]
-    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0)]
+    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0, GlyphIcon = "fas fa-cog")]
     [DisplayName("مدیریت تنظیمات نمایشی سایت")]
     public class SiteSettingsController : Controller
     {
@@ -36,7 +33,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم تنظیمات نمایشی سایت")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-edit")]
         public async Task<IActionResult> Index()
         {
             var path = Path.Combine(_hostingEnvironment.ContentRootPath, "ShowingSettingSite.json");

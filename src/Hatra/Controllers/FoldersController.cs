@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Hatra.Controllers
 {
     [Authorize(Policy = ConstantPolicies.DynamicPermission)]
-    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0)]
+    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0, GlyphIcon = "fas fa-folder")]
     [DisplayName("مدیریت فولدر ها")]
     public class FoldersController : Controller
     {
@@ -56,7 +56,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم فولدر جدید")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
         public IActionResult RenderCreate()
         {
             var viewModel = new FolderViewModel();
@@ -90,7 +90,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم ویرایش فولدر")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-edit")]
         public async Task<IActionResult> RenderEdit(int? id)
         {
             if (!id.HasValue)
@@ -196,7 +196,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم لیست فایل های فولدر")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-file-alt")]
         public async Task<IActionResult> RenderPictureList(int? id)
         {
             if (!id.HasValue)
@@ -274,7 +274,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم درج فایل")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-upload")]
         public IActionResult RenderAddPicture(int? id)
         {
             if (!id.HasValue)

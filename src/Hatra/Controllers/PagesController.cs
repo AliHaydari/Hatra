@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace Hatra.Controllers
 {
     [Authorize(Policy = ConstantPolicies.DynamicPermission)]
-    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0)]
+    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0, GlyphIcon = "fas fa-sticky-note")]
     [DisplayName("مدیریت صفحه ها")]
     public class PagesController : Controller
     {
@@ -56,7 +56,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم صفحه جدید")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
         public async Task<IActionResult> RenderCreate()
         {
             var viewModel = new PageViewModel()
@@ -100,7 +100,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم ویرایش صفحه")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-edit")]
         public async Task<IActionResult> RenderEdit(int? id)
         {
             if (!id.HasValue)

@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Hatra.Controllers
 {
     [Authorize(Policy = ConstantPolicies.DynamicPermission)]
-    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0)]
+    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0, GlyphIcon = "fas fa-file-code")]
     [DisplayName("مدیریت محتواهای ثابت")]
     public class StaticContentsController : Controller
     {
@@ -44,7 +44,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم محتوای ثابت جدید")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
         public async Task<IActionResult> RenderCreate()
         {
             var nextOrder = await _staticContentService.GetNextOrder();
@@ -83,7 +83,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم ویرایش محتوای ثابت")]
-        [BreadCrumb(Order = 1)]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-edit")]
         public async Task<IActionResult> RenderEdit(int? id)
         {
             if (!id.HasValue)
