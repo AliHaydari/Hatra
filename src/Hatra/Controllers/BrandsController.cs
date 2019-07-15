@@ -44,7 +44,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم برند جدید")]
-        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus", Title = "برند جدید")]
         public IActionResult RenderCreate()
         {
             var viewModel = new BrandViewModel()
@@ -96,6 +96,8 @@ namespace Hatra.Controllers
             {
                 return NotFound();
             }
+
+            this.SetCurrentBreadCrumbTitle($@"ویرایش برند {viewModel.Name}");
 
             return View("Edit", viewModel);
         }

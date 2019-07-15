@@ -53,7 +53,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم منو جدید")]
-        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus", Title = "منو جدید")]
         public async Task<IActionResult> RenderCreate()
         {
             var nextOrder = await _menuService.GetNextOrder();
@@ -131,6 +131,8 @@ namespace Hatra.Controllers
             {
                 return NotFound();
             }
+
+            this.SetCurrentBreadCrumbTitle($@"ویرایش منو {viewModel.Name}");
 
             await PopulateMenusAsync(viewModel.ParentId);
             await PopulatePagesAsync(viewModel.PageId);

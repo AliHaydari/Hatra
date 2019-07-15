@@ -72,6 +72,8 @@ namespace Hatra.Controllers
                 return NotFound();
             }
 
+            this.SetCurrentBreadCrumbTitle($@"ویرایش تماس مشتری {viewModel.FullName}");
+
             return View("Edit", viewModel);
         }
 

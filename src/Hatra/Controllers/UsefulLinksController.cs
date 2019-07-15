@@ -44,7 +44,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم لینک مفید جدید")]
-        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus", Title = "لینک مفید جدید")]
         public async Task<IActionResult> RenderCreate()
         {
             var nextOrder = await _usefulLinkService.GetNextOrder();
@@ -98,6 +98,8 @@ namespace Hatra.Controllers
             {
                 return NotFound();
             }
+
+            this.SetCurrentBreadCrumbTitle($@"ویرایش لینک مفید {viewModel.Name}");
 
             return View("Edit", viewModel);
         }

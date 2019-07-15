@@ -56,7 +56,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم صفحه جدید")]
-        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus", Title = "صفحه جدید")]
         public async Task<IActionResult> RenderCreate()
         {
             var viewModel = new PageViewModel()
@@ -114,6 +114,8 @@ namespace Hatra.Controllers
             {
                 return NotFound();
             }
+
+            this.SetCurrentBreadCrumbTitle($@"ویرایش صفحه {viewModel.Title}");
 
             await PopulateCategoriesAsync(viewModel.CategoryId);
 

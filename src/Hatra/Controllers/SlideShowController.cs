@@ -44,7 +44,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم اسلاید شو جدید")]
-        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus", Title = "اسلاید شو جدید")]
         public async Task<IActionResult> RenderCreate()
         {
             var nextOrder = await _slideShowService.GetNextOrder();
@@ -97,6 +97,8 @@ namespace Hatra.Controllers
             {
                 return NotFound();
             }
+
+            this.SetCurrentBreadCrumbTitle($@"ویرایش اسلاید شو {viewModel.Title}");
 
             return View("Edit", viewModel);
         }

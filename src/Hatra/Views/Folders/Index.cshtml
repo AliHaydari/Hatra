@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<FolderViewModel>
 
 @{
-    ViewData["Title"] = "مدیریت فولدر ها";
+    ViewData["Title"] = "مدیریت پوشه ها";
 }
 
 <div class="card mt-5">
@@ -14,7 +14,7 @@
     <footer class="card-footer">
         <security-trimming asp-area="" asp-controller="Folders" asp-action="RenderCreate">
             <a class="btn btn-success btn-block" asp-controller="Folders" asp-action="RenderCreate">
-                <i class="fas fa-plus"></i> ایجاد یک فولدر جدید
+                <i class="fas fa-plus"></i> ایجاد یک پوشه جدید
             </a>
         </security-trimming>
     </footer>

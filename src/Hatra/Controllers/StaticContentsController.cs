@@ -44,7 +44,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم محتوای ثابت جدید")]
-        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus", Title = "محتوای ثابت جدید")]
         public async Task<IActionResult> RenderCreate()
         {
             var nextOrder = await _staticContentService.GetNextOrder();
@@ -97,6 +97,8 @@ namespace Hatra.Controllers
             {
                 return NotFound();
             }
+
+            this.SetCurrentBreadCrumbTitle($@"ویرایش محتوای ثابت {viewModel.Name}");
 
             return View("Edit", viewModel);
         }

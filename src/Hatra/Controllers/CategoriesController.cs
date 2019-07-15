@@ -44,7 +44,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم گروه جدید")]
-        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus", Title = "گروه جدید")]
         public IActionResult RenderCreate()
         {
             var viewModel = new CategoryViewModel()
@@ -95,6 +95,8 @@ namespace Hatra.Controllers
             {
                 return NotFound();
             }
+
+            this.SetCurrentBreadCrumbTitle($@"ویرایش گروه {viewModel.Name}");
 
             return View("Edit", viewModel);
         }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using DNTBreadCrumb.Core;
+﻿using DNTBreadCrumb.Core;
 using DNTCommon.Web.Core;
 using Hatra.Common.GuardToolkit;
 using Hatra.FileUpload;
@@ -15,12 +9,17 @@ using Hatra.ViewModels.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Hatra.Controllers
 {
     [Authorize(Policy = ConstantPolicies.DynamicPermission)]
     [BreadCrumb(UseDefaultRouteUrl = true, Order = 0, GlyphIcon = "fas fa-folder")]
-    [DisplayName("مدیریت فولدر ها")]
+    [DisplayName("مدیریت پوشه ها")]
     public class FoldersController : Controller
     {
         private readonly IFolderService _folderService;
@@ -28,7 +27,7 @@ namespace Hatra.Controllers
         private readonly FilesHelper _filesHelper;
         private readonly FileUploadUtilities _fileUploadUtilities;
 
-        private const string RequestNotFound = "فولدر درخواستی یافت نشد.";
+        private const string RequestNotFound = "پوشه درخواستی یافت نشد.";
         private const string RequestPictureNotFound = "تصویر درخواستی یافت نشد.";
 
         public FoldersController(IFolderService folderService, IPictureService pictureService, FilesHelper filesHelper, FileUploadUtilities fileUploadUtilities)
@@ -55,8 +54,8 @@ namespace Hatra.Controllers
         }
 
         [HttpGet]
-        [DisplayName("نمایش فرم فولدر جدید")]
-        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus")]
+        [DisplayName("نمایش فرم پوشه جدید")]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-plus", Title = "پوشه جدید")]
         public IActionResult RenderCreate()
         {
             var viewModel = new FolderViewModel();
@@ -65,7 +64,7 @@ namespace Hatra.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        [DisplayName("ایجاد یک فولدر جدید")]
+        [DisplayName("ایجاد یک پوشه جدید")]
         public async Task<IActionResult> Create(FolderViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -89,7 +88,7 @@ namespace Hatra.Controllers
         }
 
         [HttpGet]
-        [DisplayName("نمایش فرم ویرایش فولدر")]
+        [DisplayName("نمایش فرم ویرایش پوشه")]
         [BreadCrumb(Order = 1, GlyphIcon = "fas fa-edit")]
         public async Task<IActionResult> RenderEdit(int? id)
         {
@@ -105,11 +104,13 @@ namespace Hatra.Controllers
                 return NotFound();
             }
 
+            this.SetCurrentBreadCrumbTitle($@"ویرایش پوشه {viewModel.Name}");
+
             return View("Edit", viewModel);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        [DisplayName("ویرایش فولدر")]
+        [DisplayName("ویرایش پوشه")]
         public async Task<IActionResult> Edit(FolderViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -133,7 +134,7 @@ namespace Hatra.Controllers
         }
 
         [AjaxOnly]
-        [DisplayName("نمایش فرم حذف فولدر")]
+        [DisplayName("نمایش فرم حذف پوشه")]
         public async Task<IActionResult> RenderDelete([FromBody]ModelIdViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model?.Id))
@@ -160,7 +161,7 @@ namespace Hatra.Controllers
         [AjaxOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [DisplayName("حذف فولدر")]
+        [DisplayName("حذف پوشه")]
         public async Task<IActionResult> Delete(FolderViewModel viewModel)
         {
             var folderViewModel = await _folderService.GetByIdAsync(viewModel.Id);
@@ -195,7 +196,7 @@ namespace Hatra.Controllers
         }
 
         [HttpGet]
-        [DisplayName("نمایش فرم لیست فایل های فولدر")]
+        [DisplayName("نمایش فرم لیست فایل های پوشه")]
         [BreadCrumb(Order = 1, GlyphIcon = "fas fa-file-alt")]
         public async Task<IActionResult> RenderPictureList(int? id)
         {
@@ -205,6 +206,8 @@ namespace Hatra.Controllers
             }
 
             var viewModel = await _pictureService.GetAllByFolderIdAsync(id.GetValueOrDefault());
+
+            this.SetCurrentBreadCrumbTitle(@"لیست فایل ها");
 
             return View("PictureList", viewModel);
         }
@@ -274,7 +277,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم درج فایل")]
-        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-upload")]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-upload",Title = "درج فایل")]
         public IActionResult RenderAddPicture(int? id)
         {
             if (!id.HasValue)

@@ -33,7 +33,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم تنظیمات نمایشی سایت")]
-        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-edit")]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-edit", Title = "تنظیمات نمایشی سایت")]
         public async Task<IActionResult> Index()
         {
             var path = Path.Combine(_hostingEnvironment.ContentRootPath, "ShowingSettingSite.json");
