@@ -64,7 +64,7 @@ namespace Hatra.Controllers
                 Order = nextOrder,
             };
 
-            await PopulateMenusAsync(null);
+            await PopulateMenusAsync(null, null);
             await PopulatePagesAsync(null);
             await PopulateCategoriesAsync(null);
 
@@ -80,7 +80,7 @@ namespace Hatra.Controllers
                 if (await _menuService.CheckExistNameAsync(viewModel.Id, viewModel.Name))
                 {
                     ModelState.AddModelError(nameof(viewModel.Name), "نام وارد شده تکراری است");
-                    await PopulateMenusAsync(viewModel.ParentId);
+                    await PopulateMenusAsync(viewModel.ParentId, viewModel.Id);
                     await PopulatePagesAsync(viewModel.PageId);
                     await PopulateCategoriesAsync(viewModel.CategoryId);
                     return View(viewModel);
@@ -103,13 +103,13 @@ namespace Hatra.Controllers
                     return RedirectToAction("Index", "Menus");
                 }
 
-                await PopulateMenusAsync(viewModel.ParentId);
+                await PopulateMenusAsync(viewModel.ParentId, viewModel.Id);
                 await PopulatePagesAsync(viewModel.PageId);
                 await PopulateCategoriesAsync(viewModel.CategoryId);
                 return View(viewModel);
             }
 
-            await PopulateMenusAsync(viewModel.ParentId);
+            await PopulateMenusAsync(viewModel.ParentId, viewModel.Id);
             await PopulatePagesAsync(viewModel.PageId);
             await PopulateCategoriesAsync(viewModel.CategoryId);
             return View(viewModel);
@@ -134,7 +134,7 @@ namespace Hatra.Controllers
 
             this.SetCurrentBreadCrumbTitle($@"ویرایش منو {viewModel.Name}");
 
-            await PopulateMenusAsync(viewModel.ParentId);
+            await PopulateMenusAsync(viewModel.ParentId, viewModel.Id);
             await PopulatePagesAsync(viewModel.PageId);
             await PopulateCategoriesAsync(viewModel.CategoryId);
 
@@ -150,7 +150,7 @@ namespace Hatra.Controllers
                 if (await _menuService.CheckExistNameAsync(viewModel.Id, viewModel.Name))
                 {
                     ModelState.AddModelError(nameof(viewModel.Name), "نام وارد شده تکراری است");
-                    await PopulateMenusAsync(viewModel.ParentId);
+                    await PopulateMenusAsync(viewModel.ParentId, viewModel.Id);
                     await PopulatePagesAsync(viewModel.PageId);
                     await PopulateCategoriesAsync(viewModel.CategoryId);
                     return View(viewModel);
@@ -173,13 +173,13 @@ namespace Hatra.Controllers
                     return RedirectToAction("Index", "Menus");
                 }
 
-                await PopulateMenusAsync(viewModel.ParentId);
+                await PopulateMenusAsync(viewModel.ParentId, viewModel.Id);
                 await PopulatePagesAsync(viewModel.PageId);
                 await PopulateCategoriesAsync(viewModel.CategoryId);
                 return View(viewModel);
             }
 
-            await PopulateMenusAsync(viewModel.ParentId);
+            await PopulateMenusAsync(viewModel.ParentId, viewModel.Id);
             await PopulatePagesAsync(viewModel.PageId);
             await PopulateCategoriesAsync(viewModel.CategoryId);
             return View(viewModel);
@@ -236,14 +236,14 @@ namespace Hatra.Controllers
         }
 
         [NonAction]
-        private async Task PopulateMenusAsync(int? menuId)
+        private async Task PopulateMenusAsync(int? parentId, int? menuId)
         {
-            var data = await _menuService.GetAllParentAsync();
+            var data = await _menuService.GetAllParentAsync(menuId);
 
             var selectList = new SelectList(data,
                 nameof(DropDownMenuViewModel.Id),
                 nameof(DropDownMenuViewModel.Name),
-                menuId.GetValueOrDefault());
+                parentId.GetValueOrDefault());
 
             ViewBag.PopulateMenus = selectList;
         }

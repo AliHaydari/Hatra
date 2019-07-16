@@ -4,6 +4,11 @@
     ViewData["Title"] = "ایجاد یک منو جدید";
 }
 
+@section Styles
+{
+    <link href="~/css/bootstrap-select.min.css" rel="stylesheet" asp-append-version="true" />
+}
+
 <div class="alert alert-warning mt-5">
     <a href="#" class="close" data-dismiss="alert">×</a>
     <ul>
@@ -150,10 +155,23 @@
 
 @section Scripts
 {
+    <script src="~/js/bootstrap-select.min.js" asp-append-version="true"></script>
     <script type="text/javascript">
         function triggerRemoteValidation() {
             $('#@nameof(MenuViewModel.Name)').removeData('previousValue');
             $('form').validate().element('#@nameof(MenuViewModel.Name)');
         }
+
+        $(document).ready(function() {
+            $('#PageId').selectpicker({
+                liveSearch: true
+            });
+            $('#CategoryId').selectpicker({
+                liveSearch: true
+            });
+            $('#ParentId').selectpicker({
+                liveSearch: true
+            });
+        });
     </script>
 }

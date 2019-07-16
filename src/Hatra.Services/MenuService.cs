@@ -89,7 +89,7 @@ namespace Hatra.Services
             };
         }
 
-        public async Task<List<DropDownMenuViewModel>> GetAllParentAsync()
+        public async Task<List<DropDownMenuViewModel>> GetAllParentAsync(int? id)
         {
             var result = await (from menu in _menus
                                 join parent in _menus on menu.ParentId equals
@@ -116,6 +116,8 @@ namespace Hatra.Services
 
             foreach (var menu in result)
             {
+                if (menu.Id == id) continue;
+
                 if (menu.ParentId.HasValue)
                 {
                     if (menus.Any(p => p.Id == menu.ParentId))

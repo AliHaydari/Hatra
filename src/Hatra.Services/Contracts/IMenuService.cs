@@ -9,7 +9,7 @@ namespace Hatra.Services.Contracts
     {
         Task<List<MenuViewModel>> GetAllAsync();
         Task<PagedAdminMenuViewModel> GetAllPagedAsync(int pageNumber, int recordsPerPage);
-        Task<List<DropDownMenuViewModel>> GetAllParentAsync();
+        Task<List<DropDownMenuViewModel>> GetAllParentAsync(int? id);
         Task<MenuViewModel> GetByIdAsync(int id);
         Task<AuditableInformationViewModel> GetAuditableInformationByIdAsync(int id);
         Task<bool> InsertAsync(MenuViewModel viewModel);
