@@ -207,7 +207,18 @@ namespace Hatra.Controllers
 
             var viewModel = await _pictureService.GetAllByFolderIdAsync(id.GetValueOrDefault());
 
-            this.SetCurrentBreadCrumbTitle(@"لیست فایل ها");
+            string breadcrumbTitle;
+            if (viewModel.Any())
+            {
+                var folderName = viewModel.FirstOrDefault()?.FolderName;
+                breadcrumbTitle = $@"لیست فایل های پوشه {folderName}";
+            }
+            else
+            {
+                breadcrumbTitle = "لیست فایل ها";
+            }
+
+            this.SetCurrentBreadCrumbTitle(breadcrumbTitle);
 
             return View("PictureList", viewModel);
         }
@@ -277,7 +288,7 @@ namespace Hatra.Controllers
 
         [HttpGet]
         [DisplayName("نمایش فرم درج فایل")]
-        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-upload",Title = "درج فایل")]
+        [BreadCrumb(Order = 1, GlyphIcon = "fas fa-upload", Title = "درج فایل")]
         public IActionResult RenderAddPicture(int? id)
         {
             if (!id.HasValue)

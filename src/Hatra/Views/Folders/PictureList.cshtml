@@ -4,62 +4,105 @@
     ViewData["Title"] = "لیست فایل ها";
 }
 
+@section styles
+{
+    <!-- blueimp Gallery styles -->
+    <link href="~/lib/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/lib/blueimp-gallery/css/blueimp-gallery-indicator.css" rel="stylesheet" asp-append-version="true" />
+
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link href="~/lib/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/lib/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" asp-append-version="true" />
+}
+
 <div id="alert_placeholder"></div>
 
-@foreach (var item in Model)
-{
-    <div class="form-group row">
-        <label asp-for="@item.Path" class="col-md-2 col-form-label text-md-left"></label>
-        <div class="col col-md-8">
-            <div class="input-group">
-                <span class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-image"></i></span>
-                </span>
-                <input asp-for="@item.Url" id="path-@item.Id" autocomplete="off" dir="ltr" class="form-control" readonly="readonly"/>
+<!-- The blueimp Gallery widget -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
 
-                <span class="input-group-prepend input-group-text">
-                    <a href="#" id="btnCopy-@item.Id" data-copy-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="ذخیره مسیر">
-                        <i class="fas fa-copy text-success"></i>
-                    </a>
-                </span>
-
-                <span class="input-group-prepend input-group-text">
-                    <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="حذف">
-                        <i class="fas fa-trash text-danger"></i>
-                    </a>
-                </span>
-            </div>
-        </div>
-        @if (Hatra.Common.Extensions.ImageExtensions.IsImage(item.Extension))
+<table role="presentation" class="table table-striped">
+    <tbody class="files">
+        @foreach (var item in Model)
         {
-            <div class="col col-md-2">
-                <div class="media">
-                    <img src="@item.ThumbnailUrl" class="mr-3" alt="@item.Name">
-                </div>
-            </div>
+            <tr class="template-download fade in">
+                @if (Hatra.Common.Extensions.ImageExtensions.IsImage(item.Extension))
+                {
+                    <td>
+                        <span class="preview">
+                            <a href="@item.Url" title="@item.Name" download="@item.Name" data-gallery>
+                                <img src="@item.ThumbnailUrl" alt="@item.Name">
+                            </a>
+                        </span>
+                    </td>
+                    <td>
+                        <p class="name">
+                            <a href="@item.Url" title="@item.Name" download="@item.Name" data-gallery id="@item.Id">
+                                @item.Url
+                            </a>
+                        </p>
+                    </td>
+                }
+                else
+                {
+                    @if (Hatra.Common.Extensions.ImageExtensions.IsFileIsImage(item.Name))
+                    {
+                        <td>
+                            <span class="preview">
+                                <a href="@item.Url" title="@item.Name" download="@item.Name" data-gallery>
+                                    <img src="@item.ThumbnailUrl" alt="@item.Name">
+                                </a>
+                            </span>
+                        </td>
+                        <td>
+                            <p class="name">
+                                <a href="@item.Url" title="@item.Name" download="@item.Name" data-gallery id="@item.Id">
+                                    @item.Url
+                                </a>
+                            </p>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <span><i class="fas fa-file" data-toggle="tooltip" data-placement="bottom" title="@item.Extension?.Remove(0, 1)"></i></span>
+                        </td>
+                        <td>
+                            <p class="name" id="@item.Id">
+                                @item.Url
+                            </p>
+                        </td>
+                    }
+                }
+                <td>
+                    <span class="size">@item.Size.ToString("##,###") KB</span>
+                </td>
+                <td>
+                    <a class="btn btn-success" href="#" id="btnCopy-@item.Id" data-copy-id="@item.Id" data-copy-path="@item.Url" data-toggle="tooltip" data-placement="bottom" title="ذخیره مسیر">
+                        <i class="fas fa-copy"></i>
+                    </a>
+                    <a class="btn btn-danger" href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="حذف">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
         }
-        else
-        {
-            @if (Hatra.Common.Extensions.ImageExtensions.IsFileIsImage(item.Name))
-             {
-                 <div class="col col-md-2">
-                     <div class="media">
-                         <img src="@item.ThumbnailUrl" class="mr-3" alt="@item.Name">
-                     </div>
-                 </div>
-             }
-             else
-             {
-                 <div class="col col-md-2">
-                     <span><i class="fas fa-file" data-toggle="tooltip" data-placement="bottom" title="@item.Extension?.Remove(0, 1)"></i></span>
-                 </div>
-             }
-        }
-    </div>
-}
+    </tbody>
+</table>
 
 @section Scripts
 {
+    <script src="~/lib/blueimp-gallery/js/blueimp-gallery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/blueimp-gallery/js/blueimp-gallery-video.js" asp-append-version="true"></script>
+    <script src="~/lib/blueimp-gallery/js/blueimp-gallery-indicator.js" asp-append-version="true"></script>
+    <script src="~/lib/blueimp-gallery/js/jquery.blueimp-gallery.min.js" asp-append-version="true"></script>
     <script type="text/javascript">
         $(function () {
 
@@ -89,27 +132,46 @@
             $("a[id^='btnCopy']").click(function (e) {
                 e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
                 var copyId = $(this).data("copy-id");
+                var copyPath = $(this).data("copy-path");
 
-                var textBoxId = 'path-' + copyId;
-                var textBox = $("#" + textBoxId);
+                var $temp = $("<input>");
+                $("body").append($temp);
+                //var copyValue = $('#' + copyId).text();
+                $temp.val(copyPath).select();
 
-                var textBoxValue = textBox.val();
+                var successful = false;
 
-                textBox.focus();
-                textBox.select();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("CopyToClipboard","Home",new {area="Identity"})',
+                    data: { "text":  copyPath},
+                    complete: function (xhr, status) {
+                        var data = xhr.responseText;
+                        if (xhr.status == 403) {
+                            window.location = "/identity/login";
+                        }
+                        else if (status === 'error' || !data || data == "nok") {
+                            successful = document.execCommand('copy');
+                        }
+                        else {
+                            successful = true;
+                        }
 
-                var successful = document.execCommand('copy');
-                var msgClass = successful ? 'alert-success' : 'alert-danger';
-                var msgText = successful ? ' - کپی شد ' : ' - کپی نشد ';
+                        var msgClass = successful ? 'alert-success' : 'alert-danger';
+                        var msgText = successful ? ' - کپی شد ' : ' - کپی نشد ';
 
-                var alertHtml= '<div class="alert '+msgClass+' alert-dismissible fade show" role="alert">'+
-                    '<strong>'+textBoxValue+'</strong>'+msgText+
-                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                    '</div>';
+                        var alertHtml= '<div class="alert '+msgClass+' alert-dismissible fade show" role="alert">'+
+                            '<strong>'+copyPath+'</strong>'+msgText+
+                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                            '<span aria-hidden="true">&times;</span>'+
+                            '</button>'+
+                            '</div>';
 
-                $('#alert_placeholder').html(alertHtml);
+                        $temp.remove();
+
+                        $('#alert_placeholder').html(alertHtml);
+                    }
+                });
             });
 
         });

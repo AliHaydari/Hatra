@@ -26,6 +26,11 @@
                 <div class="input-group col-sm-10">
                     <input id="SelectedImage" asp-for="Image" autocomplete="off" dir="ltr" class="form-control" />
                     <span class="input-group-prepend input-group-text">
+                        <a href="#" id="btnPaste" data-toggle="tooltip" data-placement="bottom" title="جای گذاری">
+                            <i class="fas fa-paste"></i>
+                        </a>
+                    </span>
+                    <span class="input-group-prepend input-group-text">
                         <a asp-area="" asp-controller="Folders" asp-action="Index" target="_blank" id="btnSelectPicture" data-toggle="tooltip" data-placement="bottom" title="انتخاب تصویر">
                             <i class="fas fa-image text-info"></i>
                         </a>
@@ -77,5 +82,29 @@
             }
 
         $('#Description').height(200);
+
+        $(function () {
+
+            $('#btnPaste').click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("PasteFromClipboard","Home",new {area="Identity"})',
+                    complete: function (xhr, status) {
+                        var data = xhr.responseText;
+                        if (xhr.status == 403) {
+                            window.location = "/identity/login";
+                        }
+                        else if (status === 'error' || !data || data == "nok") {
+                            alert('خطايي رخ داده است'+'از Ctrl+v استفاده کنید');
+                        }
+                        else {
+                            $('#SelectedImage').val(xhr.responseJSON.txt);
+                        }
+                    }
+                });
+            });
+
+        });
     </script>
 }
