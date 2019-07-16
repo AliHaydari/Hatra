@@ -1,5 +1,6 @@
 ﻿@{
     var pageTitle = ViewData["Title"]?.ToString() ?? "";
+    var currentZoneDateTimeOffset = DateTimeOffset.UtcNow.ToIranTimeZoneDateTimeOffset();
 }
 
 <!DOCTYPE html>
@@ -89,28 +90,18 @@
                     Created By
                     <span class="fas fa-heart" style="color: DarkRed" aria-hidden="true"></span>
                 </span> |
-                <span dir="rtl" class="text-dark"><i class="fas fa-calendar-alt"></i> @DateTime.Now.ToPersianDateTextify()</span> |
+                <span dir="rtl" class="text-dark"><i class="fas fa-calendar-alt"></i> @currentZoneDateTimeOffset.ToPersianDateTextify()</span> |
                 <span dir="rtl" class="text-dark"><i class="fas fa-clock"></i> <span id="clock"></span></span>
             </div>
         </div>
     </footer>
     <script src="~/js/site.min.js" type="text/javascript" asp-append-version="true"></script>
     <script type="text/javascript">
-        $.ajax({
-            url: document.location,
-            type: "HEAD",
-            contentType: "application/json;charset=utf-8",
-            async: true,
-            success: function (data, status, xhr) {
-                var date1 = new Date(xhr.getResponseHeader('Date'));
-                var myTime = new MyTime();
-                myTime.Init(date1.getHours(), date1.getMinutes(), date1.getSeconds(), 'clock');
-                myTime.Run();
-            },
-            error: function () {
-                $('#clock').html('00:00:00');
-            }
-        });
+    $(function() {
+        var myTime = new MyTime();
+        myTime.Init(@currentZoneDateTimeOffset.Hour, @currentZoneDateTimeOffset.Minute, @currentZoneDateTimeOffset.Second, 'clock');
+        myTime.Run();
+    });
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
