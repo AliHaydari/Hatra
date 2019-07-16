@@ -2,17 +2,16 @@
     var date;
     var tag;
 
+    var getConstructorString = function (hour, minute, seconds) {
+        //console.log('MyTime : getConstructorString');
+        return '01/01/2000 ' + hour + ':' + minute + ':' + seconds;
+    };
+
     var init = function (hour, minute, seconds, tagId) {
         var constructor = getConstructorString(hour, minute, seconds);
         date = new Date(constructor);
         tag = document.getElementById(tagId);
         //console.log('MyTime : Init(%s, %s, %s, %s)', hour, minute, seconds, tagId);
-    };
-
-    var run = function () {
-        update();
-        window.setInterval(update, 1000);
-        //console.log('MyTime : Run');
     };
 
     var update = function updateClock() {
@@ -36,9 +35,10 @@
         //console.log('MyTime : update');
     };
 
-    var getConstructorString = function (hour, minute, seconds) {
-        //console.log('MyTime : getConstructorString');
-        return '01/01/2000 ' + hour + ':' + minute + ':' + seconds;
+    var run = function () {
+        update();
+        window.setInterval(update, 1000);
+        //console.log('MyTime : Run');
     };
 
     return {
