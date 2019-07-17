@@ -19,6 +19,7 @@
     "jquery-validation": "^1.19.0",
     "jquery-validation-unobtrusive": "^3.2.11",
     "samim-font": "^1.0.2",
-    "md.bootstrappersiandatetimepicker": "^3.4.8"
+    "md.bootstrappersiandatetimepicker": "^3.4.8",
+    "sweetalert2": "8.13.6" 
   }
 }

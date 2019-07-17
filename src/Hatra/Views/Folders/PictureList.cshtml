@@ -13,9 +13,9 @@
     <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
     <link href="~/lib/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/lib/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" asp-append-version="true" />
-}
 
-<div id="alert_placeholder"></div>
+    <link href="~/css/sweetalert2/sweetalert2.min.css" rel="stylesheet" asp-append-version="true" />
+}
 
 <!-- The blueimp Gallery widget -->
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
@@ -85,7 +85,7 @@
                     <span class="size">@item.Size.ToString("##,###") KB</span>
                 </td>
                 <td>
-                    <a class="btn btn-success" href="#" id="btnCopy-@item.Id" data-copy-id="@item.Id" data-copy-path="@item.Url" data-toggle="tooltip" data-placement="bottom" title="ذخیره مسیر">
+                    <a class="btn btn-success" href="#" id="btnCopy-@item.Id" data-copy-id="@item.Id" data-copy-path="@item.Url" data-copy-name="@item.Name" data-toggle="tooltip" data-placement="bottom" title="ذخیره مسیر">
                         <i class="fas fa-copy"></i>
                     </a>
                     <a class="btn btn-danger" href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="حذف">
@@ -103,6 +103,7 @@
     <script src="~/lib/blueimp-gallery/js/blueimp-gallery-video.js" asp-append-version="true"></script>
     <script src="~/lib/blueimp-gallery/js/blueimp-gallery-indicator.js" asp-append-version="true"></script>
     <script src="~/lib/blueimp-gallery/js/jquery.blueimp-gallery.min.js" asp-append-version="true"></script>
+    <script src="~/js/sweetalert2/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
         $(function () {
 
@@ -133,6 +134,7 @@
                 e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
                 var copyId = $(this).data("copy-id");
                 var copyPath = $(this).data("copy-path");
+                var copyName = $(this).data("copy-name");
                 var successful = false;
 
                 $.ajax({
@@ -156,17 +158,17 @@
                             successful = true;
                         }
 
-                        var msgClass = successful ? 'alert-success' : 'alert-danger';
-                        var msgText = successful ? ' - کپی شد ' : ' - کپی نشد ';
+                        var msgClass = successful ? 'success' : 'error';
+                        var msgText = successful ? ' کپی شد ' : ' کپی نشد ';
 
-                        var alertHtml= '<div class="alert '+msgClass+' alert-dismissible fade show" role="alert">'+
-                            '<strong>'+copyPath+'</strong>'+msgText+
-                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                            '<span aria-hidden="true">&times;</span>'+
-                            '</button>'+
-                            '</div>';
-
-                        $('#alert_placeholder').html(alertHtml);
+                        Swal.fire({
+                            position: 'top-end',
+                            type: msgClass,
+                            title: msgText,
+                            text: copyName,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
                     }
                 });
             });
