@@ -205,19 +205,9 @@ namespace Hatra.Controllers
                 return NotFound();
             }
 
-            var viewModel = await _pictureService.GetAllByFolderIdAsync(id.GetValueOrDefault());
-
-            string breadcrumbTitle;
-            if (viewModel.Any())
-            {
-                var folderName = viewModel.FirstOrDefault()?.FolderName;
-                breadcrumbTitle = $@"لیست فایل های پوشه {folderName}";
-            }
-            else
-            {
-                breadcrumbTitle = "لیست فایل ها";
-            }
-
+            var viewModel = await _pictureService.GetAllByFolderIdAsync(id.Value);
+            var folder = await _folderService.GetByIdAsync(id.Value);
+            var breadcrumbTitle = folder != null ? $@"لیست فایل های پوشه {folder.Name}" : "لیست فایل ها";
             this.SetCurrentBreadCrumbTitle(breadcrumbTitle);
 
             return View("PictureList", viewModel);
@@ -289,7 +279,7 @@ namespace Hatra.Controllers
         [HttpGet]
         [DisplayName("نمایش فرم درج فایل")]
         [BreadCrumb(Order = 1, GlyphIcon = "fas fa-upload", Title = "درج فایل")]
-        public IActionResult RenderAddPicture(int? id)
+        public async Task<IActionResult> RenderAddPicture(int? id)
         {
             if (!id.HasValue)
             {
@@ -297,6 +287,9 @@ namespace Hatra.Controllers
             }
 
             //var viewModel = await _pictureService.GetAllByFolderIdAsync(id.GetValueOrDefault());
+            var folder = await _folderService.GetByIdAsync(id.Value);
+            var breadcrumbTitle = folder != null ? $@"درج فایل در پوشه {folder.Name}" : "درج فایل";
+            this.SetCurrentBreadCrumbTitle(breadcrumbTitle);
 
             var viewModel = new PictureViewModel()
             {

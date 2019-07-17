@@ -45,7 +45,7 @@
                     <td>
                         <p class="name">
                             <a href="@item.Url" title="@item.Name" download="@item.Name" data-gallery id="@item.Id">
-                                @item.Url
+                                @item.Name
                             </a>
                         </p>
                     </td>
@@ -64,7 +64,7 @@
                         <td>
                             <p class="name">
                                 <a href="@item.Url" title="@item.Name" download="@item.Name" data-gallery id="@item.Id">
-                                    @item.Url
+                                    @item.Name
                                 </a>
                             </p>
                         </td>
@@ -76,7 +76,7 @@
                         </td>
                         <td>
                             <p class="name" id="@item.Id">
-                                @item.Url
+                                @item.Name
                             </p>
                         </td>
                     }
@@ -133,12 +133,6 @@
                 e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
                 var copyId = $(this).data("copy-id");
                 var copyPath = $(this).data("copy-path");
-
-                var $temp = $("<input>");
-                $("body").append($temp);
-                //var copyValue = $('#' + copyId).text();
-                $temp.val(copyPath).select();
-
                 var successful = false;
 
                 $.ajax({
@@ -151,7 +145,12 @@
                             window.location = "/identity/login";
                         }
                         else if (status === 'error' || !data || data == "nok") {
+                            var $temp = $("<input>");
+                            $("body").append($temp);
+                            //var copyValue = $('#' + copyId).text();
+                            $temp.val(copyPath).select();
                             successful = document.execCommand('copy');
+                            $temp.remove();
                         }
                         else {
                             successful = true;
@@ -166,8 +165,6 @@
                             '<span aria-hidden="true">&times;</span>'+
                             '</button>'+
                             '</div>';
-
-                        $temp.remove();
 
                         $('#alert_placeholder').html(alertHtml);
                     }
