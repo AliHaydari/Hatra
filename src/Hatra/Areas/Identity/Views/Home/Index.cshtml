@@ -63,6 +63,20 @@
 
     @{
         <div class="col-md-9">
+            
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <language-culture>
+                    </language-culture>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <flag-image-file-name></flag-image-file-name>
+                </div>
+            </div>
+
             @if (User.Identity.IsAuthenticated)
             {
                 <security-trimming asp-area="" asp-controller="Menus" asp-action="Index">
@@ -166,23 +180,23 @@
                 </security-trimming>
 
                 @if (User.IsInRole(ConstantRoles.Admin))
-                {
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="FileUpload" asp-action="Index">
-                                File Uploader
-                            </a>
-                        </div>
-                    </div>
+                 {
+                     <div class="form-group row">
+                         <div class="col-md-4">
+                             <a class="btn btn-outline-dark btn-block text-right" asp-controller="FileUpload" asp-action="Index">
+                                 File Uploader
+                             </a>
+                         </div>
+                     </div>
 
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="StaticContents" asp-action="Index">
-                                <i class="fas fa-file-code"></i> محتواهای ثابت
-                            </a>
-                        </div>
-                    </div>
-                }
+                     <div class="form-group row">
+                         <div class="col-md-4">
+                             <a class="btn btn-outline-dark btn-block text-right" asp-controller="StaticContents" asp-action="Index">
+                                 <i class="fas fa-file-code"></i> محتواهای ثابت
+                             </a>
+                         </div>
+                     </div>
+                 }
             }
         </div>
     }

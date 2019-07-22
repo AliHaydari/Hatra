@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using Hatra.Entities.Localization;
 using Hatra.ViewModels.Identity.Settings;
 
 namespace Hatra.Services.Identity
@@ -95,6 +96,31 @@ namespace Hatra.Services.Identity
                     {
                         context.Add(new Role(ConstantRoles.Admin));
                         context.SaveChanges();
+                    }
+
+                    if (!context.Languages.Any())
+                    {
+                        context.Add(new Language()
+                        {
+                            Name = "فارسی",
+                            LanguageCulture = "fa-IR",
+                            UniqueSeoCode = "fa",
+                            FlagImageFileName = "ir.png",
+                            Rtl = true,
+                            Published = true,
+                            DisplayOrder = 1,
+                        });
+                        context.SaveChanges();
+                        //new Language()
+                        //{
+                        //    Name = "English",
+                        //    LanguageCulture = "en-US",
+                        //    UniqueSeoCode = "en",
+                        //    FlagImageFileName = "us.png",
+                        //    Rtl = false,
+                        //    Published = true,
+                        //    DisplayOrder = 2,
+                        //});
                     }
                 }
             }

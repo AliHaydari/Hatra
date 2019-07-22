@@ -634,6 +634,87 @@ namespace Hatra.DataLayer.Migrations
                     b.ToTable("AppUserUsedPasswords");
                 });
 
+            modelBuilder.Entity("Hatra.Entities.Localization.Language", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DisplayOrder");
+
+                    b.Property<string>("FlagImageFileName")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("LanguageCulture")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<bool>("Published");
+
+                    b.Property<bool>("Rtl");
+
+                    b.Property<string>("UniqueSeoCode")
+                        .HasMaxLength(2);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+                });
+
+            modelBuilder.Entity("Hatra.Entities.Localization.LocaleStringResource", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LanguageId");
+
+                    b.Property<string>("ResourceName")
+                        .IsRequired()
+                        .HasMaxLength(400);
+
+                    b.Property<string>("ResourceValue")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("LocaleStringResources");
+                });
+
+            modelBuilder.Entity("Hatra.Entities.Localization.LocalizedProperty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EntityId");
+
+                    b.Property<int>("LanguageId");
+
+                    b.Property<string>("LocaleKey")
+                        .IsRequired()
+                        .HasMaxLength(400);
+
+                    b.Property<string>("LocaleKeyGroup")
+                        .IsRequired()
+                        .HasMaxLength(400);
+
+                    b.Property<string>("LocaleValue")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("LocalizedProperties");
+                });
+
             modelBuilder.Entity("Hatra.Entities.Menu", b =>
                 {
                     b.Property<int>("Id")
@@ -1062,6 +1143,22 @@ namespace Hatra.DataLayer.Migrations
                     b.HasOne("Hatra.Entities.Identity.User", "User")
                         .WithMany("UserUsedPasswords")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Hatra.Entities.Localization.LocaleStringResource", b =>
+                {
+                    b.HasOne("Hatra.Entities.Localization.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Hatra.Entities.Localization.LocalizedProperty", b =>
+                {
+                    b.HasOne("Hatra.Entities.Localization.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

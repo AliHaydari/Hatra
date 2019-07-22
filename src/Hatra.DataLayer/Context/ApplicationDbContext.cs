@@ -19,6 +19,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using EFSecondLevelCache.Core;
 using EFSecondLevelCache.Core.Contracts;
+using Hatra.Entities.Localization;
 
 namespace Hatra.DataLayer.Context
 {
@@ -190,6 +191,9 @@ namespace Hatra.DataLayer.Context
         public virtual DbSet<UsefulLink> UsefulLinks { get; set; }
         public virtual DbSet<StaticContent> StaticContents { get; set; }
         public virtual DbSet<VisitorsStatistics> VisitorsStatistics { get; set; }
+        public virtual DbSet<Language> Languages { get; set; }
+        public virtual DbSet<LocaleStringResource> LocaleStringResources { get; set; }
+        public virtual DbSet<LocalizedProperty> LocalizedProperties { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

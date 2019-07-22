@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Hatra.Entities;
+using Hatra.Entities.Localization;
 
 namespace Hatra.DataLayer.Mappings
 {
@@ -107,6 +108,39 @@ namespace Hatra.DataLayer.Mappings
                 build.Property(p => p.PageViewed).HasMaxLength(1000);
                 build.Property(p => p.Referrer).HasMaxLength(1000);
                 build.Property(p => p.VisitDate).IsRequired();
+            });
+
+            modelBuilder.Entity<Language>(build =>
+            {
+                build.Property(p => p.Name).HasMaxLength(100).IsRequired();
+                build.Property(p => p.LanguageCulture).HasMaxLength(20).IsRequired();
+                build.Property(p => p.UniqueSeoCode).HasMaxLength(2);
+                build.Property(p => p.FlagImageFileName).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<LocaleStringResource>(build =>
+            {
+                build.HasOne(p => p.Language)
+                    .WithMany()
+                    .HasForeignKey(p => p.LanguageId)
+                    .IsRequired();
+
+                build.Property(p => p.ResourceName).HasMaxLength(400).IsRequired();
+                build.Property(p => p.ResourceValue).IsRequired();
+            });
+
+            modelBuilder.Entity<LocalizedProperty>(build =>
+            {
+                build.HasOne(p => p.Language)
+                    .WithMany()
+                    .HasForeignKey(p => p.LanguageId)
+                    .IsRequired();
+
+                build.Property(p => p.EntityId).IsRequired();
+                build.Property(p => p.LanguageId).IsRequired();
+                build.Property(p => p.LocaleKeyGroup).HasMaxLength(400).IsRequired();
+                build.Property(p => p.LocaleKey).HasMaxLength(400).IsRequired();
+                build.Property(p => p.LocaleValue).IsRequired();
             });
 
         }
