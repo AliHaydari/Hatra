@@ -1,7 +1,9 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Hosting
+@{
     ViewData["Title"] = "خانه";
 }
 
+@inject IHostingEnvironment HostingEnvironment
 @*<div class="alert alert-success mt-5">
         <a href="#" class="close" data-dismiss="alert">×</a>
         مثالی از نحوه‌ی سفارشی سازی ASP.NET Core Identity
@@ -63,19 +65,77 @@
 
     @{
         <div class="col-md-9">
-            
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <language-culture>
-                    </language-culture>
+            @if (User.IsInRole(ConstantRoles.Admin))
+            {
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <language-culture id="language-culture">
+                        </language-culture>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <flag-image-file-name></flag-image-file-name>
+
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        @{
+                            var cultures = System.Globalization.CultureInfo
+                                .GetCultures(System.Globalization.CultureTypes.SpecificCultures)
+                                .OrderBy(x => x.EnglishName)
+                                .Select(x => new SelectListItem
+                                {
+                                    Value = x.IetfLanguageTag,
+                                    Text = $"{x.EnglishName}. {x.IetfLanguageTag}"
+                                })
+                                .ToList();
+                        }
+                        @*<select id="flags" class="form-control">
+                                <option value="">-- انتخاب --</option>
+                                @foreach (var culture in cultures)
+                                {
+                                    <option value="@culture.Value">@culture.Text</option>
+                                }
+                            </select>*@
+                        <select class="form-control" asp-items="@cultures" id="language">
+                            <option value="">-- انتخاب --</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
+
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        @{
+                            var timeZones = TimeZoneInfo.GetSystemTimeZones()
+                                .Select(x => new SelectListItem
+                                {
+                                    Value = x.Id,
+                                    Text = $"{x.DisplayName}"
+                                })
+                                .ToList();
+                        }
+                        <select class="form-control" asp-items="@timeZones" id="timeZones" dir="ltr">
+                            <option value="">-- انتخاب --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        @{
+                            var baseDirectory = System.IO.Path.Combine(HostingEnvironment.WebRootPath, @"images\flags");
+
+                            var flags = System.IO.Directory.EnumerateFiles(baseDirectory, "*.png")
+                                .Select(p => new SelectListItem(p.Remove(0, baseDirectory.Length + 1), p.Remove(0, baseDirectory.Length + 1)))
+                                .ToList();
+                        }
+                        <select id="flags" class="form-control">
+                            <option value="">-- انتخاب --</option>
+                            @foreach (var flag in flags)
+                            {
+                                <option value="@flag.Value" data-content="<span class=''><img src='/images/flags/@flag.Value' /> @flag.Text</span>">@flag.Text</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            }
 
             @if (User.Identity.IsAuthenticated)
             {
@@ -180,24 +240,53 @@
                 </security-trimming>
 
                 @if (User.IsInRole(ConstantRoles.Admin))
-                 {
-                     <div class="form-group row">
-                         <div class="col-md-4">
-                             <a class="btn btn-outline-dark btn-block text-right" asp-controller="FileUpload" asp-action="Index">
-                                 File Uploader
-                             </a>
-                         </div>
-                     </div>
+                {
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="FileUpload" asp-action="Index">
+                                File Uploader
+                            </a>
+                        </div>
+                    </div>
 
-                     <div class="form-group row">
-                         <div class="col-md-4">
-                             <a class="btn btn-outline-dark btn-block text-right" asp-controller="StaticContents" asp-action="Index">
-                                 <i class="fas fa-file-code"></i> محتواهای ثابت
-                             </a>
-                         </div>
-                     </div>
-                 }
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <a class="btn btn-outline-dark btn-block text-right" asp-controller="StaticContents" asp-action="Index">
+                                <i class="fas fa-file-code"></i> محتواهای ثابت
+                            </a>
+                        </div>
+                    </div>
+                }
             }
         </div>
     }
 </div>
+
+@section Styles
+{
+    <link href="~/css/bootstrap-select.min.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@section Scripts
+{
+    <script src="~/js/bootstrap-select.min.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#flags').selectpicker({
+                liveSearch: true
+            });
+
+            $('#language-culture').selectpicker({
+                liveSearch: true
+            });
+
+            $('#language').selectpicker({
+                liveSearch: true
+            });
+
+            $('#timeZones').selectpicker({
+                liveSearch: true
+            });
+        });
+    </script>
+}
