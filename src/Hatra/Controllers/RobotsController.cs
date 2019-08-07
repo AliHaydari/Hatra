@@ -57,7 +57,7 @@ namespace Hatra.Controllers
 
                 foreach (var pageViewModel in posts)
                 {
-                    var lastMod = new[] { pageViewModel.CreatedDateTimeInDateTime, pageViewModel.ModifiedDateTimeInDateTime };
+                    var lastMod = new[] { pageViewModel.CreatedDateTimeInDateTime, pageViewModel.ModifiedDateTimeInDateTime ?? pageViewModel.CreatedDateTimeInDateTime };
 
                     xml.WriteStartElement("url");
                     xml.WriteElementString("loc", host + $@"/page/{pageViewModel.Id}/{pageViewModel.SlugUrl}");
@@ -122,7 +122,7 @@ namespace Hatra.Controllers
                         Description = pageViewModel.BriefDescription,
                         Id = host + $@"/page/{pageViewModel.Id}/{pageViewModel.SlugUrl}",
                         Published = pageViewModel.CreatedDateTimeInDateTime,
-                        LastUpdated = pageViewModel.ModifiedDateTimeInDateTime,
+                        LastUpdated = pageViewModel.ModifiedDateTimeInDateTime ?? pageViewModel.CreatedDateTimeInDateTime,
                         ContentType = "html",
                     };
 

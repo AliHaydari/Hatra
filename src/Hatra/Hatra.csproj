@@ -89,6 +89,7 @@
     <Folder Include="wwwroot\assets\images\thumbs\" />
     <Folder Include="wwwroot\Files\somefiles\thumbs\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\DownloadableFiles\" />
     <Folder Include="wwwroot\UploadedFiles\Files\" />
     <Folder Include="wwwroot\UploadedFiles\Files\thumbs\" />
   </ItemGroup>

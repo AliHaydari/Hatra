@@ -40,7 +40,18 @@
                         </a>
                         <div class="widget-recentpost-content">
                             <h6>
-                                <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">@item.BriefDescription.Substring(0, 65).Insert(65, "...")</a>
+                                @{
+                                    string briefDescription;
+                                    if (item.BriefDescription.Length > 66)
+                                    {
+                                        briefDescription = item.BriefDescription.Substring(0, 65).Insert(65, "...");
+                                    }
+                                    else
+                                    {
+                                        briefDescription = item.BriefDescription;
+                                    }
+                                }
+                                <a asp-controller="ShowPage" asp-action="ShowPageDetail" asp-route-id="@item.Id" asp-route-slugUrl="@item.SlugUrl">@briefDescription</a>
                             </h6>
                             <span>@item.CreatedPersianDateTime</span>
                         </div>

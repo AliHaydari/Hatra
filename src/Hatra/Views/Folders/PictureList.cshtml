@@ -147,15 +147,21 @@
                             window.location = "/identity/login";
                         }
                         else if (status === 'error' || !data || data == "nok") {
-                            var $temp = $("<input>");
-                            $("body").append($temp);
+                            var $temp1 = $("<input>");
+                            $("body").append($temp1);
                             //var copyValue = $('#' + copyId).text();
-                            $temp.val(copyPath).select();
+                            $temp1.val(copyPath).select();
                             successful = document.execCommand('copy');
-                            $temp.remove();
+                            $temp1.remove();
                         }
                         else {
                             successful = true;
+                            var $temp2 = $("<input>");
+                            $("body").append($temp2);
+                            //var copyValue = $('#' + copyId).text();
+                            $temp2.val(copyPath).select();
+                            document.execCommand('copy');
+                            $temp2.remove();
                         }
 
                         var msgClass = successful ? 'success' : 'error';

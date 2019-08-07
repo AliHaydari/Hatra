@@ -101,9 +101,9 @@ namespace Hatra.ViewModels
 
         public DateTimeOffset CreatedDateTime { get; set; } = DateTimeOffset.Now;
 
-        public DateTimeOffset ModifiedDateTime { get; set; }
+        public DateTimeOffset? ModifiedDateTime { get; set; }
 
         public DateTime CreatedDateTimeInDateTime => CreatedDateTime.UtcDateTime;
-        public DateTime ModifiedDateTimeInDateTime => ModifiedDateTime.UtcDateTime;
+        public DateTime? ModifiedDateTimeInDateTime => ModifiedDateTime?.UtcDateTime;
     }
 }
