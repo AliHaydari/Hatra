@@ -10,6 +10,10 @@ namespace Hatra.ViewModels
 {
     public class HardwareLockViewModel
     {
+        public HardwareLockViewModel()
+        {
+            
+        }
         public HardwareLockViewModel(HardwareLock hardwareLock)
         {
             Id = hardwareLock.Id;
@@ -46,10 +50,12 @@ namespace Hatra.ViewModels
         public string ComputerName { get; set; }
 
         [Display(Name = "شماره سریال Cpu")]
+        [Required(ErrorMessage = "(*)")]
         [StringLength(300, ErrorMessage = "{0} باید حداقل {2} و حداکثر {1} حرف باشند.", MinimumLength = 2)]
         public string CpuSerialNumber { get; set; }
 
         [Display(Name = "شماره سریال قفل")]
+        [Required(ErrorMessage = "(*)")]
         [StringLength(20, ErrorMessage = "{0} باید حداقل {2} و حداکثر {1} حرف باشند.", MinimumLength = 2)]
         public string LockSerialNumber { get; set; }
 
@@ -67,9 +73,10 @@ namespace Hatra.ViewModels
 
         [Display(Name = "تعداد کاربران اندروید")]
         public int AndroidUserCount { get; set; }
-
+        [Required(ErrorMessage = "(*)")]
         public List<HardwareLockFinancialYearViewModel> FinancialYears { get; set; }
         public bool IsBlocked { get; set; }
+        [Required(ErrorMessage = "(*)")]
         public string CurrentVersion { get; set; }
         public DateTime? ExpireDate { get; set; }
         public string OwnerName { get; set; }

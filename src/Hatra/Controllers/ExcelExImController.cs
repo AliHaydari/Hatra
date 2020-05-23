@@ -60,6 +60,7 @@ namespace Hatra.Controllers
 
         [Route("export/{type}")]
         [DisplayName("Export")]
+        [HttpGet]
         public async Task<IActionResult> Export(ExcelTypeEnum? type)
         {
             if (type == null) return BadRequest();

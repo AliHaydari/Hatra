@@ -39,7 +39,7 @@ namespace Hatra.Controllers
             _contactUsService = contactUsService;
             _contactUsService.CheckArgumentIsNull(nameof(_contactUsService));
         }
-
+        [HttpGet]
         [Route("page/{id:int}/{slugUrl?}")]
         public async Task<IActionResult> ShowPageDetail(int id, string slugUrl)
         {
@@ -63,7 +63,7 @@ namespace Hatra.Controllers
 
             return View("PageDetail", pageViewModel);
         }
-
+        [HttpGet]
         [Route("category/{id:int}/{slugUrl?}")]
         public async Task<IActionResult> ShowCategory(int id, string slugUrl, int? page = 1)
         {
@@ -90,7 +90,7 @@ namespace Hatra.Controllers
 
             return View("PageList", model);
         }
-
+        [HttpGet]
         [Route("author/{id:int}/{slugUrl?}")]
         public async Task<IActionResult> ShowPagesByUser(int id, string slugUrl, int? page = 1)
         {
@@ -115,6 +115,7 @@ namespace Hatra.Controllers
 
         [Route("contact-us")]
         [BreadCrumb(Title = "تماس با ما", Order = 1)]
+        [HttpGet]
         public IActionResult ContactUs()
         {
             var showingSettingSite = _settings.Value;

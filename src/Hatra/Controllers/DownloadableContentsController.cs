@@ -20,6 +20,7 @@ namespace Hatra.Controllers
 
         [NoBrowserCache]
         [Route("download/{fileName}")]
+        [HttpGet]
         public async Task<IActionResult> Index(string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))

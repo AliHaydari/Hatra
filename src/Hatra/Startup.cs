@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
+using Microsoft.OpenApi.Models;
 
 namespace Hatra
 {
@@ -69,7 +70,11 @@ namespace Hatra
             services.AddDNTCaptcha();
             services.AddCloudscribePagination();
 
-
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
             // Get the connection settings from appsettings.json and inject them into ElasticConnectionSettings
             //services.AddOptions();
             //services.Configure<ElasticConnectionSettings>(Configuration.GetSection("ElasticConnectionSettings"));
@@ -120,6 +125,17 @@ namespace Hatra
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
             });
         }
 

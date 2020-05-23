@@ -88,9 +88,10 @@ namespace Hatra.DataLayer.Mappings
             modelBuilder.Entity<HardwareLock>(build =>
           {
               build.Property(p => p.ComputerName).HasMaxLength(300).IsRequired();
-              build.Property(p => p.CpuSerialNumber).HasMaxLength(300);
+              build.Property(p => p.CpuSerialNumber).HasMaxLength(300).IsRequired();
               build.Property(p => p.LockSerialNumber).HasMaxLength(20).IsRequired();
               build.Property(p => p.OwnerName).HasMaxLength(500);
+              build.HasIndex(p => p.LockSerialNumber).IsUnique(true);
           });
 
             modelBuilder.Entity<HardwareLockFinancialYear>(build =>

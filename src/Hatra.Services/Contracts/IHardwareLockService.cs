@@ -8,6 +8,6 @@ namespace Hatra.Services.Contracts
 {
     public interface IHardwareLockService
     {
-        Task<HardwareLockResponceViewModel> InsertOrUpdateAsync(HardwareLockViewModel viewModel);
+        Task<HardwareLockResponseViewModel> InsertOrUpdateAsync(HardwareLockViewModel viewModel);
     }
 }

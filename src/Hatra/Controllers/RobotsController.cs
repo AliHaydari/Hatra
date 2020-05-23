@@ -30,6 +30,7 @@ namespace Hatra.Controllers
 
         [Route("/robots.txt")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        [HttpGet]
         public string RobotsTxt()
         {
             string host = Request.Scheme + "://" + Request.Host;
@@ -42,6 +43,7 @@ namespace Hatra.Controllers
         }
 
         [Route("/sitemap.xml")]
+        [HttpGet]
         public async Task SitemapXml()
         {
             string host = Request.Scheme + "://" + Request.Host;
@@ -70,6 +72,7 @@ namespace Hatra.Controllers
         }
 
         [Route("/rsd.xml")]
+        [HttpGet]
         public void RsdXml()
         {
             string host = Request.Scheme + "://" + Request.Host;
@@ -104,6 +107,7 @@ namespace Hatra.Controllers
         }
 
         [Route("/feed/{type}")]
+        [HttpGet]
         public async Task Rss(string type)
         {
             Response.ContentType = "application/xml";
@@ -139,6 +143,7 @@ namespace Hatra.Controllers
             }
         }
 
+        [NonAction]
         private async Task<ISyndicationFeedWriter> GetWriter(string type, XmlWriter xmlWriter, DateTime updated)
         {
             string host = Request.Scheme + "://" + Request.Host + "/";
