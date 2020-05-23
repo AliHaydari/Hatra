@@ -14,7 +14,7 @@ namespace Hatra.Entities
         public Guid FinancialYearId { get; set; }
         public string FinancialYearName { get; set; }
         public bool IsArchive { get; set; }
-
+        public string DbName { get; set; }
 
         public HardwareLock HardwareLock { get; set; }
     }

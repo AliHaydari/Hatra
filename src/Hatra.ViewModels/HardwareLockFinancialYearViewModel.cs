@@ -26,7 +26,9 @@ namespace Hatra.ViewModels
 
         [HiddenInput]
         public int Id { get; set; }
+        [Required(ErrorMessage = "(*)")]
         public Guid CompanyId { get; set; }
+        [Required(ErrorMessage = "(*)")]
         public Guid FinancialYearId { get; set; }
 
         [Required(ErrorMessage = "(*)")]
@@ -40,6 +42,10 @@ namespace Hatra.ViewModels
         public string FinancialYearName { get; set; }
 
         public bool IsArchive { get; set; }
+        [Required(ErrorMessage = "(*)")]
+        [Display(Name = "نام پایگاه داده")]
+        [StringLength(100, ErrorMessage = "{0} باید حداقل {2} و حداکثر {1} حرف باشند.", MinimumLength = 2)]
+        public string DbName { get; set; }
 
     }
 }

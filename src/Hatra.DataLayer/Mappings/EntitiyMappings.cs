@@ -97,9 +97,9 @@ namespace Hatra.DataLayer.Mappings
             modelBuilder.Entity<HardwareLockFinancialYear>(build =>
             {
                 build.HasIndex(e => e.HardwareLockId);
+                build.Property(p => p.DbName).HasMaxLength(100).IsRequired();
                 build.Property(p => p.CompanyName).HasMaxLength(100).IsRequired();
                 build.Property(p => p.FinancialYearName).HasMaxLength(50).IsRequired();
-
                 build.HasOne(p => p.HardwareLock)
                     .WithMany(p => p.FinancialYears)
                     .HasForeignKey(p => p.HardwareLockId);

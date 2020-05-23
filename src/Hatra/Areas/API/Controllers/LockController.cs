@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Elasticsearch.Net;
 using Hatra.Entities;
+using Hatra.Services.Contracts;
 using Hatra.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,55 +16,62 @@ namespace Hatra.Areas.API.Controllers
     [ApiController]
     public class LockController : ControllerBase
     {
-        // GET: api/<LockController>
-        [HttpGet]
-        public HardwareLockViewModel Get()
+        private readonly IHardwareLockService _hardwareLockService;
+
+        public LockController(IHardwareLockService hardwareLockService)
         {
-            return new HardwareLockViewModel()
-            {
-                IsBlocked = true,
-                LockSerialNumber = "Test Lock Serial",
-                CpuSerialNumber = "Test Cpu Serial",
-                ComputerName = "Test PC",
-                FinancialYears = new List<HardwareLockFinancialYearViewModel>()
-            {
-                new HardwareLockFinancialYearViewModel()
-                {
-                    Id = 0,
-                    CompanyId = Guid.NewGuid(),
-                    CompanyName = "TH724",
-                    FinancialYearId = Guid.NewGuid(),
-                    FinancialYearName = "1399",
-                    IsArchive = false
-                }
-            }
-            };
+            _hardwareLockService = hardwareLockService;
         }
 
-        // GET api/<LockController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<LockController>
         [HttpPost]
-        public HardwareLockResponseViewModel Post([FromBody] HardwareLockViewModel input)
+        public async Task<HardwareLockResponseViewModel> Post([FromBody] HardwareLockViewModel input)
         {
-            return new HardwareLockResponseViewModel(true, DateTime.Now, true);
+            if (!ModelState.IsValid) return new HardwareLockResponseViewModel() { Status = 3 };
+
+            return await _hardwareLockService.InsertOrUpdateAsync(input);
         }
 
-        // PUT api/<LockController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<LockController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
+        //// GET: api/<LockController>
+        //[HttpGet]
+        //public HardwareLockViewModel Get()
+        //{
+        //    return new HardwareLockViewModel()
+        //    {
+        //        IsBlocked = true,
+        //        LockSerialNumber = "Test Lock Serial",
+        //        CpuSerialNumber = "Test Cpu Serial",
+        //        ComputerName = "Test PC",
+        //        FinancialYears = new List<HardwareLockFinancialYearViewModel>()
+        //    {
+        //        new HardwareLockFinancialYearViewModel()
+        //        {
+        //            Id = 0,
+        //            CompanyId = Guid.NewGuid(),
+        //            CompanyName = "TH724",
+        //            FinancialYearId = Guid.NewGuid(),
+        //            FinancialYearName = "1399",
+        //            IsArchive = false
+        //        }
+        //    }
+        //    };
+        //}
+        // GET api/<LockController>/5
+        //// PUT api/<LockController>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
+        //// DELETE api/<LockController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
