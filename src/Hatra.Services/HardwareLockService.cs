@@ -26,6 +26,9 @@ namespace Hatra.Services
 
             _hardwareLock = _unitOfWork.Set<HardwareLock>();
             _hardwareLock.CheckArgumentIsNull(nameof(_hardwareLock));
+
+            _hardwareLockFinancial = _unitOfWork.Set<HardwareLockFinancialYear>();
+            _hardwareLockFinancial.CheckArgumentIsNull(nameof(_hardwareLock));
         }
 
         public async Task<HardwareLockResponseViewModel> InsertOrUpdateAsync(HardwareLockViewModel viewModel)
@@ -58,6 +61,7 @@ namespace Hatra.Services
                             FinancialYearId = p.FinancialYearId,
                             FinancialYearName = p.FinancialYearName,
                             IsArchive = p.IsArchive,
+                            DbName = p.DbName
                         }).ToList(),
                     };
 

@@ -72,6 +72,7 @@ namespace Hatra.IocConfig
             services.AddScoped<IAppLogItemsService, AppLogItemsService>();
 
             services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<IHardwareLockService, HardwareLockService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IPageService, PageService>();
             services.AddScoped<ISlideShowService, SlideShowService>();
